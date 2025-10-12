@@ -1,6 +1,7 @@
 import os
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode, BFSDeepCrawlStrategy, \
-    LXMLWebScrapingStrategy, BestFirstCrawlingStrategy, KeywordRelevanceScorer
+    LXMLWebScrapingStrategy, BestFirstCrawlingStrategy, KeywordRelevanceScorer, AdaptiveCrawler, AsyncUrlSeeder, \
+    SeedingConfig
 
 # --- Configuration Paths ---
 ROOT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
@@ -100,3 +101,78 @@ async def scorer_crawl():
         async for result in await crawler.arun("https://example.com", config=config):
             score = result.metadata.get("score", 0)
             print(f"Score: {score:.2f} | {result.url}")
+
+
+async def basic_adaptive_crawl():
+    async with AsyncWebCrawler() as crawler:
+        # Create an adaptive crawler (config is optional)
+        adaptive = AdaptiveCrawler(crawler)
+
+        # Start crawling with a query
+        result = await adaptive.digest(
+            start_url="https://docs.python.org/3/",
+            query="how to define a function in python"
+        )
+
+        # View statistics
+        adaptive.print_stats()
+
+        # Get the most relevant content
+        relevant_pages = adaptive.get_relevant_content(top_k=5)
+        for page in relevant_pages:
+            print(f"- {page['url']} (score: {page['score']:.2f})")
+
+async def smart_blog_crawler():
+    # Step 1: Create our URL discoverer
+    seeder = AsyncUrlSeeder()
+
+    # Step 2: Configure discovery - let's find all blog posts
+    config = SeedingConfig(
+        source="sitemap+cc",      # Use the website's sitemap+cc
+        pattern="*/courses/*",    # Only courses related posts
+        extract_head=True,          # Get page metadata
+        max_urls=100               # Limit for this example
+    )
+
+    # Step 3: Discover URLs from the Python blog
+    print("🔍 Discovering course posts...")
+    urls = await seeder.urls("realpython.com", config)
+    print(f"✅ Found {len(urls)} course posts")
+
+    # Step 4: Filter for Python tutorials (using metadata!)
+    tutorials = [
+        url for url in urls
+        if url["status"] == "valid" and
+        any(keyword in str(url["head_data"]).lower()
+            for keyword in ["tutorial", "guide", "how to"])
+    ]
+    print(f"📚 Filtered to {len(tutorials)} tutorials")
+
+    # Step 5: Show what we found
+    print("\n🎯 Found these tutorials:")
+    for tutorial in tutorials[:5]:  # First 5
+        title = tutorial["head_data"].get("title", "No title")
+        print(f"  - {title}")
+        print(f"    {tutorial['url']}")
+
+    # Step 6: Now crawl ONLY these relevant pages
+    print("\n🚀 Crawling tutorials...")
+    async with AsyncWebCrawler() as crawler:
+        config = CrawlerRunConfig(
+            only_text=True,
+            word_count_threshold=300,  # Only substantial articles
+            stream=True
+        )
+
+        # Extract URLs and crawl them
+        tutorial_urls = [t["url"] for t in tutorials[:10]]
+        results = await crawler.arun_many(tutorial_urls, config=config)
+
+        successful = 0
+        async for result in results:
+            if result.success:
+                successful += 1
+                print(f"✓ Crawled: {result.url[:60]}...")
+
+        print(f"\n✨ Successfully crawled {successful} tutorials!")
+
