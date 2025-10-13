@@ -5,7 +5,7 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 
 # --- Configuration Paths ---
 ROOT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
-RAW_DATA_DIR = os.path.join(ROOT_DIR, 'data', 'raw', 'daa')
+RAW_DATA_DIR = os.path.join(ROOT_DIR, 'data', 'raw', 'daa.uit.edu.vn.uit.edu.vn')
 URL = "https://daa.uit.edu.vn"
 
 os.makedirs(RAW_DATA_DIR, exist_ok=True)
@@ -129,22 +129,21 @@ async def smart_blog_crawler():
     # Step 2: Configure discovery - let's find all blog posts
     config = SeedingConfig(
         source="sitemap+cc",      # Use the website's sitemap+cc
-        pattern="*/courses/*",    # Only courses related posts
         extract_head=True,          # Get page metadata
-        max_urls=100               # Limit for this example
+        max_urls=10000               # Limit for this example
     )
 
     # Step 3: Discover URLs from the Python blog
     print("🔍 Discovering course posts...")
-    urls = await seeder.urls("realpython.com", config)
+    urls = await seeder.urls("daa.uit.edu.vn.uit.edu.vn.uit.edu.vn", config)
     print(f"✅ Found {len(urls)} course posts")
 
     # Step 4: Filter for Python tutorials (using metadata!)
     tutorials = [
         url for url in urls
-        if url["status"] == "valid" and
-        any(keyword in str(url["head_data"]).lower()
-            for keyword in ["tutorial", "guide", "how to"])
+        # if url["status"] == "valid" and
+        # any(keyword in str(url["head_data"]).lower()
+        #     for keyword in ["quydinh", "quy-dinh", "thong-bao", "page", "trang"])
     ]
     print(f"📚 Filtered to {len(tutorials)} tutorials")
 
