@@ -1,33 +1,33 @@
 """
-Main data processing pipeline that chains crawling and cleaning.
+Main data processing pipeline that chains crawling, cleaning, and extraction.
 """
 import asyncio
 
-from src.config import START_URLS
 from src.crawler import crawl_all
-from src.preprocessing import CleanerFactory, clean_all
+from src.processing.cleaner import clean_all
+from src.processing.extractor import extract_all
 
 async def run_pipeline():
     """
     Executes the full data pipeline:
     1. Crawls all configured websites to fetch raw data.
-    2. Cleans the raw data and stores it in the processed directory.
+    2. Cleans the raw web page content (content.md).
+    3. Extracts text from attachments (PDF, DOCX, etc.) into .md files.
     """
     # --- STEP 1: CRAWLING ---
-    print("="*50)
-    print("🚀 STARTING PIPELINE: STEP 1 - CRAWLING")
-    print("="*50)
     await crawl_all()
-    print("\n" + "="*50)
-    print("✅ FINISHED PIPELINE: STEP 1 - CRAWLING")
-    print("="*50 + "\n")
 
     # --- STEP 2: CLEANING ---
-    # The cleaning logic is now self-contained in the clean_all function
-    # from the cleaner_core module, which the preprocessing package exposes.
     await clean_all()
 
+    # --- STEP 3: EXTRACTION ---
+    await extract_all()
+
 if __name__ == "__main__":
-    print("Running the full data processing pipeline...")
+    print("="*60)
+    print("  RUNNING FULL DATA PROCESSING PIPELINE (CRAWL -> CLEAN -> EXTRACT)  ")
+    print("="*60)
     asyncio.run(run_pipeline())
-    print("Pipeline execution complete.")
+    print("\n" + "="*60)
+    print("  PIPELINE EXECUTION COMPLETE  ".center(60))
+    print("="*60)
