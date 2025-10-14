@@ -5,7 +5,7 @@ import asyncio
 import argparse
 
 from src.config import START_URLS
-from src.preprocessing.cleaner_factory import CleanerFactory
+from src.processing.cleaner.cleaner_factory import CleanerFactory
 
 async def clean_folder(folder_path: str, domain: str):
     """
@@ -40,7 +40,7 @@ async def clean_domain(domain: str):
         # Directly get the cleaner using the domain name.
         cleaner = CleanerFactory.get_cleaner(domain)
         print(f"[INFO] Using cleaner: {cleaner.__class__.__name__}")
-        cleaner.process_all_folders_in_domain(domain)
+        cleaner.process_domain(domain)
     except Exception as e:
         print(f"[ERROR] An unexpected error occurred while cleaning domain '{domain}': {e}")
 

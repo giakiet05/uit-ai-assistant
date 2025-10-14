@@ -81,7 +81,7 @@ class BaseCleaner(ABC):
             print(f"❌ Error processing {folder_path}: {e}")
             return False
 
-    def process_all_folders_in_domain(self, domain: str) -> int:
+    def process_domain(self, domain: str) -> int:
         """
         Process all folders in a domain (e.g., 'daa.uit.edu.vn.uit.edu.vn', 'course')
         Returns: Number of successfully processed folders
