@@ -20,7 +20,7 @@ PROCESSED_UIT_DIR = os.path.join(PROCESSED_DATA_DIR, 'uit.edu.vn')
 PROCESSED_COURSE_DIR = os.path.join(PROCESSED_DATA_DIR, 'course.uit.edu.vn')
 
 # Other directories
-VECTORSTORE_DIR = os.path.join(DATA_DIR, 'vectorstore')
+VECTOR_STORE_DIR = os.path.join(DATA_DIR, 'vector_store')
 
 # Ensure directories exist
 os.makedirs(RAW_DATA_DIR, exist_ok=True)
@@ -31,4 +31,4 @@ os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
 os.makedirs(PROCESSED_DAA_DIR, exist_ok=True)
 os.makedirs(PROCESSED_UIT_DIR, exist_ok=True)
 os.makedirs(PROCESSED_COURSE_DIR, exist_ok=True)
-os.makedirs(VECTORSTORE_DIR, exist_ok=True)
+os.makedirs(VECTOR_STORE_DIR, exist_ok=True)
