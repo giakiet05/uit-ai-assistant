@@ -6,26 +6,23 @@ import asyncio
 import argparse
 import os
 
-from src.config import START_URLS, RAW_DATA_DIR, PROCESSED_DATA_DIR
+# --- FIX: Import the centralized settings object ---
+from src.config.settings import settings
 from .extractor_factory import ExtractorFactory
 
 async def extract_folder(raw_folder_path: str):
     """
     Extracts content from all supported files in a single raw data folder.
-    It calculates the corresponding processed folder path and creates it if it doesn't exist.
-
-    Args:
-        raw_folder_path: The absolute path to the raw data folder.
     """
     print(f"--- Extracting attachments for folder: {raw_folder_path} ---")
     
-    # 1. Calculate and create the destination processed folder.
     try:
-        relative_path = os.path.relpath(raw_folder_path, RAW_DATA_DIR)
-        processed_folder_path = os.path.join(PROCESSED_DATA_DIR, relative_path)
+        # --- FIX: Use paths from the settings object ---
+        relative_path = os.path.relpath(raw_folder_path, str(settings.paths.RAW_DATA_DIR))
+        processed_folder_path = os.path.join(str(settings.paths.PROCESSED_DATA_DIR), relative_path)
         os.makedirs(processed_folder_path, exist_ok=True)
     except ValueError:
-        print(f"[ERROR] Invalid path: '{raw_folder_path}' is not in '{RAW_DATA_DIR}'.")
+        print(f"[ERROR] Invalid path: '{raw_folder_path}' is not in '{str(settings.paths.RAW_DATA_DIR)}'.")
         return
 
     if not os.path.isdir(raw_folder_path):
@@ -34,22 +31,21 @@ async def extract_folder(raw_folder_path: str):
 
     extracted_count = 0
     for filename in os.listdir(raw_folder_path):
-        # Ignore web content files, which are handled by the Cleaner.
         if filename in ['content.md', 'metadata.json']:
             continue
 
         raw_file_path = os.path.join(raw_folder_path, filename)
         
         try:
-            # 2. Get the appropriate extractor. This will raise ValueError if not supported.
             extractor = ExtractorFactory.get_extractor(raw_file_path)
             
             print(f"[INFO] Found supported file, extracting: {filename}")
             content = extractor.extract(raw_file_path)
             
             if content:
-                # 3. Save the extracted content as a new .md file.
-                output_filename = f"{filename}.md"
+                # --- FIX: Correctly change the file extension to .md ---
+                base_filename, _ = os.path.splitext(filename)
+                output_filename = f"{base_filename}.md"
                 output_filepath = os.path.join(processed_folder_path, output_filename)
                 
                 with open(output_filepath, 'w', encoding='utf-8') as f:
@@ -61,10 +57,8 @@ async def extract_folder(raw_folder_path: str):
                 print(f"[WARNING] Extractor produced no content for: {filename}")
 
         except ValueError as e:
-            # This catches the error from the factory for unsupported file types.
             print(f"[INFO] Skipping file '{filename}': {e}")
         except Exception as e:
-            # This catches any other errors during the extraction process itself.
             print(f"[ERROR] Failed during extraction of {filename}: {e}")
     
     print(f"--- Finished extraction for folder. Extracted {extracted_count} files. ---")
@@ -74,7 +68,8 @@ async def extract_domain(domain: str):
     Extracts attachments for all raw folders within a specific domain.
     """
     print(f"\n--- Extracting all attachments for domain: {domain} ---")
-    domain_raw_path = os.path.join(RAW_DATA_DIR, domain)
+    # --- FIX: Use path from the settings object ---
+    domain_raw_path = os.path.join(str(settings.paths.RAW_DATA_DIR), domain)
 
     if not os.path.isdir(domain_raw_path):
         print(f"[WARNING] No raw directory found for domain '{domain}'. Skipping.")
@@ -93,7 +88,8 @@ async def extract_all():
     print("🔬 STARTING FULL EXTRACTION PROCESS")
     print("="*50)
 
-    for domain in START_URLS.keys():
+    # --- FIX: Use START_URLS from the new settings.domains object ---
+    for domain in settings.domains.START_URLS.keys():
         await extract_domain(domain)
 
     print("\n" + "="*50)
@@ -108,11 +104,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.folder:
-        # When a specific folder is given, domain is not needed.
         asyncio.run(extract_folder(args.folder))
     elif args.domain:
-        if args.domain not in START_URLS:
-            print(f"[ERROR] Domain '{args.domain}' is not configured in START_URLS.")
+        # --- FIX: Use START_URLS from the new settings.domains object ---
+        if args.domain not in settings.domains.START_URLS:
+            print(f"[ERROR] Domain '{args.domain}' is not configured in settings.domains.START_URLS.")
         else:
             asyncio.run(extract_domain(args.domain))
     else:

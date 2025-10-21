@@ -4,7 +4,8 @@ Core module for the data crawling process, offering multiple scopes of control.
 import asyncio
 import argparse
 
-from src.config import START_URLS
+# --- FIX: Import the centralized settings object ---
+from src.config.settings import settings
 from src.crawler.crawler_factory import CrawlerFactory
 
 async def crawl_domain(domain: str):
@@ -16,11 +17,12 @@ async def crawl_domain(domain: str):
     """
     print(f"\n--- Initiating crawl for domain: {domain} ---")
     try:
-        start_url = START_URLS.get(domain)
+        # --- FIX: Use START_URLS from the new settings.domains object ---
+        start_url = settings.domains.START_URLS.get(domain)
         if not start_url:
-            raise ValueError(f"Domain '{domain}' not found in START_URLS configuration.")
+            raise ValueError(f"Domain '{domain}' not found in settings.domains.START_URLS configuration.")
 
-        # Use the factory to get the correct crawler instance
+        # The crawler itself will get other settings like MAX_PAGES from the settings object
         crawler_instance = CrawlerFactory.get_crawler(domain=domain, start_url=start_url)
         print(f"[INFO] Successfully instantiated crawler: {crawler_instance}")
         await crawler_instance.crawl()
@@ -40,7 +42,8 @@ async def crawl_all():
     print("🚀 STARTING FULL CRAWLING PROCESS")
     print("="*50)
 
-    for domain in START_URLS.keys():
+    # --- FIX: Use START_URLS from the new settings.domains object ---
+    for domain in settings.domains.START_URLS.keys():
         await crawl_domain(domain)
 
     print("\n" + "="*50)
@@ -56,8 +59,9 @@ if __name__ == "__main__":
     # Logic to decide which function to run
     if args.domain:
         # Ensure the requested domain is valid
-        if args.domain not in START_URLS:
-            print(f"[ERROR] Domain '{args.domain}' is not configured in START_URLS.")
+        # --- FIX: Use START_URLS from the new settings.domains object ---
+        if args.domain not in settings.domains.START_URLS:
+            print(f"[ERROR] Domain '{args.domain}' is not configured in settings.domains.START_URLS.")
         else:
             asyncio.run(crawl_domain(args.domain))
     else:

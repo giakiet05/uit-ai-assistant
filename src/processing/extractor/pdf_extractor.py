@@ -1,7 +1,7 @@
 """
 Extractor for PDF files using PyMuPDF, with an OCR fallback using Tesseract.
 """
-import fitz  # PyMuPDF
+import pymupdf  # PyMuPDF
 import pytesseract
 from PIL import Image
 import io
@@ -15,7 +15,7 @@ class PdfExtractor(BaseExtractor):
         """Check if the extracted text is substantial enough."""
         return len(text.strip()) >= min_length
 
-    def _perform_ocr(self, doc: fitz.Document) -> str:
+    def _perform_ocr(self, doc: pymupdf.Document) -> str:
         """
         Performs OCR on each page of the PDF document.
         """
@@ -49,7 +49,7 @@ class PdfExtractor(BaseExtractor):
         If direct extraction yields little or no text, it falls back to OCR.
         """
         try:
-            doc = fitz.open(file_path)
+            doc = pymupdf.open(file_path)
             
             # 1. Try direct text extraction first (fast method)
             direct_text_content = []
