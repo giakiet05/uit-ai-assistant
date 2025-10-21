@@ -16,7 +16,7 @@ def inspect_vector_store():
         client = chromadb.PersistentClient(path=VECTOR_STORE_DIR)
 
         # 2. Get the collection
-        collection_name = "uit_documents"
+        collection_name = "uit_documents_openai"
         print(f"\nAttempting to get collection: '{collection_name}'")
         collection = client.get_collection(collection_name)
         print("✅ Collection found!")

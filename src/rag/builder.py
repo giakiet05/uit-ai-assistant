@@ -7,35 +7,49 @@ import chromadb
 import os
 import json
 import argparse
+from dotenv import load_dotenv
 
 # --- LlamaIndex v0.10+ Imports ---
 from llama_index.core import (
     VectorStoreIndex,
     StorageContext,
     Document,
-    Settings
+    Settings,
+    SimpleDirectoryReader
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core.node_parser import SemanticSplitterNodeParser
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+# --- FIX: Import OpenAIEmbedding --- 
+from llama_index.embeddings.openai import OpenAIEmbedding
 
 from src.config import PROCESSED_DATA_DIR, VECTOR_STORE_DIR
+
+# Load environment variables from .env file
+load_dotenv()
 
 class RagBuilder:
     """
     Encapsulates the logic for building and persisting the RAG vector store.
     """
 
+    SUPPORTED_EXTENSIONS = [".md", ".pdf", ".docx"]
+
     def __init__(self):
         """
-        Initializes and configures the RAG building components using the new Settings API.
+        Initializes and configures the RAG building components using OpenAI services.
         """
-        print("[INFO] Initializing RagBuilder components...")
+        print("[INFO] Initializing RagBuilder components with OpenAI...")
         
         # 1. Configure global Settings
-        embed_model = HuggingFaceEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        # --- FIX: Use OpenAIEmbedding --- 
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
+
+        embed_model = OpenAIEmbedding(model="text-embedding-3-small", api_key=api_key)
+        
+        # Node parser does not depend on the embedding model choice
         node_parser = SemanticSplitterNodeParser.from_defaults(
-            embed_model=embed_model,
             breakpoint_percentile_threshold=95
         )
 
@@ -44,45 +58,39 @@ class RagBuilder:
 
         # 2. Configure Vector Store (ChromaDB)
         db = chromadb.PersistentClient(path=VECTOR_STORE_DIR)
-        chroma_collection = db.get_or_create_collection("uit_documents")
+        chroma_collection = db.get_or_create_collection("uit_documents_openai") # Use a new collection for OpenAI embeddings
         self.vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
-        
-        # 3. Configure Storage Context (points to the vector store)
         self.storage_context = StorageContext.from_defaults(vector_store=self.vector_store)
 
     def _load_documents_from_folder(self, folder_path: str) -> list[Document]:
         """
-        Loads all .md files from a folder and attaches metadata from metadata.json.
+        Loads all supported files from a folder and attaches shared metadata.
         """
-        documents = []
-        metadata = {}
+        shared_metadata = {}
         metadata_path = os.path.join(folder_path, "metadata.json")
         if os.path.exists(metadata_path):
             try:
                 with open(metadata_path, 'r', encoding='utf-8') as f:
-                    metadata = json.load(f)
-                
-                if 'source_urls' in metadata and isinstance(metadata['source_urls'], list):
-                    metadata['source_urls'] = '\n'.join(metadata['source_urls'])
-
+                    shared_metadata = json.load(f)
+                if 'source_urls' in shared_metadata and isinstance(shared_metadata['source_urls'], list):
+                    shared_metadata['source_urls'] = '\n'.join(shared_metadata['source_urls'])
             except (json.JSONDecodeError, IOError) as e:
                 print(f"[WARNING] Could not read or parse metadata.json in {folder_path}: {e}")
 
-        for filename in os.listdir(folder_path):
-            if filename.endswith(".md"):
-                file_path = os.path.join(folder_path, filename)
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        content = f.read()
-                    doc = Document(text=content, metadata=metadata.copy())
-                    documents.append(doc)
-                except Exception as e:
-                    print(f"[ERROR] Failed to read document {file_path}: {e}")
+        reader = SimpleDirectoryReader(
+            input_dir=folder_path,
+            required_exts=self.SUPPORTED_EXTENSIONS
+        )
+        documents = reader.load_data()
+
+        for doc in documents:
+            doc.metadata.update(shared_metadata)
+        
         return documents
 
     def build_from_folder(self, folder_path: str):
         """
-        Builds the vector store from all .md files in a single processed folder.
+        Builds the vector store from all supported files in a single processed folder.
         """
         if not os.path.isdir(folder_path):
             print(f"[ERROR] Processed folder not found: {folder_path}")
@@ -91,9 +99,8 @@ class RagBuilder:
         print(f"--- Building from folder: {folder_path} ---")
         try:
             documents = self._load_documents_from_folder(folder_path)
-
             if not documents:
-                print("[INFO] No .md documents found in this folder. Skipping.")
+                print("[INFO] No supported documents found in this folder. Skipping.")
                 return
 
             index = VectorStoreIndex.from_documents(
@@ -125,7 +132,7 @@ class RagBuilder:
         Builds the vector store from all configured domains by scanning the processed directory.
         """
         print("\n" + "="*50)
-        print("🛠️  STARTING FULL RAG VECTOR STORE BUILD")
+        print("🛠️  STARTING FULL RAG VECTOR STORE BUILD (OpenAI)")
         print("="*50)
 
         if not os.path.isdir(PROCESSED_DATA_DIR):
@@ -138,7 +145,7 @@ class RagBuilder:
                 self.build_from_domain(domain_name)
         
         print("\n" + "="*50)
-        print("✅ FULL RAG BUILD COMPLETED")
+        print("✅ FULL RAG BUILD COMPLETED (OpenAI)")
         print(f"Vector store persisted at: {VECTOR_STORE_DIR}")
         print("="*50)
 

@@ -1,0 +1,16 @@
+- Học phần tích lũy: là học phần mà sinh viên có kết quả tổng kết học phần được từ 5 điểm trở lên.
+- Học phần bắt buộc: là học phần bắt buộc sinh viên phải học và tích lũy theo ngành hoặc chuyên ngành đã chọn.
+- Học phần tự chọn: là học phần sinh viên có thể đăng ký học hay không tùy theo nguyện vọng.
+- Học phần chung (Giáo dục quốc phòng-An ninh, Giáo dục Thể chất, Lý luận chính trị, Ngoại ngữ,…) là các học phần được giảng dạy và học tập chung cho các ngành theo quy định của Bộ GD&ĐT và hướng dẫn của ĐHQG-HCM.
+- Học phần tự chọn định hướng: là học phần mà sinh viên phải chọn trong các học phần quy định cho một ngành học cụ thể.
+- Học phần tiên quyết: là học phần bắt buộc sinh viên phải học trước và tích lũy mới được học tiếp sang học phần có liên quan khác.
+- Học phần học trước: là học phần sinh viên phải học trước khi học các học phần có liên quan khác. Học phần học trước có thể thi đạt hoặc không đạt.
+- Học phần song hành: Hai học phần được gọi là song hành khi sinh viên đăng ký học phần này thì bắt buộc phải đăng ký học phần kia.
+- Học phần thay thế: là học phần được sử dụng khi một học phần thuộc chương trình giáo dục thay đổi hoặc điều chỉnh, không còn tổ chức giảng dạy. Học phần thay thế có thời lượng tương đương nhưng nội dung có thể khác với học phần không còn tổ chức giảng dạy, do khoa phụ trách chuyên môn quy định.
+- Học phần tương đương: là học phần có nội dung kiến thức và thời lượng tương đương với một học phần khác.
+- Học phần mới: là học phần sinh viên đăng ký học lần đầu tiên.
+- Học phần học lại: là học phần sinh viên đã học nhưng kết quả chưa đạt (điểm nhỏ hơn 5), sinh viên phải đăng ký học lại học phần đó nếu là học phần bắt buộc.
+- Học phần học cải thiện: là học phần sinh viên đã học có kết quả đạt (từ 5 điểm trở lên), nhưng muốn đăng ký học lại. Sinh viên chỉ được đăng ký học cải thiện theo quy định tại Khoản 3 Điều 14 của quy chế này.
+- Học phần điều kiện: là các học phần sinh viên bắt buộc phải học như giáo dục thể chất, giáo dục quốc phòng - an ninh, có kết quả đánh giá không tính vào điểm trung bình chung học kỳ, điểm trung bình chung tích lũy.
+- Học phần tài năng: là các học phần được tổ chức nhằm tăng cường tương tác giữa giảng viên và sinh viên, khuyến khích tư duy phản biện, khả năng sáng tạo, khả năng phát triển và trình bày ý tưởng của sinh viên.
+- Học phần tiên tiến: là các học phần được tổ chức dựa trên cơ sở của chương trình đang được áp dụng ở trường đại học tiên tiến trên thế giới đáp ứng mục tiêu của chương trình tiên tiến.

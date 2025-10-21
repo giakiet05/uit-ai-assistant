@@ -2,9 +2,14 @@
 This module provides a simple and flexible way to create LlamaIndex LLM instances.
 """
 
+import os
+from dotenv import load_dotenv
 from llama_index.core.llms import LLM
 from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
+
+# Load environment variables from .env file
+load_dotenv()
 
 def _create_ollama_llm(model: str, **kwargs) -> Ollama:
     """
@@ -20,8 +25,6 @@ def _create_ollama_llm(model: str, **kwargs) -> Ollama:
 
     print(f"[INFO] Attempting to create Ollama LLM with model: {model}")
     try:
-        # The constructor itself might raise an error if it fails to connect
-        # or if there are configuration issues.
         llm = Ollama(model=model, **final_kwargs)
         print("✅ Ollama LLM instance created.")
         return llm
@@ -35,11 +38,19 @@ def _create_ollama_llm(model: str, **kwargs) -> Ollama:
 
 def _create_openai_llm(model: str, **kwargs) -> OpenAI:
     """
-    (Placeholder) Creates a LlamaIndex OpenAI instance.
+    Creates a LlamaIndex OpenAI instance.
     """
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
+
+    default_kwargs = {
+        "temperature": 0.1,
+    }
+    final_kwargs = {**default_kwargs, **kwargs}
+
     print(f"[INFO] Creating OpenAI LLM with model: {model}")
-    # To implement: handle api_key from kwargs or environment
-    pass # Not implemented
+    return OpenAI(model=model, api_key=api_key, **final_kwargs)
 
 def create_llm(provider: str, model: str, **kwargs) -> LLM:
     """

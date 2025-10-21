@@ -9,7 +9,7 @@ def main():
     Initializes the QueryEngine and enters an interactive loop to accept user questions.
     """
     try:
-        query_engine = QueryEngine(llm_provider="ollama", llm_model="llama3")
+        query_engine = QueryEngine()
     except Exception as e:
         print(f"[FATAL] Failed to initialize QueryEngine: {e}")
         return
