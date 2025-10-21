@@ -4,7 +4,7 @@ Core module for the data cleaning process, offering multiple scopes of control.
 import asyncio
 import argparse
 
-from src.config import START_URLS
+from src.config.settings import settings
 from src.processing.cleaner.cleaner_factory import CleanerFactory
 
 async def clean_folder(folder_path: str, domain: str):
@@ -52,8 +52,8 @@ async def clean_all():
     print("✨ STARTING FULL CLEANING PROCESS")
     print("="*50)
 
-    # Use START_URLS keys as the list of domains to process.
-    for domain in START_URLS.keys():
+    # --- FIX: Use START_URLS from the new settings.domains object ---
+    for domain in settings.domains.START_URLS.keys():
         await clean_domain(domain)
 
     print("\n" + "="*50)

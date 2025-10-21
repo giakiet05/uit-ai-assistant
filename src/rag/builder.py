@@ -7,25 +7,21 @@ import chromadb
 import os
 import json
 import argparse
-from dotenv import load_dotenv
+
+# --- Centralized Config Import ---
+from src.config import settings
 
 # --- LlamaIndex v0.10+ Imports ---
 from llama_index.core import (
     VectorStoreIndex,
     StorageContext,
     Document,
-    Settings,
+    Settings as LlamaSettings, # Use alias to avoid confusion with our own Settings
     SimpleDirectoryReader
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core.node_parser import SemanticSplitterNodeParser
-# --- FIX: Import OpenAIEmbedding --- 
 from llama_index.embeddings.openai import OpenAIEmbedding
-
-from src.config import PROCESSED_DATA_DIR, VECTOR_STORE_DIR
-
-# Load environment variables from .env file
-load_dotenv()
 
 class RagBuilder:
     """
@@ -36,29 +32,29 @@ class RagBuilder:
 
     def __init__(self):
         """
-        Initializes and configures the RAG building components using OpenAI services.
+        Initializes and configures the RAG building components using the global settings object.
         """
-        print("[INFO] Initializing RagBuilder components with OpenAI...")
+        print("[INFO] Initializing RagBuilder components...")
         
-        # 1. Configure global Settings
-        # --- FIX: Use OpenAIEmbedding --- 
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
+        # 1. Configure global LlamaIndex Settings from our app settings
+        if not settings.env.OPENAI_API_KEY:
+            raise ValueError("OPENAI_API_KEY not found. Please configure it in your .env file.")
 
-        embed_model = OpenAIEmbedding(model="text-embedding-3-small", api_key=api_key)
+        embed_model = OpenAIEmbedding(
+            model=settings.env.EMBED_MODEL,
+            api_key=settings.env.OPENAI_API_KEY
+        )
         
-        # Node parser does not depend on the embedding model choice
         node_parser = SemanticSplitterNodeParser.from_defaults(
             breakpoint_percentile_threshold=95
         )
 
-        Settings.embed_model = embed_model
-        Settings.node_parser = node_parser
+        LlamaSettings.embed_model = embed_model
+        LlamaSettings.node_parser = node_parser
 
         # 2. Configure Vector Store (ChromaDB)
-        db = chromadb.PersistentClient(path=VECTOR_STORE_DIR)
-        chroma_collection = db.get_or_create_collection("uit_documents_openai") # Use a new collection for OpenAI embeddings
+        db = chromadb.PersistentClient(path=str(settings.paths.VECTOR_STORE_DIR)) # Use path from settings
+        chroma_collection = db.get_or_create_collection("uit_documents_openai")
         self.vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
         self.storage_context = StorageContext.from_defaults(vector_store=self.vector_store)
 
@@ -72,8 +68,6 @@ class RagBuilder:
             try:
                 with open(metadata_path, 'r', encoding='utf-8') as f:
                     shared_metadata = json.load(f)
-                if 'source_urls' in shared_metadata and isinstance(shared_metadata['source_urls'], list):
-                    shared_metadata['source_urls'] = '\n'.join(shared_metadata['source_urls'])
             except (json.JSONDecodeError, IOError) as e:
                 print(f"[WARNING] Could not read or parse metadata.json in {folder_path}: {e}")
 
@@ -117,7 +111,7 @@ class RagBuilder:
         Builds the vector store from all folders within a specific domain.
         """
         print(f"\n--- Building from domain: {domain} ---")
-        domain_path = os.path.join(PROCESSED_DATA_DIR, domain)
+        domain_path = settings.paths.PROCESSED_DATA_DIR / domain # Use path from settings
         if not os.path.isdir(domain_path):
             print(f"[WARNING] Processed directory for domain '{domain}' not found. Skipping.")
             return
@@ -132,21 +126,22 @@ class RagBuilder:
         Builds the vector store from all configured domains by scanning the processed directory.
         """
         print("\n" + "="*50)
-        print("🛠️  STARTING FULL RAG VECTOR STORE BUILD (OpenAI)")
+        print("🛠️  STARTING FULL RAG VECTOR STORE BUILD")
         print("="*50)
 
-        if not os.path.isdir(PROCESSED_DATA_DIR):
-            print(f"[ERROR] Processed data directory not found: {PROCESSED_DATA_DIR}")
+        processed_dir = settings.paths.PROCESSED_DATA_DIR # Use path from settings
+        if not os.path.isdir(processed_dir):
+            print(f"[ERROR] Processed data directory not found: {processed_dir}")
             return
             
-        for domain_name in os.listdir(PROCESSED_DATA_DIR):
-            domain_path = os.path.join(PROCESSED_DATA_DIR, domain_name)
+        for domain_name in os.listdir(processed_dir):
+            domain_path = os.path.join(processed_dir, domain_name)
             if os.path.isdir(domain_path):
                 self.build_from_domain(domain_name)
         
         print("\n" + "="*50)
-        print("✅ FULL RAG BUILD COMPLETED (OpenAI)")
-        print(f"Vector store persisted at: {VECTOR_STORE_DIR}")
+        print("✅ FULL RAG BUILD COMPLETED")
+        print(f"Vector store persisted at: {settings.paths.VECTOR_STORE_DIR}")
         print("="*50)
 
 if __name__ == "__main__":
@@ -161,10 +156,7 @@ if __name__ == "__main__":
     if args.folder:
         builder.build_from_folder(args.folder)
     elif args.domain:
-        domain_path = os.path.join(PROCESSED_DATA_DIR, args.domain)
-        if not os.path.isdir(domain_path):
-            print(f"[ERROR] Processed directory for domain '{args.domain}' not found.")
-        else:
-            builder.build_from_domain(args.domain)
+        # No need to check for domain existence here, build_from_domain will do it.
+        builder.build_from_domain(args.domain)
     else:
         builder.build_all()

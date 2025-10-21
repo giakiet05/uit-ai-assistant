@@ -1,5 +1,5 @@
-"""
-Configuration package
-"""
-from .paths import *
-from .crawler import *
+from .settings import settings
+
+__all__ = [
+    "settings"
+]

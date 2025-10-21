@@ -4,7 +4,6 @@ Factory for creating appropriate cleaners based on domain
 from typing import Type, Dict
 from .base_cleaner import BaseCleaner
 from .daa_cleaner import DaaCleaner
-from .uit_cleaner import UitCleaner
 
 
 class CleanerFactory:
@@ -13,7 +12,6 @@ class CleanerFactory:
     # This dictionary maps a domain string to a cleaner CLASS (a blueprint).
     _cleaners: Dict[str, Type[BaseCleaner]] = {
         'daa.uit.edu.vn': DaaCleaner,
-        #'uit.edu.vn': UitCleaner,
     }
 
     @classmethod

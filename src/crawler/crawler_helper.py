@@ -1,3 +1,7 @@
+"""
+Helper functions for the crawler module.
+"""
+
 import hashlib
 import json
 import re
@@ -7,7 +11,8 @@ import requests
 import os
 from datetime import datetime
 
-from src.config import RAW_DATA_DIR, DOWNLOADABLE_EXTENSIONS, REQUEST_TIMEOUT
+# --- FIX: Import the centralized settings object ---
+from src.config.settings import settings
 
 def should_exclude_node_url(url: str) -> bool:
     """Check if URL should be excluded (node/id format)."""
@@ -26,7 +31,6 @@ def get_folder_name_from_url(url: str) -> str:
 def create_or_get_folder_for_url(url: str, base_dir: str) -> str:
     """
     Create or get a unique folder for a URL within its domain's subdirectory.
-    e.g., https://daa.uit.edu.vn/thong-bao -> <base_dir>/daa.uit.edu.vn/thong-bao/
     """
     parsed_url = urlparse(url)
     domain = parsed_url.netloc
@@ -41,29 +45,23 @@ def create_or_get_folder_for_url(url: str, base_dir: str) -> str:
     return full_path
 
 
-def generate_content_hash(content: str) -> str:
-    """Generate SHA256 hash of content"""
-    return hashlib.sha256(content.encode('utf-8')).hexdigest()
-
-
-def save_crawled_data(url: str, title: str, content: str, source_urls: list = None):
+def save_crawled_data(url: str, title: str, content: str):
     """
-    Saves crawled data into an organized folder structure.
-    A hash of the content is stored in metadata for future reference.
+    Saves crawled data into an organized folder structure with essential metadata.
     """
     print(f"[INFO] Saving data for {url}")
 
-    folder_path = create_or_get_folder_for_url(url, RAW_DATA_DIR)
+    # --- FIX: Use the path from the settings object ---
+    folder_path = create_or_get_folder_for_url(url, str(settings.paths.RAW_DATA_DIR))
     content_file = os.path.join(folder_path, 'content.md')
     with open(content_file, 'w', encoding='utf-8') as f:
         f.write(content)
 
+    # --- FIX: Create the simplified, essential metadata object ---
     metadata = {
         "original_url": url,
         "title": title,
         "crawled_at": datetime.now().isoformat() + "Z",
-        "content_hash": generate_content_hash(content),
-        "source_urls": source_urls or [url]
     }
 
     metadata_file = os.path.join(folder_path, 'metadata.json')
@@ -88,7 +86,8 @@ def filter_downloadable_links(links: list) -> list:
     downloadable_links = []
     for link in links:
         href = link.get('href', '')
-        if any(href.lower().endswith(ext) for ext in DOWNLOADABLE_EXTENSIONS):
+        # --- FIX: Use downloadable extensions from the settings object ---
+        if any(href.lower().endswith(ext) for ext in settings.crawler.DOWNLOADABLE_EXTENSIONS):
             downloadable_links.append(href)
     return downloadable_links
 
@@ -100,7 +99,8 @@ def download_file(url: str, save_folder: str) -> bool:
         save_path = os.path.join(save_folder, file_name)
 
         print(f"[INFO] Downloading: {file_name} from {url}")
-        response = requests.get(url, stream=True, timeout=REQUEST_TIMEOUT, verify=False)
+        # --- FIX: Use request timeout from the settings object ---
+        response = requests.get(url, stream=True, timeout=settings.crawler.REQUEST_TIMEOUT, verify=False)
         response.raise_for_status()
 
         with open(save_path, 'wb') as f:
