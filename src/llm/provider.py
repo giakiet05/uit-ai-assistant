@@ -8,6 +8,8 @@ from llama_index.core.llms import LLM
 from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
 
+from src.config import settings
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -40,7 +42,7 @@ def _create_openai_llm(model: str, **kwargs) -> OpenAI:
     """
     Creates a LlamaIndex OpenAI instance.
     """
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = settings.env.OPENAI_API_KEY
     if not api_key:
         raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
 
