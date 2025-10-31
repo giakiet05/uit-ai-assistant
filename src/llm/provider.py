@@ -45,7 +45,8 @@ def _create_openai_llm(model: str, **kwargs) -> OpenAI:
         raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
 
     default_kwargs = {
-        "temperature": 0.1,
+        "temperature": 0.5,  # Balanced for RAG: factual yet natural
+        "system_prompt": "Bạn là một trợ lý AI chuyên gia về lĩnh vực giáo dục đại học. Câu trả lời của bạn phải dựa trên ngữ cảnh được cung cấp. Luôn luôn trả lời bằng tiếng Việt và đầy đủ, chi tiết.",
     }
     final_kwargs = {**default_kwargs, **kwargs}
 
