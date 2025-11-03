@@ -81,11 +81,11 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):
 
         # 3. Manually set up retriever and response synthesizer
         print("[INFO] Manually setting up retriever and response synthesizer...")
-        self.retriever = index.as_retriever(similarity_top_k=settings.rag.SIMILARITY_TOP_K)
+        self.retriever = index.as_retriever(similarity_top_k=settings.retrieval.SIMILARITY_TOP_K)
         
         qa_prompt_template = PromptTemplate(self.QA_PROMPT_TEMPLATE_STR)
         self.response_synthesizer = get_response_synthesizer(
-            response_mode=ResponseMode.REFINE,
+            response_mode=ResponseMode.COMPACT,  # Changed from REFINE for faster responses
             text_qa_template=qa_prompt_template,
             streaming=False
         )
@@ -105,8 +105,8 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):
 
             top_node = retrieved_nodes[0]
             print(f"[INFO] Top node score: {top_node.score:.4f}")
-            if top_node.score < settings.rag.MINIMUM_SCORE_THRESHOLD:
-                print(f"[INFO] Top node score is below threshold ({settings.rag.MINIMUM_SCORE_THRESHOLD}). Answering is forbidden.")
+            if top_node.score < settings.retrieval.MINIMUM_SCORE_THRESHOLD:
+                print(f"[INFO] Top node score is below threshold ({settings.retrieval.MINIMUM_SCORE_THRESHOLD}). Answering is forbidden.")
                 return Response(response="Tôi không tìm thấy thông tin đủ liên quan trong tài liệu để trả lời câu hỏi này một cách chính xác.")
 
             print("[INFO] Confident enough to synthesize response from retrieved context.")

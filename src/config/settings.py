@@ -37,11 +37,19 @@ class Crawler:
     REQUEST_TIMEOUT = 30
     DOWNLOADABLE_EXTENSIONS = ['.pdf', '.doc', '.docx', '.xls', '.xlsx']
 
-class RAG:
-    """Houses all configurations for the RAG pipeline (building and querying)."""
+class Retrieval:
+    """Configuration for retrieval and vector search."""
     CHUNK_SIZE = 1024
-    SIMILARITY_TOP_K = 5
-    MINIMUM_SCORE_THRESHOLD = 0.2
+    SIMILARITY_TOP_K = 7  # Increased from 5 for better retrieval coverage
+    MINIMUM_SCORE_THRESHOLD = 0.15  # Lowered from 0.2 to reduce false negatives
+
+class Chat:
+    """Houses all configurations for the Chat Engine."""
+    MAX_HISTORY_MESSAGES = 10  # Number of previous messages to keep in context
+    MEMORY_TOKEN_LIMIT = 3000  # Max tokens for chat history in LlamaIndex memory buffer
+    MEMORY_TYPE = "in_memory"  # Options: "in_memory", "redis" (future)
+    SESSION_TIMEOUT = 3600     # Session timeout in seconds (1 hour)
+    CONDENSE_PROMPT_LANG = "vi" # Language for condensing prompts
 
 class Env:
     """Houses all settings loaded from environment variables."""
@@ -61,12 +69,13 @@ class Settings:
     """
     def __init__(self):
         print("[CONFIG] Initializing application settings...")
-        
+
         self.env = Env()
         self.paths = Paths()
-        self.domains = Domains() # <-- Add new Domains group
+        self.domains = Domains()
         self.crawler = Crawler()
-        self.rag = RAG()
+        self.retrieval = Retrieval()
+        self.chat = Chat()
 
         self._ensure_directories()
 

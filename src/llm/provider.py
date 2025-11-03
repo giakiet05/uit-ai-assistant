@@ -8,6 +8,8 @@ from llama_index.core.llms import LLM
 from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
 
+from src.config import settings
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -40,12 +42,13 @@ def _create_openai_llm(model: str, **kwargs) -> OpenAI:
     """
     Creates a LlamaIndex OpenAI instance.
     """
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = settings.env.OPENAI_API_KEY
     if not api_key:
         raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
 
     default_kwargs = {
-        "temperature": 0.1,
+        "temperature": 0.5,  # Balanced for RAG: factual yet natural
+        "system_prompt": "Bạn là một trợ lý AI chuyên gia về lĩnh vực giáo dục đại học. Câu trả lời của bạn phải dựa trên ngữ cảnh được cung cấp. Luôn luôn trả lời bằng tiếng Việt và đầy đủ, chi tiết.",
     }
     final_kwargs = {**default_kwargs, **kwargs}
 

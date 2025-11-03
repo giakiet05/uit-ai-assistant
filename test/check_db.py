@@ -3,17 +3,17 @@ A simple script to inspect the contents of the ChromaDB vector store.
 """
 
 import chromadb
-from src.config import VECTOR_STORE_DIR
+from src.config import settings
 
 def inspect_vector_store():
     """
     Connects to the persistent ChromaDB and prints out some information.
     """
-    print(f"--- Inspecting Vector Store at: {VECTOR_STORE_DIR} ---")
+    print(f"--- Inspecting Vector Store at: {settings.paths.VECTOR_STORE_DIR} ---")
 
     try:
         # 1. Connect to the same persistent client
-        client = chromadb.PersistentClient(path=VECTOR_STORE_DIR)
+        client = chromadb.PersistentClient(path=str(settings.paths.VECTOR_STORE_DIR))
 
         # 2. Get the collection
         collection_name = "uit_documents_openai"

@@ -2,7 +2,7 @@
 A simple script for interactively testing the QueryEngine.
 """
 
-from src.rag.query_engine import QueryEngine
+from src.engines.query_engine import QueryEngine
 
 def main():
     """
