@@ -63,7 +63,7 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):
             raise ValueError("OPENAI_API_KEY not found. Please configure it in your .env file.")
 
         LlamaSettings.embed_model = OpenAIEmbedding(
-            model=settings.env.EMBED_MODEL,
+            model_name=settings.env.EMBED_MODEL,
             api_key=settings.env.OPENAI_API_KEY
         )
         LlamaSettings.node_parser = SemanticSplitterNodeParser.from_defaults(breakpoint_percentile_threshold=95)

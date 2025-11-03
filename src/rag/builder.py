@@ -41,10 +41,9 @@ class RagBuilder:
             raise ValueError("OPENAI_API_KEY not found. Please configure it in your .env file.")
 
         embed_model = OpenAIEmbedding(
-            model=settings.env.EMBED_MODEL,
+            model_name=settings.env.EMBED_MODEL,
             api_key=settings.env.OPENAI_API_KEY
         )
-        
         node_parser = SemanticSplitterNodeParser.from_defaults(
             breakpoint_percentile_threshold=95
         )
