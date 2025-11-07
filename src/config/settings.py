@@ -18,30 +18,53 @@ class Paths:
     VECTOR_STORE_DIR = DATA_DIR / "vector_store"
 
     RAW_DAA_DIR = RAW_DATA_DIR / "daa.uit.edu.vn"
-    RAW_UIT_DIR = RAW_DATA_DIR / "uit.edu.vn"
     PROCESSED_DAA_DIR = PROCESSED_DATA_DIR / "daa.uit.edu.vn"
-    PROCESSED_UIT_DIR = PROCESSED_DATA_DIR / "uit.edu.vn"
+
 
 # --- FIX: Create a new class for data sources/domains ---
 class Domains:
     """Configuration for data sources and domains to be processed."""
     START_URLS = {
-        "daa.uit.edu.vn": "https://daa.uit.edu.vn/",
-        "uit.edu.vn": "https://uit.edu.vn/",
+        "daa.uit.edu.vn": "https://daa.uit.edu.vn/"
     }
+
+class Credentials:
+    """API keys and sensitive credentials."""
+    def __init__(self):
+        """Load credentials from environment."""
+        load_dotenv()
+        self.OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+        self.LLAMA_CLOUD_API_KEY = os.getenv("LLAMA_CLOUD_API_KEY")
+
+class LLM:
+    """LLM configuration (models, providers)."""
+    def __init__(self):
+        """Load LLM configs from environment."""
+        load_dotenv()
+        self.PROVIDER = os.getenv("LLM_PROVIDER", "openai")
+        self.MODEL = os.getenv("LLM_MODEL", "gpt-4.1-nano")
 
 class Crawler:
     """Houses all configurations related to the crawler module."""
-    # START_URLS moved to Domains class
     CRAWL_DELAY = 2.0
     REQUEST_TIMEOUT = 30
     DOWNLOADABLE_EXTENSIONS = ['.pdf', '.doc', '.docx', '.xls', '.xlsx']
+
+    def __init__(self):
+        """Load crawler configs from environment."""
+        load_dotenv()
+        self.MAX_PAGES_PER_DOMAIN = int(os.getenv("MAX_PAGES_PER_DOMAIN", "1000"))
 
 class Retrieval:
     """Configuration for retrieval and vector search."""
     CHUNK_SIZE = 1024
     SIMILARITY_TOP_K = 7  # Increased from 5 for better retrieval coverage
     MINIMUM_SCORE_THRESHOLD = 0.15  # Lowered from 0.2 to reduce false negatives
+
+    def __init__(self):
+        """Load retrieval configs from environment."""
+        load_dotenv()
+        self.EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-small")
 
 class Chat:
     """Houses all configurations for the Chat Engine."""
@@ -51,15 +74,37 @@ class Chat:
     SESSION_TIMEOUT = 3600     # Session timeout in seconds (1 hour)
     CONDENSE_PROMPT_LANG = "vi" # Language for condensing prompts
 
-class Env:
-    """Houses all settings loaded from environment variables."""
+class Processing:
+    """Configuration for document processing and parsing."""
     def __init__(self):
+        """Load processing configs from environment."""
         load_dotenv()
-        self.OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-        self.LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai")
-        self.LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
-        self.EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-small")
-        self.MAX_PAGES_PER_DOMAIN = int(os.getenv("MAX_PAGES_PER_DOMAIN", "1000"))
+
+        # LlamaParse configuration
+        self.USE_LLAMAPARSE = os.getenv("USE_LLAMAPARSE", "true").lower() == "true"
+        self.PARSE_MODE = os.getenv("PARSE_MODE", "parse_page_with_agent")
+        self.PARSE_MODEL = os.getenv("PARSE_MODEL", "openai-gpt-4.1-mini")
+
+        # Processing behavior
+        self.SKIP_ANNOUNCEMENTS = os.getenv("SKIP_ANNOUNCEMENTS", "true").lower() == "true"
+        self.PROCESS_CATEGORIES = os.getenv("PROCESS_CATEGORIES", "regulation,curriculum").split(",")
+
+        # Content filtering
+        self.ENABLE_CONTENT_FILTER = os.getenv("ENABLE_CONTENT_FILTER", "true").lower() == "true"
+        self.MIN_CONTENT_SCORE = float(os.getenv("MIN_CONTENT_SCORE", "40.0"))
+
+class QueryRouting:
+    """Configuration for query routing strategy."""
+    def __init__(self):
+        """Load query routing configs from environment."""
+        load_dotenv()
+
+        self.STRATEGY = os.getenv("ROUTING_STRATEGY", "query_all")  # "query_all" | "llm_classification"
+        self.AVAILABLE_COLLECTIONS = os.getenv("AVAILABLE_COLLECTIONS", "regulation,curriculum").split(",")
+
+        # LLM classification settings (for llm_classification strategy)
+        self.CLASSIFICATION_MODEL = os.getenv("CLASSIFICATION_MODEL", "gpt-4.1-nano")
+        self.CLASSIFICATION_TEMPERATURE = float(os.getenv("CLASSIFICATION_TEMPERATURE", "0.0"))
 
 # --- Main Settings Singleton Class ---
 
@@ -70,12 +115,20 @@ class Settings:
     def __init__(self):
         print("[CONFIG] Initializing application settings...")
 
-        self.env = Env()
+        # Load credentials first (used by other modules)
+        self.credentials = Credentials()
+        self.llm = LLM()
+
+        # Static configs
         self.paths = Paths()
         self.domains = Domains()
+        self.chat = Chat()
+
+        # Dynamic configs (load from env)
         self.crawler = Crawler()
         self.retrieval = Retrieval()
-        self.chat = Chat()
+        self.processing = Processing()
+        self.query_routing = QueryRouting()
 
         self._ensure_directories()
 
@@ -87,9 +140,7 @@ class Settings:
             self.paths.PROCESSED_DATA_DIR,
             self.paths.VECTOR_STORE_DIR,
             self.paths.RAW_DAA_DIR,
-            self.paths.RAW_UIT_DIR,
-            self.paths.PROCESSED_DAA_DIR,
-            self.paths.PROCESSED_UIT_DIR,
+            self.paths.PROCESSED_DAA_DIR
         ]
         for directory in directories_to_create:
             os.makedirs(directory, exist_ok=True)

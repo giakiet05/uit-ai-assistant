@@ -5,33 +5,21 @@ This package groups all data processing modules, including cleaning and extracti
 # Expose key components from the cleaner submodule
 from .cleaner import (
     BaseCleaner,
-    CleanerFactory,
-    clean_all,
-    clean_domain,
-    clean_folder
+    CleanerFactory
 )
 
-# Expose key components from the extractor submodule
-from .extractor import (
-    BaseExtractor,
-    ExtractorFactory,
-    extract_all,
-    extract_domain,
-    extract_folder
+# Expose key components from the parser submodule
+from .parser import (
+    BaseParser,
+    ParserFactory
 )
 
 __all__ = [
     # Cleaner components
     "BaseCleaner",
     "CleanerFactory",
-    "clean_all",
-    "clean_domain",
-    "clean_folder",
-    
+
     # Extractor components
-    "BaseExtractor",
-    "ExtractorFactory",
-    "extract_all",
-    "extract_domain",
-    "extract_folder",
+    "BaseParser",
+    "ParserFactory",
 ]
