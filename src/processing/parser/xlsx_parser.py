@@ -3,12 +3,12 @@ Extractor for XLSX files using the openpyxl library.
 """
 import openpyxl
 
-from .base_extractor import BaseExtractor
+from .base_parser import BaseParser
 
-class XlsxExtractor(BaseExtractor):
+class XlsxParser(BaseParser):
     """Extracts text content from XLSX files."""
 
-    def extract(self, file_path: str) -> str:
+    def parse(self, file_path: str) -> str:
         """
         Opens an XLSX file and extracts all text from all cells in all sheets.
 

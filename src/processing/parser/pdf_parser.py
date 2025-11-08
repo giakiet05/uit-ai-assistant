@@ -6,9 +6,9 @@ import pytesseract
 from PIL import Image
 import io
 
-from .base_extractor import BaseExtractor
+from .base_parser import BaseParser
 
-class PdfExtractor(BaseExtractor):
+class PdfParser(BaseParser):
     """Extracts text from PDF files, automatically using OCR for image-based PDFs."""
 
     def _is_text_meaningful(self, text: str, min_length: int = 100) -> bool:
@@ -43,7 +43,7 @@ class PdfExtractor(BaseExtractor):
 
         return "\n\n---\n\n".join(full_text)
 
-    def extract(self, file_path: str) -> str:
+    def parse(self, file_path: str) -> str:
         """
         Opens a PDF and attempts to extract text directly.
         If direct extraction yields little or no text, it falls back to OCR.

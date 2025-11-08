@@ -3,14 +3,14 @@ Defines the base interface for all file content extractors.
 """
 from abc import ABC, abstractmethod
 
-class BaseExtractor(ABC):
+class BaseParser(ABC):
     """
-    Abstract base class for a file content extractor.
+    Abstract base class for a file content parser.
     Each subclass is responsible for implementing the extraction for a specific file type.
     """
 
     @abstractmethod
-    def extract(self, file_path: str) -> str:
+    def parse(self, file_path: str) -> str:
         """
         Extracts text content from a given file.
 

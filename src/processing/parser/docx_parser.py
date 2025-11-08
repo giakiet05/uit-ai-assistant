@@ -3,12 +3,12 @@ Extractor for DOCX files using the python-docx library.
 """
 import docx
 
-from .base_extractor import BaseExtractor
+from .base_parser import BaseParser
 
-class DocxExtractor(BaseExtractor):
+class DocxParser(BaseParser):
     """Extracts text content from DOCX files."""
 
-    def extract(self, file_path: str) -> str:
+    def parse(self, file_path: str) -> str:
         """
         Opens a DOCX file and extracts all text from its paragraphs.
 

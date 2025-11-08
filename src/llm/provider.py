@@ -42,7 +42,7 @@ def _create_openai_llm(model: str, **kwargs) -> OpenAI:
     """
     Creates a LlamaIndex OpenAI instance.
     """
-    api_key = settings.env.OPENAI_API_KEY
+    api_key = settings.credentials.OPENAI_API_KEY
     if not api_key:
         raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
 

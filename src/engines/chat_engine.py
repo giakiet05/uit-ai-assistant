@@ -18,7 +18,7 @@ from llama_index.core import (
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.embeddings.openai import OpenAIEmbedding
-from llama_index.core.node_parser import SemanticSplitterNodeParser
+from src.indexing.hierarchical_markdown_parser import HierarchicalMarkdownParser
 from llama_index.core.chat_engine import CondensePlusContextChatEngine
 from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.core.llms import ChatMessage as LlamaChatMessage, MessageRole
@@ -76,80 +76,110 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):""")
         print("[INFO] Initializing ChatEngine...")
 
         # 1. Setup global LlamaIndex settings
-        if not settings.env.OPENAI_API_KEY:
+        if not settings.credentials.OPENAI_API_KEY:
             raise ValueError("OPENAI_API_KEY not found in .env")
 
         LlamaSettings.embed_model = OpenAIEmbedding(
-            model=settings.env.EMBED_MODEL,
-            api_key=settings.env.OPENAI_API_KEY
+            model=settings.retrieval.EMBED_MODEL,
+            api_key=settings.credentials.OPENAI_API_KEY
         )
-        LlamaSettings.node_parser = SemanticSplitterNodeParser.from_defaults(
-            breakpoint_percentile_threshold=95
+        # Use custom HierarchicalMarkdownParser
+        LlamaSettings.node_parser = HierarchicalMarkdownParser(
+            max_tokens=7000,
+            sub_chunk_size=1024,
+            sub_chunk_overlap=128
         )
+
         self.llm = create_llm(
-            provider=settings.env.LLM_PROVIDER,
-            model=settings.env.LLM_MODEL
+            provider=settings.llm.PROVIDER,
+            model=settings.llm.MODEL
         )
         LlamaSettings.llm = self.llm
 
-        # 2. Load Vector Store
-        print(f"[INFO] Loading vector store from: {settings.paths.VECTOR_STORE_DIR}")
+        # 2. Load multi-collection vector stores
+        print(f"[INFO] Loading vector stores from: {settings.paths.VECTOR_STORE_DIR}")
         db = chromadb.PersistentClient(path=str(settings.paths.VECTOR_STORE_DIR))
-        chroma_collection = db.get_or_create_collection("uit_documents_openai")
-        vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
-        self.index = VectorStoreIndex.from_vector_store(vector_store)
 
-        # 3. Initialize custom memory store
+        self.collections = {}
+        for category in settings.query_routing.AVAILABLE_COLLECTIONS:
+            print(f"[INFO] Loading collection: {category}")
+            chroma_collection = db.get_or_create_collection(category)
+            vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
+            self.collections[category] = VectorStoreIndex.from_vector_store(vector_store)
+
+        print(f"[INFO] Loaded {len(self.collections)} collections: {list(self.collections.keys())}")
+
+        # 3. Initialize query router
+        from src.engines.routing.router_factory import create_router
+        self.router = create_router()
+        print(f"[INFO] Using routing strategy: {settings.query_routing.STRATEGY}")
+
+        # 4. Initialize custom memory store
         self.memory_store = InMemoryStore()
 
-        # 4. Cache of active chat engines per session
+        # 5. Cache of active chat engines per session
         self._session_engines = {}
 
         print("✅ ChatEngine initialized successfully")
 
-    def _get_or_create_engine(self, session_id: str) -> CondensePlusContextChatEngine:
+    def _condense_question(self, chat_history: str, new_question: str) -> str:
         """
-        Get existing chat engine for session or create new one.
-        Each session has its own LlamaIndex ChatEngine with memory.
+        Condense chat history + new question into standalone question.
+
+        Args:
+            chat_history: Formatted chat history
+            new_question: New user question
+
+        Returns:
+            Standalone question
         """
-        if session_id in self._session_engines:
-            return self._session_engines[session_id]
+        if not chat_history.strip():
+            # No history, return original question
+            return new_question
 
-        print(f"[INFO] Creating new chat engine for session: {session_id}")
-
-        # Get chat history from our custom store
-        history_messages = self.memory_store.get_history(
-            session_id,
-            max_messages=settings.chat.MAX_HISTORY_MESSAGES
+        # Use condense prompt to create standalone question
+        condense_prompt = self.CONDENSE_PROMPT_VI.format(
+            chat_history=chat_history,
+            question=new_question
         )
 
-        # Convert to LlamaIndex ChatMessage format
-        llama_history = []
-        for msg in history_messages:
-            role = MessageRole.USER if msg.role == "user" else MessageRole.ASSISTANT
-            llama_history.append(LlamaChatMessage(role=role, content=msg.content))
+        response = self.llm.complete(condense_prompt)
+        standalone_question = response.text.strip()
 
-        # Create memory buffer with history
-        memory = ChatMemoryBuffer.from_defaults(
-            chat_history=llama_history,
-            token_limit=settings.chat.MEMORY_TOKEN_LIMIT
-        )
+        print(f"[INFO] Condensed question: {standalone_question}")
+        return standalone_question
 
-        # Create CondensePlusContext engine
-        chat_engine = CondensePlusContextChatEngine.from_defaults(
-            retriever=self.index.as_retriever(
+    def _retrieve_from_collections(self, question: str, target_collections: list) -> list:
+        """
+        Retrieve relevant nodes from multiple collections.
+
+        Args:
+            question: Query question
+            target_collections: List of collection names to query
+
+        Returns:
+            List of retrieved nodes, sorted by score
+        """
+        all_nodes = []
+
+        for collection_name in target_collections:
+            if collection_name not in self.collections:
+                print(f"[WARNING] Collection '{collection_name}' not found, skipping")
+                continue
+
+            print(f"[INFO] Retrieving from collection: {collection_name}")
+            retriever = self.collections[collection_name].as_retriever(
                 similarity_top_k=settings.retrieval.SIMILARITY_TOP_K
-            ),
-            memory=memory,
-            llm=self.llm,
-            context_prompt=self.QA_PROMPT_VI,
-            condense_prompt=self.CONDENSE_PROMPT_VI,
-            verbose=True
-        )
+            )
+            nodes = retriever.retrieve(question)
+            all_nodes.extend(nodes)
 
-        # Cache it
-        self._session_engines[session_id] = chat_engine
-        return chat_engine
+        # Sort by score (descending) and limit
+        all_nodes.sort(key=lambda x: x.score if hasattr(x, 'score') else 0, reverse=True)
+        top_nodes = all_nodes[:settings.retrieval.SIMILARITY_TOP_K]
+
+        print(f"[INFO] Retrieved {len(top_nodes)} nodes from {len(target_collections)} collections")
+        return top_nodes
 
     def chat(
         self,
@@ -158,7 +188,7 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):""")
         return_source_nodes: bool = False
     ) -> dict:
         """
-        Main chat method with session support.
+        Main chat method with multi-collection support and routing.
 
         Args:
             message: User's message
@@ -174,31 +204,73 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):""")
         print(f"{'='*60}")
 
         try:
-            # 1. Save user message to our custom memory
+            # 1. Get chat history
+            history_messages = self.memory_store.get_history(
+                session_id,
+                max_messages=settings.chat.MAX_HISTORY_MESSAGES
+            )
+
+            # Format history for condensing
+            chat_history = "\n".join([
+                f"{'User' if msg.role == 'user' else 'Assistant'}: {msg.content}"
+                for msg in history_messages
+            ])
+
+            # 2. Condense question with chat history
+            standalone_question = self._condense_question(chat_history, message)
+
+            # 3. Route query to get target collections
+            routing_decision = self.router.route(standalone_question)
+            target_collections = routing_decision.collections  # Extract list from RoutingDecision
+            print(f"[INFO] Routed to collections: {target_collections} (strategy: {routing_decision.strategy})")
+
+            # 4. Retrieve from multi-collections
+            retrieved_nodes = self._retrieve_from_collections(
+                standalone_question,
+                target_collections
+            )
+
+            # 5. Build context from retrieved nodes
+            context_str = "\n\n".join([
+                f"[Tài liệu {i+1}]\n{node.text}"
+                for i, node in enumerate(retrieved_nodes)
+            ])
+
+            # 6. Generate response with QA prompt
+            qa_prompt = self.QA_PROMPT_VI.format(
+                context_str=context_str,
+                query_str=message  # Use original question, not condensed
+            )
+
+            response = self.llm.complete(qa_prompt)
+            response_text = response.text.strip()
+
+            # 7. Save to memory
             user_msg = ChatMessage(role="user", content=message)
             self.memory_store.add_message(session_id, user_msg)
 
-            # 2. Get or create chat engine for this session
-            chat_engine = self._get_or_create_engine(session_id)
-
-            # 3. Generate response
-            response = chat_engine.chat(message)
-
-            # 4. Save assistant response to our custom memory
-            assistant_msg = ChatMessage(role="assistant", content=str(response))
+            assistant_msg = ChatMessage(role="assistant", content=response_text)
             self.memory_store.add_message(session_id, assistant_msg)
 
-            print(f"[CHAT] Assistant: {response}\n")
+            print(f"[CHAT] Assistant: {response_text[:200]}...\n")
 
-            # 5. Build result
+            # 8. Build result
             result = {
-                "response": str(response),
+                "response": response_text,
                 "session_id": session_id,
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
+                "routed_collections": target_collections
             }
 
             if return_source_nodes:
-                result["source_nodes"] = response.source_nodes
+                result["source_nodes"] = [
+                    {
+                        "text": node.text[:200] + "...",
+                        "score": node.score if hasattr(node, 'score') else None,
+                        "metadata": node.metadata if hasattr(node, 'metadata') else {}
+                    }
+                    for node in retrieved_nodes
+                ]
 
             return result
 
@@ -210,13 +282,16 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):""")
             error_response = "Xin lỗi, đã có lỗi xảy ra khi xử lý câu hỏi của bạn."
 
             # Still save error to memory for debugging
+            user_msg = ChatMessage(role="user", content=message)
             assistant_msg = ChatMessage(role="assistant", content=error_response)
+            self.memory_store.add_message(session_id, user_msg)
             self.memory_store.add_message(session_id, assistant_msg)
 
             return {
                 "response": error_response,
                 "session_id": session_id,
-                "error": str(e)
+                "error": str(e),
+                "timestamp": datetime.now().isoformat()
             }
 
     def reset_session(self, session_id: str) -> None:

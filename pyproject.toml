@@ -23,3 +23,13 @@ dependencies = [
     "python-dotenv>=1.1.1",
     "uvicorn>=0.37.0",
 ]
+
+[project.scripts]
+ua = "src.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
