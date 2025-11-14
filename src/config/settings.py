@@ -12,13 +12,16 @@ class Paths:
     """Houses all static path configurations for the application."""
     ROOT_DIR = Path(__file__).resolve().parents[2]
     DATA_DIR = ROOT_DIR / "data"
-    
-    RAW_DATA_DIR = DATA_DIR / "raw"
-    PROCESSED_DATA_DIR = DATA_DIR / "processed"
+
+    # Production paths
+    RAW_DATA_DIR = DATA_DIR / os.getenv("RAW_DATA_DIR", "raw")
+    PROCESSED_DATA_DIR = DATA_DIR / os.getenv("PROCESSED_DATA_DIR", "processed")
     VECTOR_STORE_DIR = DATA_DIR / "vector_store"
 
-    RAW_DAA_DIR = RAW_DATA_DIR / "daa.uit.edu.vn"
-    PROCESSED_DAA_DIR = PROCESSED_DATA_DIR / "daa.uit.edu.vn"
+    # Test paths (can override via env vars)
+    RAW_TEST_DIR = DATA_DIR / "raw_test"
+    PROCESSED_TEST_DIR = DATA_DIR / "processed_test"
+
 
 
 # --- FIX: Create a new class for data sources/domains ---
@@ -57,7 +60,12 @@ class Crawler:
 
 class Retrieval:
     """Configuration for retrieval and vector search."""
-    CHUNK_SIZE = 1024
+    # Chunking configuration
+    CHUNK_SIZE = 1024           # Target chunk size for sub-chunking
+    CHUNK_OVERLAP = 200         # Overlap between chunks (20% of chunk size)
+    MAX_TOKENS = 7000           # Max tokens before sub-chunking (buffer for 8191 limit)
+
+    # Retrieval configuration
     SIMILARITY_TOP_K = 7  # Increased from 5 for better retrieval coverage
     MINIMUM_SCORE_THRESHOLD = 0.15  # Lowered from 0.2 to reduce false negatives
 
@@ -92,6 +100,9 @@ class Processing:
         # Content filtering
         self.ENABLE_CONTENT_FILTER = os.getenv("ENABLE_CONTENT_FILTER", "true").lower() == "true"
         self.MIN_CONTENT_SCORE = float(os.getenv("MIN_CONTENT_SCORE", "40.0"))
+
+        # Metadata generation
+        self.METADATA_GENERATION_MODEL = os.getenv("METADATA_GENERATION_MODEL", "gpt-4.1-nano")
 
 class QueryRouting:
     """Configuration for query routing strategy."""
@@ -136,11 +147,15 @@ class Settings:
         """Create all necessary directories if they don't exist."""
         print("[CONFIG] Ensuring all necessary directories exist...")
         directories_to_create = [
+            # Production directories
             self.paths.RAW_DATA_DIR,
             self.paths.PROCESSED_DATA_DIR,
             self.paths.VECTOR_STORE_DIR,
-            self.paths.RAW_DAA_DIR,
-            self.paths.PROCESSED_DAA_DIR
+
+            # Test directories
+            self.paths.RAW_TEST_DIR,
+            self.paths.PROCESSED_TEST_DIR,
+
         ]
         for directory in directories_to_create:
             os.makedirs(directory, exist_ok=True)

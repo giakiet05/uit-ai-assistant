@@ -23,7 +23,7 @@ from llama_index.core import (
     Settings as LlamaSettings, # Use alias to avoid confusion with our own Settings
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
-from src.indexing.hierarchical_markdown_parser import HierarchicalMarkdownParser
+from src.indexing.hierarchical_markdown_parser_v2 import HierarchicalMarkdownParserV2
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 
@@ -60,14 +60,15 @@ class RagBuilder:
             api_key=settings.credentials.OPENAI_API_KEY
         )
 
-        # Use custom HierarchicalMarkdownParser
-        # 1. Parses markdown by structure (headers, tables)
-        # 2. Token-aware: sub-chunks large nodes with parent-child relationships
-        # 3. Avoids OpenAI's 8192 token limit
-        node_parser = HierarchicalMarkdownParser(
-            max_tokens=7000,  # Conservative limit
-            sub_chunk_size=1024,  # Sub-chunk size for large nodes
-            sub_chunk_overlap=128  # Preserve context
+        # Use custom HierarchicalMarkdownParserV2
+        # 1. Parses markdown by headers, tracking full hierarchy
+        # 2. Prepends document context + header path to each chunk
+        # 3. Token-aware sub-chunking with context preservation
+        # 4. All settings centralized in config
+        node_parser = HierarchicalMarkdownParserV2(
+            max_tokens=settings.retrieval.MAX_TOKENS,
+            sub_chunk_size=settings.retrieval.CHUNK_SIZE,
+            sub_chunk_overlap=settings.retrieval.CHUNK_OVERLAP
         )
 
         LlamaSettings.embed_model = embed_model
