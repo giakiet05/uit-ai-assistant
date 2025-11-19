@@ -1,5 +1,5 @@
 """
-HierarchicalMarkdownParserV2 - Advanced markdown parser with hierarchy tracking.
+HierarchicalNodeSplitter - Advanced splitter with hierarchy tracking.
 
 Key improvements over V1:
 1. Tracks header hierarchy (parent-child relationships)
@@ -16,7 +16,7 @@ from llama_index.core.schema import BaseNode, TextNode
 from src.config.settings import settings
 
 
-class HierarchicalMarkdownParserV2:
+class HierarchicalNodeSplitter:
     """
     Advanced parser that:
     1. Parses markdown by headers, tracking full hierarchy path
@@ -66,7 +66,7 @@ class HierarchicalMarkdownParserV2:
             "final_nodes": 0
         }
 
-        print(f"[INFO] HierarchicalMarkdownParserV2 initialized:")
+        print(f"[INFO] HierarchicalNodeSplitter initialized:")
         print(f"  - max_tokens: {self.max_tokens}")
         print(f"  - sub_chunk_size: {self.sub_chunk_size}")
         print(f"  - sub_chunk_overlap: {self.sub_chunk_overlap}")
@@ -199,10 +199,10 @@ class HierarchicalMarkdownParserV2:
         if doc_id := metadata.get("document_id"):
             # Clean filename for display
             clean_id = doc_id.replace('.md', '').replace('-', ' ').title()
-            context_parts.append(f"📄 Tài liệu: {clean_id}")
+            context_parts.append(f"Tài liệu: {clean_id}")
 
         if title := metadata.get("title"):
-            context_parts.append(f"📌 Tiêu đề: {title}")
+            context_parts.append(f"Tiêu đề: {title}")
 
         # ========== HEADER HIERARCHY ==========
         # header_path: Parent headers only (e.g., ["QUYẾT ĐỊNH", "HIỆU TRƯỞNG"])
@@ -219,7 +219,7 @@ class HierarchicalMarkdownParserV2:
 
             if full_path:
                 path_str = " > ".join(full_path)
-                context_parts.append(f"🗂️  Cấu trúc: {path_str}")
+                context_parts.append(f"Cấu trúc: {path_str}")
 
         # ========== CATEGORY-SPECIFIC METADATA ==========
 
@@ -227,7 +227,7 @@ class HierarchicalMarkdownParserV2:
 
         if category == "regulation":
             if effective_date := metadata.get("effective_date"):
-                context_parts.append(f"📅 Ngày hiệu lực: {effective_date}")
+                context_parts.append(f"Ngày hiệu lực: {effective_date}")
 
             if doc_type := metadata.get("document_type"):
                 type_map = {
@@ -235,20 +235,20 @@ class HierarchicalMarkdownParserV2:
                     "update": "Văn bản sửa đổi",
                     "supplement": "Văn bản bổ sung"
                 }
-                context_parts.append(f"📋 Loại: {type_map.get(doc_type, doc_type)}")
+                context_parts.append(f"Loại: {type_map.get(doc_type, doc_type)}")
 
         elif category == "curriculum":
             if major := metadata.get("major"):
-                context_parts.append(f"🎓 Ngành: {major}")
+                context_parts.append(f"Ngành: {major}")
 
             if year := metadata.get("year"):
-                context_parts.append(f"📆 Năm: {year}")
+                context_parts.append(f"Năm: {year}")
 
             if program_type := metadata.get("program_type"):
-                context_parts.append(f"📖 Hệ: {program_type}")
+                context_parts.append(f"Hệ: {program_type}")
 
             if program_name := metadata.get("program_name"):
-                context_parts.append(f"🏆 Chương trình: {program_name}")
+                context_parts.append(f"Chương trình: {program_name}")
 
         # ========== COMBINE CONTEXT + CONTENT ==========
 

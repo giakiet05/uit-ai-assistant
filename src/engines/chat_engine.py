@@ -18,10 +18,7 @@ from llama_index.core import (
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.embeddings.openai import OpenAIEmbedding
-from src.indexing.hierarchical_markdown_parser import HierarchicalMarkdownParser
-from llama_index.core.chat_engine import CondensePlusContextChatEngine
-from llama_index.core.memory import ChatMemoryBuffer
-from llama_index.core.llms import ChatMessage as LlamaChatMessage, MessageRole
+from src.indexing.splitters import SmartNodeSplitter
 
 # Local imports
 from src.llm import create_llm
@@ -96,11 +93,11 @@ Câu trả lời (CHỈ dựa trên tài liệu, KHÔNG bịa thêm):""")
             model=settings.retrieval.EMBED_MODEL,
             api_key=settings.credentials.OPENAI_API_KEY
         )
-        # Use custom HierarchicalMarkdownParser
-        LlamaSettings.node_parser = HierarchicalMarkdownParser(
-            max_tokens=7000,
-            sub_chunk_size=1024,
-            sub_chunk_overlap=128
+        # Use SmartNodeSplitter with hierarchy tracking
+        LlamaSettings.node_parser = SmartNodeSplitter(
+            max_tokens=settings.retrieval.MAX_TOKENS,
+            sub_chunk_size=settings.retrieval.CHUNK_SIZE,
+            sub_chunk_overlap=settings.retrieval.CHUNK_OVERLAP
         )
 
         self.llm = create_llm(

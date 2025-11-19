@@ -38,6 +38,7 @@ class Credentials:
         load_dotenv()
         self.OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
         self.LLAMA_CLOUD_API_KEY = os.getenv("LLAMA_CLOUD_API_KEY")
+        self.GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 class LLM:
     """LLM configuration (models, providers)."""
@@ -117,6 +118,22 @@ class QueryRouting:
         self.CLASSIFICATION_MODEL = os.getenv("CLASSIFICATION_MODEL", "gpt-4.1-nano")
         self.CLASSIFICATION_TEMPERATURE = float(os.getenv("CLASSIFICATION_TEMPERATURE", "0.0"))
 
+class Preprocessing:
+    """Configuration for markdown preprocessing (structure fixing)."""
+    def __init__(self):
+        """Load preprocessing configs from environment."""
+        load_dotenv()
+
+        # Google Gemini for markdown fixing
+        self.GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        self.GEMINI_TEMPERATURE = float(os.getenv("GEMINI_TEMPERATURE", "0.1"))
+        self.GEMINI_MAX_OUTPUT_TOKENS = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "65000"))  # Gemini 2.5 Flash supports up to 65,536
+
+        # Rate limiting (Google AI Studio free tier - Gemini 2.5 Flash)
+        self.GEMINI_RPM = int(os.getenv("GEMINI_RPM", "10"))  # Requests per minute
+        self.GEMINI_TPM = int(os.getenv("GEMINI_TPM", "250000"))  # Tokens per minute (input only)
+        self.GEMINI_RPD = int(os.getenv("GEMINI_RPD", "250"))  # Requests per day
+
 # --- Main Settings Singleton Class ---
 
 class Settings:
@@ -140,6 +157,7 @@ class Settings:
         self.retrieval = Retrieval()
         self.processing = Processing()
         self.query_routing = QueryRouting()
+        self.preprocessing = Preprocessing()
 
         self._ensure_directories()
 

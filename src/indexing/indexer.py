@@ -1,5 +1,5 @@
 """
-RAG Vector Store Builder - Multi-collection, category-based indexing.
+Document Indexer - Category-based indexing for ChromaDB.
 
 This module provides tools for building ChromaDB vector stores from processed documents,
 with separate collections per category (regulations, curriculum, etc.).
@@ -8,7 +8,6 @@ with separate collections per category (regulations, curriculum, etc.).
 import chromadb
 import os
 import json
-import argparse
 from pathlib import Path
 from typing import List, Optional, Dict
 
@@ -23,33 +22,29 @@ from llama_index.core import (
     Settings as LlamaSettings, # Use alias to avoid confusion with our own Settings
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
-from src.indexing.hierarchical_markdown_parser_v2 import HierarchicalMarkdownParserV2
+from src.indexing.splitters import SmartNodeSplitter
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 
-class RagBuilder:
+class DocumentIndexer:
     """
-    RAG Builder - Multi-collection support for category-based indexing.
+    Document Indexer - Category-based indexing for ChromaDB.
 
     Creates separate ChromaDB collections for each category:
     - regulations
     - curriculum
     - (future: announcements, other)
 
-    Works with the new flat processed structure:
-        processed/{domain}/{category}/{document_id}.md
-        processed/{domain}/{category}/{document_id}.json
+    Works with flat processed structure:
+        processed/{category}/{document_id}.md
+        processed/{category}/{document_id}.json
     """
 
-    def __init__(self, domain: str = "daa.uit.edu.vn"):
+    def __init__(self):
         """
-        Initialize builder for a specific domain.
-
-        Args:
-            domain: Domain name (e.g., "daa.uit.edu.vn")
+        Initialize document indexer.
         """
-        print(f"[INFO] Initializing RagBuilderV2 for domain: {domain}")
-        self.domain = domain
+        print(f"[INFO] Initializing DocumentIndexer")
 
         # Configure global LlamaIndex Settings
         if not settings.credentials.OPENAI_API_KEY:
@@ -60,12 +55,12 @@ class RagBuilder:
             api_key=settings.credentials.OPENAI_API_KEY
         )
 
-        # Use custom HierarchicalMarkdownParserV2
-        # 1. Parses markdown by headers, tracking full hierarchy
-        # 2. Prepends document context + header path to each chunk
-        # 3. Token-aware sub-chunking with context preservation
-        # 4. All settings centralized in config
-        node_parser = HierarchicalMarkdownParserV2(
+        # Use SmartNodeSplitter for intelligent chunking
+        # 1. Pattern detection (Điều X, CHƯƠNG X) for Vietnamese regulations
+        # 2. Title chunk merging for cleaner document structure
+        # 3. Malformed markdown cleanup
+        # 4. Token-aware sub-chunking with context preservation
+        node_parser = SmartNodeSplitter(
             max_tokens=settings.retrieval.MAX_TOKENS,
             sub_chunk_size=settings.retrieval.CHUNK_SIZE,
             sub_chunk_overlap=settings.retrieval.CHUNK_OVERLAP
@@ -86,7 +81,7 @@ class RagBuilder:
 
     def build_collection(self, category: str) -> bool:
         """
-        Build a specific collection from processed/{domain}/{category}/ files.
+        Build a specific collection from processed/{category}/ files.
 
         Args:
             category: Category name (e.g., "regulation", "curriculum")
@@ -99,7 +94,7 @@ class RagBuilder:
         print(f"{'='*70}\n")
 
         # Get category directory
-        category_dir = settings.paths.PROCESSED_DATA_DIR / self.domain / category
+        category_dir = settings.paths.PROCESSED_DATA_DIR / category
 
         if not category_dir.exists():
             print(f"[WARNING] Category directory not found: {category_dir}")
@@ -111,6 +106,10 @@ class RagBuilder:
         if not documents:
             print(f"[INFO] No documents found in category: {category}")
             return False
+
+        # Clean metadata (remove non-primitive types for ChromaDB)
+        for doc in documents:
+            doc.metadata = self._clean_metadata(doc.metadata)
 
         try:
             # Create/get collection (domain in metadata, no prefix needed)
@@ -130,7 +129,7 @@ class RagBuilder:
             # Print parsing stats
             if hasattr(node_parser, 'get_stats'):
                 stats = node_parser.get_stats()
-                print(f"[INFO] Parsing stats: {stats['total_nodes']} initial nodes, {stats['large_nodes_split']} split, {stats['final_nodes']} final nodes")
+                print(f"[INFO] Parsing stats: {stats['total_chunks']} initial chunks, {stats['large_chunks_split']} split, {stats['final_nodes']} final nodes")
 
             # Build index from parsed nodes
             print(f"[INFO] Embedding & indexing {len(nodes)} nodes...")
@@ -167,8 +166,7 @@ class RagBuilder:
             categories = settings.processing.PROCESS_CATEGORIES
 
         print("\n" + "="*70)
-        print(f"🚀 RAG BUILDER V2 - MULTI-COLLECTION BUILD")
-        print(f"   Domain: {self.domain}")
+        print(f"🚀 DOCUMENT INDEXER - MULTI-COLLECTION BUILD")
         print(f"   Categories: {', '.join(categories)}")
         print("="*70 + "\n")
 
@@ -196,7 +194,7 @@ class RagBuilder:
         Returns:
             List of Document objects
         """
-        category_dir = settings.paths.PROCESSED_DATA_DIR / self.domain / category
+        category_dir = settings.paths.PROCESSED_DATA_DIR / category
 
         if not category_dir.exists():
             return []
@@ -241,6 +239,33 @@ class RagBuilder:
 
         return documents
 
+    def _clean_metadata(self, metadata: Dict) -> Dict:
+        """
+        Clean metadata to only include ChromaDB-compatible types.
+
+        ChromaDB only accepts: str, int, float, None
+        Removes: list, dict, tuple, etc.
+
+        Args:
+            metadata: Original metadata dict
+
+        Returns:
+            Cleaned metadata dict
+        """
+        cleaned = {}
+        for key, value in metadata.items():
+            # Keep only primitive types
+            if isinstance(value, (str, int, float)) or value is None:
+                cleaned[key] = value
+            elif isinstance(value, list):
+                # Convert list to comma-separated string
+                if value and isinstance(value[0], str):
+                    cleaned[key] = ", ".join(value)
+                # Ignore non-string lists
+            # Ignore dict, tuple, and other complex types
+
+        return cleaned
+
     def _print_stats(self):
         """Print build statistics."""
         print("\n" + "="*70)
@@ -257,102 +282,3 @@ class RagBuilder:
 
         print(f"\n   Vector store location: {settings.paths.VECTOR_STORE_DIR}")
         print("="*70 + "\n")
-
-
-# Convenience functions for V2
-def build_domain(domain: str, categories: Optional[List[str]] = None) -> Dict:
-    """
-    Build collections for a specific domain using V2 pipeline.
-
-    Args:
-        domain: Domain name (e.g., "daa.uit.edu.vn")
-        categories: List of categories to build (None = use settings)
-
-    Returns:
-        Build statistics dict
-
-    Example:
-        >>> from src.indexing.builder import build_domain
-        >>> stats = build_domain("daa.uit.edu.vn", categories=["regulation", "curriculum"])
-    """
-    builder = RagBuilder(domain=domain)
-    return builder.build_all_collections(categories=categories)
-
-
-def build_all_domains(categories: Optional[List[str]] = None) -> Dict:
-    """
-    Build collections for all configured domains using V2 pipeline.
-
-    Args:
-        categories: List of categories to build (None = use settings)
-
-    Returns:
-        Combined build statistics dict
-
-    Example:
-        >>> from src.indexing.builder import build_all_domains
-        >>> stats = build_all_domains(categories=["regulation"])
-    """
-    all_stats = {
-        "collections_built": 0,
-        "documents_indexed": 0,
-        "errors": []
-    }
-
-    for domain in settings.domains.START_URLS.keys():
-        print(f"\n{'='*70}")
-        print(f"Processing domain: {domain}")
-        print(f"{'='*70}")
-
-        builder = RagBuilder(domain=domain)
-        stats = builder.build_all_collections(categories=categories)
-
-        all_stats["collections_built"] += stats["collections_built"]
-        all_stats["documents_indexed"] += stats["documents_indexed"]
-        all_stats["errors"].extend(stats["errors"])
-
-    return all_stats
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description='Build RAG vector store with multi-collection support.',
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-  # Build all collections for all domains
-  python -m src.indexing.builder
-
-  # Build specific domain
-  python -m src.indexing.builder --domain daa.uit.edu.vn
-
-  # Build specific categories only
-  python -m src.indexing.builder --domain daa.uit.edu.vn --categories regulation,curriculum
-        """
-    )
-    parser.add_argument(
-        '--domain', '-d',
-        type=str,
-        help='Build for a specific domain (e.g., daa.uit.edu.vn)'
-    )
-    parser.add_argument(
-        '--categories', '-c',
-        type=str,
-        help='Comma-separated categories to build (e.g., regulation,curriculum)'
-    )
-
-    args = parser.parse_args()
-
-    # Parse categories
-    categories = None
-    if args.categories:
-        categories = [c.strip() for c in args.categories.split(',')]
-
-    # Build
-    if args.domain:
-        if args.domain not in settings.domains.START_URLS:
-            print(f"[ERROR] Domain '{args.domain}' not configured")
-        else:
-            build_domain(args.domain, categories)
-    else:
-        build_all_domains(categories)

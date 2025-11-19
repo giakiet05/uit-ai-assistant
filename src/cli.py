@@ -5,20 +5,21 @@ Usage:
     ua <command> [options]
 
 Commands:
-    crawl     - Crawl websites for raw data
-    parse     - Parse attachments to markdown (legacy)
-    clean     - Stage 1: Parse & clean raw files (costs money)
-    metadata  - Stage 2: Generate metadata from processed files (cheap, can re-run)
-    process   - Run both stages (parse/clean + metadata)
-    build     - Build vector store index
-    pipeline  - Run full pipeline (crawl -> process)
+    crawl        - Crawl websites for raw data
+    parse        - Parse attachments to markdown (legacy)
+    clean        - Stage 1: Parse & clean raw files (costs money)
+    metadata     - Stage 2: Generate metadata from processed files (cheap, can re-run)
+    process      - Run both stages (parse/clean + metadata)
+    fix-markdown - Fix markdown structure using Gemini LLM
+    index        - Build vector store index from processed documents
+    pipeline     - Run full pipeline (crawl -> process)
 
 Examples:
     ua crawl --domain daa.uit.edu.vn
     ua clean --categories regulation,curriculum
     ua metadata --categories regulation,curriculum --force
     ua process --categories regulation,curriculum
-    ua build --categories regulation,curriculum
+    ua index --categories regulation,curriculum
 """
 
 import argparse
@@ -37,7 +38,7 @@ Examples:
   ua clean --categories regulation,curriculum
   ua metadata --categories regulation --force
   ua process --categories regulation
-  ua build --categories regulation,curriculum
+  ua index --categories regulation,curriculum
   ua pipeline
         """
     )
@@ -128,16 +129,31 @@ Examples:
         help="Skip Stage 2 (metadata) - only parse/clean"
     )
 
-    # ===== BUILD =====
-    build_parser = subparsers.add_parser(
-        "build",
-        help="Build vector store index (multi-collection, category-based)"
+    # ===== FIX-MARKDOWN =====
+    fix_markdown_parser = subparsers.add_parser(
+        "fix-markdown",
+        help="Fix markdown structure using Gemini LLM"
     )
-    build_parser.add_argument(
-        "--domain", "-d",
-        help="Specific domain to build (default: all)"
+    fix_markdown_parser.add_argument(
+        "--category", "-c",
+        help="Category to fix (regulation, curriculum, etc.)"
     )
-    build_parser.add_argument(
+    fix_markdown_parser.add_argument(
+        "--file", "-f",
+        help="Single file to fix (overrides --category)"
+    )
+    fix_markdown_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview changes without saving"
+    )
+
+    # ===== INDEX =====
+    index_parser = subparsers.add_parser(
+        "index",
+        help="Build vector store index from processed documents"
+    )
+    index_parser.add_argument(
         "--categories", "-c",
         help="Comma-separated categories (e.g., regulation,curriculum)"
     )
@@ -169,9 +185,16 @@ Examples:
         elif args.command == "process":
             from src.commands.process import run_process
             run_process(args)
-        elif args.command == "build":
-            from src.commands.build import run_build
-            run_build(args)
+        elif args.command == "fix-markdown":
+            from src.commands.fix_markdown import fix_markdown_command
+            fix_markdown_command(
+                category=args.category,
+                file_path=args.file,
+                dry_run=args.dry_run
+            )
+        elif args.command == "index":
+            from src.commands.index import run_index
+            run_index(args)
         elif args.command == "pipeline":
             from src.commands.pipeline import run_pipeline
             run_pipeline(args)
