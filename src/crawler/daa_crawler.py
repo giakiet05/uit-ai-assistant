@@ -3,13 +3,17 @@ Crawler implementation for daa.uit.edu.vn.
 """
 import os
 import re
-
+from .filters.daa_filter import DaaUrlFilter
 from crawl4ai import (
     AsyncWebCrawler, BrowserConfig, CacheMode, CrawlerRunConfig,
     BestFirstCrawlingStrategy, KeywordRelevanceScorer, FilterChain, DomainFilter
 )
 
-from src.config import RAW_DATA_DIR, MAX_PAGES_PER_DOMAIN
+from src.config import settings
+
+RAW_DATA_DIR = settings.paths.RAW_DATA_DIR
+MAX_PAGES_PER_DOMAIN = settings.env.MAX_PAGES_PER_DOMAIN
+
 from src.crawler.base_crawler import BaseCrawler
 from src.crawler.crawler_helper import (
     create_or_get_folder_for_url, download_file, extract_title_from_content,
@@ -25,27 +29,46 @@ class DaaCrawler(BaseCrawler):
         """Executes the crawling logic for DAA website."""
         print(f"Initializing DAA crawler for domain: {self.domain}")
 
-        scorer = KeywordRelevanceScorer(
-            keywords=[
-                "thong-bao", "page", "trang", "lich-thi", "quy-dinh", "tot-nghiep",
-                "hoc-tap", "ke-hoach", "ban-hanh", "cap-nhat", "ky-thi", "khao-sat",
-                "2022", "2023", "2024", "2025"
-            ],
-            weight=0.8
-        )
+        url_filter = DaaUrlFilter()
+
+        def _is_important(url: str) -> bool:
+            return url_filter.is_important(url)
+
+        def _get_priority(url: str) -> float:
+            # get_priority trả về int 0-100 theo code của bạn
+            try:
+                return float(url_filter.get_priority(url) or 0)
+            except Exception:
+                return 50.0
+
+        def custom_url_scorer(url: str) -> float:
+            """Trả về score trong [0.0, 1.0] dựa trên filter.get_priority."""
+            try:
+                if not _is_important(url):
+                    return 0.0
+                p = _get_priority(url)
+                # Clip defensively
+                if p < 0:
+                    p = 0.0
+                if p > 100:
+                    p = 100.0
+                return p / 100.0
+            except Exception as e:
+                print(f"[WARN] url_scorer error for {url}: {e}")
+                return 0.5
 
         filter_chain = FilterChain([
             DomainFilter(allowed_domains=[self.domain]),
         ])
 
         strategy = BestFirstCrawlingStrategy(
-            max_depth=2,
+            max_depth=3,  # bạn có thể điều chỉnh về 2 nếu muốn ít sâu hơn
             include_external=False,
-            url_scorer=scorer,
-            max_pages=MAX_PAGES_PER_DOMAIN,
+            url_scorer=custom_url_scorer,
+            # --- FIX: Use settings.crawler.MAX_PAGES_PER_DOMAIN ---
+            max_pages=settings.crawler.MAX_PAGES_PER_DOMAIN,
             filter_chain=filter_chain,
         )
-
         browser_config = BrowserConfig(verbose=True)
         run_config = CrawlerRunConfig(
             deep_crawl_strategy=strategy,
@@ -73,7 +96,10 @@ class DaaCrawler(BaseCrawler):
                 if not (result.markdown and result.markdown.strip()):
                     print(f"[INFO] No content found: {result.url}")
                     continue
-
+                
+                if not url_filter.is_important(result.url):
+                    print(f"[SKIP] Unimportant URL: {result.url}")
+                    continue
                 title = extract_title_from_content(result.markdown) or f"Page {i + 1}"
                 folder_saved = save_crawled_data(
                     url=result.url,
@@ -84,7 +110,8 @@ class DaaCrawler(BaseCrawler):
 
                 downloaded_files_count = 0
                 if folder_saved:
-                    page_folder = create_or_get_folder_for_url(result.url, RAW_DATA_DIR)
+                    # --- FIX: Use settings.paths.RAW_DATA_DIR ---
+                    page_folder = create_or_get_folder_for_url(result.url, str(settings.paths.RAW_DATA_DIR))
                     downloadable_links = filter_downloadable_links(result.links["internal"])
                     for file_url in downloadable_links:
                         absolute_file_url = make_absolute_url(file_url, result.url)

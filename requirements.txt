@@ -1,0 +1,14 @@
+# Existing dependencies
+crawl4ai
+fastapi
+uvicorn
+pydantic
+
+# NEW - For scraping
+beautifulsoup4==4.12.3
+lxml~=5.3     # FIX: crawl4ai requires lxml >=5.3,<5.4
+
+# NEW - For testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0

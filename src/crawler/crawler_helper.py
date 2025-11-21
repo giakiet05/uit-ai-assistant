@@ -45,9 +45,15 @@ def create_or_get_folder_for_url(url: str, base_dir: str) -> str:
     return full_path
 
 
-def save_crawled_data(url: str, title: str, content: str):
+def save_crawled_data(url: str, title: str, content: str, source_urls: list = None):
     """
     Saves crawled data into an organized folder structure with essential metadata.
+    
+    Args:
+        url: The URL being saved
+        title: Title of the content
+        content: Markdown content
+        source_urls: Optional list of source URLs (for backwards compatibility)
     """
     print(f"[INFO] Saving data for {url}")
 
@@ -70,6 +76,47 @@ def save_crawled_data(url: str, title: str, content: str):
 
     print(f"[INFO] Data saved to: {folder_path}")
     return folder_path
+
+
+def save_user_crawled_data(username: str, data_type: str, url: str, title: str, content: str):
+    """
+    Save user-specific crawled data (schedule, grades, exams).
+    
+    Args:
+        username: User identifier
+        data_type: Type of data (schedule, exams, grades)
+        url: Source URL
+        title: Content title
+        content: Markdown content
+    """
+    print(f"[INFO] Saving {data_type} data for user {username}")
+    
+    # Create user-specific folder structure
+    user_folder = os.path.join(str(settings.paths.RAW_DATA_DIR), "user_data", username)
+    data_folder = os.path.join(user_folder, data_type)
+    os.makedirs(data_folder, exist_ok=True)
+    
+    # Save content
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    content_file = os.path.join(data_folder, f'{data_type}_{timestamp}.md')
+    with open(content_file, 'w', encoding='utf-8') as f:
+        f.write(content)
+    
+    # Save metadata
+    metadata = {
+        "username": username,
+        "data_type": data_type,
+        "original_url": url,
+        "title": title,
+        "crawled_at": datetime.now().isoformat() + "Z",
+    }
+    
+    metadata_file = os.path.join(data_folder, f'metadata_{timestamp}.json')
+    with open(metadata_file, 'w', encoding='utf-8') as f:
+        json.dump(metadata, f, ensure_ascii=False, indent=2)
+    
+    print(f"[INFO] User data saved to: {data_folder}")
+    return data_folder
 
 
 def extract_title_from_content(content: str) -> str:

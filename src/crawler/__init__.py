@@ -15,6 +15,8 @@ from .base_crawler import BaseCrawler
 from .crawler_factory import CrawlerFactory
 from .daa_crawler import DaaCrawler
 from .uit_crawler import UitCrawler
+from .authenticated_crawler import AuthenticatedCrawler
+from .daa_student_crawler import DaaStudentCrawler
 from .crawler_core import crawl_all
 
 # Explicitly define the public API of the crawler package
@@ -23,5 +25,7 @@ __all__ = [
     "CrawlerFactory",
     "DaaCrawler",
     "UitCrawler",
+    "AuthenticatedCrawler",
+    "DaaStudentCrawler",
     "crawl_all",
 ]
