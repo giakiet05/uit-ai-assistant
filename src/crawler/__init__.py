@@ -23,6 +23,8 @@ __all__ = [
     "CrawlerFactory",
     "DaaCrawler",
     "UitCrawler",
+    "AuthenticatedCrawler",
+    "DaaStudentCrawler",
     "crawl_all",
     "crawl_domain"
 ]
