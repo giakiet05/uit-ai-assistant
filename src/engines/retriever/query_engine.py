@@ -1,13 +1,14 @@
 """
-QueryEngine - Orchestrates multiple retrieval methods and re-ranking.
+QueryEngine - Orchestrates blended retrieval and re-ranking.
 
-This engine:
+This engine uses a blended retrieval approach:
 1. Retrieves from multiple indexes (dense vector, BM25, sparse vector)
 2. Merges and deduplicates results
 3. Re-ranks with a reranker model
 4. Returns top-k most relevant documents
 
 Design Philosophy:
+- Blended: Always query all available indexes and merge results
 - Modular: Easy to add new retrieval methods
 - Composable: Can be used as MCP tool or standalone
 - Configurable: All parameters tunable via settings
@@ -35,15 +36,16 @@ class RetrievalResult:
 
 class QueryEngine:
     """
-    Main query engine that orchestrates multiple retrieval methods.
+    Main query engine that orchestrates blended retrieval.
+
+    Blended retrieval: Always queries all available indexes and merges results.
 
     Current support:
     - Dense vector retrieval (OpenAI embeddings)
 
-    Future support:
+    Future support (will be automatically included in blended retrieval):
     - BM25 lexical search
     - Sparse vector retrieval (SPLADE)
-    - Hybrid retrieval (fusion of multiple methods)
     """
 
     def __init__(
@@ -60,13 +62,13 @@ class QueryEngine:
         Args:
             collections: Dict of collection_name -> VectorStoreIndex
             use_reranker: Whether to use reranker after retrieval
-            reranker_model: Reranker model name (default: "cross-encoder/ms-marco-MiniLM-L-12-v2")
+            reranker_model: Reranker model name (default: "namdp-ptit/ViRanker" for Vietnamese)
             top_k: Final number of documents to return
             retrieval_top_k: Number of documents to retrieve before reranking
         """
         self.collections = collections
         self.use_reranker = use_reranker
-        self.reranker_model = reranker_model or "cross-encoder/ms-marco-MiniLM-L-12-v2"
+        self.reranker_model = reranker_model or "namdp-ptit/ViRanker"
         self.top_k = top_k
         self.retrieval_top_k = retrieval_top_k
 
@@ -99,17 +101,20 @@ class QueryEngine:
         # self.sparse_retriever = SparseVectorRetriever(...)
 
     def _setup_reranker(self):
-        """Setup reranker model."""
+        """Setup reranker model (ViRanker for Vietnamese)."""
         try:
-            from sentence_transformers import CrossEncoder
+            from FlagEmbedding import FlagReranker
 
-            print(f"[RERANKER] Loading model: {self.reranker_model}")
-            self.reranker = CrossEncoder(self.reranker_model)
-            print(f"[RERANKER] Model loaded successfully")
+            print(f"[RERANKER] Loading ViRanker model: {self.reranker_model}")
+            self.reranker = FlagReranker(
+                self.reranker_model,
+                use_fp16=True  # Faster inference
+            )
+            print(f"[RERANKER] ViRanker loaded successfully")
 
         except ImportError:
-            print("[WARNING] sentence-transformers not installed. Reranker disabled.")
-            print("           Install with: pip install sentence-transformers")
+            print("[WARNING] FlagEmbedding not installed. Reranker disabled.")
+            print("           Install with: pip install -U FlagEmbedding")
             self.use_reranker = False
         except Exception as e:
             print(f"[WARNING] Failed to load reranker: {e}")
@@ -118,55 +123,84 @@ class QueryEngine:
     def retrieve(
         self,
         query: str,
-        method: str = "dense",
         use_reranker: Optional[bool] = None
     ) -> RetrievalResult:
         """
-        Main retrieval method.
+        Blended retrieval: Query all available indexes, merge and rerank.
+
+        Pipeline:
+        1. Dense vector retrieval
+        2. BM25 retrieval (TODO)
+        3. Sparse vector retrieval (TODO)
+        4. Merge & deduplicate
+        5. Rerank
+        6. Return top-k
 
         Args:
             query: User query string
-            method: Retrieval method ("dense", "bm25", "hybrid")
             use_reranker: Override default reranker setting
 
         Returns:
             RetrievalResult with retrieved and reranked nodes
         """
         print(f"\n{'='*70}")
+        print(f"[QUERY ENGINE] Blended Retrieval")
         print(f"[QUERY ENGINE] Query: {query}")
-        print(f"[QUERY ENGINE] Method: {method}")
         print(f"{'='*70}\n")
 
-        # Step 1: Retrieve with selected method
-        if method == "dense":
-            nodes = self._retrieve_dense(query)
-        elif method == "bm25":
-            nodes = self._retrieve_bm25(query)
-        elif method == "hybrid":
-            nodes = self._retrieve_hybrid(query)
-        else:
-            raise ValueError(f"Unknown retrieval method: {method}")
+        # Step 1: Retrieve from all available indexes
+        all_nodes = []
 
-        total_retrieved = len(nodes)
-        print(f"[QUERY ENGINE] Retrieved {total_retrieved} nodes")
+        # Dense vector retrieval
+        print("[QUERY ENGINE] Retrieving from dense vector index...")
+        dense_nodes = self._retrieve_dense(query)
+        all_nodes.extend(dense_nodes)
+        print(f"  → Found {len(dense_nodes)} nodes")
 
-        # Step 2: Rerank if enabled
+        # BM25 retrieval (TODO)
+        if hasattr(self, 'bm25_retriever'):
+            print("[QUERY ENGINE] Retrieving from BM25 index...")
+            bm25_nodes = self._retrieve_bm25(query)
+            all_nodes.extend(bm25_nodes)
+            print(f"  → Found {len(bm25_nodes)} nodes")
+
+        # Sparse vector retrieval (TODO)
+        if hasattr(self, 'sparse_retriever'):
+            print("[QUERY ENGINE] Retrieving from sparse vector index...")
+            sparse_nodes = self._retrieve_sparse(query)
+            all_nodes.extend(sparse_nodes)
+            print(f"  → Found {len(sparse_nodes)} nodes")
+
+        # Step 2: Deduplicate & merge
+        print(f"\n[QUERY ENGINE] Merging {len(all_nodes)} nodes...")
+        merged_nodes = self._deduplicate_nodes(all_nodes)
+        print(f"  → After deduplication: {len(merged_nodes)} nodes")
+
+        # Step 3: Sort by score
+        merged_nodes.sort(key=lambda x: x.score, reverse=True)
+
+        # Take top retrieval_top_k before reranking
+        top_nodes = merged_nodes[:self.retrieval_top_k]
+        total_retrieved = len(top_nodes)
+        print(f"[QUERY ENGINE] Top {total_retrieved} nodes selected for reranking")
+
+        # Step 4: Rerank if enabled
         should_rerank = use_reranker if use_reranker is not None else self.use_reranker
 
         if should_rerank and total_retrieved > 0:
-            nodes = self._rerank(query, nodes)
+            top_nodes = self._rerank(query, top_nodes)
             reranked = True
         else:
             reranked = False
 
-        # Step 3: Take top-k
-        final_nodes = nodes[:self.top_k]
+        # Step 5: Final top-k
+        final_nodes = top_nodes[:self.top_k]
 
         print(f"[QUERY ENGINE] Final result: {len(final_nodes)} nodes (reranked: {reranked})\n")
 
         return RetrievalResult(
             nodes=final_nodes,
-            retrieval_method=method,
+            retrieval_method="blended",
             reranked=reranked,
             total_retrieved=total_retrieved,
             final_count=len(final_nodes)
@@ -180,18 +214,45 @@ class QueryEngine:
     def _retrieve_bm25(self, query: str) -> List[NodeWithScore]:
         """Retrieve using BM25 lexical search."""
         # TODO: Implement BM25 retrieval
-        print("[WARNING] BM25 not implemented yet, falling back to dense retrieval")
-        return self._retrieve_dense(query)
+        # return self.bm25_retriever.retrieve(query)
+        return []
 
-    def _retrieve_hybrid(self, query: str) -> List[NodeWithScore]:
-        """Retrieve using hybrid method (fusion of dense + BM25)."""
-        # TODO: Implement hybrid retrieval with score fusion
-        print("[WARNING] Hybrid retrieval not implemented yet, falling back to dense retrieval")
-        return self._retrieve_dense(query)
+    def _retrieve_sparse(self, query: str) -> List[NodeWithScore]:
+        """Retrieve using sparse vector (SPLADE)."""
+        # TODO: Implement sparse vector retrieval
+        # return self.sparse_retriever.retrieve(query)
+        return []
+
+    def _deduplicate_nodes(self, nodes: List[NodeWithScore]) -> List[NodeWithScore]:
+        """
+        Deduplicate nodes by node ID.
+
+        When the same chunk is retrieved from multiple indexes (e.g., dense + BM25),
+        keep only the node with the highest score.
+
+        Args:
+            nodes: List of retrieved nodes
+
+        Returns:
+            Deduplicated list of nodes
+        """
+        node_map = {}
+
+        for node in nodes:
+            node_id = node.node.node_id
+
+            if node_id not in node_map:
+                node_map[node_id] = node
+            else:
+                # Keep node with higher score
+                if node.score > node_map[node_id].score:
+                    node_map[node_id] = node
+
+        return list(node_map.values())
 
     def _rerank(self, query: str, nodes: List[NodeWithScore]) -> List[NodeWithScore]:
         """
-        Rerank nodes using cross-encoder model.
+        Rerank nodes using ViRanker (Vietnamese reranking model).
 
         Args:
             query: User query
@@ -203,13 +264,17 @@ class QueryEngine:
         if not self.use_reranker or not hasattr(self, 'reranker'):
             return nodes
 
-        print(f"[RERANKER] Reranking {len(nodes)} nodes...")
+        print(f"[RERANKER] Reranking {len(nodes)} nodes with ViRanker...")
 
-        # Prepare pairs for reranker
-        pairs = [(query, node.node.get_content()) for node in nodes]
+        # Prepare pairs for reranker (FlagReranker uses list of lists)
+        pairs = [[query, node.node.get_content()] for node in nodes]
 
-        # Get reranker scores
-        scores = self.reranker.predict(pairs)
+        # Get reranker scores (normalized to [0,1] range)
+        scores = self.reranker.compute_score(pairs, normalize=True)
+
+        # Handle single score vs list
+        if not isinstance(scores, list):
+            scores = [scores]
 
         # Update node scores and sort
         for node, score in zip(nodes, scores):
@@ -221,28 +286,24 @@ class QueryEngine:
 
         return nodes
 
-    def retrieve_with_metadata(
-        self,
-        query: str,
-        method: str = "dense"
-    ) -> Dict:
+    def retrieve_with_metadata(self, query: str) -> Dict:
         """
         Retrieve and return formatted result with metadata.
 
         This is the method that will be exposed via MCP tool.
+        Uses blended retrieval (all available indexes).
 
         Args:
             query: User query
-            method: Retrieval method
 
         Returns:
             Dict with documents and metadata
         """
-        result = self.retrieve(query, method)
+        result = self.retrieve(query)
 
         return {
             "query": query,
-            "method": result.retrieval_method,
+            "method": "blended",
             "reranked": result.reranked,
             "total_retrieved": result.total_retrieved,
             "final_count": result.final_count,
