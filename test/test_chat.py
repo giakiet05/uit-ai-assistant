@@ -76,12 +76,20 @@ def main():
             if 'source_nodes' in result and result['source_nodes']:
                 print("📚 Sources:")
                 for i, source_node in enumerate(result['source_nodes']):
-                    print(f"  [{i+1}] Score: {source_node.score:.4f}")
+                    score = source_node.get('score', 0.0)
+                    text = source_node.get('text', '')
+                    metadata = source_node.get('metadata', {})
+
+                    print(f"  [{i+1}] Score: {score:.4f}")
+                    print(f"      Text preview: {text[:100]}...")
+
                     # Access metadata that we attached during the build process
-                    if 'original_url' in source_node.metadata:
-                        print(f"      - URL: {source_node.metadata['original_url']}")
-                    if 'title' in source_node.metadata:
-                        print(f"      - Title: {source_node.metadata['title']}")
+                    if 'source_url' in metadata:
+                        print(f"      URL: {metadata['source_url'][:60]}...")
+                    if 'title' in metadata:
+                        print(f"      Title: {metadata['title'][:60]}...")
+                    if 'document_id' in metadata:
+                        print(f"      Doc ID: {metadata['document_id']}")
             else:
                 print("📚 No sources found.")
 
