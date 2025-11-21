@@ -5,16 +5,21 @@ Usage:
     ua <command> [options]
 
 Commands:
-    crawl     - Crawl websites for raw data
-    parse     - Parse attachments to markdown (legacy)
-    process   - Run processing pipeline v2 (categorize + clean + filter + parse)
-    build     - Build vector store index
-    pipeline  - Run full pipeline (crawl -> process)
+    crawl        - Crawl websites for raw data
+    parse        - Parse attachments to markdown (legacy)
+    clean        - Stage 1: Parse & clean raw files (costs money)
+    metadata     - Stage 2: Generate metadata from processed files (cheap, can re-run)
+    process      - Run both stages (parse/clean + metadata)
+    fix-markdown - Fix markdown structure using Gemini LLM
+    index        - Build vector store index from processed documents
+    pipeline     - Run full pipeline (crawl -> process)
 
 Examples:
     ua crawl --domain daa.uit.edu.vn
-    ua process --domain daa.uit.edu.vn --categories regulation,curriculum
-    ua build --domain daa.uit.edu.vn --categories regulation,curriculum
+    ua clean --categories regulation,curriculum
+    ua metadata --categories regulation,curriculum --force
+    ua process --categories regulation,curriculum
+    ua index --categories regulation,curriculum
 """
 
 import argparse
@@ -30,9 +35,10 @@ def main():
         epilog="""
 Examples:
   ua crawl --domain daa.uit.edu.vn
-  ua clean --domain daa.uit.edu.vn
-  ua process --domain daa.uit.edu.vn --categories regulation
-  ua build --v2 --domain daa.uit.edu.vn
+  ua clean --categories regulation,curriculum
+  ua metadata --categories regulation --force
+  ua process --categories regulation
+  ua index --categories regulation,curriculum
   ua pipeline
         """
     )
@@ -63,30 +69,91 @@ Examples:
         help="Specific folder path to parse"
     )
 
-    # ===== PROCESS (V2) =====
+    # ===== CLEAN (STAGE 1) =====
+    clean_parser = subparsers.add_parser(
+        "clean",
+        help="Stage 1: Parse & clean raw files (costs money via LlamaParse)"
+    )
+    clean_parser.add_argument(
+        "--categories", "-c",
+        help="Comma-separated categories to process (e.g., regulation,curriculum)"
+    )
+    clean_parser.add_argument(
+        "--force", "-f",
+        action="store_true",
+        help="Force re-process existing files"
+    )
+
+    # ===== METADATA (STAGE 2) =====
+    metadata_parser = subparsers.add_parser(
+        "metadata",
+        help="Stage 2: Generate metadata from processed files (cheap, can re-run)"
+    )
+    metadata_parser.add_argument(
+        "--categories", "-c",
+        help="Comma-separated categories to process (e.g., regulation,curriculum)"
+    )
+    metadata_parser.add_argument(
+        "--force", "-f",
+        action="store_true",
+        help="Force regenerate metadata even if exists"
+    )
+
+    # ===== PROCESS (V2 - BOTH STAGES) =====
     process_parser = subparsers.add_parser(
         "process",
-        help="Run processing pipeline v2 (categorization + metadata + parsing)"
-    )
-    process_parser.add_argument(
-        "--domain", "-d",
-        help="Specific domain to process (default: all)"
+        help="Run both stages (parse/clean + metadata)"
     )
     process_parser.add_argument(
         "--categories", "-c",
         help="Comma-separated categories to process (e.g., regulation,curriculum)"
     )
+    process_parser.add_argument(
+        "--force-parse",
+        action="store_true",
+        help="Force re-parse/clean existing files (Stage 1)"
+    )
+    process_parser.add_argument(
+        "--force-metadata",
+        action="store_true",
+        help="Force regenerate metadata even if exists (Stage 2)"
+    )
+    process_parser.add_argument(
+        "--skip-stage1",
+        action="store_true",
+        help="Skip Stage 1 (parse/clean) - only generate metadata"
+    )
+    process_parser.add_argument(
+        "--skip-stage2",
+        action="store_true",
+        help="Skip Stage 2 (metadata) - only parse/clean"
+    )
 
-    # ===== BUILD =====
-    build_parser = subparsers.add_parser(
-        "build",
-        help="Build vector store index (multi-collection, category-based)"
+    # ===== FIX-MARKDOWN =====
+    fix_markdown_parser = subparsers.add_parser(
+        "fix-markdown",
+        help="Fix markdown structure using Gemini LLM"
     )
-    build_parser.add_argument(
-        "--domain", "-d",
-        help="Specific domain to build (default: all)"
+    fix_markdown_parser.add_argument(
+        "--category", "-c",
+        help="Category to fix (regulation, curriculum, etc.)"
     )
-    build_parser.add_argument(
+    fix_markdown_parser.add_argument(
+        "--file", "-f",
+        help="Single file to fix (overrides --category)"
+    )
+    fix_markdown_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview changes without saving"
+    )
+
+    # ===== INDEX =====
+    index_parser = subparsers.add_parser(
+        "index",
+        help="Build vector store index from processed documents"
+    )
+    index_parser.add_argument(
         "--categories", "-c",
         help="Comma-separated categories (e.g., regulation,curriculum)"
     )
@@ -109,12 +176,25 @@ Examples:
         if args.command == "crawl":
             from src.commands.crawl import run_crawl
             run_crawl(args)
+        elif args.command == "clean":
+            from src.commands.clean import run_clean
+            run_clean(args)
+        elif args.command == "metadata":
+            from src.commands.metadata import run_metadata
+            run_metadata(args)
         elif args.command == "process":
             from src.commands.process import run_process
             run_process(args)
-        elif args.command == "build":
-            from src.commands.build import run_build
-            run_build(args)
+        elif args.command == "fix-markdown":
+            from src.commands.fix_markdown import fix_markdown_command
+            fix_markdown_command(
+                category=args.category,
+                file_path=args.file,
+                dry_run=args.dry_run
+            )
+        elif args.command == "index":
+            from src.commands.index import run_index
+            run_index(args)
         elif args.command == "pipeline":
             from src.commands.pipeline import run_pipeline
             run_pipeline(args)

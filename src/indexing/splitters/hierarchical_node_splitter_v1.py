@@ -1,5 +1,10 @@
 """
-Custom Hierarchical Markdown Node Parser.
+HierarchicalNodeSplitterV1 (deprecated) - Legacy splitter with hierarchy tracking.
+
+DEPRECATED: Use HierarchicalNodeSplitter or SmartNodeSplitter instead.
+
+Known issues:
+- Duplicate header bug (fixed in V2/SmartNodeSplitter)
 
 Combines MarkdownNodeParser (structure preservation) with token-aware sub-chunking.
 Creates parent-child relationships for large nodes.
@@ -11,7 +16,7 @@ from llama_index.core.node_parser import MarkdownNodeParser, SentenceSplitter
 from llama_index.core.schema import BaseNode, NodeRelationship
 
 
-class HierarchicalMarkdownParser:
+class HierarchicalNodeSplitterV1:
     """
     Hybrid parser that:
     1. Parses markdown by structure (headers, tables) using MarkdownNodeParser

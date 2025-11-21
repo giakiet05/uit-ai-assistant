@@ -1,47 +1,58 @@
 """
-Factory for creating appropriate cleaners based on domain
+Factory for creating appropriate cleaners based on category
 """
 from typing import Type, Dict
 from .base_cleaner import BaseCleaner
-from .daa_cleaner import DaaCleaner
+from .uit_website_cleaner import UitWebsiteCleaner
+
+
+class PassthroughCleaner(BaseCleaner):
+    """A cleaner that does nothing, just passes the content through."""
+    def clean(self, content: str) -> str:
+        return content
 
 
 class CleanerFactory:
-    """Factory to create appropriate cleaner for different domains"""
+    """Factory to create appropriate cleaner for different content categories"""
 
-    # This dictionary maps a domain string to a cleaner CLASS (a blueprint).
+    # This dictionary maps a category string to a cleaner CLASS.
     _cleaners: Dict[str, Type[BaseCleaner]] = {
-        'daa.uit.edu.vn': DaaCleaner,
+        'curriculum': UitWebsiteCleaner,
+        'regulation': UitWebsiteCleaner,
+        # Future categories can be added here
     }
 
     @classmethod
-    def get_cleaner(cls, domain: str) -> BaseCleaner:
+    def get_cleaner(cls, category: str) -> BaseCleaner:
         """
-        Get an INSTANCE of the appropriate cleaner based on a domain name.
+        Get an INSTANCE of the appropriate cleaner based on a category name.
 
         Args:
-            domain: The domain name (e.g., 'daa.uit.edu.vn').
+            category: The category name (e.g., 'curriculum', 'regulation').
 
-        Raises:
-            ValueError: If no cleaner is found for the given domain.
+        Returns:
+            An instance of a cleaner. Defaults to PassthroughCleaner if no specific
+            cleaner is found.
         """
-        cleaner_class = cls._cleaners.get(domain)
+        # Get the specific cleaner class for the category
+        cleaner_class = cls._cleaners.get(category)
 
         if cleaner_class:
-            # Return an instance of the class.
+            # If a specific cleaner is found, return an instance of it
             return cleaner_class()
         else:
-            raise ValueError(f"No cleaner registered for domain: '{domain}'")
+            # Otherwise, return a default cleaner that does nothing
+            return PassthroughCleaner()
 
     @classmethod
-    def register_cleaner(cls, domain: str, cleaner_class: Type[BaseCleaner]):
+    def register_cleaner(cls, category: str, cleaner_class: Type[BaseCleaner]):
         """
-        Register a new cleaner CLASS for a domain.
+        Register a new cleaner CLASS for a category.
 
         Args:
-            domain: The domain name to associate with the cleaner.
-            cleaner_class: The cleaner class to register (must be a subclass of BaseCleaner).
+            category: The category name to associate with the cleaner.
+            cleaner_class: The cleaner class to register.
         """
         if not issubclass(cleaner_class, BaseCleaner):
             raise TypeError("cleaner_class must be a subclass of BaseCleaner")
-        cls._cleaners[domain] = cleaner_class
+        cls._cleaners[category] = cleaner_class

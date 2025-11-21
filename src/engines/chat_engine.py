@@ -18,10 +18,7 @@ from llama_index.core import (
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.embeddings.openai import OpenAIEmbedding
-from src.indexing.hierarchical_markdown_parser import HierarchicalMarkdownParser
-from llama_index.core.chat_engine import CondensePlusContextChatEngine
-from llama_index.core.memory import ChatMemoryBuffer
-from llama_index.core.llms import ChatMessage as LlamaChatMessage, MessageRole
+from src.indexing.splitters import SmartNodeSplitter
 
 # Local imports
 from src.llm import create_llm
@@ -55,21 +52,34 @@ Câu hỏi độc lập (tiếng Việt):""")
 
     # QA Prompt - tương tự QueryEngine nhưng aware của conversation context
     QA_PROMPT_VI = PromptTemplate("""
-Bạn là một trợ lý AI chuyên gia về lĩnh vực giáo dục đại học.
-Nhiệm vụ của bạn là trả lời câu hỏi của sinh viên một cách chính xác và chi tiết dựa trên thông tin từ các tài liệu được cung cấp.
+Bạn là một trợ lý AI chuyên gia về lĩnh vực giáo dục đại học tại Trường Đại học Công nghệ Thông tin (UIT).
+Nhiệm vụ của bạn là trả lời câu hỏi của sinh viên một cách CHÍNH XÁC TUYỆT ĐỐI dựa HOÀN TOÀN trên thông tin từ các tài liệu được cung cấp.
 
-QUY TẮC BẮT BUỘC:
+⚠️ QUY TẮC BẮT BUỘC - VI PHẠM SẼ BỊ TỪ CHỐI:
+
 1. TRẢ LỜI HOÀN TOÀN BẰNG TIẾNG VIỆT.
-2. Chỉ sử dụng thông tin từ "Ngữ cảnh tài liệu" bên dưới. Tuyệt đối không bịa đặt thông tin hoặc dùng kiến thức bên ngoài.
-3. Nếu thông tin không có trong ngữ cảnh để trả lời câu hỏi, hãy nói rõ ràng là: "Tôi không tìm thấy thông tin này trong tài liệu được cung cấp."
-4. Duy trì ngữ cảnh từ cuộc hội thoại trước đó nếu có liên quan.
+
+2. CHỈ SỬ DỤNG THÔNG TIN TỪ "Ngữ cảnh tài liệu" BÊN DƯỚI:
+   - TUYỆT ĐỐI KHÔNG bịa đặt, suy luận, hoặc thêm thông tin không có trong tài liệu
+   - TUYỆT ĐỐI KHÔNG dùng kiến thức chung hoặc kiến thức bên ngoài
+   - Nếu tài liệu chứa danh sách, CHỈ liệt kê những mục THỰC SỰ CÓ trong danh sách đó
+   - Nếu thông tin KHÔNG CÓ trong tài liệu, trả lời: "Tôi không tìm thấy thông tin này trong tài liệu được cung cấp."
+
+3. ƯU TIÊN TÀI LIỆU ĐÚNG NHẤT:
+   - Nếu có nhiều tài liệu, ưu tiên tài liệu có độ liên quan cao nhất (thường là [Tài liệu 1])
+   - Bỏ qua thông tin từ tài liệu không liên quan trực tiếp đến câu hỏi
+   - Nếu tài liệu mâu thuẫn nhau, nêu rõ sự mâu thuẫn
+
+4. TRÍCH DẪN CHÍNH XÁC:
+   - Khi trả lời, sao chép NGUYÊN VĂN thông tin từ tài liệu
+   - Không thêm, bớt, hoặc diễn giải thông tin
 
 Ngữ cảnh tài liệu:
 {context_str}
 
 Câu hỏi: {query_str}
 
-Câu trả lời chi tiết của bạn (bằng tiếng Việt):""")
+Câu trả lời (CHỈ dựa trên tài liệu, KHÔNG bịa thêm):""")
 
     def __init__(self):
         """Initialize Chat Engine with vector store and memory."""
@@ -83,11 +93,11 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):""")
             model=settings.retrieval.EMBED_MODEL,
             api_key=settings.credentials.OPENAI_API_KEY
         )
-        # Use custom HierarchicalMarkdownParser
-        LlamaSettings.node_parser = HierarchicalMarkdownParser(
-            max_tokens=7000,
-            sub_chunk_size=1024,
-            sub_chunk_overlap=128
+        # Use SmartNodeSplitter with hierarchy tracking
+        LlamaSettings.node_parser = SmartNodeSplitter(
+            max_tokens=settings.retrieval.MAX_TOKENS,
+            sub_chunk_size=settings.retrieval.CHUNK_SIZE,
+            sub_chunk_overlap=settings.retrieval.CHUNK_OVERLAP
         )
 
         self.llm = create_llm(
@@ -174,11 +184,40 @@ Câu trả lời chi tiết của bạn (bằng tiếng Việt):""")
             nodes = retriever.retrieve(question)
             all_nodes.extend(nodes)
 
-        # Sort by score (descending) and limit
+        # Sort by score (descending)
         all_nodes.sort(key=lambda x: x.score if hasattr(x, 'score') else 0, reverse=True)
-        top_nodes = all_nodes[:settings.retrieval.SIMILARITY_TOP_K]
 
-        print(f"[INFO] Retrieved {len(top_nodes)} nodes from {len(target_collections)} collections")
+        # Smart filtering: Keep high-quality nodes only
+        MIN_SCORE_THRESHOLD = 0.25  # Filter out very low scores
+        SCORE_DROP_THRESHOLD = 0.15  # If score drops >15% from top, likely noise
+
+        if not all_nodes:
+            return []
+
+        # Always keep top node if it exists
+        filtered_nodes = [all_nodes[0]] if all_nodes else []
+        top_score = all_nodes[0].score if hasattr(all_nodes[0], 'score') else 0
+
+        # Add remaining nodes if they meet criteria
+        for node in all_nodes[1:settings.retrieval.SIMILARITY_TOP_K]:
+            score = node.score if hasattr(node, 'score') else 0
+
+            # Filter 1: Minimum score threshold
+            if score < MIN_SCORE_THRESHOLD:
+                print(f"[INFO] Filtered node with score {score:.4f} (below threshold {MIN_SCORE_THRESHOLD})")
+                continue
+
+            # Filter 2: Score drop (if too much lower than top, likely irrelevant)
+            if top_score - score > SCORE_DROP_THRESHOLD:
+                print(f"[INFO] Filtered node with score {score:.4f} (drop {top_score - score:.4f} from top)")
+                continue
+
+            filtered_nodes.append(node)
+
+        # Limit to top_k
+        top_nodes = filtered_nodes[:settings.retrieval.SIMILARITY_TOP_K]
+
+        print(f"[INFO] Retrieved {len(top_nodes)} nodes from {len(target_collections)} collections (filtered from {len(all_nodes)})")
         return top_nodes
 
     def chat(
