@@ -161,7 +161,7 @@ Câu trả lời (CHỈ dựa trên tài liệu, KHÔNG bịa thêm):""")
 
     def _retrieve_from_collections(self, question: str, target_collections: list) -> list:
         """
-        Retrieve relevant nodes from multiple collections.
+        Retrieve relevant nodes from multiple collections.tt
 
         Args:
             question: Query question
