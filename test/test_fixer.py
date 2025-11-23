@@ -8,7 +8,7 @@ This test:
 """
 
 from pathlib import Path
-from src.preprocessing.llm_markdown_fixer import GeminiMarkdownFixer
+from src.processing.llm_markdown_fixer import GeminiMarkdownFixer
 
 # Hardcoded path to file 547
 INPUT_FILE = Path("data/processed/regulation/547-qd-dhcntt_30-8-2019_qui_dinh_dao_tao_ngoai_ngu_doi_voi_he_chinh_qui_khoa_2019_0_0.md")

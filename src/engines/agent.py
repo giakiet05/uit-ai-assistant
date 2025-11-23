@@ -346,13 +346,37 @@ class AgentService:
             all_messages = memory.get_all()
             new_messages = all_messages[len(history):]  # Only new messages
 
+            # Filter messages to exclude tool call results (they're too long and waste tokens)
+            from llama_index.core.llms import MessageRole
+
+            saved_count = 0
             for msg in new_messages:
+                content = msg.content
+                original_length = len(content)
+
+                # For assistant messages, strip out tool call results and reasoning
+                # Only keep the final answer
+                if "assistant" in str(msg.role).lower():
+                    # Check if this message contains ReActAgent internal reasoning
+                    if "Thought:" in content or "Action:" in content or "Observation:" in content:
+                        # Extract only the final Answer part
+                        if "Answer:" in content:
+                            # Get everything after the last "Answer:"
+                            content = content.split("Answer:")[-1].strip()
+                            print(f"[AGENT SERVICE] Stripped assistant message: {original_length} → {len(content)} chars")
+                        else:
+                            # No final answer yet (shouldn't happen), skip this message
+                            print(f"[AGENT SERVICE] Skipping intermediate assistant message (no Answer)")
+                            continue
+
+                # Save the cleaned message
                 self.memory_store.add_message(
                     session_id,
-                    ChatMessage(role=msg.role, content=msg.content)
+                    ChatMessage(role=msg.role, content=content)
                 )
+                saved_count += 1
 
-            print(f"[AGENT SERVICE] Saved {len(new_messages)} new messages to memory store")
+            print(f"[AGENT SERVICE] Saved {saved_count}/{len(new_messages)} messages to memory store (tool outputs stripped)")
 
             # 6. Build response
             result = {

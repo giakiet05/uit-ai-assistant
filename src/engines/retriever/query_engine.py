@@ -54,7 +54,8 @@ class QueryEngine:
         use_reranker: bool = True,
         reranker_model: Optional[str] = None,
         top_k: int = 5,
-        retrieval_top_k: int = 20  # Retrieve more, then rerank
+        retrieval_top_k: int = 20,  # Retrieve more, then rerank
+        rerank_score_threshold: float = 0.4  # Filter out low-confidence results after reranking
     ):
         """
         Initialize QueryEngine.
@@ -65,12 +66,15 @@ class QueryEngine:
             reranker_model: Reranker model name (default: "namdp-ptit/ViRanker" for Vietnamese)
             top_k: Final number of documents to return
             retrieval_top_k: Number of documents to retrieve before reranking
+            rerank_score_threshold: Minimum score threshold after reranking (default: 0.4)
+                                   Nodes with score < threshold will be filtered out
         """
         self.collections = collections
         self.use_reranker = use_reranker
         self.reranker_model = reranker_model or "namdp-ptit/ViRanker"
         self.top_k = top_k
         self.retrieval_top_k = retrieval_top_k
+        self.rerank_score_threshold = rerank_score_threshold
 
         # Initialize retrievers
         self._setup_retrievers()
@@ -84,6 +88,7 @@ class QueryEngine:
         print(f"  - Reranker: {self.reranker_model if use_reranker else 'disabled'}")
         print(f"  - Retrieval top_k: {retrieval_top_k}")
         print(f"  - Final top_k: {top_k}")
+        print(f"  - Rerank score threshold: {rerank_score_threshold}")
 
     def _setup_retrievers(self):
         """Setup retrieval methods."""
@@ -259,7 +264,7 @@ class QueryEngine:
             nodes: Retrieved nodes
 
         Returns:
-            Reranked nodes (sorted by reranker score)
+            Reranked nodes (sorted by reranker score, filtered by threshold)
         """
         if not self.use_reranker or not hasattr(self, 'reranker'):
             return nodes
@@ -282,9 +287,18 @@ class QueryEngine:
 
         nodes.sort(key=lambda x: x.score, reverse=True)
 
-        print(f"[RERANKER] Reranking complete. Top score: {nodes[0].score:.4f}")
+        # Filter out low-confidence results based on threshold
+        filtered_nodes = [node for node in nodes if node.score >= self.rerank_score_threshold]
 
-        return nodes
+        if len(filtered_nodes) < len(nodes):
+            print(f"[RERANKER] Filtered {len(nodes) - len(filtered_nodes)} low-confidence results (score < {self.rerank_score_threshold})")
+
+        if len(filtered_nodes) > 0:
+            print(f"[RERANKER] Reranking complete. Top score: {filtered_nodes[0].score:.4f}, kept {len(filtered_nodes)}/{len(nodes)} nodes")
+        else:
+            print(f"[RERANKER] Warning: All results filtered out (all scores < {self.rerank_score_threshold})")
+
+        return filtered_nodes
 
     def retrieve_with_metadata(self, query: str) -> Dict:
         """

@@ -11,7 +11,7 @@ Usage:
 from pathlib import Path
 from typing import Optional
 
-from src.preprocessing.llm_markdown_fixer import GeminiMarkdownFixer
+from src.processing.llm_markdown_fixer import GeminiMarkdownFixer
 from src.config.settings import settings
 
 

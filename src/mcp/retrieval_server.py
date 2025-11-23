@@ -67,7 +67,8 @@ def _get_query_engine() -> QueryEngine:
         collections=collections,
         use_reranker=True,  # Enable reranker by default
         top_k=5,
-        retrieval_top_k=20
+        retrieval_top_k=20,
+        rerank_score_threshold=0.4  # Filter out low-confidence results after reranking
     )
 
     print(f"[MCP SERVER] QueryEngine loaded with {len(collections)} collections")
@@ -116,14 +117,17 @@ def retrieve_documents(query: str) -> str:
     for i, doc in enumerate(result['documents'], 1):
         lines.append(f"Document {i} (Score: {doc['score']:.3f}):")
 
+        #No need to enclose metadata because the important fields of metadata is prepended to the text in the processing stage
+        #--------------------------------------------------------------
         # Add hierarchy if available (helps agent understand document structure)
-        if doc['hierarchy']:
-            lines.append(f"Topic: {doc['hierarchy']}")
-
-        # Add source if available
-        metadata = doc.get('metadata', {})
-        if metadata.get('document_id'):
-            lines.append(f"Source: {metadata['document_id']}")
+        # if doc['hierarchy']:
+        #     lines.append(f"Topic: {doc['hierarchy']}")
+        #
+        # # Add source if available
+        # metadata = doc.get('metadata', {})
+        # if metadata.get('document_id'):
+        #     lines.append(f"Source: {metadata['document_id']}")
+        #--------------------------------------------------------------
 
         # Content (most important part)
         lines.append(f"{doc['text']}")
