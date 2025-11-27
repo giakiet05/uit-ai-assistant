@@ -1976,6 +1976,20 @@ wheels = [
 ]
 
 [[package]]
+name = "llama-index-tools-mcp"
+version = "0.4.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "llama-index-core" },
+    { name = "mcp" },
+    { name = "pydantic" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8b/9b/eb46e382534a736921e437288bfcaa9b4b3672d739458fb150f80b98e692/llama_index_tools_mcp-0.4.3.tar.gz", hash = "sha256:252103b595fc07ae06321dd7a5e17530ef854a86fc25e9cf3e733fdbbd919fdc", size = 12745, upload-time = "2025-10-22T15:44:08.931Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1e/88/e2c59a87e48e3913effec9345517d48918fb27aab5a337e53e5bb109aee7/llama_index_tools_mcp-0.4.3-py3-none-any.whl", hash = "sha256:01cbecd9bfb58011e2a83c80bd3f906d1de259b014c004a4cfef2d8268e6391f", size = 13894, upload-time = "2025-10-22T15:44:08.059Z" },
+]
+
+[[package]]
 name = "llama-index-vector-stores-chroma"
 version = "0.5.3"
 source = { registry = "https://pypi.org/simple" }
@@ -4466,6 +4480,7 @@ dependencies = [
     { name = "llama-index-embeddings-huggingface" },
     { name = "llama-index-llms-ollama" },
     { name = "llama-index-readers-file" },
+    { name = "llama-index-tools-mcp" },
     { name = "llama-index-vector-stores-chroma" },
     { name = "ollama" },
     { name = "openai" },
@@ -4492,6 +4507,7 @@ requires-dist = [
     { name = "llama-index-embeddings-huggingface", specifier = ">=0.6.1" },
     { name = "llama-index-llms-ollama", specifier = ">=0.8.0" },
     { name = "llama-index-readers-file", specifier = ">=0.5.4" },
+    { name = "llama-index-tools-mcp", specifier = ">=0.4.3" },
     { name = "llama-index-vector-stores-chroma", specifier = ">=0.5.3" },
     { name = "ollama", specifier = ">=0.6.0" },
     { name = "openai", specifier = ">=1.109.1" },

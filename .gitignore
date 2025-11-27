@@ -11,3 +11,5 @@ wheels/
 .env
 data/
 .claude
+CLAUDE.md
+GEMINI.md

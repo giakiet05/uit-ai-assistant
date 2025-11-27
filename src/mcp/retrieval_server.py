@@ -67,7 +67,8 @@ def _get_query_engine() -> QueryEngine:
         collections=collections,
         use_reranker=True,  # Enable reranker by default
         top_k=5,
-        retrieval_top_k=20
+        retrieval_top_k=20,
+        rerank_score_threshold=0.4  # Filter out low-confidence results after reranking
     )
 
     print(f"[MCP SERVER] QueryEngine loaded with {len(collections)} collections")
@@ -99,7 +100,7 @@ def retrieve_documents(query: str) -> str:
         query: The search query (in Vietnamese or English)
 
     Returns:
-        Formatted string with retrieved documents and metadata
+        Clean text with retrieved documents (suitable for agent consumption)
     """
     # Get query engine
     query_engine = _get_query_engine()
@@ -107,38 +108,34 @@ def retrieve_documents(query: str) -> str:
     # Blended retrieval (no method selection)
     result = query_engine.retrieve_with_metadata(query)
 
-    # Format response
+    # Format response for agent consumption (clean, structured)
     lines = [
-        f"📊 Blended Retrieval Result",
-        f"─" * 60,
-        f"Query: {result['query']}",
-        f"Method: Blended (Dense + BM25 + Sparse)",
-        f"Reranked: {'✅ Yes' if result['reranked'] else '❌ No'}",
-        f"Retrieved: {result['total_retrieved']} documents → Final: {result['final_count']}",
-        "",
-        "📄 Documents:",
+        f"Retrieved {result['final_count']} relevant documents for query: {result['query']}",
         ""
     ]
 
     for i, doc in enumerate(result['documents'], 1):
-        lines.append(f"[Document {i}]")
-        lines.append(f"Score: {doc['score']:.4f}")
+        lines.append(f"Document {i} (Score: {doc['score']:.3f}):")
 
-        if doc['hierarchy']:
-            lines.append(f"Hierarchy: {doc['hierarchy']}")
+        #No need to enclose metadata because the important fields of metadata is prepended to the text in the processing stage
+        #--------------------------------------------------------------
+        # Add hierarchy if available (helps agent understand document structure)
+        # if doc['hierarchy']:
+        #     lines.append(f"Topic: {doc['hierarchy']}")
+        #
+        # # Add source if available
+        # metadata = doc.get('metadata', {})
+        # if metadata.get('document_id'):
+        #     lines.append(f"Source: {metadata['document_id']}")
+        #--------------------------------------------------------------
 
-        # Add metadata if available
-        metadata = doc.get('metadata', {})
-        if metadata.get('document_id'):
-            lines.append(f"Source: {metadata['document_id']}")
-
-        lines.append(f"\nContent:\n{doc['text']}")
-        lines.append("─" * 60)
-        lines.append("")
+        # Content (most important part)
+        lines.append(f"{doc['text']}")
+        lines.append("")  # Blank line between documents
 
     return "\n".join(lines)
 
 
 # Entry point for running the server
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(transport="streamable-http")
