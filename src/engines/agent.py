@@ -33,6 +33,9 @@ from src.engines.memory import InMemoryStore
 
 from src.llm.provider import create_llm
 
+# Query refinement
+from src.engines.query_refinement import QueryRefiner
+
 class SharedResources:
     """
     Shared resources initialized once at startup.
@@ -160,6 +163,9 @@ class UITAgent:
         """
         self.resources = resources
 
+        # Initialize query refiner
+        self.query_refiner = QueryRefiner()
+
         # Create ReActAgent (lightweight operation)
         self.agent = ReActAgent(
             tools=resources.tools,
@@ -183,8 +189,32 @@ class UITAgent:
         Returns:
             Agent's response text
         """
-        # Run agent with memory
-        response = await self.agent.run(message, memory=memory)
+        # Step 1: Refine query (expand acronyms)
+        refined_message = self.query_refiner.refine(message)
+
+        if refined_message is None:
+            # Has unknown acronyms → inject context for LLM to ask
+            unknown = self.query_refiner.get_unknown_acronyms(message)
+            acronyms_str = ", ".join(f"'{acr}'" for acr in unknown)
+
+            # Create prompt for LLM to ask clarification naturally
+            clarification_prompt = (
+                f"{message}\n\n"
+                f"[SYSTEM NOTE: User's question contains unknown acronyms: {acronyms_str}. "
+                f"Please ask the user to clarify what these acronyms mean.]"
+            )
+
+            print(f"[QUERY REFINER] Unknown acronyms: {unknown}")
+            print(f"[QUERY REFINER] Prompting LLM to ask clarification")
+
+            response = await self.agent.run(clarification_prompt, memory=memory)
+        else:
+            # Use refined message for agent
+            print(f"[QUERY REFINER] Original: {message}")
+            print(f"[QUERY REFINER] Refined:  {refined_message}")
+
+            # Step 2: Run agent with refined message
+            response = await self.agent.run(refined_message, memory=memory)
 
         # Extract text from ChatMessage
         # response.response is a ChatMessage object, not a string
