@@ -13,3 +13,5 @@ data/
 .claude
 CLAUDE.md
 GEMINI.md
+.vscode
+.idea

@@ -7,7 +7,7 @@ import re
 def fix_save_json():
     """Fix _save_json method in daa_student_crawler.py"""
     
-    filepath = "crawler/daa_student_crawler.py"
+    filepath = "../src/crawler/daa_student_crawler.py"
     
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
