@@ -11,11 +11,11 @@ RECOMMENDED USAGE:
     # Run both stages for new files
     python -m src.processing.pipeline_v2 --categories regulation
 
-    # Re-generate metadata only (cheaper, no parsing)
+    # Re-generate metadata_generator only (cheaper, no parsing)
     python -m src.processing.pipeline_metadata --categories regulation --force
 
 NOTE: Stage 1 (parse/clean) costs money (LlamaIndex parsing).
-      Stage 2 (metadata) can be re-run multiple times without re-parsing.
+      Stage 2 (metadata_generator) can be re-run multiple times without re-parsing.
 """
 
 from typing import List, Optional
@@ -30,7 +30,7 @@ class ProcessingPipelineV2:
 
     For more control, use individual pipelines:
     - pipeline_parse_clean.py: Parse/clean raw files
-    - pipeline_metadata.py: Generate metadata from processed files
+    - pipeline_metadata.py: Generate metadata_generator from processed files
     """
 
     def __init__(self):
@@ -50,9 +50,9 @@ class ProcessingPipelineV2:
             categories: List of specific categories to process (e.g., ["regulation"]).
                         If None, all categories will be processed.
             force_parse: If True, re-parse/clean existing files (Stage 1)
-            force_metadata: If True, regenerate metadata even if exists (Stage 2)
-            skip_stage1: If True, skip parse/clean (only generate metadata)
-            skip_stage2: If True, skip metadata generation (only parse/clean)
+            force_metadata: If True, regenerate metadata_generator even if exists (Stage 2)
+            skip_stage1: If True, skip parse/clean (only generate metadata_generator)
+            skip_stage2: If True, skip metadata_generator generation (only parse/clean)
         """
         print("\n" + "="*70)
         print(f"🚀 PROCESSING PIPELINE V2 - TWO-STAGE WRAPPER")
@@ -73,7 +73,7 @@ class ProcessingPipelineV2:
             print("-" * 70)
             run_metadata_generation(categories=categories, force=force_metadata)
         else:
-            print("⏭️  Stage 2 SKIPPED (metadata generation)")
+            print("⏭️  Stage 2 SKIPPED (metadata_generator generation)")
             print("-" * 70 + "\n")
 
         print("\n" + "="*70)
@@ -94,9 +94,9 @@ def run_processing(
     Args:
         categories: List of categories to process
         force_parse: Force re-parse/clean existing files
-        force_metadata: Force regenerate metadata
+        force_metadata: Force regenerate metadata_generator
         skip_stage1: Skip parse/clean stage
-        skip_stage2: Skip metadata generation stage
+        skip_stage2: Skip metadata_generator generation stage
     """
     pipeline = ProcessingPipelineV2()
     pipeline.run(
@@ -118,10 +118,10 @@ Examples:
   # Run both stages for regulation category
   python -m src.processing.pipeline_v2 --categories regulation
 
-  # Re-generate metadata only (skip parsing)
-  python -m src.processing.pipeline_v2 --categories regulation --skip-stage1 --force-metadata
+  # Re-generate metadata_generator only (skip parsing)
+  python -m src.processing.pipeline_v2 --categories regulation --skip-stage1 --force-metadata_generator
 
-  # Parse/clean only (skip metadata)
+  # Parse/clean only (skip metadata_generator)
   python -m src.processing.pipeline_v2 --categories regulation --skip-stage2
         ''',
         formatter_class=argparse.RawDescriptionHelpFormatter
@@ -138,19 +138,19 @@ Examples:
         help='Force re-parse/clean existing files (Stage 1)'
     )
     parser.add_argument(
-        '--force-metadata',
+        '--force-metadata_generator',
         action='store_true',
-        help='Force regenerate metadata even if exists (Stage 2)'
+        help='Force regenerate metadata_generator even if exists (Stage 2)'
     )
     parser.add_argument(
         '--skip-stage1',
         action='store_true',
-        help='Skip Stage 1 (parse/clean) - only generate metadata'
+        help='Skip Stage 1 (parse/clean) - only generate metadata_generator'
     )
     parser.add_argument(
         '--skip-stage2',
         action='store_true',
-        help='Skip Stage 2 (metadata) - only parse/clean'
+        help='Skip Stage 2 (metadata_generator) - only parse/clean'
     )
 
     args = parser.parse_args()

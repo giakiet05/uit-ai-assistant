@@ -1,8 +1,8 @@
-"""Metadata command - Stage 2: Generate metadata from processed files."""
+"""Metadata command - Stage 2: Generate metadata_generator from processed files."""
 
 
 def run_metadata(args):
-    """Handle metadata command (Stage 2 only)."""
+    """Handle metadata_generator command (Stage 2 only)."""
     from src.processing.pipeline_metadata import run_metadata_generation
 
     categories = None

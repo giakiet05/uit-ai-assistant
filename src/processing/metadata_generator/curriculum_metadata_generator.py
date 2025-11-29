@@ -1,4 +1,4 @@
-# src/processing/metadata/curriculum_metadata_generator.py
+# src/processing/metadata_generator/curriculum_metadata_generator.py
 from pathlib import Path
 from typing import Union, Optional
 
@@ -25,7 +25,7 @@ PROGRAM_TYPES_ENUM = ["Chính quy", "Từ xa"]
 
 class CurriculumMetadataGenerator(BaseMetadataGenerator):
     """
-    Generator chuyên để trích xuất metadata cho các tài liệu chương trình đào tạo (curriculum).
+    Generator chuyên để trích xuất metadata_generator cho các tài liệu chương trình đào tạo (curriculum).
     """
 
     def __init__(self):
@@ -37,7 +37,7 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
 
     def generate(self, file_path: Path, content: str) -> Union[RegulationMetadata, CurriculumMetadata, DefaultMetadata, None]:
         """
-        Triển khai logic trích xuất metadata cho 'curriculum'.
+        Triển khai logic trích xuất metadata_generator cho 'curriculum'.
         """
         print(f"INFO: Using CurriculumMetadataGenerator for {file_path.name}")
 
@@ -156,7 +156,7 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
                     return None
                 return value
 
-            # Tạo metadata object
+            # Tạo metadata_generator object
             metadata = CurriculumMetadata(
                 document_id=file_path.name,
                 category="curriculum",
@@ -170,14 +170,14 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
                 is_index_page=data.get("is_index_page", False)
             )
 
-            print(f"SUCCESS: Extracted metadata for {file_path.name}")
+            print(f"SUCCESS: Extracted metadata_generator for {file_path.name}")
             print(f"  → Year: {metadata.year}")
             print(f"  → Major: {metadata.major}")
             print(f"  → Program: {metadata.program_name} ({metadata.program_type})")
             return metadata
 
         except Exception as e:
-            print(f"ERROR: Failed to extract metadata for {file_path.name}. Reason: {e}")
+            print(f"ERROR: Failed to extract metadata_generator for {file_path.name}. Reason: {e}")
             import traceback
             traceback.print_exc()
             return None

@@ -20,7 +20,7 @@ class ContentFilter:
 
     Usage:
         >>> filter = ContentFilter()
-        >>> is_useful, reason = filter.is_useful(content, metadata)
+        >>> is_useful, reason = filter.is_useful(content, metadata_generator)
         >>> if is_useful:
         ...     save_content()
         ... else:
@@ -62,7 +62,7 @@ class ContentFilter:
 
         Args:
             content: Markdown content to check
-            metadata: Optional metadata dict
+            metadata: Optional metadata_generator dict
 
         Returns:
             (is_useful: bool, reason: str)

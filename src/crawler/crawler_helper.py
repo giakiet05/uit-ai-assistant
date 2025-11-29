@@ -47,7 +47,7 @@ def create_or_get_folder_for_url(url: str, base_dir: str) -> str:
 
 def save_crawled_data(url: str, title: str, content: str, source_urls: list = None):
     """
-    Saves crawled data into an organized folder structure with essential metadata.
+    Saves crawled data into an organized folder structure with essential metadata_generator.
     
     Args:
         url: The URL being saved
@@ -63,14 +63,14 @@ def save_crawled_data(url: str, title: str, content: str, source_urls: list = No
     with open(content_file, 'w', encoding='utf-8') as f:
         f.write(content)
 
-    # --- FIX: Create the simplified, essential metadata object ---
+    # --- FIX: Create the simplified, essential metadata_generator object ---
     metadata = {
         "original_url": url,
         "title": title,
         "crawled_at": datetime.now().isoformat() + "Z",
     }
 
-    metadata_file = os.path.join(folder_path, 'metadata.json')
+    metadata_file = os.path.join(folder_path, 'metadata_generator.json')
     with open(metadata_file, 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=2)
 
@@ -102,7 +102,7 @@ def save_user_crawled_data(username: str, data_type: str, url: str, title: str, 
     with open(content_file, 'w', encoding='utf-8') as f:
         f.write(content)
     
-    # Save metadata
+    # Save metadata_generator
     metadata = {
         "username": username,
         "data_type": data_type,

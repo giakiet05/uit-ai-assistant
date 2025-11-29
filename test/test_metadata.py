@@ -1,14 +1,14 @@
 """
-Test script for metadata generators.
-Tests the extraction of metadata from raw documents using the new metadata generator system.
+Test script for metadata_generator generators.
+Tests the extraction of metadata_generator from raw documents using the new metadata_generator generator system.
 """
 
 import json
 from pathlib import Path
 from typing import Dict, List
 
-from src.processing.metadata.metadata_generator_factory import MetadataGeneratorFactory
-from src.processing.metadata.metadata_models import (
+from src.processing.metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
+from src.processing.metadata_generator.metadata_models import (
     RegulationMetadata,
     CurriculumMetadata,
     DefaultMetadata,
@@ -16,7 +16,7 @@ from src.processing.metadata.metadata_models import (
 
 
 def test_regulation_metadata():
-    """Test metadata extraction for regulation documents."""
+    """Test metadata_generator extraction for regulation documents."""
     print("\n" + "=" * 80)
     print("TESTING REGULATION METADATA GENERATOR")
     print("=" * 80)
@@ -41,7 +41,7 @@ def test_regulation_metadata():
                 with open(file_path, "r", encoding="utf-8") as f:
                     content = f.read()
 
-            # Generate metadata
+            # Generate metadata_generator
             metadata = generator.generate(file_path, content)
 
             if metadata:
@@ -58,7 +58,7 @@ def test_regulation_metadata():
                 results.append({
                     "file": file_path.name,
                     "status": "success",
-                    "metadata": metadata.model_dump(),
+                    "metadata_generator": metadata.model_dump(),
                 })
             else:
                 print(f"❌ FAILED")
@@ -71,7 +71,7 @@ def test_regulation_metadata():
 
 
 def test_curriculum_metadata():
-    """Test metadata extraction for curriculum documents."""
+    """Test metadata_generator extraction for curriculum documents."""
     print("\n" + "=" * 80)
     print("TESTING CURRICULUM METADATA GENERATOR")
     print("=" * 80)
@@ -91,7 +91,7 @@ def test_curriculum_metadata():
             with open(file_path, "r", encoding="utf-8") as f:
                 content = f.read()
 
-            # Generate metadata
+            # Generate metadata_generator
             metadata = generator.generate(file_path, content)
 
             if metadata:
@@ -108,7 +108,7 @@ def test_curriculum_metadata():
                 results.append({
                     "file": file_path.name,
                     "status": "success",
-                    "metadata": metadata.model_dump(),
+                    "metadata_generator": metadata.model_dump(),
                 })
             else:
                 print(f"❌ FAILED")
@@ -168,12 +168,12 @@ def print_summary(results: Dict):
 
 def main():
     """Main test function."""
-    print("🚀 Starting metadata generator tests...\n")
+    print("🚀 Starting metadata_generator generator tests...\n")
 
-    # Test regulation metadata
+    # Test regulation metadata_generator
     regulation_results = test_regulation_metadata()
 
-    # Test curriculum metadata
+    # Test curriculum metadata_generator
     curriculum_results = test_curriculum_metadata()
 
     # Save and display results

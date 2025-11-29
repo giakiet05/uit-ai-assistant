@@ -9,7 +9,7 @@ def run_process(args):
     if args.categories:
         categories = [c.strip() for c in args.categories.split(",")]
 
-    # Run both stages (parse/clean + metadata)
+    # Run both stages (parse/clean + metadata_generator)
     run_processing(
         categories=categories,
         force_parse=getattr(args, 'force_parse', False),

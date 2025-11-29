@@ -11,7 +11,7 @@ Usage:
 from pathlib import Path
 from typing import Optional
 
-from src.processing.llm_markdown_fixer import GeminiMarkdownFixer
+from src.processing.llm_markdown_fixer import MarkdownFixer
 from src.config.settings import settings
 
 
@@ -38,7 +38,7 @@ def fix_markdown_command(
 
     # Initialize fixer
     try:
-        fixer = GeminiMarkdownFixer()
+        fixer = MarkdownFixer()
     except ValueError as e:
         print(f"❌ {e}")
         print("\nPlease set GOOGLE_API_KEY in .env file:")

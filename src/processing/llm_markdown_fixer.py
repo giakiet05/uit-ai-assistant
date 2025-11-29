@@ -1,41 +1,53 @@
 """
-LLM-based markdown structure fixer using Google Gemini.
-
-Uses Google AI Studio free tier:
-- Model: gemini-2.0-flash-exp
-- 15 RPM (requests per minute)
-- 1M TPM (tokens per minute)
-- 200 RPD (requests per day)
+LLM-based markdown structure fixer.
 
 Purpose:
 - Fix deformed markdown from LlamaParse/Crawl4AI
 - Normalize header hierarchy for regulation documents
 - Enable perfect chunking with HierarchicalNodeSplitter
+
+Supports multiple LLM providers via LlamaIndex:
+- Gemini (default, Google AI Studio free tier: 15 RPM, 1M TPM, 200 RPD)
+- OpenAI
+- Ollama
 """
 
 import time
 from pathlib import Path
 from typing import Optional
 
-from google import genai
-from google.genai import types
+from llama_index.core.llms import LLM
 
 from src.config.settings import settings
+from src.llm.provider import create_llm
 
 
-class GeminiMarkdownFixer:
+class MarkdownFixer:
     """
-    Fix regulation markdown structure using Gemini LLM.
+    Fix markdown structure for regulation and curriculum documents using LLM.
 
-    Converts deformed markdown (from PDF parsing) into clean, hierarchical structure:
-    - # CHƯƠNG X (Level 1 - Chapter)
-    - ## Điều X (Level 2 - Article)
-    - ### 1. Khoản số (Level 3 - Numbered clause, if >= 15 words)
-    - #### a. Khoản chữ (Level 4 - Lettered sub-clause, if >= 15 words)
+    Supports two document types:
+    - **Regulation:** Hierarchical structure (Chương → Điều → Khoản → Mục)
+    - **Curriculum:** Flexible structure (fix headers, tables, bullets)
+
+    Usage:
+        # Default (Gemini from settings)
+        fixer = MarkdownFixer()
+
+        # Fix regulation
+        fixed = fixer.fix_markdown(markdown_text, category="regulation")
+
+        # Fix curriculum
+        fixed = fixer.fix_markdown(markdown_text, category="curriculum")
+
+        # Custom LLM
+        from src.llm.provider import create_llm
+        llm = create_llm("openai", "gpt-4")
+        fixer = MarkdownFixer(llm=llm)
     """
 
-    # Prompt template for Gemini
-    PROMPT_TEMPLATE = """
+    # Prompt template for Regulation documents
+    REGULATION_PROMPT = """
 Bạn là chuyên gia xử lý văn bản pháp luật của trường đại học.
 
 # NHIỆM VỤ
@@ -205,76 +217,307 @@ Chỉ output markdown đã sửa, KHÔNG giải thích, KHÔNG thêm bất kỳ 
 Markdown phải bắt đầu ngay từ dòng đầu tiên.
 """
 
-    def __init__(self, api_key: Optional[str] = None):
+    # Prompt template for Curriculum documents (SIMPLIFIED v2)
+    CURRICULUM_PROMPT = """
+    Bạn là chuyên gia xử lý văn bản chương trình đào tạo của trường đại học.
+
+    # NHIỆM VỤ
+    Sửa lại cấu trúc markdown của văn bản chương trình đào tạo (curriculum) để loại bỏ các lỗi rõ ràng.
+
+    **QUAN TRỌNG:**
+    - KHÔNG tự ý tạo hierarchy mới (vì mỗi khoa có format riêng)
+    - CHỈ SỬA những lỗi cấu trúc RÕ RÀNG
+    - GIỮ NGUYÊN nội dung, numbering, và logic tổ chức của văn bản gốc
+    - ĐA SỐ bảng đã đúng format, CHỈ cần sửa nếu thấy lỗi rõ ràng
+
+    # CÁC LỖI CẦN SỬA
+
+    ## 1. Link text đúng ra là header
+    **Pattern:** `[1. TÊN SECTION](url)` → `# 1. TÊN SECTION`
+
+    **Ví dụ:**
+    ```
+    Input:
+    [1. GIỚI THIỆU CHUNG](https://daa.uit.edu.vn/...)
+    ## 1.1 Thông tin chung
+
+    Output:
+    # 1. GIỚI THIỆU CHUNG
+    ## 1.1 Thông tin chung
+    ```
+
+    **Rule:**
+    - Sections lớn (1, 2, 3) → `#` (Level 1)
+    - Subsections (1.1, 3.2) → `##` (Level 2)
+    - Sub-subsections (3.3.1) → `###` (Level 3)
+
+    ## 2. Bold text đúng ra là subheader
+    **Pattern:** `**Về XXX:**` hoặc `**Nhóm XXX**` → `### Về XXX` / `### Nhóm XXX`
+
+    **Ví dụ:**
+    ```
+    Input:
+    **Về nhận thức:**
+    ‒ LO1: Nắm vững kiến thức...
+
+    Output:
+    ### Về nhận thức
+    ‒ LO1: Nắm vững kiến thức...
+    ```
+
+    ## 3. Header levels không nhất quán
+    **Pattern:** `# I` → `## II` → `### III` (không consistent)
+
+    **Rule:** Normalize về cùng level nếu thấy pattern I, II, III hoặc 1.1, 1.2, 1.3
+
+    ## 4. Bảng có vấn đề về cấu trúc
+    **LƯU Ý:** ĐA SỐ bảng đã đúng format, CHỈ fix nếu thấy lỗi rõ ràng!
+
+    **Các lỗi thường gặp:**
+    - Rows thiếu separators `|` → Thêm empty cells `| | |` cho đủ số cột
+    - Nested headers → Flatten thành 1 row
+    - Row bắt đầu bằng `|` (merged cell) → Copy giá trị từ row trước
+
+    **Ví dụ fix row thiếu separators:**
+    ```
+    Input (SAI):
+    **STT** | **Mã** | **Tên** | **TC**  ← 3 separators
+    ---|---|---|---
+    **Nhóm môn** | **12** |              ← 2 separators (THIẾU 1!)
+
+    Output (ĐÚNG):
+    **STT** | **Mã** | **Tên** | **TC**
+    ---|---|---|---
+    **Nhóm môn** | **12** | |            ← 3 separators (đã thêm 1 empty cell)
+    ```
+
+    **LỖI ĐẶC BIỆT: Group header bị parse sai thành markdown header**
+
+    **Pattern:** Header markdown (`###`, `##`) xuất hiện GIỮA bảng (sau separator `---|---`)
+
+    **Nguyên nhân:** Scraper parse merged cell thành markdown header thay vì table row
+
+    **Cách fix:** Convert markdown header thành table row với empty cells phù hợp số cột
+
+    **Ví dụ:**
+    ```
+    Input (SAI):
+    **STT** | **Tên** | **TC**
+    ---|---|---
+    ### I. Nhóm A                      ← SAI! Markdown header giữa bảng
+    1 | Môn học 1 | 3
+    2 | Môn học 2 | 4
+
+    Output (ĐÚNG):
+    **STT** | **Tên** | **TC**
+    ---|---|---
+    **I. Nhóm A** | |                  ← ĐÚNG! Table row với 2 empty cells
+    1 | Môn học 1 | 3
+    2 | Môn học 2 | 4
+    ```
+
+    **Ví dụ 2 (6 columns):**
+    ```
+    Input (SAI):
+    **STT** | **Mã** | **Tên (VN)** | **Tên (EN)** | **LT** | **TH**
+    ---|---|---|---|---|---
+    ### I. Kiến thức đại cương         ← SAI!
+    1 | SS007 | Triết học | Philosophy | 3 | 0
+
+    Output (ĐÚNG):
+    **STT** | **Mã** | **Tên (VN)** | **Tên (EN)** | **LT** | **TH**
+    ---|---|---|---|---|---
+    **I. Kiến thức đại cương** | | | | |    ← ĐÚNG! 5 empty cells cho 6 columns
+    1 | SS007 | Triết học | Philosophy | 3 | 0
+    ```
+
+    **Rule:**
+    - Nếu thấy `###` hoặc `##` giữa bảng → Chuyển thành table row
+    - Remove prefix `###` / `##`, giữ lại text
+    - Làm bold text: `**Text**`
+    - Thêm empty cells `| | |` cho đủ số cột (đếm từ header)
+
+    ## 5. Sections có title bị tách
+    **Pattern:** Title bị tách thành nhiều headers → Merge thành 1 header viết hoa
+
+    **Ví dụ:**
+    ```
+    Input:
+    # Chương trình đào tạo song ngành
+    ## ngành Thương mại điện tử
+
+    Output:
+    # CHƯƠNG TRÌNH ĐÀO TẠO SONG NGÀNH NGÀNH THƯƠNG MẠI ĐIỆN TỬ
+    ```
+
+    ## 6. Bullet list characters không đúng
+    **Pattern:** En dash `‒` (U+2012) → Hyphen `-` (U+002D)
+
+    **Ví dụ:**
+    ```
+    Input:
+    ‒ LO1: Nắm vững kiến thức...
+
+    Output:
+    - LO1: Nắm vững kiến thức...
+    ```
+
+    # QUY TẮC CHUNG
+    1. **GIỮ NGUYÊN nội dung:** Không thay đổi từ ngữ, numbering
+    2. **GIỮ NGUYÊN tables:** Nội dung bảng không được thay đổi, chỉ fix structure nếu SAI RÕ RÀNG
+    3. **CHỈ SỬA cấu trúc:** Header levels, link → header, bold → header, table structure (nếu sai)
+    4. **Normalize bullets:** Chuyển `‒` thành `-`
+    5. **KHÔNG tự ý thêm blank lines vào bảng** - Sẽ được xử lý bằng rule-based sau
+
+    # INPUT MARKDOWN
+    ```markdown
+    {markdown}
+    ```
+
+    # OUTPUT
+    Chỉ output markdown đã sửa, KHÔNG giải thích, KHÔNG thêm bất kỳ text nào khác ngoài markdown.
+    Markdown phải bắt đầu ngay từ dòng đầu tiên.
+    """
+
+    def __init__(self, llm: Optional[LLM] = None):
         """
-        Initialize Gemini markdown fixer.
+        Initialize markdown fixer.
 
         Args:
-            api_key: Google API key (if None, will use from settings)
+            llm: LlamaIndex LLM instance. If None, will create Gemini LLM from settings.
         """
-        # Get API key
-        api_key = api_key or settings.credentials.GOOGLE_API_KEY
-        if not api_key:
-            raise ValueError(
-                "Google API key not found. "
-                "Set GOOGLE_API_KEY in .env or pass api_key parameter."
+        if llm is None:
+            # Default: Create Gemini LLM from settings
+            print("[MARKDOWN FIXER] No LLM provided, creating default Gemini LLM from settings")
+            self.llm = create_llm(
+                provider="gemini",
+                model=settings.preprocessing.GEMINI_MODEL,
+                temperature=settings.preprocessing.GEMINI_TEMPERATURE
             )
+        else:
+            # Use provided LLM
+            self.llm = llm
+            print(f"[MARKDOWN FIXER] Using provided LLM: {type(llm).__name__}")
 
-        # Initialize client (NEW API)
-        self.client = genai.Client(api_key=api_key)
-
-        # Load model config from settings
-        self.model_name = settings.preprocessing.GEMINI_MODEL
-        self.temperature = settings.preprocessing.GEMINI_TEMPERATURE
-        self.max_output_tokens = settings.preprocessing.GEMINI_MAX_OUTPUT_TOKENS
-
-        # Rate limiting config
+        # Rate limiting config (for Gemini)
         self.rpm = settings.preprocessing.GEMINI_RPM
         self.min_delay = 60.0 / self.rpm  # Seconds between requests
         self.last_request_time = 0
 
-        print(f"[GEMINI] Initialized with model: {self.model_name}")
-        print(f"[GEMINI] Rate limit: {self.rpm} RPM ({self.min_delay:.1f}s delay)")
+        print(f"[MARKDOWN FIXER] Initialized with LLM: {type(self.llm).__name__}")
+        print(f"[MARKDOWN FIXER] Rate limit: {self.rpm} RPM ({self.min_delay:.1f}s delay)")
 
-    def fix_markdown(self, markdown_text: str) -> str:
+    def fix_markdown(self, markdown_text: str, category: str = "regulation") -> str:
         """
-        Fix markdown structure using Gemini.
+        Fix markdown structure using LLM.
 
         Args:
             markdown_text: Deformed markdown from LlamaParse/Crawl4AI
+            category: Document category - "regulation" or "curriculum"
+                     - "regulation": Fix hierarchical structure (Chương → Điều → Khoản)
+                     - "curriculum": Fix headers, tables, bullets (flexible structure)
 
         Returns:
-            Clean markdown with correct hierarchy
+            Clean markdown with correct structure
 
         Raises:
-            Exception: If Gemini API call fails
+            Exception: If LLM API call fails or invalid category
         """
+        # Validate category
+        if category not in ["regulation", "curriculum"]:
+            raise ValueError(f"Invalid category '{category}'. Must be 'regulation' or 'curriculum'")
+
         # Rate limiting
-        self._rate_limit()
+        #self._rate_limit()
+
+        # Select prompt based on category
+        if category == "regulation":
+            prompt_template = self.REGULATION_PROMPT
+        else:  # curriculum
+            prompt_template = self.CURRICULUM_PROMPT
 
         # Build prompt
-        prompt = self.PROMPT_TEMPLATE.format(markdown=markdown_text)
+        prompt = prompt_template.format(markdown=markdown_text)
 
-        # Call Gemini (NEW API)
+        # Call LLM via LlamaIndex
         try:
-
-
-            response = self.client.models.generate_content(
-                model=self.model_name,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    temperature=self.temperature,
-                )
-            )
+            response = self.llm.complete(prompt)
 
             # Extract text
             if not response.text:
-                raise ValueError("Empty response from Gemini")
+                raise ValueError("Empty response from LLM")
 
-            return response.text.strip()
+            fixed_text = response.text.strip()
+
+            # Post-processing: Remove markdown fence if LLM added it
+            # Pattern: ```markdown\n...\n``` or ```\n...\n```
+            if fixed_text.startswith("```"):
+                lines = fixed_text.split('\n')
+                # Remove first line (```markdown or ```)
+                if lines[0].startswith("```"):
+                    lines = lines[1:]
+                # Remove last line (```)
+                if lines and lines[-1].strip() == "```":
+                    lines = lines[:-1]
+                fixed_text = '\n'.join(lines).strip()
+
+            # Rule-based post-processing: Ensure blank lines before tables
+            # This is MORE RELIABLE than LLM for this specific formatting task
+            fixed_text = self._ensure_table_blank_lines(fixed_text)
+
+            return fixed_text
 
         except Exception as e:
-            raise Exception(f"Gemini API error: {e}")
+            raise Exception(f"LLM API error: {e}")
+
+    def _ensure_table_blank_lines(self, markdown_text: str) -> str:
+        """
+        Rule-based post-processing: Ensure all tables have blank line before them.
+
+        This function detects table headers (lines with `|` separators) and ensures
+        there's a blank line before each table, EXCEPT when the previous line is a
+        table caption (e.g., "**Bảng 1: ...**").
+
+        Args:
+            markdown_text: Markdown text (possibly from LLM)
+
+        Returns:
+            Markdown with blank lines added before tables where needed
+        """
+        import re
+
+        lines = markdown_text.split('\n')
+        result = []
+
+        for i, line in enumerate(lines):
+            # Detect table header: line has `|` AND next line is separator (---|---)
+            # This is THE KEY: table header is followed by separator line!
+            # Use .strip() to ignore leading/trailing spaces, and check for non-empty content
+            # Note: Table with N columns has (N-1) separators, so >= 1 is correct (at least 2 columns)
+            has_pipes = bool(line.strip() and '|' in line and line.count('|') >= 1)
+            next_is_separator = False
+            if i + 1 < len(lines):
+                next_line = lines[i + 1]
+                next_is_separator = bool(re.match(r'^[\s\|:-]+$', next_line) and '-' in next_line)
+
+            is_table_header = has_pipes and next_is_separator
+
+            if is_table_header and i > 0:
+                prev_line = lines[i - 1]
+
+                # Check if previous line is blank
+                is_prev_blank = prev_line.strip() == ''
+
+                # Check if previous line is separator (---|---) - shouldn't happen but be safe
+                is_prev_separator = bool(re.match(r'^[\s\|:-]+$', prev_line) and '-' in prev_line)
+
+                # Add blank line if previous line is NOT blank and NOT separator
+                if not is_prev_blank and not is_prev_separator:
+                    result.append('')  # Add blank line
+
+            result.append(line)
+
+        return '\n'.join(result)
 
     def _rate_limit(self):
         """

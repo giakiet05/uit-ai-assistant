@@ -2,12 +2,11 @@
 Simple scraper for daa.uit.edu.vn student portal.
 Uses BeautifulSoup for reliable HTML parsing.
 """
-from typing import Dict
 
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, BrowserConfig
 
 from .utils import parse_schedule_html, parse_grades_html, parse_exams_html
-from .models import Schedule, Grades, ExamSchedule, GradeSummary, Course
+from .models import Schedule, Grades, ExamSchedule
 
 
 class DaaScraper:
@@ -140,36 +139,36 @@ class DaaScraper:
 
         return result.html
     
-    async def get_schedule(self) -> dict:
+    async def get_schedule(self) -> Schedule:
         """
         Get student schedule.
 
         Returns:
-            dict with keys: classes, semester, student_id
+            Schedule: Pydantic model containing student schedule data
         """
         html = await self._fetch_html(self.SCHEDULE_URL)
         data = parse_schedule_html(html)
 
-        # Validate with Pydantic
+        # Validate with Pydantic and return model directly
         schedule = Schedule(
             student_id=data.get("student_id") or self.username,
             semester=data.get("semester"),
             classes=data["classes"]
         )
 
-        return schedule.model_dump()
+        return schedule
     
-    async def get_grades(self) -> dict:
+    async def get_grades(self) -> Grades:
         """
         Get student grades with GPA calculation.
 
         Returns:
-            dict with keys: student_info, semesters, overall_summary
+            Grades: Pydantic model containing student grades, GPA, and semester breakdown
         """
         html = await self._fetch_html(self.GRADES_URL)
         data = parse_grades_html(html) # data now contains student_info, semesters, overall_summary
 
-        # Validate the entire Grades object with the new structure
+        # Validate the entire Grades object with the new structure and return model directly
         grades = Grades(
             student_id=data.get("student_info", {}).get("student_id") or self.username,
             student_info=data["student_info"],
@@ -177,23 +176,23 @@ class DaaScraper:
             overall_summary=data["overall_summary"]
         )
 
-        return grades.model_dump()
+        return grades
     
-    async def get_exams(self) -> dict:
+    async def get_exams(self) -> ExamSchedule:
         """
         Get exam schedule.
 
         Returns:
-            dict with keys: exams, semester, student_id
+            ExamSchedule: Pydantic model containing exam schedule data
         """
         html = await self._fetch_html(self.EXAMS_URL)
         data = parse_exams_html(html)
 
-        # Validate
+        # Validate and return model directly
         exams = ExamSchedule(
             student_id=data.get("student_id") or self.username,
             semester=data.get("semester"),
             exams=data["exams"]
         )
 
-        return exams.model_dump()
+        return exams

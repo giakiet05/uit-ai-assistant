@@ -3,7 +3,7 @@ BaseNodeSplitter - Abstract base class for header-based node splitters.
 
 Provides shared functionality:
 - Token counting
-- Context prepending (document metadata + section info)
+- Context prepending (document metadata_generator + section info)
 - Sub-chunking logic for large chunks
 - Stats tracking
 
@@ -90,7 +90,7 @@ class BaseNodeSplitter(ABC):
             - text: chunk content (including header line)
             - current_header: this chunk's header text (without # symbols)
             - level: header level (1-6)
-            - (optional) other metadata specific to the splitter
+            - (optional) other metadata_generator specific to the splitter
         """
         pass
 
@@ -131,7 +131,7 @@ class BaseNodeSplitter(ABC):
             # Stage 3: Token check and sub-chunk if needed
             nodes = self._process_chunks_with_token_check(
                 chunks_with_context,
-                chunks_data,  # Keep original data for metadata
+                chunks_data,  # Keep original data for metadata_generator
                 doc.metadata
             )
 
@@ -150,7 +150,7 @@ class BaseNodeSplitter(ABC):
 
         Args:
             chunk_data: Dict with text, current_header
-            metadata: Document metadata
+            metadata: Document metadata_generator
 
         Returns:
             Text with prepended context
@@ -222,8 +222,8 @@ class BaseNodeSplitter(ABC):
 
         Args:
             chunks_with_context: List of chunks with prepended context
-            chunks_data: Original chunk data for metadata
-            metadata: Document metadata
+            chunks_data: Original chunk data for metadata_generator
+            metadata: Document metadata_generator
 
         Returns:
             List of TextNode objects

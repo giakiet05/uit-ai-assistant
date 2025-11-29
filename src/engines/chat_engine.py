@@ -306,7 +306,7 @@ Câu trả lời (CHỈ dựa trên tài liệu, KHÔNG bịa thêm):""")
                     {
                         "text": node.text[:200] + "...",
                         "score": node.score if hasattr(node, 'score') else None,
-                        "metadata": node.metadata if hasattr(node, 'metadata') else {}
+                        "metadata_generator": node.metadata if hasattr(node, 'metadata_generator') else {}
                     }
                     for node in retrieved_nodes
                 ]

@@ -88,7 +88,7 @@ class UitWebsiteCleaner(BaseCleaner):
         - Số: XXX/QĐ-ĐHCNTT
         - Tp. Hồ Chí Minh, ngày...
 
-        These are metadata-like headers that don't contribute to semantic search.
+        These are metadata_generator-like headers that don't contribute to semantic search.
         Real content starts with headers like "QUYẾT ĐỊNH", "THÔNG BÁO", "CÔNG VĂN", etc.
 
         If no letterhead is detected, returns original content unchanged.

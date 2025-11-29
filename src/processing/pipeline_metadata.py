@@ -3,11 +3,11 @@ Processing Pipeline - Stage 2: Metadata Generation
 
 This pipeline:
 1. Reads processed markdown files from processed/ directory
-2. Generates metadata using LLM (category-specific generators)
-3. Saves metadata as JSON alongside markdown
+2. Generates metadata_generator using LLM (category-specific generators)
+3. Saves metadata_generator as JSON alongside markdown
 
 NOTE: Run pipeline_parse_clean.py first to generate processed markdown files.
-This stage only reads existing .md files and generates metadata.
+This stage only reads existing .md files and generates metadata_generator.
 """
 
 import json
@@ -16,17 +16,17 @@ from typing import List, Optional
 from datetime import datetime
 
 from src.config.settings import settings
-from src.processing.metadata.metadata_generator_factory import MetadataGeneratorFactory
+from src.processing.metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
 
 
 class MetadataPipeline:
     """
-    Stage 2: Generate metadata for processed markdown files.
+    Stage 2: Generate metadata_generator for processed markdown files.
     Does NOT parse/clean (reads from already processed files).
     """
 
     def __init__(self):
-        """Initialize the metadata generation pipeline."""
+        """Initialize the metadata_generator generation pipeline."""
         # Stats tracking
         self.stats = {
             "files_processed": 0,
@@ -38,12 +38,12 @@ class MetadataPipeline:
 
     def run(self, categories: Optional[List[str]] = None, force: bool = False):
         """
-        Run the metadata generation pipeline.
+        Run the metadata_generator generation pipeline.
 
         Args:
             categories: List of specific categories to process (e.g., ["regulation"]).
                         If None, all categories in the processed directory will be processed.
-            force: If True, regenerate metadata even if .json exists
+            force: If True, regenerate metadata_generator even if .json exists
         """
         print("\n" + "="*70)
         print(f"🚀 STAGE 2: METADATA GENERATION PIPELINE - START")
@@ -89,17 +89,17 @@ class MetadataPipeline:
 
     def process_file(self, md_path: Path, category: str, force: bool = False):
         """
-        Generate metadata for a processed markdown file.
+        Generate metadata_generator for a processed markdown file.
 
         Args:
             md_path: Path to processed .md file
             category: Document category (regulation, curriculum, etc.)
-            force: If True, regenerate metadata even if .json exists
+            force: If True, regenerate metadata_generator even if .json exists
         """
         filename = md_path.name
         json_path = md_path.with_suffix('.json')
 
-        # Check if metadata already exists
+        # Check if metadata_generator already exists
         if json_path.exists() and not force:
             print(f"[SKIP] Metadata exists: {filename}")
             self.stats["files_skipped_existing"] += 1
@@ -122,7 +122,7 @@ class MetadataPipeline:
                 })
                 return
 
-            # Step 2: Generate metadata using category-specific generator
+            # Step 2: Generate metadata_generator using category-specific generator
             generator = MetadataGeneratorFactory.get_generator(category)
             metadata_obj = generator.generate(md_path, content)
 
@@ -136,18 +136,18 @@ class MetadataPipeline:
                 })
                 return
 
-            # Step 3: Validate metadata (basic checks)
+            # Step 3: Validate metadata_generator (basic checks)
             if not metadata_obj.title or not metadata_obj.category:
-                print(f"  ⚠️  [WARNING] Invalid metadata: missing title/category")
+                print(f"  ⚠️  [WARNING] Invalid metadata_generator: missing title/category")
                 self.stats["files_failed"] += 1
                 self.stats["errors"].append({
                     "file": filename,
                     "category": category,
-                    "error": "Invalid metadata: missing critical fields"
+                    "error": "Invalid metadata_generator: missing critical fields"
                 })
                 return
 
-            # Step 4: Save metadata JSON
+            # Step 4: Save metadata_generator JSON
             with open(json_path, 'w', encoding='utf-8') as f:
                 # Use Pydantic's model_dump for serialization
                 metadata_dict = metadata_obj.model_dump()
@@ -158,7 +158,7 @@ class MetadataPipeline:
                 json.dump(metadata_dict, f, ensure_ascii=False, indent=2)
 
             self.stats["files_processed"] += 1
-            print(f"  ✅ [SUCCESS] Saved metadata: {json_path.name}")
+            print(f"  ✅ [SUCCESS] Saved metadata_generator: {json_path.name}")
             print(f"     → Title: {metadata_obj.title[:60]}...")
             print(f"     → Type: {getattr(metadata_obj, 'document_type', 'N/A')}")
 
@@ -198,11 +198,11 @@ class MetadataPipeline:
 
 def run_metadata_generation(categories: Optional[List[str]] = None, force: bool = False):
     """
-    Convenience function to run the metadata generation pipeline.
+    Convenience function to run the metadata_generator generation pipeline.
 
     Args:
         categories: List of categories to process
-        force: If True, regenerate metadata even if exists
+        force: If True, regenerate metadata_generator even if exists
     """
     pipeline = MetadataPipeline()
     pipeline.run(categories=categories, force=force)
@@ -220,7 +220,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--force', '-f',
         action='store_true',
-        help='Force regenerate metadata even if exists'
+        help='Force regenerate metadata_generator even if exists'
     )
 
     args = parser.parse_args()

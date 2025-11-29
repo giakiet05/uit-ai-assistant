@@ -19,7 +19,7 @@ def test_parse_folder(folder_path: str):
         f for f in folder.iterdir()
         if f.is_file()
         and f.suffix.lower() in ['.pdf', '.docx']
-        and f.name != 'metadata.json'
+        and f.name != 'metadata_generator.json'
     ]
 
     print(f"\n{'='*70}")

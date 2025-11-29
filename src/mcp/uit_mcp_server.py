@@ -8,9 +8,7 @@ This server exposes the QueryEngine as an MCP tool that can be used by:
 MCP Protocol: https://modelcontextprotocol.io/
 FastMCP: https://github.com/jlowin/fastmcp
 """
-
 import chromadb
-
 from fastmcp import FastMCP
 
 from llama_index.core import VectorStoreIndex
@@ -20,10 +18,11 @@ from llama_index.core import Settings as LlamaSettings
 
 from src.config.settings import settings
 from src.engines.retriever.query_engine import QueryEngine
-
+from src.scraper.daa_scraper import DaaScraper
+from src.scraper.models import Grades, Schedule
 
 # Initialize FastMCP server
-mcp = FastMCP("UIT Retrieval Server")
+mcp = FastMCP("UIT MCP Server") # RENAMED SERVER
 
 # Global QueryEngine instance (lazy loaded)
 _query_engine = None
@@ -116,24 +115,58 @@ def retrieve_documents(query: str) -> str:
 
     for i, doc in enumerate(result['documents'], 1):
         lines.append(f"Document {i} (Score: {doc['score']:.3f}):")
-
-        #No need to enclose metadata because the important fields of metadata is prepended to the text in the processing stage
-        #--------------------------------------------------------------
-        # Add hierarchy if available (helps agent understand document structure)
-        # if doc['hierarchy']:
-        #     lines.append(f"Topic: {doc['hierarchy']}")
-        #
-        # # Add source if available
-        # metadata = doc.get('metadata', {})
-        # if metadata.get('document_id'):
-        #     lines.append(f"Source: {metadata['document_id']}")
-        #--------------------------------------------------------------
-
-        # Content (most important part)
         lines.append(f"{doc['text']}")
         lines.append("")  # Blank line between documents
 
     return "\n".join(lines)
+
+
+@mcp.tool()
+async def get_grades(username: str, password: str) -> Grades:
+    """
+    Retrieve student grades from the DAA portal.
+
+    Returns structured grade data including:
+    - Student information (name, MSSV, class, faculty, etc.)
+    - Semester-by-semester breakdown with courses and GPA
+    - Overall GPA summary (both 10-scale and 4-scale)
+
+    This tool automatically calculates GPA for each semester and cumulative GPA.
+
+    Args:
+        username: The student's DAA username (MSSV).
+        password: The student's DAA password.
+
+    Returns:
+        Grades: Pydantic model with complete grade information and GPA calculations.
+            FastMCP will automatically generate JSON schema from this model.
+    """
+    async with DaaScraper(username=username, password=password, headless=True) as scraper:
+        grades = await scraper.get_grades()
+        return grades
+
+
+@mcp.tool()
+async def get_schedule(username: str, password: str) -> Schedule:
+    """
+    Retrieve student schedule from the DAA portal.
+
+    Returns structured schedule data including:
+    - Current semester information
+    - List of all classes with details (time, room, subject, class size, etc.)
+    - Day of week, period, date range for each class
+
+    Args:
+        username: The student's DAA username (MSSV).
+        password: The student's DAA password.
+
+    Returns:
+        Schedule: Pydantic model with complete schedule information.
+            FastMCP will automatically generate JSON schema from this model.
+    """
+    async with DaaScraper(username=username, password=password, headless=True) as scraper:
+        schedule = await scraper.get_schedule()
+        return schedule
 
 
 # Entry point for running the server

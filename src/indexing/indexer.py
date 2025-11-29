@@ -107,12 +107,12 @@ class DocumentIndexer:
             print(f"[INFO] No documents found in category: {category}")
             return False
 
-        # Clean metadata (remove non-primitive types for ChromaDB)
+        # Clean metadata_generator (remove non-primitive types for ChromaDB)
         for doc in documents:
             doc.metadata = self._clean_metadata(doc.metadata)
 
         try:
-            # Create/get collection (domain in metadata, no prefix needed)
+            # Create/get collection (domain in metadata_generator, no prefix needed)
             collection_name = category
             print(f"[INFO] Creating ChromaDB collection: {collection_name}")
             chroma_collection = self.chroma_client.get_or_create_collection(collection_name)
@@ -185,8 +185,8 @@ class DocumentIndexer:
 
         For each {document_id}.md file:
         - Read markdown content
-        - Load metadata from {document_id}.json
-        - Create Document with metadata
+        - Load metadata_generator from {document_id}.json
+        - Create Document with metadata_generator
 
         Args:
             category: Category name
@@ -214,7 +214,7 @@ class DocumentIndexer:
                     print(f"[WARNING] Empty content in {md_file.name}, skipping")
                     continue
 
-                # Load metadata from corresponding JSON file
+                # Load metadata_generator from corresponding JSON file
                 json_file = md_file.with_suffix('.json')
                 metadata = {}
 
@@ -223,7 +223,7 @@ class DocumentIndexer:
                         with open(json_file, 'r', encoding='utf-8') as f:
                             metadata = json.load(f)
                     except Exception as e:
-                        print(f"[WARNING] Failed to load metadata for {md_file.name}: {e}")
+                        print(f"[WARNING] Failed to load metadata_generator for {md_file.name}: {e}")
 
                 # Create Document
                 doc = Document(
@@ -241,16 +241,16 @@ class DocumentIndexer:
 
     def _clean_metadata(self, metadata: Dict) -> Dict:
         """
-        Clean metadata to only include ChromaDB-compatible types.
+        Clean metadata_generator to only include ChromaDB-compatible types.
 
         ChromaDB only accepts: str, int, float, None
         Removes: list, dict, tuple, etc.
 
         Args:
-            metadata: Original metadata dict
+            metadata: Original metadata_generator dict
 
         Returns:
-            Cleaned metadata dict
+            Cleaned metadata_generator dict
         """
         cleaned = {}
         for key, value in metadata.items():

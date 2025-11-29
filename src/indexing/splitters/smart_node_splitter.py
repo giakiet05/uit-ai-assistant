@@ -108,7 +108,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
             cleaned_text = self._preprocess_markdown(doc.text, doc.metadata)
 
             # Step 2: Parse by headers
-            chunks_data = self._parse_by_headers(cleaned_text)
+            chunks_data = self._parse_by_headers(cleaned_text, doc.metadata)
             self.stats["total_chunks"] += len(chunks_data)
 
             # Step 3: Post-process chunks (merge title, etc.)
@@ -138,7 +138,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
 
         Args:
             text: Raw markdown text
-            metadata: Document metadata
+            metadata: Document metadata_generator
 
         Returns:
             Cleaned markdown text
@@ -173,9 +173,13 @@ class SmartNodeSplitter(BaseNodeSplitter):
 
         return '\n'.join(cleaned_lines)
 
-    def _parse_by_headers(self, text: str) -> List[Dict]:
+    def _parse_by_headers(self, text: str, metadata: Dict) -> List[Dict]:
         """
         Parse markdown by headers WITH hierarchy tracking.
+
+        Args:
+            text: Markdown text to parse
+            metadata: Document metadata (used for category-specific truncation)
 
         Returns:
             List of dicts with:
@@ -219,7 +223,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
                 header_stack = [h for h in header_stack if h['level'] < level]
 
                 # ✅ TRUNCATE header before adding to stack
-                truncated_header = self._truncate_header(header_text)
+                truncated_header = self._truncate_header(header_text, metadata)
 
                 # Add current header
                 header_stack.append({'level': level, 'text': truncated_header})
@@ -247,7 +251,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
                         header_text = line.strip()
 
                         # ✅ TRUNCATE pattern-detected header
-                        truncated_header = self._truncate_header(header_text)
+                        truncated_header = self._truncate_header(header_text, metadata)
 
                         # Remove headers at same or deeper level
                         header_stack = [h for h in header_stack if h['level'] < level]
@@ -305,28 +309,49 @@ class SmartNodeSplitter(BaseNodeSplitter):
 
         return False
 
-    def _truncate_header(self, header: str, max_length: int = 80) -> str:
+    def _truncate_header(self, header: str, metadata: Dict = None, max_length: int = 80) -> str:
         """
         Truncate header to avoid duplication in hierarchy.
 
-        Strategy:
+        Strategy depends on document category:
+
+        REGULATION:
         - ALWAYS truncate known patterns (Điều, Khoản, Mục) regardless of length
         - For other headers: only truncate if > max_length
 
-        Examples:
+        CURRICULUM:
+        - KEEP headers as-is (they're already short and descriptive)
+        - Only truncate if > max_length
+
+        Examples (Regulation):
         - "CHƯƠNG I" → "CHƯƠNG I" (short, keep)
         - "Điều 1. Phạm vi điều chỉnh" → "Điều 1" (always truncate)
         - "1. Văn bản này quy định..." → "Khoản 1" (always truncate)
         - "a. Short text" → "Mục a" (always truncate)
 
+        Examples (Curriculum):
+        - "# 1. GIỚI THIỆU" → "1. GIỚI THIỆU" (keep as-is)
+        - "## 1.1. Mục tiêu đào tạo" → "1.1. Mục tiêu đào tạo" (keep as-is)
+        - "### 1.3.1. Nhóm các môn học cơ sở nhóm ngành" → "1.3.1. Nhóm các môn học cơ sở nhóm ngành" (keep as-is)
+
         Args:
             header: Original header text
+            metadata: Document metadata (used to determine category)
             max_length: Maximum length before truncation
 
         Returns:
             Truncated header
         """
-        # ========== ALWAYS TRUNCATE KNOWN PATTERNS ==========
+        category = metadata.get('category', '') if metadata else ''
+
+        # ========== CURRICULUM: KEEP HEADERS AS-IS ==========
+        if category == 'curriculum':
+            # Only truncate if extremely long
+            if len(header) <= max_length:
+                return header
+            return header[:max_length] + "..."
+
+        # ========== REGULATION: TRUNCATE KNOWN PATTERNS ==========
 
         # Pattern: "Điều X. <text>" OR "Điều X" → "Điều X"
         if match := re.match(r'^(Điều\s+\d+)', header):
@@ -358,7 +383,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
 
         Args:
             chunks: List of chunk dicts
-            metadata: Document metadata
+            metadata: Document metadata_generator
 
         Returns:
             Processed chunks
@@ -381,7 +406,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
 
         Args:
             chunk_data: Dict with text, header_path, current_header
-            metadata: Document metadata
+            metadata: Document metadata_generator
 
         Returns:
             Text with prepended context

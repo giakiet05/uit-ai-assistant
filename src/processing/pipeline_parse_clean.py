@@ -4,10 +4,11 @@ Processing Pipeline - Stage 1: Parse & Clean
 This pipeline:
 1. For .md files → Clean using category-specific cleaner (letterhead removal + navigation cleanup)
 2. For .pdf/.docx → Parse to markdown, then clean with cleaner (letterhead removal + navigation cleanup)
-3. Apply content filter to check quality
-4. Save good content to processed/, reject bad content to .rejected/
+3. Fix markdown structure using LLM (MarkdownFixer)
+4. Apply content filter to check quality
+5. Save good content to processed/, reject bad content to .rejected/
 
-NOTE: This stage does NOT generate metadata. Run pipeline_metadata.py separately.
+NOTE: This stage does NOT generate metadata_generator. Run pipeline_metadata.py separately.
 """
 
 import json
@@ -18,17 +19,32 @@ from src.config.settings import settings
 from src.processing.parser.parser_factory import ParserFactory
 from src.processing.cleaner.cleaner_factory import CleanerFactory
 from src.processing.content_filter import ContentFilter
+from src.processing.llm_markdown_fixer import MarkdownFixer
 
 
 class ParseCleanPipeline:
     """
     Stage 1: Parse/Clean raw files and save processed markdown.
-    Does NOT generate metadata (that's Stage 2).
+    Does NOT generate metadata_generator (that's Stage 2).
     """
 
-    def __init__(self):
-        """Initialize the parse/clean pipeline."""
+    def __init__(self, use_markdown_fixer: bool = True):
+        """
+        Initialize the parse/clean pipeline.
+
+        Args:
+            use_markdown_fixer: If True, apply MarkdownFixer after cleaning (default: True)
+        """
         self.content_filter = ContentFilter()
+        self.use_markdown_fixer = use_markdown_fixer
+
+        # Initialize MarkdownFixer if enabled
+        if self.use_markdown_fixer:
+            print("[PIPELINE] Initializing MarkdownFixer...")
+            self.markdown_fixer = MarkdownFixer()
+            print("[PIPELINE] MarkdownFixer ready\n")
+        else:
+            self.markdown_fixer = None
 
         # Stats tracking
         self.stats = {
@@ -141,7 +157,16 @@ class ParseCleanPipeline:
                 })
                 return
 
-            # Step 2: Apply content filter
+            # Step 2.5: Fix markdown structure (if enabled)
+            if self.use_markdown_fixer:
+                print(f"  → Fixing markdown structure...")
+                processed_content = self.markdown_fixer.fix_markdown(
+                    processed_content,
+                    category=category
+                )
+                print(f"  ✅ Markdown structure fixed")
+
+            # Step 3: Apply content filter
             is_useful, reason = self.content_filter.is_useful(processed_content)
 
             if not is_useful:
@@ -174,7 +199,7 @@ class ParseCleanPipeline:
 
     def _save_rejected_file(self, content: str, file_path: Path, category: str, reason: str):
         """
-        Save rejected content to .rejected/ folder with metadata about why it was rejected.
+        Save rejected content to .rejected/ folder with metadata_generator about why it was rejected.
 
         Args:
             content: Processed content that was rejected
@@ -190,7 +215,7 @@ class ParseCleanPipeline:
         with open(rejected_md, 'w', encoding='utf-8') as f:
             f.write(content)
 
-        # Save rejection metadata
+        # Save rejection metadata_generator
         rejection_info = {
             "original_file": str(file_path),
             "category": category,
@@ -220,7 +245,7 @@ class ParseCleanPipeline:
             if len(self.stats["errors"]) > 10:
                 print(f"      ... and {len(self.stats['errors']) - 10} more")
 
-        print("\n💡 Next step: Run pipeline_metadata.py to generate metadata")
+        print("\n💡 Next step: Run pipeline_metadata.py to generate metadata_generator")
         print("="*70 + "\n")
 
 

@@ -75,8 +75,8 @@ async def main():
             print("-" * 70)
             print(f"\n[AGENT]: {result['response']}\n")
 
-            # Show metadata
-            metadata = result.get('metadata', {})
+            # Show metadata_generator
+            metadata = result.get('metadata_generator', {})
             if metadata:
                 print(f"[METADATA] History: {metadata.get('history_messages', 0)} messages, "
                       f"New: {metadata.get('new_messages', 0)} messages")

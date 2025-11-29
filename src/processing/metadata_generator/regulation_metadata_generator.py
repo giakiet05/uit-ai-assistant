@@ -1,4 +1,4 @@
-# src/processing/metadata/regulation_metadata_generator.py
+# src/processing/metadata_generator/regulation_metadata_generator.py
 import json
 import re
 from pathlib import Path
@@ -14,7 +14,7 @@ REGULATION_CODE_LOOKUP_PATH = settings.paths.DATA_DIR / "regulation_codes.json"
 
 class RegulationMetadataGenerator(BaseMetadataGenerator):
     """
-    Generator chuyên để trích xuất metadata cho các tài liệu quy định (regulation).
+    Generator chuyên để trích xuất metadata_generator cho các tài liệu quy định (regulation).
     Sử dụng LLM để trích xuất có cấu trúc và áp dụng logic để đảm bảo tính nhất quán.
     """
 
@@ -120,8 +120,8 @@ class RegulationMetadataGenerator(BaseMetadataGenerator):
 
     def generate(self, file_path: Path, content: str) -> Union[RegulationMetadata, CurriculumMetadata, DefaultMetadata, None]:
         """
-        Triển khai logic trích xuất metadata cho 'regulation'.
-        SINGLE LLM CALL - Extract tất cả metadata including base_regulation_code.
+        Triển khai logic trích xuất metadata_generator cho 'regulation'.
+        SINGLE LLM CALL - Extract tất cả metadata_generator including base_regulation_code.
         """
         print(f"INFO: Using RegulationMetadataGenerator for {file_path.name}")
 
@@ -258,7 +258,7 @@ CHỈ TRẢ VỀ JSON, KHÔNG GIẢI THÍCH.
                     self._save_regulation_codes()
                     print(f"  → New base code registered: {final_base_code}")
 
-            # Tạo metadata object
+            # Tạo metadata_generator object
             metadata = RegulationMetadata(
                 document_id=file_path.name,
                 category="regulation",
@@ -272,13 +272,13 @@ CHỈ TRẢ VỀ JSON, KHÔNG GIẢI THÍCH.
                 base_regulation_code=final_base_code
             )
 
-            print(f"SUCCESS: Extracted metadata for {file_path.name}")
+            print(f"SUCCESS: Extracted metadata_generator for {file_path.name}")
             print(f"  → Document Type: {metadata.document_type}")
             print(f"  → Base Regulation Code: {metadata.base_regulation_code}")
             return metadata
 
         except Exception as e:
-            print(f"ERROR: Failed to extract metadata for {file_path.name}. Reason: {e}")
+            print(f"ERROR: Failed to extract metadata_generator for {file_path.name}. Reason: {e}")
             import traceback
             traceback.print_exc()
             return None

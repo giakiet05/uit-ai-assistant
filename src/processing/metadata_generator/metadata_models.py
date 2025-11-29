@@ -1,11 +1,11 @@
-# src/processing/metadata/metadata_models.py
+# src/processing/metadata_generator/metadata_models.py
 from typing import List, Literal, Optional
 from pydantic import BaseModel, Field
 
 # --- Base Model ---
 class BaseMetadata(BaseModel):
     """
-    Các trường metadata chung cho tất cả các loại tài liệu.
+    Các trường metadata_generator chung cho tất cả các loại tài liệu.
     """
     document_id: str = Field(description="ID duy nhất của tài liệu, là tên file.")
     title: str = Field(description="Tiêu đề của tài liệu.")

@@ -2,7 +2,7 @@
 Test hierarchy truncation to verify no duplication.
 
 This test specifically checks that:
-1. Hierarchy metadata is short and clean
+1. Hierarchy metadata_generator is short and clean
 2. No duplication between hierarchy and content
 3. Long headers are truncated to "Khoản X", "Mục a", etc.
 """
@@ -126,7 +126,7 @@ def test_hierarchy_truncation():
     print("="*80)
     print("\nCheck the output above for:")
     print("1. Hierarchy should be SHORT (e.g., 'CHƯƠNG I > Điều 1 > Khoản 1')")
-    print("2. No long content in hierarchy metadata")
+    print("2. No long content in hierarchy metadata_generator")
     print("3. Content should NOT be duplicated in hierarchy")
 
 

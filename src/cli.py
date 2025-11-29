@@ -8,8 +8,8 @@ Commands:
     crawl        - Crawl websites for raw data
     parse        - Parse attachments to markdown (legacy)
     clean        - Stage 1: Parse & clean raw files (costs money)
-    metadata     - Stage 2: Generate metadata from processed files (cheap, can re-run)
-    process      - Run both stages (parse/clean + metadata)
+    metadata_generator     - Stage 2: Generate metadata_generator from processed files (cheap, can re-run)
+    process      - Run both stages (parse/clean + metadata_generator)
     fix-markdown - Fix markdown structure using Gemini LLM
     index        - Build vector store index from processed documents
     pipeline     - Run full pipeline (crawl -> process)
@@ -17,7 +17,7 @@ Commands:
 Examples:
     ua crawl --domain daa.uit.edu.vn
     ua clean --categories regulation,curriculum
-    ua metadata --categories regulation,curriculum --force
+    ua metadata_generator --categories regulation,curriculum --force
     ua process --categories regulation,curriculum
     ua index --categories regulation,curriculum
 """
@@ -36,7 +36,7 @@ def main():
 Examples:
   ua crawl --domain daa.uit.edu.vn
   ua clean --categories regulation,curriculum
-  ua metadata --categories regulation --force
+  ua metadata_generator --categories regulation --force
   ua process --categories regulation
   ua index --categories regulation,curriculum
   ua pipeline
@@ -86,8 +86,8 @@ Examples:
 
     # ===== METADATA (STAGE 2) =====
     metadata_parser = subparsers.add_parser(
-        "metadata",
-        help="Stage 2: Generate metadata from processed files (cheap, can re-run)"
+        "metadata_generator",
+        help="Stage 2: Generate metadata_generator from processed files (cheap, can re-run)"
     )
     metadata_parser.add_argument(
         "--categories", "-c",
@@ -96,13 +96,13 @@ Examples:
     metadata_parser.add_argument(
         "--force", "-f",
         action="store_true",
-        help="Force regenerate metadata even if exists"
+        help="Force regenerate metadata_generator even if exists"
     )
 
     # ===== PROCESS (V2 - BOTH STAGES) =====
     process_parser = subparsers.add_parser(
         "process",
-        help="Run both stages (parse/clean + metadata)"
+        help="Run both stages (parse/clean + metadata_generator)"
     )
     process_parser.add_argument(
         "--categories", "-c",
@@ -114,19 +114,19 @@ Examples:
         help="Force re-parse/clean existing files (Stage 1)"
     )
     process_parser.add_argument(
-        "--force-metadata",
+        "--force-metadata_generator",
         action="store_true",
-        help="Force regenerate metadata even if exists (Stage 2)"
+        help="Force regenerate metadata_generator even if exists (Stage 2)"
     )
     process_parser.add_argument(
         "--skip-stage1",
         action="store_true",
-        help="Skip Stage 1 (parse/clean) - only generate metadata"
+        help="Skip Stage 1 (parse/clean) - only generate metadata_generator"
     )
     process_parser.add_argument(
         "--skip-stage2",
         action="store_true",
-        help="Skip Stage 2 (metadata) - only parse/clean"
+        help="Skip Stage 2 (metadata_generator) - only parse/clean"
     )
 
     # ===== FIX-MARKDOWN =====
@@ -179,7 +179,7 @@ Examples:
         elif args.command == "clean":
             from src.commands.clean import run_clean
             run_clean(args)
-        elif args.command == "metadata":
+        elif args.command == "metadata_generator":
             from src.commands.metadata import run_metadata
             run_metadata(args)
         elif args.command == "process":

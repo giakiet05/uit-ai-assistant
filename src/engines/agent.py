@@ -332,10 +332,10 @@ class AgentService:
         Args:
             message: User's message
             session_id: Session identifier for conversation history
-            return_metadata: Whether to return metadata (tool calls, etc.)
+            return_metadata: Whether to return metadata_generator (tool calls, etc.)
 
         Returns:
-            dict with 'response', 'session_id', 'timestamp', optional metadata
+            dict with 'response', 'session_id', 'timestamp', optional metadata_generator
         """
         print(f"\n{'='*60}")
         print(f"[AGENT SERVICE] Session: {session_id}")
@@ -416,7 +416,7 @@ class AgentService:
             }
 
             if return_metadata:
-                result["metadata"] = {
+                result["metadata_generator"] = {
                     "history_messages": len(history),
                     "new_messages": len(new_messages)
                 }

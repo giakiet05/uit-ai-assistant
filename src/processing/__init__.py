@@ -7,7 +7,7 @@ from .cleaner import (
     BaseCleaner,
     CleanerFactory
 )
-from .llm_markdown_fixer import GeminiMarkdownFixer
+from .llm_markdown_fixer import MarkdownFixer
 
 # Expose key components from the parser submodule
 from .parser import (
@@ -23,5 +23,5 @@ __all__ = [
     # Extractor components
     "BaseParser",
     "ParserFactory",
-    "GeminiMarkdownFixer"
+    "MarkdownFixer"
 ]

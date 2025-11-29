@@ -58,7 +58,7 @@ def test_chunking(file_pattern: str = "547"):
 
     # ========== CREATE DOCUMENT ==========
 
-    # Try to load metadata if exists
+    # Try to load metadata_generator if exists
     metadata_file = md_file.with_suffix('.json')
     metadata = {
         "document_id": md_file.stem,
@@ -70,7 +70,7 @@ def test_chunking(file_pattern: str = "547"):
         with open(metadata_file, 'r', encoding='utf-8') as f:
             loaded_metadata = json.load(f)
             metadata.update(loaded_metadata)
-            print(f"✅ Loaded metadata from: {metadata_file.name}")
+            print(f"✅ Loaded metadata_generator from: {metadata_file.name}")
             print(f"   - Title: {metadata.get('title', 'N/A')}")
             print(f"   - Effective date: {metadata.get('effective_date', 'N/A')}")
             print()

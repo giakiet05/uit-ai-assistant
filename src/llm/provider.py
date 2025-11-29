@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from llama_index.core.llms import LLM
 from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
+from llama_index.llms.gemini import Gemini
 
 from src.config import settings
 
@@ -55,6 +56,22 @@ def _create_openai_llm(model: str, **kwargs) -> OpenAI:
     print(f"[INFO] Creating OpenAI LLM with model: {model}")
     return OpenAI(model=model, api_key=api_key, **final_kwargs)
 
+def _create_gemini_llm(model: str, **kwargs) -> Gemini:
+    """
+    Creates a LlamaIndex Gemini instance.
+    """
+    api_key = settings.credentials.GOOGLE_API_KEY
+    if not api_key:
+        raise ValueError("GOOGLE_API_KEY not found in environment variables. Please create a .env file.")
+
+    default_kwargs = {
+        "temperature": 0.5,  # Balanced for text generation
+    }
+    final_kwargs = {**default_kwargs, **kwargs}
+
+    print(f"[INFO] Creating Gemini LLM with model: {model}")
+    return Gemini(model=model, api_key=api_key, **final_kwargs)
+
 def create_llm(provider: str, model: str, **kwargs) -> LLM:
     """
     A factory function that creates and returns a LlamaIndex LLM instance.
@@ -65,5 +82,7 @@ def create_llm(provider: str, model: str, **kwargs) -> LLM:
         return _create_ollama_llm(model=model, **kwargs)
     elif provider == "openai":
         return _create_openai_llm(model=model, **kwargs)
+    elif provider == "gemini":
+        return _create_gemini_llm(model=model, **kwargs)
     else:
-        raise ValueError(f"Unsupported LLM provider: '{provider}'. Supported: ['ollama', 'openai']")
+        raise ValueError(f"Unsupported LLM provider: '{provider}'. Supported: ['ollama', 'openai', 'gemini']")

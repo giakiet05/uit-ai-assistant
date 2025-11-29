@@ -9,7 +9,7 @@ import json
 
 
 def test_chunking(file_path: str, metadata_path: str = None):
-    """Test hierarchical markdown chunking cho 1 file markdown với metadata."""
+    """Test hierarchical markdown chunking cho 1 file markdown với metadata_generator."""
     print(f"\n{'='*70}")
     print(f"Testing HierarchicalMarkdownParserV2 for: {Path(file_path).name}")
     print(f"{'='*70}\n")
@@ -18,21 +18,21 @@ def test_chunking(file_path: str, metadata_path: str = None):
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Load metadata if exists
+    # Load metadata_generator if exists
     metadata = {}
     if metadata_path and Path(metadata_path).exists():
         with open(metadata_path, "r", encoding="utf-8") as f:
             metadata = json.load(f)
-        print(f"✅ Loaded metadata from: {Path(metadata_path).name}")
+        print(f"✅ Loaded metadata_generator from: {Path(metadata_path).name}")
     else:
-        # Try to auto-find metadata file
+        # Try to auto-find metadata_generator file
         auto_metadata_path = Path(file_path).with_suffix('.json')
         if auto_metadata_path.exists():
             with open(auto_metadata_path, "r", encoding="utf-8") as f:
                 metadata = json.load(f)
-            print(f"✅ Auto-loaded metadata from: {auto_metadata_path.name}")
+            print(f"✅ Auto-loaded metadata_generator from: {auto_metadata_path.name}")
         else:
-            print("⚠️  No metadata file found, using minimal metadata")
+            print("⚠️  No metadata_generator file found, using minimal metadata_generator")
             metadata = {
                 "document_id": Path(file_path).stem,
                 "category": "unknown"
@@ -80,7 +80,7 @@ def test_chunking(file_path: str, metadata_path: str = None):
         print(f"Length: {len(node.text)} chars ({len(node.text.split())} words)")
         print(f"Tokens: {tokens} {'⚠️ EXCEEDS 8192!' if tokens > 8192 else '✅ OK'}")
 
-        # Show hierarchy metadata (NEW IN V2!)
+        # Show hierarchy metadata_generator (NEW IN V2!)
         header_path = node.metadata.get('header_path', [])
         current_header = node.metadata.get('current_header')
         header_level = node.metadata.get('header_level', 0)

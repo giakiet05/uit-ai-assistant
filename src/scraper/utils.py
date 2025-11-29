@@ -2,7 +2,6 @@
 Utility functions for parsing HTML content from Crawl4AI.
 Uses BeautifulSoup for reliable DOM-based parsing.
 """
-import re
 from typing import List, Dict, Optional
 from bs4 import BeautifulSoup
 import logging

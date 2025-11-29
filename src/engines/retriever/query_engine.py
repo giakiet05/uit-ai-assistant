@@ -302,7 +302,7 @@ class QueryEngine:
 
     def retrieve_with_metadata(self, query: str) -> Dict:
         """
-        Retrieve and return formatted result with metadata.
+        Retrieve and return formatted result with metadata_generator.
 
         This is the method that will be exposed via MCP tool.
         Uses blended retrieval (all available indexes).
@@ -311,7 +311,7 @@ class QueryEngine:
             query: User query
 
         Returns:
-            Dict with documents and metadata
+            Dict with documents and metadata_generator
         """
         result = self.retrieve(query)
 
@@ -325,8 +325,8 @@ class QueryEngine:
                 {
                     "text": node.node.get_content(),
                     "score": node.score,
-                    "metadata": node.node.metadata if hasattr(node.node, 'metadata') else {},
-                    "hierarchy": node.node.metadata.get('hierarchy', '') if hasattr(node.node, 'metadata') else ''
+                    "metadata_generator": node.node.metadata if hasattr(node.node, 'metadata_generator') else {},
+                    "hierarchy": node.node.metadata.get('hierarchy', '') if hasattr(node.node, 'metadata_generator') else ''
                 }
                 for node in result.nodes
             ]
