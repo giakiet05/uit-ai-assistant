@@ -37,9 +37,9 @@ class LLMClassificationRouter(BaseQueryRouter):
 
     # Collection descriptions for classification prompt
     COLLECTION_DESCRIPTIONS = {
-        "regulations": "Quy định, quy chế, quyết định, quy trình, hướng dẫn về chính sách và quản lý",
+        "regulation": "Quy định, quy chế, quyết định, quy trình, hướng dẫn về chính sách và quản lý",
         "curriculum": "Chương trình đào tạo, danh mục môn học, nội dung học phần, kế hoạch đào tạo",
-        "announcements": "Thông báo về lịch thi, lịch học, kết quả thi, sự kiện",
+        "announcement": "Thông báo về lịch thi, lịch học, kết quả thi, sự kiện",
     }
 
     def __init__(self, available_collections: List[str]):
@@ -69,12 +69,12 @@ class LLMClassificationRouter(BaseQueryRouter):
             RoutingDecision with selected collections and reasoning
 
         Example:
-            >>> router = LLMClassificationRouter(["regulations", "curriculum"])
+            >>> router = LLMClassificationRouter(["regulation", "curriculum"])
             >>> decision = router.route("UIT có bao nhiêu loại học phần?")
             >>> print(decision.collections)
-            ["regulations"]
+            ["regulation"]
             >>> print(decision.reasoning)
-            "LLM classified query as 'regulations' based on policy/regulation intent"
+            "LLM classified query as 'regulation' based on policy/regulation intent"
         """
         # Build classification prompt
         prompt = self._build_classification_prompt(query)
@@ -119,25 +119,96 @@ class LLMClassificationRouter(BaseQueryRouter):
             for coll in self.available_collections
         ])
 
-        prompt = f"""You are a query classification system for a university knowledge base.
+        prompt = f"""Phân loại câu hỏi vào collection phù hợp.
 
-Available collections:
+Collections:
 {options_text}
 
-User query: "{query}"
+Câu hỏi: "{query}"
 
-Task: Classify this query into ONE or MORE of the following categories: {', '.join(self.available_collections)}
+### NGUYÊN TẮC PHÂN LOẠI
 
-Rules:
-1. If the query is about policies, regulations, rules, or decisions, choose: regulations
-2. If the query is about curriculum, courses, study programs, or academic content, choose: curriculum
-3. If the query is about schedules, announcements, or events, choose: announcements
-4. If the query could belong to multiple categories, list all relevant ones separated by commas
-5. If unsure, return: all
+Hãy trả lời câu hỏi: Người dùng đang hỏi về NGÀNH/CHƯƠNG TRÌNH ĐÀO TẠO CỤ THỂ hay CHÍNH SÁCH CHUNG của trường?
 
-Response format: Return ONLY the category name(s) or "all". No explanation.
+#### BƯỚC 1: Kiểm tra xem câu hỏi có đề cập đến NGÀNH CỤ THỂ không?
 
-Classification:"""
+PHÂN BIỆT TÊN TRƯỜNG vs TÊN NGÀNH:
+- "Trường/Đại học Công nghệ Thông tin" = Tên TRƯỜNG (UIT) -> KHÔNG PHẢI ngành cụ thể
+- "Ngành Công nghệ Thông tin" = Tên NGÀNH -> LÀ ngành cụ thể
+- "UIT", "ĐHCNTT", "trường" -> chỉ nơi học, KHÔNG phải ngành cụ thể
+
+Tín hiệu về NGÀNH CỤ THỂ (chỉ khi có ít nhất 1 trong các điều sau):
+- Có từ khóa: "ngành X", "chuyên ngành X", "chương trình đào tạo X", "CTĐT X"
+- Có viết tắt ngành: CNTT, KHMT, KTPM, AI, TTNT, ATTT, KHĐL, MMT&TT, v.v.
+- Có tên ngành ĐẦY ĐỦ:
+  - "Công nghệ thông tin" (KHI đi cùng "ngành" hoặc viết tắt CNTT)
+  - "Khoa học máy tính"
+  - "Kỹ thuật phần mềm"
+  - "Trí tuệ nhân tạo"
+  - "An toàn thông tin"
+  - "Khoa học dữ liệu"
+  - "Mạng máy tính và Truyền thông dữ liệu"
+  - "Kỹ thuật máy tính"
+  - "Hệ thống thông tin"
+  - "Thương mại điện tử"
+  - "Công nghệ kỹ thuật điện tử - truyền thông"
+
+Nếu CÓ tín hiệu ngành cụ thể -> Đi tiếp BƯỚC 2
+Nếu KHÔNG (chỉ có tên trường hoặc hỏi chung chung) -> regulation (trả lời ngay, không cần đọc tiếp)
+
+#### BƯỚC 2: Kiểm tra xem có phải chủ đề về chính sách/tài chính không?
+
+Các chủ đề sau LUÔN là regulation (bất kể có nhắc ngành hay không):
+- Học phí, chi phí, lệ phí, miễn giảm
+- Học bổng, hỗ trợ tài chính
+- Quy chế, quy định, quyết định chung của trường
+- Thủ tục hành chính: nhập học, chuyển trường, bảo lưu, thôi học
+
+Nếu là chủ đề trên -> regulation
+Nếu KHÔNG -> curriculum
+
+### VÍ DỤ
+
+#### Các câu hỏi về NGÀNH CỤ THỂ (có tên ngành/viết tắt ngành)
+
+CÓ ngành CỤ THỂ + KHÔNG phải chính sách/tài chính -> curriculum:
+- "Điều kiện tốt nghiệp ngành KTPM 2025" -> curriculum
+- "Ngành AI học những môn gì?" -> curriculum
+- "Môn học bắt buộc của CNTT" -> curriculum
+- "Số tín chỉ tốt nghiệp ngành Khoa học máy tính" -> curriculum
+- "CTĐT ngành ATTT năm 2024" -> curriculum
+
+CÓ ngành CỤ THỂ + CÓ chính sách/tài chính -> regulation:
+- "Học phí ngành CNTT 2024" -> regulation (chủ đề học phí)
+- "Học bổng cho sinh viên ngành AI" -> regulation (chủ đề học bổng)
+- "Quy định chuyển ngành sang KTPM" -> regulation (chủ đề quy định/thủ tục)
+
+#### Các câu hỏi CHUNG (không nhắc ngành cụ thể)
+
+Tất cả đều -> regulation:
+- "Điều kiện tốt nghiệp của UIT là gì?" -> regulation (chỉ có tên trường, không có ngành)
+- "Sinh viên cần bao nhiêu tín chỉ?" -> regulation (hỏi chung)
+- "Học phí năm 2024" -> regulation (hỏi chung)
+- "Quy chế đào tạo" -> regulation (quy chế chung)
+- "Thủ tục bảo lưu" -> regulation (thủ tục hành chính)
+- "Trường Đại học Công nghệ Thông tin có bao nhiêu tín chỉ?" -> regulation (tên TRƯỜNG, không phải ngành)
+- "UIT yêu cầu điều kiện gì để tốt nghiệp?" -> regulation (tên TRƯỜNG, không có ngành cụ thể)
+
+### LƯU Ý QUAN TRỌNG
+
+1. PHÂN BIỆT KỸ: "Trường/Đại học Công nghệ Thông tin" là TÊN TRƯỜNG (UIT), KHÔNG phải tên ngành!
+   - Nếu chỉ có "UIT", "trường", "Đại học Công nghệ Thông tin" -> regulation
+   - Nếu có "ngành CNTT", "ngành Công nghệ thông tin", "CNTT" -> curriculum (nếu không phải học phí/quy chế)
+
+2. Chỉ cần có TÊN NGÀNH/VIẾT TẮT NGÀNH + không phải học phí/học bổng/quy chế -> curriculum
+
+3. Không cần từ "chương trình đào tạo" mới là curriculum. Chỉ cần có tên ngành là đủ.
+
+4. Nếu nghi ngờ, hãy tự hỏi: "Câu hỏi này tìm được câu trả lời ở tài liệu chương trình đào tạo của NGÀNH CỤ THỂ, hay ở văn bản quy định CHUNG của trường?"
+
+Trả về: Chỉ ghi TÊN COLLECTION (regulation hoặc curriculum hoặc announcement), không giải thích.
+
+Phân loại:"""
 
         return prompt
 

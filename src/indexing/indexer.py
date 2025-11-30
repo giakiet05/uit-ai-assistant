@@ -2,7 +2,7 @@
 Document Indexer - Category-based indexing for ChromaDB.
 
 This module provides tools for building ChromaDB vector stores from processed documents,
-with separate collections per category (regulations, curriculum, etc.).
+with separate collections per category (regulation, curriculum, etc.).
 """
 
 import chromadb
@@ -31,9 +31,9 @@ class DocumentIndexer:
     Document Indexer - Category-based indexing for ChromaDB.
 
     Creates separate ChromaDB collections for each category:
-    - regulations
+    - regulation
     - curriculum
-    - (future: announcements, other)
+    - (future: announcement, other)
 
     Works with flat processed structure:
         processed/{category}/{document_id}.md
@@ -56,7 +56,7 @@ class DocumentIndexer:
         )
 
         # Use SmartNodeSplitter for intelligent chunking
-        # 1. Pattern detection (Điều X, CHƯƠNG X) for Vietnamese regulations
+        # 1. Pattern detection (Điều X, CHƯƠNG X) for Vietnamese regulation documents
         # 2. Title chunk merging for cleaner document structure
         # 3. Malformed markdown cleanup
         # 4. Token-aware sub-chunking with context preservation

@@ -53,9 +53,9 @@ class BaseQueryRouter(ABC):
             RoutingDecision with collections to query and reasoning
 
         Example:
-            >>> router = SomeRouter(["regulations", "curriculum"])
+            >>> router = SomeRouter(["regulation", "curriculum"])
             >>> decision = router.route("UIT có bao nhiêu loại học phần?")
             >>> print(decision.collections)
-            ["regulations"]
+            ["regulation"]
         """
         pass

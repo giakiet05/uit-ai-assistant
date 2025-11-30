@@ -20,7 +20,7 @@ class FolderCategorizer:
     4. Other (fallback)
 
     This ensures that ambiguous folders (e.g., "thongbao-quy-trinh-...")
-    are correctly classified as regulations.
+    are correctly classified as regulation.
     """
 
     # Category patterns (priority order matters!)

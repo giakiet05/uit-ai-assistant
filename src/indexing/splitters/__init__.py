@@ -4,7 +4,7 @@ Node splitters for document chunking.
 Available splitters:
 - BaseNodeSplitter: Abstract base class
 - SimpleNodeSplitter: Basic header-based splitting, no hierarchy
-- SmartNodeSplitter: Enhanced splitting with pattern detection (recommended for regulations)
+- SmartNodeSplitter: Enhanced splitting with pattern detection (recommended for regulation)
 - HierarchicalNodeSplitter: Legacy splitter with hierarchy tracking
 - HierarchicalNodeSplitterV1: Deprecated (has duplicate header bug)
 """

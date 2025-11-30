@@ -14,7 +14,7 @@ Usage:
     >>> # Route a query
     >>> decision = router.route("UIT có bao nhiêu loại học phần?")
     >>> print(decision.collections)
-    ["regulations"]
+    ["regulation"]
 """
 
 from .base_router import BaseQueryRouter, RoutingDecision

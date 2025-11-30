@@ -35,10 +35,10 @@ class QueryAllRouter(BaseQueryRouter):
             RoutingDecision with all collections
 
         Example:
-            >>> router = QueryAllRouter(["regulations", "curriculum"])
+            >>> router = QueryAllRouter(["regulation", "curriculum"])
             >>> decision = router.route("UIT có bao nhiêu loại học phần?")
             >>> print(decision.collections)
-            ["regulations", "curriculum"]
+            ["regulation", "curriculum"]
             >>> print(decision.reasoning)
             "Query all collections strategy: searching all available collections"
         """

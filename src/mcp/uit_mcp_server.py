@@ -18,6 +18,7 @@ from llama_index.core import Settings as LlamaSettings
 
 from src.config.settings import settings
 from src.engines.retriever.query_engine import QueryEngine
+from src.engines.routing import create_router
 from src.scraper.daa_scraper import DaaScraper
 from src.scraper.models import Grades, Schedule
 
@@ -61,13 +62,23 @@ def _get_query_engine() -> QueryEngine:
         vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
         collections[category] = VectorStoreIndex.from_vector_store(vector_store)
 
-    # Initialize QueryEngine
+    # Create router (from settings)
+    print(f"[MCP SERVER] Creating router with strategy: {settings.query_routing.STRATEGY}")
+    router = create_router(
+        strategy=settings.query_routing.STRATEGY,
+        available_collections=settings.query_routing.AVAILABLE_COLLECTIONS
+    )
+
+    # Initialize QueryEngine with router
     _query_engine = QueryEngine(
         collections=collections,
+        router=router,  # Pass router to QueryEngine
         use_reranker=True,  # Enable reranker by default
-        top_k=5,
+        top_k=3,
         retrieval_top_k=20,
-        rerank_score_threshold=0.4  # Filter out low-confidence results after reranking
+        rerank_score_threshold=0.9,  # Filter out low-confidence results after reranking
+        min_score_threshold=settings.retrieval.MINIMUM_SCORE_THRESHOLD,
+        use_modal=True  # Set to True to use Modal GPU for reranking (faster)
     )
 
     print(f"[MCP SERVER] QueryEngine loaded with {len(collections)} collections")
@@ -88,7 +99,7 @@ def retrieve_documents(query: str) -> str:
     Results are automatically merged, deduplicated, and reranked for best accuracy.
 
     Use this when you need factual information about:
-    - UIT academic regulations (quy định, quy chế)
+    - UIT academic regulation documents (quy định, quy chế)
     - Curriculum and program requirements (chương trình đào tạo)
     - Admission policies (tuyển sinh)
     - Graduation requirements (tốt nghiệp)

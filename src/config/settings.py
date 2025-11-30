@@ -64,7 +64,7 @@ class Retrieval:
     # Chunking configuration
     CHUNK_SIZE = 1024           # Target chunk size for sub-chunking
     CHUNK_OVERLAP = 200         # Overlap between chunks (20% of chunk size)
-    MAX_TOKENS = 7000           # Max tokens before sub-chunking (buffer for 8191 limit)
+    MAX_TOKENS = 8000           # Max tokens before sub-chunking (buffer for 8191 limit)
 
     # Retrieval configuration
     SIMILARITY_TOP_K = 7  # Increased from 5 for better retrieval coverage

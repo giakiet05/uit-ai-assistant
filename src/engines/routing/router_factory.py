@@ -43,7 +43,7 @@ def create_router(
         >>> # Override collections
         >>> router = create_router(
         ...     strategy="llm_classification",
-        ...     available_collections=["regulations"]
+        ...     available_collections=["regulation"]
         ... )
     """
     # Use defaults from settings if not provided

@@ -21,7 +21,8 @@ from llama_index.core import VectorStoreIndex
 from llama_index.core.schema import NodeWithScore, QueryBundle
 
 from src.config.settings import settings
-from src.engines.retriever.multi_collection_retriever import MultiCollectionRetriever
+from src.engines.routing import BaseQueryRouter, QueryAllRouter
+from src.engines.retriever.program_filter import apply_program_filter
 
 
 @dataclass
@@ -51,71 +52,69 @@ class QueryEngine:
     def __init__(
         self,
         collections: Dict[str, VectorStoreIndex],
+        router: Optional[BaseQueryRouter] = None,
         use_reranker: bool = True,
         reranker_model: Optional[str] = None,
-        top_k: int = 5,
+        top_k: int = 3,
         retrieval_top_k: int = 20,  # Retrieve more, then rerank
-        rerank_score_threshold: float = 0.4  # Filter out low-confidence results after reranking
+        rerank_score_threshold: float = 0.9,  # Filter out low-confidence results after reranking
+        min_score_threshold: float = 0.25,  # Minimum score for initial retrieval
+        use_modal: bool = False  # Use Modal GPU for reranking (faster)
     ):
         """
         Initialize QueryEngine.
 
         Args:
             collections: Dict of collection_name -> VectorStoreIndex
+            router: Router for collection selection (default: QueryAllRouter)
             use_reranker: Whether to use reranker after retrieval
             reranker_model: Reranker model name (default: "namdp-ptit/ViRanker" for Vietnamese)
             top_k: Final number of documents to return
             retrieval_top_k: Number of documents to retrieve before reranking
             rerank_score_threshold: Minimum score threshold after reranking (default: 0.4)
                                    Nodes with score < threshold will be filtered out
+            min_score_threshold: Minimum score for initial retrieval (default: 0.25)
+            use_modal: Use Modal GPU for reranking (default: False, use local CPU)
         """
         self.collections = collections
+        self.router = router or QueryAllRouter(list(collections.keys()))
         self.use_reranker = use_reranker
         self.reranker_model = reranker_model or "namdp-ptit/ViRanker"
         self.top_k = top_k
         self.retrieval_top_k = retrieval_top_k
         self.rerank_score_threshold = rerank_score_threshold
-
-        # Initialize retrievers
-        self._setup_retrievers()
+        self.min_score_threshold = min_score_threshold
+        self.use_modal = use_modal
 
         # Initialize reranker if enabled
         if self.use_reranker:
-            self._setup_reranker()
+            if self.use_modal:
+                self._setup_modal_reranker()
+            else:
+                self._setup_local_reranker()
 
         print(f"[QUERY ENGINE] Initialized with:")
         print(f"  - Collections: {list(collections.keys())}")
-        print(f"  - Reranker: {self.reranker_model if use_reranker else 'disabled'}")
+        print(f"  - Router: {self.router.__class__.__name__}")
+        reranker_mode = "Modal GPU" if use_modal else "Local CPU"
+        print(f"  - Reranker: {self.reranker_model if use_reranker else 'disabled'} ({reranker_mode})")
         print(f"  - Retrieval top_k: {retrieval_top_k}")
         print(f"  - Final top_k: {top_k}")
+        print(f"  - Min score threshold: {min_score_threshold}")
         print(f"  - Rerank score threshold: {rerank_score_threshold}")
 
-    def _setup_retrievers(self):
-        """Setup retrieval methods."""
-        # Dense vector retriever (current)
-        self.dense_retriever = MultiCollectionRetriever(
-            collections=self.collections,
-            top_k=self.retrieval_top_k,
-            min_score_threshold=settings.retrieval.MINIMUM_SCORE_THRESHOLD
-        )
 
-        # TODO: Add BM25 retriever
-        # self.bm25_retriever = BM25Retriever(...)
-
-        # TODO: Add sparse vector retriever
-        # self.sparse_retriever = SparseVectorRetriever(...)
-
-    def _setup_reranker(self):
-        """Setup reranker model (ViRanker for Vietnamese)."""
+    def _setup_local_reranker(self):
+        """Setup local reranker model (ViRanker on CPU)."""
         try:
             from FlagEmbedding import FlagReranker
 
-            print(f"[RERANKER] Loading ViRanker model: {self.reranker_model}")
+            print(f"[RERANKER] Loading ViRanker model locally (CPU): {self.reranker_model}")
             self.reranker = FlagReranker(
                 self.reranker_model,
                 use_fp16=True  # Faster inference
             )
-            print(f"[RERANKER] ViRanker loaded successfully")
+            print(f"[RERANKER] ViRanker loaded successfully on CPU")
 
         except ImportError:
             print("[WARNING] FlagEmbedding not installed. Reranker disabled.")
@@ -125,16 +124,49 @@ class QueryEngine:
             print(f"[WARNING] Failed to load reranker: {e}")
             self.use_reranker = False
 
+    def _setup_modal_reranker(self):
+        """Setup Modal reranker (ViRanker on GPU via Modal SDK)."""
+        try:
+            import modal
+
+            print(f"[RERANKER] Connecting to Modal GPU reranker: {self.reranker_model}")
+
+            # Lookup deployed Modal class using correct API
+            # Use modal.Cls.from_name() instead of modal.Cls.lookup()
+            ViRankerReranker = modal.Cls.from_name(
+                "viranker-reranker",  # App name (from modal.App("viranker-reranker"))
+                "ViRankerReranker"    # Class name (from @app.cls)
+            )
+
+            # Create instance (this is a proxy to remote class)
+            self.modal_reranker = ViRankerReranker()
+
+            print(f"[RERANKER] Connected to Modal GPU reranker successfully")
+
+        except ImportError as e:
+            print(f"[WARNING] Modal SDK not installed: {e}")
+            print("           Install with: pip install modal")
+            print("           Falling back to local CPU reranker")
+            self.use_modal = False
+            self._setup_local_reranker()
+        except Exception as e:
+            print(f"[WARNING] Failed to connect to Modal reranker: {e}")
+            print("           Make sure the app is deployed: modal deploy modal/reranker_service.py")
+            print("           Falling back to local CPU reranker")
+            self.use_modal = False
+            self._setup_local_reranker()
+
     def retrieve(
         self,
         query: str,
         use_reranker: Optional[bool] = None
     ) -> RetrievalResult:
         """
-        Blended retrieval: Query all available indexes, merge and rerank.
+        Routed blended retrieval: Route query to collections, then retrieve and rerank.
 
         Pipeline:
-        1. Dense vector retrieval
+        0. Route query to select collections
+        1. Dense vector retrieval from selected collections
         2. BM25 retrieval (TODO)
         3. Sparse vector retrieval (TODO)
         4. Merge & deduplicate
@@ -149,32 +181,37 @@ class QueryEngine:
             RetrievalResult with retrieved and reranked nodes
         """
         print(f"\n{'='*70}")
-        print(f"[QUERY ENGINE] Blended Retrieval")
+        print(f"[QUERY ENGINE] Routed Blended Retrieval")
         print(f"[QUERY ENGINE] Query: {query}")
         print(f"{'='*70}\n")
 
-        # Step 1: Retrieve from all available indexes
+        # Step 0: Route query to select collections
+        routing_decision = self.router.route(query)
+        print(f"[ROUTING] Strategy: {routing_decision.strategy}")
+        print(f"[ROUTING] {routing_decision.reasoning}")
+        print(f"[ROUTING] Selected collections: {routing_decision.collections}\n")
+
+        # Filter collections based on routing decision
+        selected_collections = {
+            name: index for name, index in self.collections.items()
+            if name in routing_decision.collections
+        }
+
+        if not selected_collections:
+            print("[WARNING] No collections selected by router, using all collections")
+            selected_collections = self.collections
+
+        # Step 1: Retrieve from selected collections
         all_nodes = []
 
         # Dense vector retrieval
         print("[QUERY ENGINE] Retrieving from dense vector index...")
-        dense_nodes = self._retrieve_dense(query)
+        dense_nodes = self._retrieve_dense(query, selected_collections)
         all_nodes.extend(dense_nodes)
         print(f"  → Found {len(dense_nodes)} nodes")
 
         # BM25 retrieval (TODO)
-        if hasattr(self, 'bm25_retriever'):
-            print("[QUERY ENGINE] Retrieving from BM25 index...")
-            bm25_nodes = self._retrieve_bm25(query)
-            all_nodes.extend(bm25_nodes)
-            print(f"  → Found {len(bm25_nodes)} nodes")
-
         # Sparse vector retrieval (TODO)
-        if hasattr(self, 'sparse_retriever'):
-            print("[QUERY ENGINE] Retrieving from sparse vector index...")
-            sparse_nodes = self._retrieve_sparse(query)
-            all_nodes.extend(sparse_nodes)
-            print(f"  → Found {len(sparse_nodes)} nodes")
 
         # Step 2: Deduplicate & merge
         print(f"\n[QUERY ENGINE] Merging {len(all_nodes)} nodes...")
@@ -205,16 +242,47 @@ class QueryEngine:
 
         return RetrievalResult(
             nodes=final_nodes,
-            retrieval_method="blended",
+            retrieval_method=f"routed_blended ({routing_decision.strategy})",
             reranked=reranked,
             total_retrieved=total_retrieved,
             final_count=len(final_nodes)
         )
 
-    def _retrieve_dense(self, query: str) -> List[NodeWithScore]:
-        """Retrieve using dense vector embeddings."""
-        query_bundle = QueryBundle(query_str=query)
-        return self.dense_retriever.retrieve(query_bundle)
+    def _retrieve_dense(
+        self,
+        query: str,
+        collections: Dict[str, VectorStoreIndex]
+    ) -> List[NodeWithScore]:
+        """
+        Retrieve using dense vector embeddings from selected collections.
+
+        Args:
+            query: User query
+            collections: Selected collections to retrieve from
+
+        Returns:
+            List of retrieved nodes
+        """
+        all_nodes = []
+
+        # Retrieve from each selected collection
+        for name, index in collections.items():
+            print(f"[RETRIEVER] Querying collection: {name}")
+            retriever = index.as_retriever(similarity_top_k=self.retrieval_top_k)
+            nodes = retriever.retrieve(query)
+            all_nodes.extend(nodes)
+            print(f"[RETRIEVER] Found {len(nodes)} nodes in {name}")
+
+        # Filter by minimum score threshold
+        filtered_nodes = [
+            node for node in all_nodes
+            if node.score >= self.min_score_threshold
+        ]
+
+        if len(filtered_nodes) < len(all_nodes):
+            print(f"[RETRIEVER] Filtered {len(all_nodes) - len(filtered_nodes)} nodes (score < {self.min_score_threshold})")
+
+        return filtered_nodes
 
     def _retrieve_bm25(self, query: str) -> List[NodeWithScore]:
         """Retrieve using BM25 lexical search."""
@@ -259,6 +327,8 @@ class QueryEngine:
         """
         Rerank nodes using ViRanker (Vietnamese reranking model).
 
+        Supports both local CPU and Modal GPU modes.
+
         Args:
             query: User query
             nodes: Retrieved nodes
@@ -266,26 +336,71 @@ class QueryEngine:
         Returns:
             Reranked nodes (sorted by reranker score, filtered by threshold)
         """
-        if not self.use_reranker or not hasattr(self, 'reranker'):
+        if not self.use_reranker:
             return nodes
+
+        # Check if reranker is available (local or Modal)
+        if self.use_modal:
+            if not hasattr(self, 'modal_reranker'):
+                print("[WARNING] Modal reranker not initialized, skipping reranking")
+                return nodes
+        else:
+            if not hasattr(self, 'reranker'):
+                print("[WARNING] Local reranker not initialized, skipping reranking")
+                return nodes
 
         print(f"[RERANKER] Reranking {len(nodes)} nodes with ViRanker...")
 
-        # Prepare pairs for reranker (FlagReranker uses list of lists)
-        pairs = [[query, node.node.get_content()] for node in nodes]
+        # Prepare texts for reranker
+        texts = [node.node.get_content() for node in nodes]
 
-        # Get reranker scores (normalized to [0,1] range)
-        scores = self.reranker.compute_score(pairs, normalize=True)
+        # Get reranker scores
+        if self.use_modal:
+            # Modal GPU reranking via Modal SDK
+            print(f"[RERANKER] Using Modal GPU...")
+            try:
+                # Call remote method using .remote() API
+                scores = self.modal_reranker.rerank.remote(
+                    query=query,
+                    texts=texts,
+                    normalize=True
+                )
+                print(f"[RERANKER] Modal GPU reranking completed")
 
-        # Handle single score vs list
-        if not isinstance(scores, list):
-            scores = [scores]
+            except Exception as e:
+                print(f"[WARNING] Modal reranking failed: {e}")
+                print("           Falling back to local reranking for this query")
+                # Fallback to local reranker
+                if hasattr(self, 'reranker'):
+                    pairs = [[query, text] for text in texts]
+                    scores = self.reranker.compute_score(pairs, normalize=True)
+                    if not isinstance(scores, list):
+                        scores = [scores]
+                else:
+                    # No fallback available, return nodes as-is
+                    print("           No local reranker available, skipping reranking")
+                    return nodes
+        else:
+            # Local CPU reranking
+            print(f"[RERANKER] Using local CPU...")
+            pairs = [[query, text] for text in texts]
+            scores = self.reranker.compute_score(pairs, normalize=True)
+
+            # Handle single score vs list
+            if not isinstance(scores, list):
+                scores = [scores]
 
         # Update node scores and sort
         for node, score in zip(nodes, scores):
             node.score = float(score)
 
         nodes.sort(key=lambda x: x.score, reverse=True)
+
+        # Print top 3 scores for debugging
+        print(f"[RERANKER] Top 3 scores:")
+        for i, node in enumerate(nodes[:3]):
+            doc_id = node.node.metadata.get('document_id', 'unknown')
+            print(f"  {i+1}. Score: {node.score:.4f} | Doc: {doc_id[:60]}...")
 
         # Filter out low-confidence results based on threshold
         filtered_nodes = [node for node in nodes if node.score >= self.rerank_score_threshold]
@@ -297,6 +412,11 @@ class QueryEngine:
             print(f"[RERANKER] Reranking complete. Top score: {filtered_nodes[0].score:.4f}, kept {len(filtered_nodes)}/{len(nodes)} nodes")
         else:
             print(f"[RERANKER] Warning: All results filtered out (all scores < {self.rerank_score_threshold})")
+
+        # ========== POST-FILTERING BY PROGRAM ==========
+        # Apply program-based filtering to avoid confusion between similar majors
+        # e.g., "Khoa học Máy tính" vs "Kỹ thuật Máy tính"
+        filtered_nodes = apply_program_filter(query, filtered_nodes)
 
         return filtered_nodes
 
