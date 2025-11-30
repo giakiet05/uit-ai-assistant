@@ -2,7 +2,7 @@
 A simple script for interactively testing the ChatEngine.
 """
 
-from src.engines import ChatEngine
+from src.shared.agent import ChatEngine
 
 def main():
     """
@@ -78,12 +78,12 @@ def main():
                 for i, source_node in enumerate(result['source_nodes']):
                     score = source_node.get('score', 0.0)
                     text = source_node.get('text', '')
-                    metadata = source_node.get('metadata', {})
+                    metadata = source_node.get('metadata_generator', {})
 
                     print(f"  [{i+1}] Score: {score:.4f}")
                     print(f"      Text preview: {text[:100]}...")
 
-                    # Access metadata that we attached during the build process
+                    # Access metadata_generator that we attached during the build process
                     if 'source_url' in metadata:
                         print(f"      URL: {metadata['source_url'][:60]}...")
                     if 'title' in metadata:

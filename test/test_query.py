@@ -2,7 +2,7 @@
 A simple script for interactively testing the QueryEngine.
 """
 
-from src.engines.query_engine import QueryEngine
+from src.shared.agent import QueryEngine
 
 def main():
     """
@@ -43,7 +43,7 @@ def main():
                 print("📚 Sources:")
                 for i, source_node in enumerate(response.source_nodes):
                     print(f"  [{i+1}] Score: {source_node.score:.4f}")
-                    # Access metadata that we attached during the build process
+                    # Access metadata_generator that we attached during the build process
                     if 'original_url' in source_node.metadata:
                         print(f"      - URL: {source_node.metadata['original_url']}")
                     if 'title' in source_node.metadata:

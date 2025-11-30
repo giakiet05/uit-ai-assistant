@@ -2,8 +2,8 @@
 Test LlamaParse cho 1 folder duy nhất - kiểm tra parsing PDF/DOCX.
 """
 from pathlib import Path
-from src.processing.parser.parser_factory import ParserFactory
-from src.config.settings import settings
+from src.knowledge_builder.processing.parser import ParserFactory
+from src.shared.config.settings import settings
 
 
 def test_parse_folder(folder_path: str):
@@ -19,7 +19,7 @@ def test_parse_folder(folder_path: str):
         f for f in folder.iterdir()
         if f.is_file()
         and f.suffix.lower() in ['.pdf', '.docx']
-        and f.name != 'metadata.json'
+        and f.name != 'metadata_generator.json'
     ]
 
     print(f"\n{'='*70}")

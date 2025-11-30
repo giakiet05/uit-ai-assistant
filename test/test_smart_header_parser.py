@@ -9,8 +9,8 @@ Test cases:
 """
 from pathlib import Path
 from llama_index.core import Document
-from src.indexing.splitters import SmartNodeSplitter
-from src.indexing.splitters import SimpleNodeSplitter
+from src.knowledge_builder.indexing.splitters import SmartNodeSplitter
+from src.knowledge_builder.indexing.splitters import SimpleNodeSplitter
 import json
 
 
@@ -25,19 +25,19 @@ def test_smart_parser(file_path: str, verbose: bool = True):
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Load metadata
+    # Load metadata_generator
     metadata = {}
     auto_metadata_path = Path(file_path).with_suffix('.json')
     if auto_metadata_path.exists():
         with open(auto_metadata_path, "r", encoding="utf-8") as f:
             metadata = json.load(f)
-        print(f"✅ Loaded metadata: {auto_metadata_path.name}")
+        print(f"✅ Loaded metadata_generator: {auto_metadata_path.name}")
     else:
         metadata = {
             "document_id": Path(file_path).stem,
             "category": "regulation"  # Assume regulation for testing
         }
-        print("⚠️  No metadata file, using defaults")
+        print("⚠️  No metadata_generator file, using defaults")
 
     print(f"   Category: {metadata.get('category')}")
     print(f"   Title: {metadata.get('title', 'N/A')[:60]}...\n")
@@ -133,7 +133,7 @@ def compare_parsers(file_path: str):
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Load metadata
+    # Load metadata_generator
     metadata = {}
     auto_metadata_path = Path(file_path).with_suffix('.json')
     if auto_metadata_path.exists():

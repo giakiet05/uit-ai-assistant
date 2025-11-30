@@ -3,7 +3,7 @@ A simple script to inspect the contents of the ChromaDB vector store.
 """
 
 import chromadb
-from src.config import settings
+from src.shared.config import settings
 
 def inspect_vector_store():
     """
@@ -37,10 +37,10 @@ def inspect_vector_store():
             print(f"\n--- Item {i+1} ---")
             print(f"  - ID: {peek_result['ids'][i]}")
             
-            # Print metadata fields
+            # Print metadata_generator fields
             print("  - Metadata:")
             for key, value in metadata.items():
-                # Truncate long metadata values for readability
+                # Truncate long metadata_generator values for readability
                 value_str = str(value)
                 if len(value_str) > 150:
                     value_str = value_str[:150] + "..."

@@ -15,8 +15,8 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.embeddings.openai import OpenAIEmbedding
 import chromadb
 
-from src.config import settings
-from src.indexing.hierarchical_markdown_parser import HierarchicalMarkdownParser
+from src.shared.config import settings
+from src.knowledge_builder.indexing import HierarchicalMarkdownParser
 
 
 # ============================================================================
@@ -54,7 +54,7 @@ def load_single_document(file_path: str):
             print(f"[ERROR] Empty content")
             return None
 
-        # Load metadata from JSON
+        # Load metadata_generator from JSON
         json_file = md_file.with_suffix('.json')
         metadata = {}
 
