@@ -11,8 +11,8 @@ from llama_index.core.schema import QueryBundle
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.vector_stores.chroma import ChromaVectorStore
 
-from src.config import settings
-from src.engines.retriever.multi_collection_retriever import MultiCollectionRetriever
+from src.shared.config import settings
+from src.shared.agent import MultiCollectionRetriever
 
 
 def main():

@@ -3,7 +3,7 @@ Inspect what messages are stored in ChatMemoryBuffer after agent run.
 """
 
 import asyncio
-from src.engines.agent import AgentService
+from src.shared.agent import AgentService
 
 
 async def main():

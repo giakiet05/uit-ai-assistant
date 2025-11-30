@@ -3,7 +3,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from llama_index.core import Document
-from src.indexing.splitters import SmartNodeSplitter
+from src.knowledge_builder.indexing.splitters import SmartNodeSplitter
 import json
 
 file_path = 'data/processed/regulation/790-qd-dhcntt_28-9-22_quy_che_dao_tao.md'

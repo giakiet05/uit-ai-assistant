@@ -8,7 +8,7 @@ Test edge cases for SmartNodeSplitter:
 
 from pathlib import Path
 from llama_index.core import Document
-from src.indexing.splitters.smart_node_splitter import SmartNodeSplitter
+from src.knowledge_builder.indexing.splitters.smart_node_splitter import SmartNodeSplitter
 
 
 def test_edge_cases():

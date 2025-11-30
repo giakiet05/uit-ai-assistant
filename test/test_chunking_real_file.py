@@ -9,10 +9,9 @@ This tests:
 """
 
 import sys
-from pathlib import Path
 from llama_index.core import Document
-from src.indexing.splitters.smart_node_splitter import SmartNodeSplitter
-from src.config.settings import settings
+from src.knowledge_builder.indexing.splitters.smart_node_splitter import SmartNodeSplitter
+from src.shared.config.settings import settings
 
 
 def test_chunking(file_pattern: str = "547"):

@@ -9,7 +9,7 @@ This test specifically checks that:
 
 from pathlib import Path
 from llama_index.core import Document
-from src.indexing.splitters.smart_node_splitter import SmartNodeSplitter
+from src.knowledge_builder.indexing.splitters.smart_node_splitter import SmartNodeSplitter
 
 
 def test_hierarchy_truncation():

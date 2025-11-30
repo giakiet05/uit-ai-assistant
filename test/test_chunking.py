@@ -4,7 +4,7 @@ Shows token counts, hierarchy structure, and context prepending.
 """
 from pathlib import Path
 from llama_index.core import Document
-from src.indexing.hierarchical_markdown_parser_v2 import HierarchicalMarkdownParserV2
+from src.knowledge_builder.indexing import HierarchicalMarkdownParserV2
 import json
 
 

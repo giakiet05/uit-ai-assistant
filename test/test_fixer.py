@@ -8,7 +8,7 @@ This test:
 """
 
 from pathlib import Path
-from src.processing.llm_markdown_fixer import MarkdownFixer
+from src.knowledge_builder.processing.llm_markdown_fixer import MarkdownFixer
 
 # Hardcoded path to file 547
 INPUT_FILE = Path("data/processed/regulation/35-tb-dhcntt_21-5-2019_cong_nhan_chung_chi_tieng_nhat_nat-test_cho_chuan_qua_trinh_0_0.md")

@@ -3,7 +3,7 @@ A simple script to inspect the contents of the ChromaDB vector store.
 """
 
 import chromadb
-from src.config import settings
+from src.shared.config import settings
 
 def inspect_vector_store():
     """

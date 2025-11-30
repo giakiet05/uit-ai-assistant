@@ -6,7 +6,7 @@ Usage:
 """
 
 from pathlib import Path
-from src.processing.llm_markdown_fixer import MarkdownFixer
+from src.knowledge_builder.processing.llm_markdown_fixer import MarkdownFixer
 
 
 def batch_fix_curriculum():

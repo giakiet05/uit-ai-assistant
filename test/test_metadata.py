@@ -7,12 +7,7 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from src.processing.metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
-from src.processing.metadata_generator.metadata_models import (
-    RegulationMetadata,
-    CurriculumMetadata,
-    DefaultMetadata,
-)
+from src.knowledge_builder.processing.metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
 
 
 def test_regulation_metadata():

@@ -2,7 +2,7 @@
 A simple script for interactively testing the QueryEngine.
 """
 
-from src.engines.query_engine import QueryEngine
+from src.shared.agent import QueryEngine
 
 def main():
     """

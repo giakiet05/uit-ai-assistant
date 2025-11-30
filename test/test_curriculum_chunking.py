@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from llama_index.core import Document
-from src.indexing.splitters import SmartNodeSplitter
+from src.knowledge_builder.indexing.splitters import SmartNodeSplitter
 import json
 
 

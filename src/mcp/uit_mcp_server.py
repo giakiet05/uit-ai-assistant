@@ -16,11 +16,11 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core import Settings as LlamaSettings
 
-from src.config.settings import settings
-from src.engines.retriever.query_engine import QueryEngine
-from src.engines.routing import create_router
-from src.scraper.daa_scraper import DaaScraper
-from src.scraper.models import Grades, Schedule
+from ..shared.config.settings import settings
+from .retriever.query_engine import QueryEngine
+from ..shared.agent.routing.router_factory import create_router
+from .scraper import DaaScraper
+from .scraper import Grades, Schedule
 
 # Initialize FastMCP server
 mcp = FastMCP("UIT MCP Server") # RENAMED SERVER
@@ -76,7 +76,7 @@ def _get_query_engine() -> QueryEngine:
         use_reranker=True,  # Enable reranker by default
         top_k=3,
         retrieval_top_k=20,
-        rerank_score_threshold=0.9,  # Filter out low-confidence results after reranking
+        rerank_score_threshold=0,  # Filter out low-confidence results after reranking
         min_score_threshold=settings.retrieval.MINIMUM_SCORE_THRESHOLD,
         use_modal=True  # Set to True to use Modal GPU for reranking (faster)
     )

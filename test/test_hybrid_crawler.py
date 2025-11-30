@@ -3,13 +3,12 @@ Test script for hybrid crawler.
 Run: python test_hybrid_crawler.py
 """
 import asyncio
-import json
 import sys
 from pathlib import Path
 
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-from src.crawler.daa_student_crawler import DaaStudentCrawler
+from src.knowledge_builder.crawler import DaaStudentCrawler
 
 
 async def test_full_crawl():

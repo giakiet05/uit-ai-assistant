@@ -2,7 +2,7 @@
 Quick test for QueryRefiner.
 """
 
-from src.engines.query_refinement import QueryRefiner
+from src.shared.agent import QueryRefiner
 
 
 def test_query_refiner():

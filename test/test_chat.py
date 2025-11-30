@@ -2,7 +2,7 @@
 A simple script for interactively testing the ChatEngine.
 """
 
-from src.engines import ChatEngine
+from src.shared.agent import ChatEngine
 
 def main():
     """

@@ -9,8 +9,8 @@ Test cases:
 """
 from pathlib import Path
 from llama_index.core import Document
-from src.indexing.splitters import SmartNodeSplitter
-from src.indexing.splitters import SimpleNodeSplitter
+from src.knowledge_builder.indexing.splitters import SmartNodeSplitter
+from src.knowledge_builder.indexing.splitters import SimpleNodeSplitter
 import json
 
 

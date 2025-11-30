@@ -5,7 +5,7 @@ This allows you to manually test the agent and see its reasoning process.
 """
 
 import asyncio
-from src.engines.agent import AgentService
+from src.shared.agent.agent import AgentService
 
 
 async def main():
