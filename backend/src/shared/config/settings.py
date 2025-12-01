@@ -39,6 +39,9 @@ class Credentials:
         self.OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
         self.LLAMA_CLOUD_API_KEY = os.getenv("LLAMA_CLOUD_API_KEY")
         self.GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+        
+        # New: Redis connection string
+        self.REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
 class LLM:
     """LLM configuration (models, providers)."""
@@ -134,6 +137,30 @@ class Preprocessing:
         self.GEMINI_TPM = int(os.getenv("GEMINI_TPM", "250000"))  # Tokens per minute (input only)
         self.GEMINI_RPD = int(os.getenv("GEMINI_RPD", "250"))  # Requests per day
 
+# NEW: Database Configuration
+class Database:
+    """Database connection settings."""
+    def __init__(self):
+        load_dotenv()
+        self.SQLALCHEMY_DATABASE_URL = os.getenv(
+            "SQLALCHEMY_DATABASE_URL",
+            "postgresql+asyncpg://user:password@localhost:5432/uit_ai_assistant"
+        )
+
+# NEW: Authentication Configuration
+class Auth:
+    """Authentication and JWT settings."""
+    def __init__(self):
+        load_dotenv()
+        self.SECRET_KEY = os.getenv("SECRET_KEY", "your-super-secret-key") # TODO: Change this in production!
+        self.ALGORITHM = os.getenv("ALGORITHM", "HS256")
+        self.ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+
+# NEW: API Configuration
+class API:
+    """API specific settings."""
+    API_V1_STR = "/api/v1" # Base path for API version 1
+
 # --- Main Settings Singleton Class ---
 
 class Settings:
@@ -151,6 +178,11 @@ class Settings:
         self.paths = Paths()
         self.domains = Domains()
         self.chat = Chat()
+        
+        # New: API and Auth config
+        self.api = API()
+        self.auth = Auth()
+        self.database = Database() # New: Database config
 
         # Dynamic configs (load from env)
         self.crawler = Crawler()
