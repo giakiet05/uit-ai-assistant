@@ -13,14 +13,11 @@ Architecture:
     ReActAgent (with MCP tools + ChatMemoryBuffer)
 """
 
-from typing import List, Optional
-from datetime import datetime
+from typing import List
 
 # LlamaIndex imports
 from llama_index.core.agent.workflow import ReActAgent
 from llama_index.core.memory import ChatMemoryBuffer
-from llama_index.core.llms import ChatMessage
-
 
 # MCP imports
 from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
@@ -28,13 +25,11 @@ from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
 # Config
 from ..config.settings import settings
 
-# Memory
-from .memory import InMemoryStore
-
 from ..llm.provider import create_llm
 
 # Query refinement
 from .query_refinement import QueryRefiner
+
 
 class SharedResources:
     """
@@ -289,8 +284,8 @@ class UITAgent:
             # Create prompt for LLM to ask clarification naturally
             clarification_prompt = (
                 f"{message}\n\n"
-                f"[SYSTEM NOTE: User's question contains unknown acronyms: {acronyms_str}. "
-                f"Please ask the user to clarify what these acronyms mean.]"
+                f"[SYSTEM NOTE: Câu hỏi của người dùng có chứa từ viết tắt mà bạn không biết: {acronyms_str}. "
+                f"Hãy hỏi lại người dùng xem từ viết tắt đó có nghĩa đầy đủ là gì.]"
             )
 
             print(f"[QUERY REFINER] Unknown acronyms: {unknown}")
@@ -346,202 +341,3 @@ class UITAgent:
         # Yield final response
         response = await handler
         yield ("FINAL_RESPONSE", response)
-
-
-class AgentService:
-    """
-    Service layer for managing agents with session-based memory.
-
-    This handles:
-    - Memory persistence (load/save from DB)
-    - Agent creation per request
-    - Session management
-
-    Usage in FastAPI:
-        # At startup
-        agent_service = AgentService()
-
-        # Per request
-        @app.post("/chat")
-        async def chat(request: ChatRequest):
-            response = await agent_service.chat(
-                message=request.message,
-                session_id=request.session_id
-            )
-            return {"response": response}
-    """
-
-    def __init__(self, memory_store: Optional[InMemoryStore] = None):
-        """
-        Initialize agent service.
-
-        Args:
-            memory_store: Persistent memory store (InMemoryStore, RedisStore, etc.)
-                         If None, creates new InMemoryStore
-        """
-        print("[AGENT SERVICE] Initializing...")
-
-        # 1. Initialize shared resources (expensive, one-time)
-        self.resources = SharedResources()
-
-        # 2. Initialize memory store
-        self.memory_store = memory_store or InMemoryStore()
-
-        # 3. Flag to track if tools are loaded
-        self._tools_loaded = False
-
-        print("[AGENT SERVICE] ✅ Ready (call load_tools() to load MCP tools)")
-
-    async def load_tools(self):
-        """
-        Load MCP tools asynchronously.
-
-        This should be called once after initialization in an async context.
-        """
-        if not self._tools_loaded:
-            await self.resources.load_tools_async()
-            self._tools_loaded = True
-
-    async def chat(
-        self,
-        message: str,
-        session_id: str = "default",
-        return_metadata: bool = False
-    ) -> dict:
-        """
-        Chat with agent for a given session.
-
-        Handles the full lifecycle:
-        1. Load conversation history from memory store
-        2. Create memory buffer with history
-        3. Create agent instance (stateless)
-        4. Run agent
-        5. Save updated history back to memory store
-
-        Args:
-            message: User's message
-            session_id: Session identifier for conversation history
-            return_metadata: Whether to return metadata_generator (tool calls, etc.)
-
-        Returns:
-            dict with 'response', 'session_id', 'timestamp', optional metadata_generator
-        """
-        print(f"\n{'='*60}")
-        print(f"[AGENT SERVICE] Session: {session_id}")
-        print(f"[AGENT SERVICE] User: {message}")
-        print(f"{'='*60}")
-
-        try:
-            # 1. Load conversation history from memory store
-            history = self.memory_store.get_history(
-                session_id,
-                max_messages=settings.chat.MAX_HISTORY_MESSAGES
-            )
-
-            print(f"[AGENT SERVICE] Loaded {len(history)} messages from history")
-
-            # 2. Create ChatMemoryBuffer and restore history
-            memory = ChatMemoryBuffer.from_defaults(
-                token_limit=40000,  # Default token limit
-                llm=self.resources.llm
-            )
-
-            for msg in history:
-                memory.put(ChatMessage(role=msg.role, content=msg.content))
-
-            # 3. Create agent instance (lightweight, stateless)
-            agent = UITAgent(self.resources)
-
-            # 4. Run agent
-            response_text = await agent.chat(message, memory)
-
-            # Ensure response_text is string
-            if not isinstance(response_text, str):
-                response_text = str(response_text)
-
-            print(f"[AGENT SERVICE] Agent response: {response_text[:200]}...")
-
-            # 5. Extract new messages from memory and save
-            all_messages = memory.get_all()
-            new_messages = all_messages[len(history):]  # Only new messages
-
-            # Filter messages to exclude tool call results (they're too long and waste tokens)
-            from llama_index.core.llms import MessageRole
-
-            saved_count = 0
-            for msg in new_messages:
-                content = msg.content
-                original_length = len(content)
-
-                # For assistant messages, strip out tool call results and reasoning
-                # Only keep the final answer
-                if "assistant" in str(msg.role).lower():
-                    # Check if this message contains ReActAgent internal reasoning
-                    if "Thought:" in content or "Action:" in content or "Observation:" in content:
-                        # Extract only the final Answer part
-                        if "Answer:" in content:
-                            # Get everything after the last "Answer:"
-                            content = content.split("Answer:")[-1].strip()
-                            print(f"[AGENT SERVICE] Stripped assistant message: {original_length} → {len(content)} chars")
-                        else:
-                            # No final answer yet (shouldn't happen), skip this message
-                            print(f"[AGENT SERVICE] Skipping intermediate assistant message (no Answer)")
-                            continue
-
-                # Save the cleaned message
-                self.memory_store.add_message(
-                    session_id,
-                    ChatMessage(role=msg.role, content=content)
-                )
-                saved_count += 1
-
-            print(f"[AGENT SERVICE] Saved {saved_count}/{len(new_messages)} messages to memory store (tool outputs stripped)")
-
-            # 6. Build response
-            result = {
-                "response": response_text,
-                "session_id": session_id,
-                "timestamp": datetime.now().isoformat()
-            }
-
-            if return_metadata:
-                result["metadata_generator"] = {
-                    "history_messages": len(history),
-                    "new_messages": len(new_messages)
-                }
-
-            return result
-
-        except Exception as e:
-            print(f"[ERROR] Agent service failed: {e}")
-            import traceback
-            traceback.print_exc()
-
-            error_response = "Xin lỗi, đã có lỗi xảy ra khi xử lý câu hỏi của bạn."
-
-            return {
-                "response": error_response,
-                "session_id": session_id,
-                "error": str(e),
-                "timestamp": datetime.now().isoformat()
-            }
-
-    def reset_session(self, session_id: str) -> None:
-        """Clear conversation history for a session."""
-        print(f"[AGENT SERVICE] Resetting session: {session_id}")
-        self.memory_store.clear_session(session_id)
-
-    def get_history(self, session_id: str) -> list:
-        """Get conversation history for a session."""
-        history = self.memory_store.get_history(session_id)
-        return [
-            {
-                "role": str(msg.role),  # Convert MessageRole enum to string
-                "content": msg.content
-            }
-            for msg in history
-        ]
-
-    def get_stats(self) -> dict:
-        """Get memory store statistics."""
-        return self.memory_store.get_stats()
