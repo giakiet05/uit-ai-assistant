@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/dto"
-	"github.com/giakiet05/uit-ai-assistant/internal/platform/bus"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/dto"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/platform/bus"
 )
 
 // Hub maintains the set of active clients and broadcasts messages to them.

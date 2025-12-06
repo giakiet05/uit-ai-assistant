@@ -3,7 +3,7 @@ package dto
 import (
 	"time"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/model"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/model"
 )
 
 // --- Request DTOs ---

@@ -3,10 +3,10 @@ package service
 import (
 	"log"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/dto"
-	"github.com/giakiet05/uit-ai-assistant/internal/platform/bus"
-	"github.com/giakiet05/uit-ai-assistant/internal/repo"
-	"github.com/giakiet05/uit-ai-assistant/internal/util"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/dto"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/platform/bus"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/repo"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/util"
 	"github.com/redis/go-redis/v9"
 )
 

@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/auth"
-	"github.com/giakiet05/uit-ai-assistant/internal/repo"
-	"github.com/giakiet05/uit-ai-assistant/internal/util"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/auth"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/repo"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/util"
 	"github.com/gin-gonic/gin"
 )
 

@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/apperror"
-	"github.com/giakiet05/uit-ai-assistant/internal/auth"
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
-	"github.com/giakiet05/uit-ai-assistant/internal/dto"
-	"github.com/giakiet05/uit-ai-assistant/internal/service"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/apperror"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/auth"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/dto"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/service"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )

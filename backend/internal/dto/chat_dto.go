@@ -3,10 +3,17 @@ package dto
 import (
 	"time"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/model"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/model"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/repo"
 )
 
 // --- Request DTOs ---
+
+// ChatRequest for sending a chat message (with optional session ID)
+type ChatRequest struct {
+	Message   string  `json:"message" binding:"required,min=1,max=5000"`
+	SessionID *string `json:"session_id" binding:"omitempty"` // If nil, creates new session
+}
 
 // CreateChatSessionRequest for creating a new chat session
 type CreateChatSessionRequest struct {
@@ -29,12 +36,40 @@ type GetSessionsQuery struct {
 	PageSize int `form:"page_size" binding:"omitempty,min=1,max=100"`
 }
 
+// ToFindOptions converts query to repo.FindOptions
+func (q *GetSessionsQuery) ToFindOptions() *repo.FindOptions {
+	page := q.Page
+	if page < 1 {
+		page = 1
+	}
+
+	pageSize := q.PageSize
+	if pageSize < 1 {
+		pageSize = 20
+	}
+	if pageSize > 100 {
+		pageSize = 100
+	}
+
+	return &repo.FindOptions{
+		Skip:  int64((page - 1) * pageSize),
+		Limit: int64(pageSize),
+		Sort:  map[string]int{"updated_at": -1}, // Most recent first
+	}
+}
+
 // GetMessagesQuery for querying messages with pagination
 type GetMessagesQuery struct {
 	Limit int `form:"limit" binding:"omitempty,min=1,max=100"` // Last N messages
 }
 
 // --- Response DTOs ---
+
+// ChatResponse is returned after a successful chat
+type ChatResponse struct {
+	SessionID string              `json:"session_id"`
+	Message   ChatMessageResponse `json:"message"` // The assistant's response
+}
 
 // ChatSessionResponse represents a chat session
 type ChatSessionResponse struct {
@@ -44,13 +79,16 @@ type ChatSessionResponse struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
+// SessionResponse is an alias for ChatSessionResponse (for backward compatibility)
+type SessionResponse = ChatSessionResponse
+
 // ChatMessageResponse represents a single chat message
 type ChatMessageResponse struct {
-	ID        string       `json:"id"`
-	Role      string       `json:"role"` // "user" | "assistant"
-	Content   string       `json:"content"`
-	Sources   []SourceInfo `json:"sources,omitempty"` // Only for assistant messages
-	CreatedAt time.Time    `json:"created_at"`
+	ID        string         `json:"id"`
+	Role      string         `json:"role"` // "user" | "assistant"
+	Content   string         `json:"content"`
+	Metadata  map[string]any `json:"metadata,omitempty"` // Tool calls, sources, reasoning steps, etc.
+	CreatedAt time.Time      `json:"created_at"`
 }
 
 // SourceInfo represents a RAG source citation
@@ -105,21 +143,13 @@ func FromChatMessage(m *model.ChatMessage) *ChatMessageResponse {
 		return nil
 	}
 
-	resp := &ChatMessageResponse{
+	return &ChatMessageResponse{
 		ID:        m.ID.Hex(),
 		Role:      string(m.Role),
 		Content:   m.Content,
+		Metadata:  m.Metadata,
 		CreatedAt: m.CreatedAt,
 	}
-
-	// Extract sources from metadata (only for assistant messages)
-	if m.Role == model.RoleAssistant && m.Metadata != nil {
-		if sources, ok := m.Metadata["sources"].([]interface{}); ok {
-			resp.Sources = extractSources(sources)
-		}
-	}
-
-	return resp
 }
 
 // FromChatMessages converts multiple messages to response DTOs
@@ -132,41 +162,6 @@ func FromChatMessages(messages []*model.ChatMessage) []ChatMessageResponse {
 		}
 	}
 	return responses
-}
-
-// extractSources extracts and formats source information from metadata
-func extractSources(raw []interface{}) []SourceInfo {
-	sources := make([]SourceInfo, 0, len(raw))
-
-	for _, s := range raw {
-		if src, ok := s.(map[string]interface{}); ok {
-			info := SourceInfo{
-				Title: getStringFromMap(src, "title"),
-				URL:   getStringFromMap(src, "url"),
-			}
-
-			// Truncate snippet to 200 chars
-			if content := getStringFromMap(src, "content"); content != "" {
-				if len(content) > 200 {
-					info.Snippet = content[:200] + "..."
-				} else {
-					info.Snippet = content
-				}
-			}
-
-			sources = append(sources, info)
-		}
-	}
-
-	return sources
-}
-
-// getStringFromMap safely extracts a string value from a map
-func getStringFromMap(m map[string]interface{}, key string) string {
-	if v, ok := m[key].(string); ok {
-		return v
-	}
-	return ""
 }
 
 // GenerateSessionTitle generates a title from the first message

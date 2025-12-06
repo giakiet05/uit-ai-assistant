@@ -1,8 +1,8 @@
 package route
 
 import (
-	"github.com/giakiet05/uit-ai-assistant/internal/controller"
-	"github.com/giakiet05/uit-ai-assistant/internal/middleware"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/controller"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/middleware"
 	"github.com/gin-gonic/gin"
 )
 

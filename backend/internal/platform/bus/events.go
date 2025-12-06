@@ -1,7 +1,7 @@
 package bus
 
 import (
-	"github.com/giakiet05/uit-ai-assistant/internal/dto"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/dto"
 )
 
 // Event Topics

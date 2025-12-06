@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
 	"github.com/redis/go-redis/v9"
 )
 

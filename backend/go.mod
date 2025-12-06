@@ -1,4 +1,4 @@
-module github.com/giakiet05/uit-ai-assistant
+module github.com/giakiet05/uit-ai-assistant/backend
 
 go 1.25.1
 
@@ -6,7 +6,6 @@ require (
 	github.com/cloudinary/cloudinary-go/v2 v2.13.0
 	github.com/gin-gonic/gin v1.11.0
 	github.com/golang-jwt/jwt/v5 v5.3.0
-	github.com/golang/mock v1.6.0
 	github.com/google/generative-ai-go v0.20.1
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/websocket v1.5.3
@@ -16,6 +15,8 @@ require (
 	golang.org/x/crypto v0.43.0
 	golang.org/x/oauth2 v0.32.0
 	google.golang.org/api v0.186.0
+	google.golang.org/grpc v1.64.1
+	google.golang.org/protobuf v1.36.10
 )
 
 require (
@@ -83,6 +84,4 @@ require (
 	golang.org/x/tools v0.38.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240617180043-68d350f18fd4 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240617180043-68d350f18fd4 // indirect
-	google.golang.org/grpc v1.64.1 // indirect
-	google.golang.org/protobuf v1.36.10 // indirect
 )

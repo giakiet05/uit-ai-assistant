@@ -9,8 +9,8 @@ import (
 
 	"github.com/cloudinary/cloudinary-go/v2"
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
-	"github.com/giakiet05/uit-ai-assistant/internal/model"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/model"
 )
 
 func newCld() (*cloudinary.Cloudinary, error) {

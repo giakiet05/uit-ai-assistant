@@ -38,6 +38,10 @@ dependencies = [
     "python-jose[cryptography]>=3.5.0",
     "asyncpg>=0.31.0",
     "passlib>=1.7.4",
+    "grpcio>=1.75.1",
+    "grpcio-tools<1.70",
+    "llama-index-llms-gemini>=0.6.1",
+    "grpcio-reflection>=1.71.2",
 ]
 
 [project.scripts]

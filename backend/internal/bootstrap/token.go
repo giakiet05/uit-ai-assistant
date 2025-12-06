@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"github.com/giakiet05/uit-ai-assistant/internal/auth"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/auth"
 	"github.com/redis/go-redis/v9"
 )
 

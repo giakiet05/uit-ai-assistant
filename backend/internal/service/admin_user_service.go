@@ -4,11 +4,11 @@ import (
 	"errors"
 	"time"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/apperror"
-	"github.com/giakiet05/uit-ai-assistant/internal/dto"
-	"github.com/giakiet05/uit-ai-assistant/internal/model"
-	"github.com/giakiet05/uit-ai-assistant/internal/repo"
-	"github.com/giakiet05/uit-ai-assistant/internal/util"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/apperror"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/dto"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/model"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/repo"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/util"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -116,7 +116,7 @@ func (s *adminUserService) BanUser(userID string, req *dto.BanUserRequest) error
 	}
 
 	// Update ban fields
-	user.IsActive = false // Ban = set inactive
+	user.IsActive = false        // Ban = set inactive
 	user.BanUntil = req.BanUntil // null = permanent
 	user.BanReason = &req.Reason
 

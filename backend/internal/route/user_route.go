@@ -1,8 +1,8 @@
 package route
 
 import (
-	"github.com/giakiet05/uit-ai-assistant/internal/controller"
-	"github.com/giakiet05/uit-ai-assistant/internal/middleware"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/controller"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,11 +18,11 @@ func RegisterUserRoutes(rg *gin.RouterGroup, c *controller.UserController) {
 	me.Use(middleware.RequireAuth())
 	{
 		me.GET("", c.GetMyProfile)
-		me.PATCH("", c.UpdateUser)                // Update user (username)
-		me.PATCH("/password", c.ChangePassword)   // Change password
-		me.POST("/avatar", c.UploadAvatar)        // Upload avatar
-		me.DELETE("/avatar", c.DeleteAvatar)      // Delete avatar
-		me.GET("/settings", c.GetSettings)        // Get settings
-		me.PATCH("/settings", c.UpdateSettings)   // Update settings
+		me.PATCH("", c.UpdateUser)              // Update user (username)
+		me.PATCH("/password", c.ChangePassword) // Change password
+		me.POST("/avatar", c.UploadAvatar)      // Upload avatar
+		me.DELETE("/avatar", c.DeleteAvatar)    // Delete avatar
+		me.GET("/settings", c.GetSettings)      // Get settings
+		me.PATCH("/settings", c.UpdateSettings) // Update settings
 	}
 }

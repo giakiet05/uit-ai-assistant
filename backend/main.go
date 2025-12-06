@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/bootstrap"
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/bootstrap"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
 )
 
 func main() {

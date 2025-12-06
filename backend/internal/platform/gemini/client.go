@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
 	"github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/option"
 )

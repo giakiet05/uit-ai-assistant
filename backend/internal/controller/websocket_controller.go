@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/auth"
-	"github.com/giakiet05/uit-ai-assistant/internal/platform/ws"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/auth"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/platform/ws"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )

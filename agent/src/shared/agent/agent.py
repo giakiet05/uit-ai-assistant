@@ -15,6 +15,9 @@ Architecture:
 
 from typing import List
 
+# Import types
+from .types import AgentResponse
+
 # LlamaIndex imports
 from llama_index.core.agent.workflow import ReActAgent
 from llama_index.core.memory import ChatMemoryBuffer
@@ -262,7 +265,7 @@ class UITAgent:
         self,
         message: str,
         memory: ChatMemoryBuffer
-    ) -> str:
+    ) -> AgentResponse:
         """
         Chat with the agent (async).
 
@@ -271,7 +274,7 @@ class UITAgent:
             memory: ChatMemoryBuffer with conversation history
 
         Returns:
-            Agent's response text
+            AgentResponse with clean content and metadata (metadata currently empty)
         """
         # Step 1: Refine query (expand acronyms)
         refined_message = self.query_refiner.refine(message)
@@ -300,20 +303,66 @@ class UITAgent:
             # Step 2: Run agent with refined message
             response = await self.agent.run(refined_message, memory=memory)
 
-        # Extract text from ChatMessage
-        # response.response is a ChatMessage object, not a string
-        # Get the actual text content
+        # Step 3: Clean response text
+        clean_text = self._clean_response_text(response)
+
+        # Step 4: Return AgentResponse (metadata tạm thời empty)
+        return AgentResponse(
+            content=clean_text,
+            tool_calls=[],           # TODO: Extract sau khi nâng cấp workflow
+            reasoning_steps=[],      # TODO: Extract sau khi nâng cấp workflow
+            sources=[],              # TODO: Extract sau khi nâng cấp workflow
+            tokens_used=None,
+            latency_ms=None
+        )
+
+    def _clean_response_text(self, response) -> str:
+        """
+        Clean response text: bỏ Thought/Action/Observation, chỉ giữ Answer.
+
+        Logic dựa trên agent_service.py line 141-151.
+
+        Edge cases:
+        1. Có ReAct format (Thought/Action) + có Answer → lấy phần sau Answer
+        2. Có ReAct format nhưng không có Answer → raise exception
+        3. Không có ReAct format nhưng có "Answer:" ở đầu → bỏ "Answer:"
+        4. Response trực tiếp (không có gì) → giữ nguyên
+
+        Args:
+            response: Response object từ ReActAgent
+
+        Returns:
+            Clean text (đã bỏ ReAct intermediate steps)
+        """
+        # Extract text from response object
         if hasattr(response.response, 'content'):
             # ChatMessage has .content attribute
-            response_text = response.response.content
+            text = response.response.content
         elif hasattr(response.response, 'blocks') and len(response.response.blocks) > 0:
             # Extract from blocks
-            response_text = response.response.blocks[0].text
+            text = response.response.blocks[0].text
         else:
             # Fallback: convert to string
-            response_text = str(response.response)
+            text = str(response.response)
 
-        return response_text
+        # Clean ReAct format (Thought/Action/Observation/Answer)
+        has_react_format = "Thought:" in text or "Action:" in text or "Observation:" in text
+
+        if has_react_format:
+            # Case 1 & 2: Có ReAct format
+            if "Answer:" in text:
+                # Chỉ lấy phần sau "Answer:"
+                text = text.split("Answer:")[-1].strip()
+            else:
+                # Không có Answer → agent chưa hoàn thành
+                raise Exception("Agent did not produce a final answer.")
+        elif text.startswith("Answer:"):
+            # Case 3: Không có ReAct format nhưng response bắt đầu bằng "Answer:"
+            text = text.replace("Answer:", "", 1).strip()
+
+        # Case 4: Response trực tiếp → giữ nguyên (không làm gì)
+
+        return text
 
     async def stream_chat(
         self,

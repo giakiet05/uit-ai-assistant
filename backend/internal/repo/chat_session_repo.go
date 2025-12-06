@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
-	"github.com/giakiet05/uit-ai-assistant/internal/model"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

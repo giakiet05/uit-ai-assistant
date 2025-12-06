@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/smtp"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
 )
 
 // Sender defines the interface for an email sender.

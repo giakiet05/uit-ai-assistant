@@ -3,17 +3,18 @@ package bootstrap
 import (
 	"log"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/auth"
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
-	"github.com/giakiet05/uit-ai-assistant/internal/controller"
-	"github.com/giakiet05/uit-ai-assistant/internal/middleware"
-	"github.com/giakiet05/uit-ai-assistant/internal/platform/bus"
-	"github.com/giakiet05/uit-ai-assistant/internal/platform/email"
-	"github.com/giakiet05/uit-ai-assistant/internal/platform/gemini"
-	"github.com/giakiet05/uit-ai-assistant/internal/platform/ws"
-	"github.com/giakiet05/uit-ai-assistant/internal/repo"
-	"github.com/giakiet05/uit-ai-assistant/internal/route"
-	"github.com/giakiet05/uit-ai-assistant/internal/service"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/auth"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/controller"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/middleware"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/platform/bus"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/platform/email"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/platform/gemini"
+	platformgrpc "github.com/giakiet05/uit-ai-assistant/backend/internal/platform/grpc"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/platform/ws"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/repo"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/route"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/service"
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -23,6 +24,8 @@ type Repos struct {
 	repo.UserRepo
 	repo.NotificationRepo
 	repo.EmailVerificationRepo
+	repo.ChatSessionRepo
+	repo.ChatMessageRepo
 }
 
 type Services struct {
@@ -30,6 +33,7 @@ type Services struct {
 	service.UserService
 	service.NotificationService
 	service.AdminUserService
+	service.ChatService
 }
 
 type Controllers struct {
@@ -38,6 +42,7 @@ type Controllers struct {
 	controller.NotificationController
 	controller.WebSocketController
 	controller.AdminUserController
+	controller.ChatController
 }
 
 func initRepos(client *mongo.Client, db *mongo.Database) *Repos {
@@ -45,16 +50,18 @@ func initRepos(client *mongo.Client, db *mongo.Database) *Repos {
 		UserRepo:              repo.NewUserRepo(db),
 		NotificationRepo:      repo.NewNotificationRepo(db),
 		EmailVerificationRepo: repo.NewEmailVerificationRepo(db),
+		ChatSessionRepo:       repo.NewChatSessionRepo(db),
+		ChatMessageRepo:       repo.NewChatMessageRepo(db),
 	}
 }
 
-func initServices(repos *Repos, redisClient *redis.Client, emailSender email.Sender, eventBus bus.EventBus, geminiClient *gemini.GeminiClient) *Services {
+func initServices(repos *Repos, redisClient *redis.Client, emailSender email.Sender, eventBus bus.EventBus, geminiClient *gemini.GeminiClient, agentClient *platformgrpc.AgentClient) *Services {
 	return &Services{
 		AuthService:         service.NewAuthService(repos.UserRepo, repos.EmailVerificationRepo, emailSender, redisClient),
 		UserService:         service.NewUserService(repos.UserRepo, eventBus, redisClient),
 		NotificationService: service.NewNotificationService(repos.NotificationRepo, repos.UserRepo, eventBus, redisClient),
+		ChatService:         service.NewChatService(repos.ChatSessionRepo, repos.ChatMessageRepo, agentClient),
 	}
-
 }
 
 func initControllers(services *Services, wsHub *ws.Hub) *Controllers {
@@ -64,6 +71,7 @@ func initControllers(services *Services, wsHub *ws.Hub) *Controllers {
 		NotificationController: *controller.NewNotificationController(services.NotificationService),
 		WebSocketController:    *controller.NewWebSocketController(wsHub),
 		AdminUserController:    *controller.NewAdminUserController(services.AdminUserService),
+		ChatController:         *controller.NewChatController(services.ChatService),
 	}
 }
 
@@ -82,6 +90,7 @@ func initRoutes(controllers *Controllers, r *gin.Engine) {
 	route.RegisterNotificationRoutes(api, &controllers.NotificationController)
 	route.RegisterWebSocketRoutes(api, &controllers.WebSocketController)
 	route.RegisterAdminUserRoutes(api, &controllers.AdminUserController)
+	route.RegisterChatRoutes(api, &controllers.ChatController)
 }
 
 func Init() (*gin.Engine, error) {
@@ -120,8 +129,15 @@ func Init() (*gin.Engine, error) {
 		log.Printf("Warning: Gemini client initialization failed: %v. Content moderation will be disabled.", err)
 	}
 
+	// Initialize Agent gRPC client
+	agentClient, err := platformgrpc.NewAgentClient(config.Cfg.AgentGRPCAddr)
+	if err != nil {
+		log.Fatalf("Failed to connect to Agent gRPC server: %v", err)
+	}
+	log.Printf("Connected to Agent gRPC server at %s", config.Cfg.AgentGRPCAddr)
+
 	repos := initRepos(client, db)
-	services := initServices(repos, redisClient, emailSender, eventBus, geminiClient)
+	services := initServices(repos, redisClient, emailSender, eventBus, geminiClient, agentClient)
 	controllers := initControllers(services, wsHub)
 
 	// Inject userRepo into middleware for settings caching

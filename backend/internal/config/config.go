@@ -20,6 +20,7 @@ type AppConfig struct {
 	RefreshTokenTTL      int
 	FrontendURL          string
 	OTPExpirationMinutes int
+	AgentGRPCAddr        string
 	SMTP                 SMTPConfig
 	Redis                RedisConfig
 	Google               GoogleConfig
@@ -95,6 +96,9 @@ func LoadConfig() {
 
 	// Features
 	Cfg.OTPExpirationMinutes = getEnvInt("OTP_EXPIRATION_MINUTES", 15)
+
+	// Agent
+	Cfg.AgentGRPCAddr = getEnv("AGENT_GRPC_ADDR", "localhost:50051")
 
 	// Services
 	Cfg.SMTP.Host = getEnv("SMTP_HOST", "smtp.example.com")

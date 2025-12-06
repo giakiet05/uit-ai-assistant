@@ -7,7 +7,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )

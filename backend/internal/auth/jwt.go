@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/giakiet05/uit-ai-assistant/internal/apperror"
-	"github.com/giakiet05/uit-ai-assistant/internal/config"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/apperror"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/config"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
