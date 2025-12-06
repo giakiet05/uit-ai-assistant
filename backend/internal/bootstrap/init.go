@@ -80,7 +80,7 @@ func initRoutes(controllers *Controllers, r *gin.Engine) {
 		c.JSON(200, gin.H{"message": "pong"})
 	})
 
-	api := r.Group("/api")
+	api := r.Group("/api/v1")
 	api.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "Welcome to LKForum API!"})
 	})

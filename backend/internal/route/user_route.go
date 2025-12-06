@@ -11,7 +11,6 @@ func RegisterUserRoutes(rg *gin.RouterGroup, c *controller.UserController) {
 
 	// Public routes - anyone can view a user's profile
 	users.GET("/", c.GetUsers)
-	users.GET("/profile/:username", c.GetUserByUsername)
 
 	// Routes for the currently authenticated user ("me")
 	me := users.Group("/me")
