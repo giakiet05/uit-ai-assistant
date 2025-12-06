@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package agent;
+
+option go_package = "github.com/giakiet05/uit-ai-assistant/backend/internal/grpc/pb";
+
+// Message trong lịch sử chat
+message ChatMessage {
+  string role = 1;     // "user" hoặc "assistant"
+  string content = 2;
+}
+
+// Tool call metadata
+message ToolCall {
+  string tool_name = 1;
+  string args_json = 2;   // JSON string của args
+  string output = 3;
+}
+
+// RAG source metadata
+message Source {
+  string title = 1;
+  string content = 2;
+  float score = 3;
+  string url = 4;
+}
+
+// Request gọi agent
+message ChatRequest {
+  string message = 1;                 // Câu hỏi của user
+  repeated ChatMessage history = 2;   // Lịch sử chat (sorted by timestamp)
+}
+
+// Response từ agent
+message ChatResponse {
+  string content = 1;                      // Câu trả lời đã clean
+  repeated ToolCall tool_calls = 2;        // Tool calls (tạm thời empty)
+  repeated string reasoning_steps = 3;     // Reasoning steps (tạm thời empty)
+  repeated Source sources = 4;             // RAG sources (tạm thời empty)
+  int32 tokens_used = 5;                   // Tokens used (tạm thời 0)
+  int32 latency_ms = 6;                    // Latency (tạm thời 0)
+}
+
+// gRPC service
+service Agent {
+  // Non-streaming chat
+  rpc Chat(ChatRequest) returns (ChatResponse);
+}
