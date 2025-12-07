@@ -109,16 +109,8 @@ func (s *userService) DeleteAvatar(userID string) (*dto.UserResponse, error) {
 	ctx, cancel := util.NewDefaultDBContext()
 	defer cancel()
 
-	user, err := s.userRepo.GetByID(ctx, userID)
-	if err != nil {
-		return nil, err
-	}
-
-	// Remove avatar
-	user.Avatar = nil
-	user.UpdatedAt = time.Now()
-
-	updatedUser, err := s.userRepo.Update(ctx, user)
+	// Use UpdateAvatarField to properly unset the avatar field
+	updatedUser, err := s.userRepo.UpdateAvatarField(ctx, userID, nil)
 	if err != nil {
 		return nil, err
 	}

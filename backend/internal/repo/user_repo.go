@@ -17,6 +17,7 @@ import (
 type UserRepo interface {
 	Create(ctx context.Context, user *model.User) (*model.User, error)
 	Update(ctx context.Context, user *model.User) (*model.User, error)
+	UpdateAvatarField(ctx context.Context, userID string, avatar *model.Image) (*model.User, error)
 	Delete(ctx context.Context, id string) error
 	UpdateReputation(ctx context.Context, userID string, points int) error
 
@@ -92,7 +93,58 @@ func (r *userRepo) Update(ctx context.Context, user *model.User) (*model.User, e
 	if result.MatchedCount == 0 {
 		return nil, mongo.ErrNoDocuments
 	}
-	return user, nil
+
+	// Reload user from DB to get the actual updated data
+	var updatedUser model.User
+	err = r.userCollection.FindOne(ctx, filter).Decode(&updatedUser)
+	if err != nil {
+		return nil, err
+	}
+
+	return &updatedUser, nil
+}
+
+func (r *userRepo) UpdateAvatarField(ctx context.Context, userID string, avatar *model.Image) (*model.User, error) {
+	objectID, err := primitive.ObjectIDFromHex(userID)
+	if err != nil {
+		return nil, apperror.ErrInvalidID
+	}
+
+	filter := bson.M{"_id": objectID}
+	var update bson.M
+
+	if avatar == nil {
+		// Use $unset to remove the avatar field completely
+		update = bson.M{
+			"$unset": bson.M{"avatar": ""},
+			"$set":   bson.M{"updated_at": time.Now()},
+		}
+	} else {
+		// Use $set to update the avatar field
+		update = bson.M{
+			"$set": bson.M{
+				"avatar":     avatar,
+				"updated_at": time.Now(),
+			},
+		}
+	}
+
+	result, err := r.userCollection.UpdateOne(ctx, filter, update)
+	if err != nil {
+		return nil, err
+	}
+	if result.MatchedCount == 0 {
+		return nil, mongo.ErrNoDocuments
+	}
+
+	// Reload user from DB
+	var updatedUser model.User
+	err = r.userCollection.FindOne(ctx, filter).Decode(&updatedUser)
+	if err != nil {
+		return nil, err
+	}
+
+	return &updatedUser, nil
 }
 
 func (r *userRepo) Delete(ctx context.Context, id string) error {

@@ -1,21 +1,15 @@
 "use client"
 
 import { useState } from "react"
+import { apiClient } from "@/lib/api"
 
 interface LoginCredentials {
   username: string
   password: string
 }
 
-interface LoginResponse {
-  success: boolean
-  message?: string
-  user?: any
-}
-
-// Cấu hình: Đổi USE_MOCK_AUTH = false khi backend API đã sẵn sàng
-const USE_MOCK_AUTH = true
-const BACKEND_API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000"
+// Đọc từ environment variable để xác định auth mode
+const USE_MOCK_AUTH = import.meta.env.VITE_AUTH_MODE === "mock"
 
 export function useLogin() {
   const [isPending, setIsPending] = useState(false)
@@ -37,10 +31,11 @@ export function useLogin() {
             id: "1",
             username: "test",
             email: "test@uit.edu.vn",
-            name: "Test User",
+            full_name: "Test User",
           }
           localStorage.setItem("user", JSON.stringify(mockUser))
-          localStorage.setItem("token", "mock-jwt-token")
+          localStorage.setItem("accessToken", "mock-jwt-token")
+          localStorage.setItem("refreshToken", "mock-refresh-token")
           setIsPending(false)
           window.location.href = "/chat"
           return
@@ -53,30 +48,25 @@ export function useLogin() {
       }
 
       // Real API call
-      const response = await fetch(`${BACKEND_API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
+      const response = await apiClient.login({
+        identifier: credentials.username,
+        password: credentials.password,
       })
 
-      const data: LoginResponse = await response.json()
+      if (response.success && response.data) {
+        // Lưu user info và tokens vào localStorage
+        localStorage.setItem("user", JSON.stringify(response.data.user))
+        localStorage.setItem("accessToken", response.data.access_token)
+        localStorage.setItem("refreshToken", response.data.refresh_token)
 
-      if (!response.ok) {
-        setIsError(true)
-        setError(data.message || "Đăng nhập thất bại")
+        // Successfully logged in
         setIsPending(false)
-        return
+        window.location.href = "/chat"
+      } else {
+        setIsError(true)
+        setError(response.message || "Đăng nhập thất bại")
+        setIsPending(false)
       }
-
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user))
-      }
-
-      // Successfully logged in
-      setIsPending(false)
-      window.location.href = "/chat"
     } catch (err) {
       setIsError(true)
       setError(err instanceof Error ? err.message : "Có lỗi xảy ra")
