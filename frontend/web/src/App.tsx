@@ -4,7 +4,6 @@ import { Toaster } from "sonner"
 import LoginPage from "./pages/login"
 import RegisterPage from "./pages/register"
 import ChatPage from "./pages/chat"
-import DashboardPage from "./pages/dashboard"
 import ProfilePage from "./pages/profile"
 import SettingsPage from "./pages/settings"
 import AuthCallbackPage from "./pages/auth-callback"
@@ -34,14 +33,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <ChatPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardPage />
               </ProtectedRoute>
             }
           />

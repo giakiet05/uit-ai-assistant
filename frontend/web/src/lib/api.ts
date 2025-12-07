@@ -96,6 +96,41 @@ export interface UpdateSettingsRequest {
   notify_new_features?: boolean
 }
 
+// Chat Types
+export interface ChatRequest {
+  message: string
+  session_id?: string // Optional, creates new session if not provided
+}
+
+export interface ChatMessageResponse {
+  id: string
+  role: "user" | "assistant"
+  content: string
+  metadata?: Record<string, any> // RAG sources, tool calls, tokens, etc.
+  created_at: string
+}
+
+export interface ChatResponse {
+  session_id: string
+  message: ChatMessageResponse // The assistant's response
+}
+
+export interface ChatSession {
+  id: string
+  title: string
+  created_at: string
+  updated_at: string
+}
+
+export interface UpdateSessionTitleRequest {
+  title: string
+}
+
+export interface GetSessionsQuery {
+  page?: number
+  page_size?: number
+}
+
 class ApiClient {
   private baseURL: string
   private isRefreshing = false
@@ -366,9 +401,61 @@ class ApiClient {
   }
 
   async updateSettings(data: UpdateSettingsRequest): Promise<ApiResponse<UserSettings>> {
-    console.log("📡 API updateSettings - Request data:", data)
-    console.log("📡 API updateSettings - JSON body:", JSON.stringify(data))
     return this.request<UserSettings>("/api/v1/users/me/settings", {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    })
+  }
+
+  // Chat APIs
+  async sendChatMessage(data: ChatRequest): Promise<ApiResponse<ChatResponse>> {
+    return this.request<ChatResponse>("/api/v1/chat", {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+  }
+
+  async getChatSessions(query?: GetSessionsQuery): Promise<ApiResponse<ChatSession[]>> {
+    const params = new URLSearchParams()
+    if (query?.page) params.append("page", query.page.toString())
+    if (query?.page_size) params.append("page_size", query.page_size.toString())
+
+    const queryString = params.toString()
+    const endpoint = queryString ? `/api/v1/chat/sessions?${queryString}` : "/api/v1/chat/sessions"
+
+    return this.request<ChatSession[]>(endpoint, {
+      method: "GET",
+    })
+  }
+
+  async getChatSession(sessionId: string): Promise<ApiResponse<ChatSession>> {
+    return this.request<ChatSession>(`/api/v1/chat/sessions/${sessionId}`, {
+      method: "GET",
+    })
+  }
+
+  async getChatMessages(sessionId: string, limit?: number): Promise<ApiResponse<ChatMessageResponse[]>> {
+    const params = new URLSearchParams()
+    if (limit) params.append("limit", limit.toString())
+
+    const queryString = params.toString()
+    const endpoint = queryString
+      ? `/api/v1/chat/sessions/${sessionId}/messages?${queryString}`
+      : `/api/v1/chat/sessions/${sessionId}/messages`
+
+    return this.request<ChatMessageResponse[]>(endpoint, {
+      method: "GET",
+    })
+  }
+
+  async deleteChatSession(sessionId: string): Promise<ApiResponse> {
+    return this.request(`/api/v1/chat/sessions/${sessionId}`, {
+      method: "DELETE",
+    })
+  }
+
+  async updateSessionTitle(sessionId: string, data: UpdateSessionTitleRequest): Promise<ApiResponse<ChatSession>> {
+    return this.request<ChatSession>(`/api/v1/chat/sessions/${sessionId}/title`, {
       method: "PATCH",
       body: JSON.stringify(data),
     })

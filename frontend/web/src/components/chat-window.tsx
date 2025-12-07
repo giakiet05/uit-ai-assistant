@@ -18,17 +18,15 @@ interface ChatWindowProps {
   messages: Message[]
   conversationTitle: string
   onSendMessage: (content: string) => void
+  isLoading?: boolean
 }
 
-export default function ChatWindow({ messages, conversationTitle, onSendMessage }: ChatWindowProps) {
+export default function ChatWindow({ messages, conversationTitle, onSendMessage, isLoading = false }: ChatWindowProps) {
   const [input, setInput] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
-    console.log("💬 ChatWindow received messages:", messages)
-    console.log("💬 Messages count:", messages.length)
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages, isLoading])
 
@@ -43,14 +41,11 @@ export default function ChatWindow({ messages, conversationTitle, onSendMessage 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault()
     if (input.trim() && !isLoading) {
-      setIsLoading(true)
       onSendMessage(input)
       setInput("")
       if (textareaRef.current) {
         textareaRef.current.style.height = "auto"
       }
-      // Loading will be set to false after AI response is received
-      setTimeout(() => setIsLoading(false), 1500)
     }
   }
 

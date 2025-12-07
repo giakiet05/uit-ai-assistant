@@ -40,10 +40,8 @@ export default function SettingsPage() {
   const notifyNewFeatures = watch("notify_new_features")
 
   const onSubmit = async (data: UpdateSettingsRequest) => {
-    console.log("📝 Settings form data:", data)
     try {
       const result = await updateSettings(data)
-      console.log("✅ Settings update result:", result)
 
       // Apply theme change immediately
       if (data.theme) {
@@ -52,7 +50,6 @@ export default function SettingsPage() {
 
       await refetch()
     } catch (error) {
-      console.error("❌ Settings update error:", error)
       // Error is handled by the hook
     }
   }

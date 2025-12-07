@@ -9,18 +9,14 @@ export function useUserProfile() {
   const [error, setError] = useState<string | null>(null)
 
   const fetchProfile = async () => {
-    console.log("🔄 Fetching user profile...")
     try {
       setLoading(true)
       setError(null)
       const response = await apiClient.getUserProfile()
-      console.log("✅ Profile fetched:", response.data)
       if (response.success) {
         setUser(response.data)
-        console.log("📸 Avatar URL:", response.data.avatar?.url || "none")
       }
     } catch (err) {
-      console.error("❌ Fetch profile error:", err)
       const errorMessage = err instanceof Error ? err.message : "Failed to fetch profile"
       setError(errorMessage)
       toast.error(errorMessage)
