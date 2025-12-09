@@ -1,0 +1,134 @@
+package middleware
+
+import (
+	"net/http"
+	"strings"
+
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/auth"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/repo"
+	"github.com/giakiet05/uit-ai-assistant/backend/internal/util"
+	"github.com/gin-gonic/gin"
+)
+
+// userRepo is injected at startup to load user settings in middleware
+var userRepo repo.UserRepo
+
+// SetUserRepo injects the user repository for middleware to use
+func SetUserRepo(repo repo.UserRepo) {
+	userRepo = repo
+}
+
+// RequireAuth parse access token và nhét AuthUser vào context
+func RequireAuth() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var token string
+
+		// Ưu tiên lấy từ Authorization header (cho Web App)
+		authHeader := c.GetHeader("Authorization")
+		if authHeader != "" {
+			parts := strings.SplitN(authHeader, " ", 2)
+			if len(parts) == 2 && parts[0] == "Bearer" {
+				token = parts[1]
+			}
+		}
+
+		// Fallback: Lấy từ cookie (cho Extension)
+		if token == "" {
+			token, _ = c.Cookie("access_token")
+		}
+
+		// Không có token ở cả 2 nơi → Unauthorized
+		if token == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing Authorization header or cookie"})
+			c.Abort()
+			return
+		}
+
+		// Parse token
+		user, err := auth.ParseAccessToken(token)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"error": "Invalid token",
+				"debug": err.Error(),
+			})
+			c.Abort()
+			return
+		}
+
+		// Load user settings from DB once per request
+		if userRepo != nil {
+			ctx, cancel := util.NewDefaultDBContext()
+			defer cancel()
+
+			dbUser, err := userRepo.GetByID(ctx, user.ID)
+			if err == nil {
+				user.Settings = dbUser.Settings
+			}
+		}
+
+		// Nhét user vào context with settings cached
+		c.Set("authUser", user)
+		c.Next()
+	}
+}
+
+func RequireAuthSocket() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := c.Query("token")
+		if token == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing token in query parameter"})
+			c.Abort()
+			return
+		}
+
+		user, err := auth.ParseAccessToken(token)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"error": "Invalid token",
+				"debug": err.Error(),
+			})
+			c.Abort()
+			return
+		}
+
+		if userRepo != nil {
+			ctx, cancel := util.NewDefaultDBContext()
+			defer cancel()
+
+			dbUser, err := userRepo.GetByID(ctx, user.ID)
+			if err == nil && true {
+				user.Settings = dbUser.Settings
+			}
+		}
+
+		c.Set("authUser", user)
+		c.Next()
+	}
+}
+
+// RequireAdmin check role admin
+func RequireAdmin() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		val, exists := c.Get("authUser")
+		if !exists {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Not authenticated"})
+			c.Abort()
+			return
+		}
+
+		user, ok := val.(auth.AuthUser)
+		if !ok {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid auth context"})
+			c.Abort()
+			return
+		}
+
+		if user.Role != "admin" {
+			c.JSON(http.StatusForbidden, gin.H{"error": "Admin access required"})
+			c.Abort()
+			return
+		}
+
+		c.Next()
+	}
+}

@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "UIT AI Assistant - DAA Connector",
+  "version": "1.0.0",
+  "description": "Sync DAA cookies for grade and schedule queries with UIT AI Assistant",
+
+  "permissions": [
+    "cookies",
+    "storage",
+    "activeTab"
+  ],
+
+  "host_permissions": [
+    "https://daa.uit.edu.vn/*",
+    "https://courses.uit.edu.vn/*",
+    "https://drl.uit.edu.vn/*",
+    "http://localhost:8080/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

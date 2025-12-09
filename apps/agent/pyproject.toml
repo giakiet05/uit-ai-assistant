@@ -1,0 +1,28 @@
+[project]
+name = "agent"
+version = "0.1.0"
+description = "Agent Service for UIT AI Assistant - gRPC server with ReAct agent"
+requires-python = ">=3.13"
+dependencies = [
+    "llama-index-core>=0.14.0",
+    "llama-index-llms-openai>=0.1.0",
+    "llama-index-llms-gemini>=0.6.0",
+    "llama-index-llms-ollama>=0.8.0",
+    "llama-index-tools-mcp>=0.4.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "grpcio>=1.68.0,<1.75.0",
+    "grpcio-tools>=1.68.0,<1.75.0",
+    "grpcio-reflection>=1.68.0,<1.75.0",
+    "redis>=7.0.0",
+]
+
+[project.scripts]
+agent = "src.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
