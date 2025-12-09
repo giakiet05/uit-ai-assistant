@@ -14,13 +14,11 @@ import {
 import { Loader2, ArrowLeft, Save } from "lucide-react"
 import { useSettings, useUpdateSettings } from "@/hooks/useSettings"
 import type { UpdateSettingsRequest } from "@/lib/api"
-import { useTheme } from "next-themes"
 
 export default function SettingsPage() {
   const navigate = useNavigate()
   const { settings, loading, refetch } = useSettings()
   const { updateSettings, loading: updating } = useUpdateSettings()
-  const { setTheme } = useTheme()
 
   const {
     register,
@@ -30,24 +28,16 @@ export default function SettingsPage() {
   } = useForm<UpdateSettingsRequest>({
     values: {
       language: settings?.language || "en",
-      theme: settings?.theme || "dark",
       notify_new_features: settings?.notify_new_features || false,
     },
   })
 
-  const currentTheme = watch("theme")
   const currentLanguage = watch("language")
   const notifyNewFeatures = watch("notify_new_features")
 
   const onSubmit = async (data: UpdateSettingsRequest) => {
     try {
       const result = await updateSettings(data)
-
-      // Apply theme change immediately
-      if (data.theme) {
-        setTheme(data.theme)
-      }
-
       await refetch()
     } catch (error) {
       // Error is handled by the hook
@@ -82,37 +72,6 @@ export default function SettingsPage() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-6">
-            <Card className="border-2">
-              <CardHeader className="border-b bg-muted/50">
-                <CardTitle className="text-2xl">Appearance</CardTitle>
-                <CardDescription>Customize how the app looks</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4 pt-6">
-              <div className="flex items-center justify-between p-4 rounded-lg border-2 bg-muted/20">
-                <div className="space-y-1">
-                  <Label htmlFor="theme" className="text-base font-semibold">Theme</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Choose your preferred color scheme
-                  </p>
-                </div>
-                <Select
-                  value={currentTheme}
-                  onValueChange={(value: "light" | "dark") => {
-                    setValue("theme", value)
-                  }}
-                >
-                  <SelectTrigger className="w-[180px]" id="theme">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
-
           <Card className="border-2">
             <CardHeader className="border-b bg-muted/50">
               <CardTitle className="text-2xl">Language</CardTitle>

@@ -30,6 +30,13 @@ export default function ChatWindow({ messages, conversationTitle, onSendMessage,
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages, isLoading])
 
+  // Focus back to textarea after loading completes
+  useEffect(() => {
+    if (!isLoading && textareaRef.current) {
+      textareaRef.current.focus()
+    }
+  }, [isLoading])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value)
     if (textareaRef.current) {
@@ -45,6 +52,7 @@ export default function ChatWindow({ messages, conversationTitle, onSendMessage,
       setInput("")
       if (textareaRef.current) {
         textareaRef.current.style.height = "auto"
+        textareaRef.current.focus()
       }
     }
   }
@@ -80,8 +88,8 @@ export default function ChatWindow({ messages, conversationTitle, onSendMessage,
               </svg>
             </div>
             <div className="text-center space-y-2">
-              <p className="text-lg font-semibold">Bắt đầu cuộc trò chuyện</p>
-              <p className="text-sm max-w-md text-muted-foreground">
+              <p className="text-xl font-semibold">Bắt đầu cuộc trò chuyện</p>
+              <p className="text-base max-w-md text-muted-foreground">
                 Gửi tin nhắn để bắt đầu chat với UIT AI Assistant
               </p>
             </div>
@@ -110,7 +118,7 @@ export default function ChatWindow({ messages, conversationTitle, onSendMessage,
                       </svg>
                     </div>
                     <div className="text-foreground leading-relaxed space-y-2">
-                      <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+                      <div className="text-base whitespace-pre-wrap">{message.content}</div>
                       <p className="text-xs text-muted-foreground">
                         {message.timestamp.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}
                       </p>
@@ -121,7 +129,7 @@ export default function ChatWindow({ messages, conversationTitle, onSendMessage,
                 {message.role === "user" && (
                   <div className="max-w-3xl space-y-1">
                     <div className="bg-primary text-primary-foreground rounded-2xl px-4 py-2.5 shadow-sm">
-                      <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                      <p className="text-base whitespace-pre-wrap">{message.content}</p>
                     </div>
                     <p className="text-xs text-muted-foreground text-right px-2">
                       {message.timestamp.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}
@@ -148,7 +156,7 @@ export default function ChatWindow({ messages, conversationTitle, onSendMessage,
                 placeholder="Nhập tin nhắn... (Enter để gửi, Shift+Enter để xuống dòng)"
                 disabled={isLoading}
                 rows={1}
-                className="w-full bg-transparent text-foreground placeholder-muted-foreground focus:outline-none resize-none max-h-32 text-sm py-1"
+                className="w-full bg-transparent text-foreground placeholder-muted-foreground focus:outline-none resize-none max-h-32 text-base py-1"
               />
             </div>
             <button

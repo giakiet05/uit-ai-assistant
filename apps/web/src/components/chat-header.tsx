@@ -1,6 +1,5 @@
 "use client"
 
-import ThemeToggle from "./theme-toggle"
 import { UserMenu } from "./user-menu"
 import { useUserProfile } from "@/hooks/useUserProfile"
 
@@ -19,9 +18,6 @@ export default function ChatHeader({ conversationTitle }: ChatHeaderProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Theme Toggle */}
-          <ThemeToggle />
-
           {/* User Menu */}
           {user && (
             <UserMenu

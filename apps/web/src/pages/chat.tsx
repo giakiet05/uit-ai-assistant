@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import ChatSidebar from "@/components/chat-sidebar"
 import ChatWindow from "@/components/chat-window"
 import { useChatSessions, useDeleteSession } from "@/hooks/useChatSessions"
@@ -10,17 +10,18 @@ import type { ChatMessageResponse } from "@/lib/api"
 
 export default function ChatPage() {
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null)
+  const [isNewConversation, setIsNewConversation] = useState(false)
   const { sessions, loading: sessionsLoading, refetch: refetchSessions } = useChatSessions()
   const { messages, loading: messagesLoading, addMessage, clearMessages, setMessages } = useChatMessages(activeSessionId)
   const { sendMessage, loading: sendingMessage } = useSendMessage()
   const { deleteSession } = useDeleteSession()
 
-  // Set first session as active on load
+  // Set first session as active on load (but not when starting new conversation)
   useEffect(() => {
-    if (sessions.length > 0 && !activeSessionId) {
+    if (sessions.length > 0 && !activeSessionId && !isNewConversation) {
       setActiveSessionId(sessions[0].id)
     }
-  }, [sessions, activeSessionId])
+  }, [sessions, activeSessionId, isNewConversation])
 
   const activeSession = sessions.find((s) => s.id === activeSessionId)
 
@@ -48,6 +49,7 @@ export default function ChatPage() {
       // If new session was created, update session ID
       if (!activeSessionId) {
         setActiveSessionId(response.session_id)
+        setIsNewConversation(false) // Reset flag after creating new session
         await refetchSessions()
       }
 
@@ -60,11 +62,16 @@ export default function ChatPage() {
   }
 
   const handleNewConversation = () => {
+    console.log("handleNewConversation called")
+    console.log("Current activeSessionId:", activeSessionId)
+    setIsNewConversation(true)
     setActiveSessionId(null)
     clearMessages()
+    console.log("Cleared messages, activeSessionId set to null")
   }
 
   const handleSelectConversation = (id: string) => {
+    setIsNewConversation(false) // Reset flag when selecting existing conversation
     setActiveSessionId(id)
   }
 
