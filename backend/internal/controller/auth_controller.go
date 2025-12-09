@@ -77,6 +77,9 @@ func (c *AuthController) Login(ctx *gin.Context) {
 		return
 	}
 
+	// Set HTTP-only cookies
+	setAuthCookies(ctx, accessToken, refreshToken)
+
 	data := dto.AuthResponse{
 		User:         dto.FromUser(user),
 		AccessToken:  accessToken,
@@ -115,6 +118,9 @@ func (c *AuthController) CompleteRegistration(ctx *gin.Context) {
 		return
 	}
 
+	// Set HTTP-only cookies
+	setAuthCookies(ctx, accessToken, refreshToken)
+
 	data := dto.AuthResponse{
 		User:         dto.FromUser(user),
 		AccessToken:  accessToken,
@@ -152,6 +158,9 @@ func (c *AuthController) RefreshToken(ctx *gin.Context) {
 		return
 	}
 
+	// Set HTTP-only cookies với tokens mới
+	setAuthCookies(ctx, accessToken, refreshToken)
+
 	data := dto.RefreshResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
@@ -171,6 +180,9 @@ func (c *AuthController) Logout(ctx *gin.Context) {
 		dto.SendError(ctx, apperror.StatusFromError(err), apperror.Message(err), apperror.Code(err))
 		return
 	}
+
+	// Xóa cookies
+	clearAuthCookies(ctx)
 
 	dto.SendSuccess(ctx, http.StatusOK, "Logged out successfully", nil)
 }
@@ -245,10 +257,47 @@ func (c *AuthController) CompleteGoogleSetup(ctx *gin.Context) {
 		return
 	}
 
+	// Set HTTP-only cookies
+	setAuthCookies(ctx, accessToken, refreshToken)
+
 	data := dto.AuthResponse{
 		User:         dto.FromUser(user),
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 	}
 	dto.SendSuccess(ctx, http.StatusOK, "Setup complete. You are now logged in.", data)
+}
+
+// ====== Cookie Helpers ======
+
+// setAuthCookies sets HTTP-only cookies for access and refresh tokens.
+func setAuthCookies(ctx *gin.Context, accessToken, refreshToken string) {
+	// Access token cookie (TTL từ config)
+	ctx.SetCookie(
+		"access_token",                  // name
+		accessToken,                     // value
+		config.Cfg.TokenTTL*60,         // maxAge (phút -> giây)
+		"/",                             // path
+		"",                              // domain (empty = same origin)
+		false,                           // secure (true nếu HTTPS production)
+		true,                            // httpOnly (QUAN TRỌNG!)
+	)
+
+	// Refresh token cookie (TTL từ config)
+	ctx.SetCookie(
+		"refresh_token",                 // name
+		refreshToken,                    // value
+		config.Cfg.RefreshTokenTTL*3600, // maxAge (giờ -> giây)
+		"/",                             // path
+		"",                              // domain
+		false,                           // secure
+		true,                            // httpOnly
+	)
+}
+
+// clearAuthCookies removes authentication cookies.
+func clearAuthCookies(ctx *gin.Context) {
+	// Set maxAge = -1 để xóa cookie
+	ctx.SetCookie("access_token", "", -1, "/", "", false, true)
+	ctx.SetCookie("refresh_token", "", -1, "/", "", false, true)
 }

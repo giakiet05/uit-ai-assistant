@@ -19,6 +19,7 @@ type AppConfig struct {
 	TokenTTL             int
 	RefreshTokenTTL      int
 	FrontendURL          string
+	ExtensionOrigin      string
 	OTPExpirationMinutes int
 	AgentGRPCAddr        string
 	SMTP                 SMTPConfig
@@ -86,6 +87,7 @@ func LoadConfig() {
 	Cfg.MongoURI = getEnv("MONGO_URI", "mongodb://localhost:27017")
 	Cfg.DBName = getEnv("DB_NAME", "uit-ai-assistant")
 	Cfg.FrontendURL = getEnv("FRONTEND_URL", "http://localhost:5173")
+	Cfg.ExtensionOrigin = getEnv("EXTENSION_ORIGIN", "") // Chrome extension origin
 
 	// JWT
 	Cfg.JWTSecret = getEnv("JWT_SECRET", "your-secret-key")

@@ -2,11 +2,11 @@
  * API client for backend communication
  */
 import type { CookieSource, SyncCookieRequest, SyncCookieResponse } from '@/types';
-import { getAuthToken } from './storage';
 import { logger } from './logger';
 
 // Backend URL (changeable via env or config)
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
+const API_VERSION = '/api/v1';
 
 /**
  * Sync cookie to backend
@@ -16,23 +16,17 @@ export async function syncCookieToBackend(
   cookie: string
 ): Promise<SyncCookieResponse> {
   try {
-    const authToken = await getAuthToken();
-
-    if (!authToken) {
-      throw new Error('No auth token found. Please login to web app first.');
-    }
-
     const request: SyncCookieRequest = {
       source,
       cookie
     };
 
-    const response = await fetch(`${BACKEND_URL}/api/sync-daa-cookie`, {
+    const response = await fetch(`${BACKEND_URL}${API_VERSION}/cookie/sync`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${authToken}`
       },
+      credentials: 'include', // Tự động gửi cookies
       body: JSON.stringify(request)
     });
 
@@ -52,11 +46,32 @@ export async function syncCookieToBackend(
 }
 
 /**
+ * Get cookie status from backend
+ */
+export async function getCookieStatus(): Promise<any> {
+  try {
+    const response = await fetch(`${BACKEND_URL}${API_VERSION}/cookie/status`, {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    logger.error('Failed to get cookie status:', error);
+    throw error;
+  }
+}
+
+/**
  * Test backend connection
  */
 export async function testConnection(): Promise<boolean> {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/health`, {
+    const response = await fetch(`${BACKEND_URL}/ping`, {
       method: 'GET'
     });
     return response.ok;

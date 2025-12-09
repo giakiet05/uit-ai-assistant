@@ -43,6 +43,7 @@ type Controllers struct {
 	controller.WebSocketController
 	controller.AdminUserController
 	controller.ChatController
+	controller.CookieController
 }
 
 func initRepos(client *mongo.Client, db *mongo.Database) *Repos {
@@ -64,7 +65,7 @@ func initServices(repos *Repos, redisClient *redis.Client, emailSender email.Sen
 	}
 }
 
-func initControllers(services *Services, wsHub *ws.Hub) *Controllers {
+func initControllers(services *Services, wsHub *ws.Hub, redisClient *redis.Client) *Controllers {
 	return &Controllers{
 		AuthController:         *controller.NewAuthController(services.AuthService),
 		UserController:         *controller.NewUserController(services.UserService),
@@ -72,6 +73,7 @@ func initControllers(services *Services, wsHub *ws.Hub) *Controllers {
 		WebSocketController:    *controller.NewWebSocketController(wsHub),
 		AdminUserController:    *controller.NewAdminUserController(services.AdminUserService),
 		ChatController:         *controller.NewChatController(services.ChatService),
+		CookieController:       *controller.NewCookieController(redisClient),
 	}
 }
 
@@ -91,6 +93,7 @@ func initRoutes(controllers *Controllers, r *gin.Engine) {
 	route.RegisterWebSocketRoutes(api, &controllers.WebSocketController)
 	route.RegisterAdminUserRoutes(api, &controllers.AdminUserController)
 	route.RegisterChatRoutes(api, &controllers.ChatController)
+	route.RegisterCookieRoutes(api, &controllers.CookieController)
 }
 
 func Init() (*gin.Engine, error) {
@@ -108,7 +111,22 @@ func Init() (*gin.Engine, error) {
 	router := gin.Default()
 
 	router.Use(func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", config.Cfg.FrontendURL)
+		origin := c.Request.Header.Get("Origin")
+
+		// Allow FrontendURL and ExtensionOrigin
+		allowedOrigins := []string{config.Cfg.FrontendURL}
+		if config.Cfg.ExtensionOrigin != "" {
+			allowedOrigins = append(allowedOrigins, config.Cfg.ExtensionOrigin)
+		}
+
+		// Check if origin is allowed
+		for _, allowedOrigin := range allowedOrigins {
+			if origin == allowedOrigin {
+				c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
+				break
+			}
+		}
+
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
@@ -138,7 +156,7 @@ func Init() (*gin.Engine, error) {
 
 	repos := initRepos(client, db)
 	services := initServices(repos, redisClient, emailSender, eventBus, geminiClient, agentClient)
-	controllers := initControllers(services, wsHub)
+	controllers := initControllers(services, wsHub, redisClient)
 
 	// Inject userRepo into middleware for settings caching
 	middleware.SetUserRepo(repos.UserRepo)

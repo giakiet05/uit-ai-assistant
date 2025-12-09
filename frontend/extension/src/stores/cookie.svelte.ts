@@ -1,19 +1,20 @@
 /**
- * Svelte 5 store for cookie state management
+ * Svelte store for cookie state management
  */
+import { writable, get } from 'svelte/store';
 import browser from 'webextension-polyfill';
 import type { CookieState, CookieSource, SyncStatus } from '@/types';
 import { logger } from '@/lib/logger';
 
-// Reactive state using Svelte 5 runes
-export const cookieState = $state<CookieState>({
+// Reactive state using Svelte writable stores
+export const cookieState = writable<CookieState>({
   daa: { enabled: true, lastSync: null, cookieValue: null },
   courses: { enabled: false, lastSync: null, cookieValue: null },
   drl: { enabled: false, lastSync: null, cookieValue: null }
 });
 
-export const syncStatus = $state<SyncStatus>('idle');
-export const syncError = $state<string | null>(null);
+export const syncStatus = writable<SyncStatus>('idle');
+export const syncError = writable<string | null>(null);
 
 /**
  * Initialize store by loading state from background
@@ -25,7 +26,7 @@ export async function initCookieStore() {
     });
 
     if (state) {
-      Object.assign(cookieState, state);
+      cookieState.set(state);
       logger.info('Cookie store initialized');
     }
   } catch (error) {
@@ -38,8 +39,8 @@ export async function initCookieStore() {
  */
 export async function syncCookie(source: CookieSource) {
   try {
-    syncStatus.value = 'syncing';
-    syncError.value = null;
+    syncStatus.set('syncing');
+    syncError.set(null);
 
     logger.info(`Syncing ${source}...`);
 
@@ -49,27 +50,33 @@ export async function syncCookie(source: CookieSource) {
     });
 
     if (result.payload.success) {
-      syncStatus.value = 'success';
-      cookieState[source].lastSync = new Date();
+      syncStatus.set('success');
+
+      // Update cookieState
+      cookieState.update(state => {
+        state[source].lastSync = new Date();
+        return state;
+      });
+
       logger.info(`${source} synced successfully`);
     } else {
-      syncStatus.value = 'error';
-      syncError.value = result.payload.error || 'Sync failed';
+      syncStatus.set('error');
+      syncError.set(result.payload.error || 'Sync failed');
       logger.error(`${source} sync failed:`, result.payload.error);
     }
 
     // Reset status after 3 seconds
     setTimeout(() => {
-      syncStatus.value = 'idle';
+      syncStatus.set('idle');
     }, 3000);
 
   } catch (error) {
-    syncStatus.value = 'error';
-    syncError.value = error instanceof Error ? error.message : 'Unknown error';
+    syncStatus.set('error');
+    syncError.set(error instanceof Error ? error.message : 'Unknown error');
     logger.error('Sync error:', error);
 
     setTimeout(() => {
-      syncStatus.value = 'idle';
+      syncStatus.set('idle');
     }, 3000);
   }
 }
@@ -78,8 +85,9 @@ export async function syncCookie(source: CookieSource) {
  * Sync all enabled sources
  */
 export async function syncAll() {
-  const enabledSources = Object.entries(cookieState)
-    .filter(([_, state]) => state.enabled)
+  const state = get(cookieState);
+  const enabledSources = Object.entries(state)
+    .filter(([_, sourceState]) => sourceState.enabled)
     .map(([source, _]) => source as CookieSource);
 
   for (const source of enabledSources) {
@@ -91,15 +99,19 @@ export async function syncAll() {
  * Toggle source enabled/disabled
  */
 export function toggleSource(source: CookieSource) {
-  cookieState[source].enabled = !cookieState[source].enabled;
-  logger.info(`${source} ${cookieState[source].enabled ? 'enabled' : 'disabled'}`);
+  cookieState.update(state => {
+    state[source].enabled = !state[source].enabled;
+    logger.info(`${source} ${state[source].enabled ? 'enabled' : 'disabled'}`);
+    return state;
+  });
 }
 
 /**
  * Get time elapsed since last sync
  */
 export function getTimeSinceSync(source: CookieSource): string {
-  const lastSync = cookieState[source].lastSync;
+  const state = get(cookieState);
+  const lastSync = state[source].lastSync;
 
   if (!lastSync) {
     return 'Never';

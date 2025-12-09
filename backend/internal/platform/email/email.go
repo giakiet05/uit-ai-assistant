@@ -46,7 +46,7 @@ func NewSMTPSender() Sender {
 // SendVerificationEmail sends an email with the OTP code.
 func (s *SMTPSender) SendVerificationEmail(to, otp string) error {
 	// Constructing the email headers and body
-	subject := "Subject: Your Verification Code for LKForum\r\n"
+	subject := "Subject: Your Verification Code for UIT AI Assistant\r\n"
 	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
 
 	data := struct {

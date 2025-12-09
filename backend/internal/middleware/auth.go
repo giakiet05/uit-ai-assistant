@@ -21,36 +21,47 @@ func SetUserRepo(repo repo.UserRepo) {
 // RequireAuth parse access token và nhét AuthUser vào context
 func RequireAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		var token string
+
+		// Ưu tiên lấy từ Authorization header (cho Web App)
 		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing Authorization header"})
+		if authHeader != "" {
+			parts := strings.SplitN(authHeader, " ", 2)
+			if len(parts) == 2 && parts[0] == "Bearer" {
+				token = parts[1]
+			}
+		}
+
+		// Fallback: Lấy từ cookie (cho Extension)
+		if token == "" {
+			token, _ = c.Cookie("access_token")
+		}
+
+		// Không có token ở cả 2 nơi → Unauthorized
+		if token == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing Authorization header or cookie"})
 			c.Abort()
 			return
 		}
 
-		parts := strings.SplitN(authHeader, " ", 2)
-		if len(parts) != 2 || parts[0] != "Bearer" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Authorization header format"})
-			c.Abort()
-			return
-		}
-
-		token := parts[1]
+		// Parse token
 		user, err := auth.ParseAccessToken(token)
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"error": "Invalid token",
-				"debug": err.Error(), // TEMP: Debug info
+				"debug": err.Error(),
 			})
 			c.Abort()
 			return
-		} // Load user settings from DB once per request
+		}
+
+		// Load user settings from DB once per request
 		if userRepo != nil {
 			ctx, cancel := util.NewDefaultDBContext()
 			defer cancel()
 
 			dbUser, err := userRepo.GetByID(ctx, user.ID)
-			if err == nil && true {
+			if err == nil {
 				user.Settings = dbUser.Settings
 			}
 		}

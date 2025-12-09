@@ -171,6 +171,7 @@ class ApiClient {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include', // Nhận cookies mới sau khi refresh
         body: JSON.stringify({ refresh_token: refreshToken }),
       })
 
@@ -210,6 +211,7 @@ class ApiClient {
 
     const config: RequestInit = {
       ...options,
+      credentials: 'include', // Cho phép browser nhận và gửi cookies
       headers: {
         ...defaultHeaders,
         ...options.headers,
@@ -364,6 +366,7 @@ class ApiClient {
       const response = await fetch(url, {
         method: "POST",
         headers,
+        credentials: 'include', // Gửi cookies khi upload avatar
         body: formData,
       })
 

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { syncStatus, syncError } from '@/stores/cookie.svelte';
 
-  const statusConfig = $derived.by(() => {
-    switch (syncStatus) {
+  function getStatusConfig(status: string, error: string | null) {
+    switch (status) {
       case 'success':
         return {
           bg: 'bg-green-100 dark:bg-green-900',
@@ -17,7 +17,7 @@
           text: 'text-red-800 dark:text-red-200',
           border: 'border-red-300',
           icon: '✗',
-          message: syncError || 'Sync failed'
+          message: error || 'Sync failed'
         };
       case 'syncing':
         return {
@@ -30,7 +30,9 @@
       default:
         return null;
     }
-  });
+  }
+
+  $: statusConfig = getStatusConfig($syncStatus, $syncError);
 </script>
 
 {#if statusConfig}

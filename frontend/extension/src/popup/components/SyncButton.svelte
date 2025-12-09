@@ -10,8 +10,6 @@
 
   let { source, disabled = false, fullWidth = false }: Props = $props();
 
-  const isSyncing = $derived(syncStatus === 'syncing');
-
   async function handleSync() {
     await syncCookie(source);
   }
@@ -19,10 +17,10 @@
 
 <button
   onclick={handleSync}
-  disabled={disabled || isSyncing}
+  disabled={disabled || $syncStatus === 'syncing'}
   class="{fullWidth ? 'w-full' : ''} px-4 py-{fullWidth ? '3' : '2'} bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 font-medium text-sm"
 >
-  {#if isSyncing}
+  {#if $syncStatus === 'syncing'}
     <span class="flex items-center gap-2 justify-center">
       <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

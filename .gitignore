@@ -18,3 +18,5 @@ GEMINI.md
 
 node_modules/
 tmp
+.env.production
+.env.development
