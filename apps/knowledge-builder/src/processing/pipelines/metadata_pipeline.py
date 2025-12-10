@@ -15,8 +15,8 @@ from pathlib import Path
 from typing import List, Optional
 from datetime import datetime
 
-from ..config import settings
-from .metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
+from ...config import settings
+from ..metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
 
 
 class MetadataPipeline:
@@ -206,24 +206,3 @@ def run_metadata_generation(categories: Optional[List[str]] = None, force: bool 
     """
     pipeline = MetadataPipeline()
     pipeline.run(categories=categories, force=force)
-
-
-if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description='Stage 2: Metadata Generation Pipeline')
-    parser.add_argument(
-        '--categories', '-c',
-        type=str,
-        help='Comma-separated categories to process (e.g., regulation,curriculum)'
-    )
-    parser.add_argument(
-        '--force', '-f',
-        action='store_true',
-        help='Force regenerate metadata_generator even if exists'
-    )
-
-    args = parser.parse_args()
-
-    cats = args.categories.split(',') if args.categories else None
-    run_metadata_generation(categories=cats, force=args.force)

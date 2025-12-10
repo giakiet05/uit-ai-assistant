@@ -5,7 +5,7 @@ import asyncio
 import argparse
 
 # --- FIX: Import the centralized settings object ---
-from ..config import settings
+from src.config import settings
 from .crawler_factory import CrawlerFactory
 
 async def crawl_domain(domain: str):

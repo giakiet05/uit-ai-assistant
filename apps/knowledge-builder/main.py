@@ -1,25 +1,23 @@
 """
-UIT Agent CLI - Command Line Interface for UIT AI Agent Backend.
+UIT Knowledge Builder CLI - Build and manage knowledge base for UIT AI Assistant.
 
 Usage:
-    ua <command> [options]
+    ukb <command> [options]
 
 Commands:
-    crawl        - Crawl websites for raw data
-    parse        - Parse attachments to markdown (legacy)
     clean        - Stage 1: Parse & clean raw files (costs money)
-    metadata_generator     - Stage 2: Generate metadata_generator from processed files (cheap, can re-run)
-    process      - Run both stages (parse/clean + metadata_generator)
+    metadata     - Stage 2: Generate metadata from processed files (cheap, can re-run)
+    process      - Run both stages (parse/clean + metadata)
     fix-markdown - Fix markdown structure using Gemini LLM
+    reparse-file - Re-parse a single PDF file
     index        - Build vector store index from processed documents
-    pipeline     - Run full pipeline (crawl -> process)
 
 Examples:
-    ua crawl --domain daa.uit.edu.vn
-    ua clean --categories regulation,curriculum
-    ua metadata_generator --categories regulation,curriculum --force
-    ua process --categories regulation,curriculum
-    ua index --categories regulation,curriculum
+    ukb clean --categories regulation,curriculum
+    ukb metadata --categories regulation,curriculum --force
+    ukb process --categories regulation,curriculum
+    ukb fix-markdown --category regulation
+    ukb index --categories regulation,curriculum
 """
 
 import argparse
@@ -29,45 +27,20 @@ import sys
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        prog="ua",
-        description="UIT Agent CLI - Data pipeline management",
+        prog="ukb",
+        description="UIT Knowledge Builder - Build and manage knowledge base",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  ua crawl --domain daa.uit.edu.vn
-  ua clean --categories regulation,curriculum
-  ua metadata_generator --categories regulation --force
-  ua process --categories regulation
-  ua index --categories regulation,curriculum
-  ua pipeline
+  ukb clean --categories regulation,curriculum
+  ukb metadata --categories regulation --force
+  ukb process --categories regulation
+  ukb fix-markdown --category regulation
+  ukb index --categories regulation,curriculum
         """
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
-
-    # ===== CRAWL =====
-    crawl_parser = subparsers.add_parser(
-        "crawl",
-        help="Crawl websites for raw data"
-    )
-    crawl_parser.add_argument(
-        "--domain", "-d",
-        help="Specific domain to crawl (default: all configured domains)"
-    )
-
-    # ===== PARSE (LEGACY) =====
-    parse_parser = subparsers.add_parser(
-        "parse",
-        help="Parse attachments to markdown (legacy parser)"
-    )
-    parse_parser.add_argument(
-        "--domain", "-d",
-        help="Specific domain to parse (default: all)"
-    )
-    parse_parser.add_argument(
-        "--folder", "-f",
-        help="Specific folder path to parse"
-    )
 
     # ===== CLEAN (STAGE 1) =====
     clean_parser = subparsers.add_parser(
@@ -86,8 +59,8 @@ Examples:
 
     # ===== METADATA (STAGE 2) =====
     metadata_parser = subparsers.add_parser(
-        "metadata_generator",
-        help="Stage 2: Generate metadata_generator from processed files (cheap, can re-run)"
+        "metadata",
+        help="Stage 2: Generate metadata from processed files (cheap, can re-run)"
     )
     metadata_parser.add_argument(
         "--categories", "-c",
@@ -96,13 +69,13 @@ Examples:
     metadata_parser.add_argument(
         "--force", "-f",
         action="store_true",
-        help="Force regenerate metadata_generator even if exists"
+        help="Force regenerate metadata even if exists"
     )
 
-    # ===== PROCESS (V2 - BOTH STAGES) =====
+    # ===== PROCESS (BOTH STAGES) =====
     process_parser = subparsers.add_parser(
         "process",
-        help="Run both stages (parse/clean + metadata_generator)"
+        help="Run both stages (parse/clean + metadata)"
     )
     process_parser.add_argument(
         "--categories", "-c",
@@ -114,19 +87,19 @@ Examples:
         help="Force re-parse/clean existing files (Stage 1)"
     )
     process_parser.add_argument(
-        "--force-metadata_generator",
+        "--force-metadata",
         action="store_true",
-        help="Force regenerate metadata_generator even if exists (Stage 2)"
+        help="Force regenerate metadata even if exists (Stage 2)"
     )
     process_parser.add_argument(
         "--skip-stage1",
         action="store_true",
-        help="Skip Stage 1 (parse/clean) - only generate metadata_generator"
+        help="Skip Stage 1 (parse/clean) - only generate metadata"
     )
     process_parser.add_argument(
         "--skip-stage2",
         action="store_true",
-        help="Skip Stage 2 (metadata_generator) - only parse/clean"
+        help="Skip Stage 2 (metadata) - only parse/clean"
     )
 
     # ===== FIX-MARKDOWN =====
@@ -148,6 +121,16 @@ Examples:
         help="Preview changes without saving"
     )
 
+    # ===== REPARSE-FILE =====
+    reparse_parser = subparsers.add_parser(
+        "reparse-file",
+        help="Re-parse a single PDF file"
+    )
+    reparse_parser.add_argument(
+        "filename",
+        help="PDF filename or ID (e.g., '547' or '547.pdf')"
+    )
+
     # ===== INDEX =====
     index_parser = subparsers.add_parser(
         "index",
@@ -156,12 +139,6 @@ Examples:
     index_parser.add_argument(
         "--categories", "-c",
         help="Comma-separated categories (e.g., regulation,curriculum)"
-    )
-
-    # ===== PIPELINE (FULL) =====
-    pipeline_parser = subparsers.add_parser(
-        "pipeline",
-        help="Run full pipeline (crawl -> clean -> parse)"
     )
 
     # Parse arguments
@@ -173,13 +150,10 @@ Examples:
 
     # Dispatch to command handlers
     try:
-        if args.command == "crawl":
-            from src.commands.crawl import run_crawl
-            run_crawl(args)
-        elif args.command == "clean":
-            from src.commands import run_clean
+        if args.command == "clean":
+            from src.commands.clean import run_clean
             run_clean(args)
-        elif args.command == "metadata_generator":
+        elif args.command == "metadata":
             from src.commands.metadata import run_metadata
             run_metadata(args)
         elif args.command == "process":
@@ -192,6 +166,9 @@ Examples:
                 file_path=args.file,
                 dry_run=args.dry_run
             )
+        elif args.command == "reparse-file":
+            from src.commands.reparse_file import reparse_file
+            reparse_file(args.filename)
         elif args.command == "index":
             from src.commands.index import run_index
             run_index(args)

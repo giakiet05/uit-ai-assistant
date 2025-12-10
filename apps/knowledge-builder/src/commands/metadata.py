@@ -3,7 +3,7 @@
 
 def run_metadata(args):
     """Handle metadata_generator command (Stage 2 only)."""
-    from ..processing.pipeline_metadata import run_metadata_generation
+    from ..processing.pipelines.metadata_pipeline import run_metadata_generation
 
     categories = None
     if args.categories:

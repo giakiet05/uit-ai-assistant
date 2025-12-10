@@ -18,8 +18,8 @@ from typing import Optional
 
 from llama_index.core.llms import LLM
 
-from ..config import settings
-from ..config.llm_provider import create_llm
+from ...config import settings
+from ...config.llm_provider import create_llm
 
 
 class MarkdownFixer:
