@@ -7,7 +7,7 @@ from crawl4ai import (
     BestFirstCrawlingStrategy, FilterChain, DomainFilter
 )
 
-from ..config import settings
+from src.config import settings
 
 RAW_DATA_DIR = settings.paths.RAW_DATA_DIR
 MAX_PAGES_PER_DOMAIN = settings.env.MAX_PAGES_PER_DOMAIN
@@ -17,7 +17,7 @@ from .crawler_helper import (
     create_or_get_folder_for_url, download_file, extract_title_from_content,
     filter_downloadable_links, save_crawled_data, should_exclude_node_url
 )
-from ..utils.url_utils import make_absolute_url
+from src.utils.url_utils import make_absolute_url
 
 
 class DaaCrawler(BaseCrawler):

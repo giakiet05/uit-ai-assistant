@@ -1,19 +1,39 @@
-"""Process command - Run processing pipeline v2 (two-stage wrapper)."""
+"""Process command - Run both processing stages."""
 
 
 def run_process(args):
     """Handle process command (runs both Stage 1 + Stage 2)."""
-    from ..processing.pipeline_v2 import run_processing
+    from ..processing.pipelines.parse_clean_pipeline import run_parse_clean
+    from ..processing.pipelines.metadata_pipeline import run_metadata_generation
 
     categories = None
     if args.categories:
         categories = [c.strip() for c in args.categories.split(",")]
 
-    # Run both stages (parse/clean + metadata_generator)
-    run_processing(
-        categories=categories,
-        force_parse=getattr(args, 'force_parse', False),
-        force_metadata=getattr(args, 'force_metadata', False),
-        skip_stage1=getattr(args, 'skip_stage1', False),
-        skip_stage2=getattr(args, 'skip_stage2', False)
-    )
+    # Stage 1: Parse & Clean
+    if not getattr(args, 'skip_stage1', False):
+        print("\n" + "="*70)
+        print("🚀 STAGE 1: PARSE & CLEAN")
+        print("="*70 + "\n")
+        run_parse_clean(
+            categories=categories,
+            force=getattr(args, 'force_parse', False)
+        )
+    else:
+        print("⏭️  Stage 1 SKIPPED (parse/clean)\n")
+
+    # Stage 2: Metadata Generation
+    if not getattr(args, 'skip_stage2', False):
+        print("\n" + "="*70)
+        print("🚀 STAGE 2: METADATA GENERATION")
+        print("="*70 + "\n")
+        run_metadata_generation(
+            categories=categories,
+            force=getattr(args, 'force_metadata', False)
+        )
+    else:
+        print("⏭️  Stage 2 SKIPPED (metadata generation)\n")
+
+    print("\n" + "="*70)
+    print("✅ PROCESSING COMPLETE")
+    print("="*70 + "\n")

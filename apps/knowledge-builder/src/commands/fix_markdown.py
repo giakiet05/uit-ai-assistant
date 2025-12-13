@@ -11,7 +11,7 @@ Usage:
 from pathlib import Path
 from typing import Optional
 
-from ..processing.llm_markdown_fixer import MarkdownFixer
+from ..processing.steps.markdown_fixer import MarkdownFixer
 from ..config import settings
 
 
@@ -66,12 +66,14 @@ def fix_markdown_command(
             print(f"❌ Category directory not found: {input_dir}")
             print(f"\nAvailable categories:")
             for cat_dir in settings.paths.PROCESSED_DATA_DIR.iterdir():
-                if cat_dir.is_dir():
+                if cat_dir.is_dir() and not cat_dir.name.startswith('.'):
                     print(f"  - {cat_dir.name}")
             return
 
         files_to_fix = list(input_dir.glob("*.md"))
-        output_dir = input_dir
+        # Save to fixed/ directory instead of overwriting
+        output_dir = settings.paths.DATA_DIR / "fixed" / category
+        output_dir.mkdir(parents=True, exist_ok=True)
 
         if not files_to_fix:
             print(f"❌ No markdown files found in {input_dir}")
@@ -114,10 +116,11 @@ def fix_markdown_command(
                 print("  " + "─" * 58)
 
             else:
-                # Save (in-place)
-                with open(md_file, 'w', encoding='utf-8') as f:
+                # Save to output directory
+                output_file = output_dir / md_file.name
+                with open(output_file, 'w', encoding='utf-8') as f:
                     f.write(fixed)
-                print(f"  ✅ Fixed and saved")
+                print(f"  ✅ Fixed and saved to {output_file.relative_to(settings.paths.DATA_DIR)}")
 
             success_count += 1
 

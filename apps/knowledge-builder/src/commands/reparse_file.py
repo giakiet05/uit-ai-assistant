@@ -69,23 +69,24 @@ def reparse_file(file_identifier: str):
         print(f"❌ Parse error: {e}")
         return
 
-    # ========== SAVE TO PROCESSED DIR ==========
+    # ========== SAVE TO REPARSED DIR ==========
 
     print("[2/2] Saving original markdown (no Gemini fix)...")
 
-    processed_dir = settings.paths.PROCESSED_DATA_DIR / "regulation"
-    processed_dir.mkdir(parents=True, exist_ok=True)
+    # Save to reparsed/ directory (same level as processed/)
+    reparsed_dir = settings.paths.DATA_DIR / "reparsed" / "regulation"
+    reparsed_dir.mkdir(parents=True, exist_ok=True)
 
     # Output filename: same as PDF but .md extension
-    output_file = processed_dir / pdf_file.name.replace('.pdf', '.md')
+    output_file = reparsed_dir / pdf_file.name.replace('.pdf', '.md')
 
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(markdown_content)
 
     print(f"✅ Saved to: {output_file}")
-    print(f"\n📝 File has been restored to ORIGINAL markdown (before Gemini fix)")
-    print(f"   If you want to fix it again, run:")
-    print(f"   python -m src.commands.fix_markdown {output_file.stem}")
+    print(f"\n📝 File has been saved to reparsed/ (ORIGINAL markdown before any processing)")
+    print(f"   To use this file in processing pipeline, copy it to:")
+    print(f"   {settings.paths.PROCESSED_DATA_DIR / 'regulation' / output_file.name}")
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
 
 def run_clean(args):
     """Handle clean command (Stage 1 only)."""
-    from ..processing.pipeline_parse_clean import run_parse_clean
+    from ..processing.pipelines.parse_clean_pipeline import run_parse_clean
 
     categories = None
     if args.categories:

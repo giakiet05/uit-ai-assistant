@@ -15,11 +15,11 @@ import json
 from pathlib import Path
 from typing import List, Optional
 
-from ..config import settings
-from .parser.parser_factory import ParserFactory
-from .cleaner.cleaner_factory import CleanerFactory
-from .content_filter import ContentFilter
-from .llm_markdown_fixer import MarkdownFixer
+from ...config import settings
+from ..parser.parser_factory import ParserFactory
+from ..cleaner.cleaner_factory import CleanerFactory
+from ..steps.content_filter import ContentFilter
+from ..steps.markdown_fixer import MarkdownFixer
 
 
 class ParseCleanPipeline:
@@ -259,24 +259,3 @@ def run_parse_clean(categories: Optional[List[str]] = None, force: bool = False)
     """
     pipeline = ParseCleanPipeline()
     pipeline.run(categories=categories, force=force)
-
-
-if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description='Stage 1: Parse & Clean Pipeline')
-    parser.add_argument(
-        '--categories', '-c',
-        type=str,
-        help='Comma-separated categories to process (e.g., regulation,curriculum)'
-    )
-    parser.add_argument(
-        '--force', '-f',
-        action='store_true',
-        help='Force re-process existing files'
-    )
-
-    args = parser.parse_args()
-
-    cats = args.categories.split(',') if args.categories else None
-    run_parse_clean(categories=cats, force=args.force)

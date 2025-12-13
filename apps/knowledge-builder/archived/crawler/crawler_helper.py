@@ -11,7 +11,7 @@ import os
 from datetime import datetime
 
 # --- FIX: Import the centralized settings object ---
-from ..config import settings
+from src.config import settings
 
 def should_exclude_node_url(url: str) -> bool:
     """Check if URL should be excluded (node/id format)."""

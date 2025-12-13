@@ -28,7 +28,7 @@ dependencies = [
 ]
 
 [project.scripts]
-kb = "src.main:main"
+ukb = "main:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
