@@ -20,8 +20,6 @@ from dataclasses import dataclass
 from llama_index.core import VectorStoreIndex
 from llama_index.core.schema import NodeWithScore
 
-from ..routing.base_router import BaseQueryRouter
-from ..routing.query_all_router import QueryAllRouter
 from .program_filter import apply_program_filter
 from .schemas import (
     RegulationDocument,
@@ -58,7 +56,6 @@ class QueryEngine:
     def __init__(
         self,
         collections: Dict[str, VectorStoreIndex],
-        router: Optional[BaseQueryRouter] = None,
         use_reranker: bool = True,
         reranker_model: Optional[str] = None,
         top_k: int = 3,
@@ -72,7 +69,6 @@ class QueryEngine:
 
         Args:
             collections: Dict of collection_name -> VectorStoreIndex
-            router: Router for collection selection (default: QueryAllRouter)
             use_reranker: Whether to use reranker after retrieval
             reranker_model: Reranker model name (default: "namdp-ptit/ViRanker" for Vietnamese)
             top_k: Final number of documents to return
@@ -83,7 +79,6 @@ class QueryEngine:
             use_modal: Use Modal GPU for reranking (default: False, use local CPU)
         """
         self.collections = collections
-        self.router = router or QueryAllRouter(list(collections.keys()))
         self.use_reranker = use_reranker
         self.reranker_model = reranker_model or "namdp-ptit/ViRanker"
         self.top_k = top_k
@@ -101,7 +96,6 @@ class QueryEngine:
 
         print(f"[QUERY ENGINE] Initialized with:")
         print(f"  - Collections: {list(collections.keys())}")
-        print(f"  - Router: {self.router.__class__.__name__}")
         reranker_mode = "Modal GPU" if use_modal else "Local CPU"
         print(f"  - Reranker: {self.reranker_model if use_reranker else 'disabled'} ({reranker_mode})")
         print(f"  - Retrieval top_k: {retrieval_top_k}")
@@ -162,17 +156,17 @@ class QueryEngine:
             self.use_modal = False
             self._setup_local_reranker()
 
-    def retrieve(
+    def _retrieve(
         self,
         query: str,
+        collection_type: Literal["regulation", "curriculum"],
         use_reranker: Optional[bool] = None
     ) -> RetrievalResult:
         """
-        Routed blended retrieval: Route query to collections, then retrieve and rerank.
+        Blended retrieval from specified collection with reranking.
 
         Pipeline:
-        0. Route query to select collections
-        1. Dense vector retrieval from selected collections
+        1. Dense vector retrieval from specified collection
         2. BM25 retrieval (TODO)
         3. Sparse vector retrieval (TODO)
         4. Merge & deduplicate
@@ -181,38 +175,27 @@ class QueryEngine:
 
         Args:
             query: User query string
+            collection_type: Collection to retrieve from ("regulation" or "curriculum")
             use_reranker: Override default reranker setting
 
         Returns:
             RetrievalResult with retrieved and reranked nodes
         """
         print(f"\n{'='*70}")
-        print(f"[QUERY ENGINE] Routed Blended Retrieval")
+        print(f"[QUERY ENGINE] Blended Retrieval")
         print(f"[QUERY ENGINE] Query: {query}")
+        print(f"[QUERY ENGINE] Collection: {collection_type}")
         print(f"{'='*70}\n")
 
-        # Step 0: Route query to select collections
-        routing_decision = self.router.route(query)
-        print(f"[ROUTING] Strategy: {routing_decision.strategy}")
-        print(f"[ROUTING] {routing_decision.reasoning}")
-        print(f"[ROUTING] Selected collections: {routing_decision.collections}\n")
+        # Get specified collection
+        selected_collection = self.collections[collection_type]
 
-        # Filter collections based on routing decision
-        selected_collections = {
-            name: index for name, index in self.collections.items()
-            if name in routing_decision.collections
-        }
-
-        if not selected_collections:
-            print("[WARNING] No collections selected by router, using all collections")
-            selected_collections = self.collections
-
-        # Step 1: Retrieve from selected collections
+        # Step 1: Retrieve from collection
         all_nodes = []
 
         # Dense vector retrieval
         print("[QUERY ENGINE] Retrieving from dense vector index...")
-        dense_nodes = self._retrieve_dense(query, selected_collections)
+        dense_nodes = self._retrieve_dense(query, selected_collection)
         all_nodes.extend(dense_nodes)
         print(f"  → Found {len(dense_nodes)} nodes")
 
@@ -248,7 +231,7 @@ class QueryEngine:
 
         return RetrievalResult(
             nodes=final_nodes,
-            retrieval_method=f"routed_blended ({routing_decision.strategy})",
+            retrieval_method=f"blended_{collection_type}",
             reranked=reranked,
             total_retrieved=total_retrieved,
             final_count=len(final_nodes)
@@ -257,36 +240,32 @@ class QueryEngine:
     def _retrieve_dense(
         self,
         query: str,
-        collections: Dict[str, VectorStoreIndex]
+        collection: VectorStoreIndex
     ) -> List[NodeWithScore]:
         """
-        Retrieve using dense vector embeddings from selected collections.
+        Retrieve using dense vector embeddings from specified collection.
 
         Args:
             query: User query
-            collections: Selected collections to retrieve from
+            collection: Collection index to retrieve from
 
         Returns:
             List of retrieved nodes
         """
-        all_nodes = []
-
-        # Retrieve from each selected collection
-        for name, index in collections.items():
-            print(f"[RETRIEVER] Querying collection: {name}")
-            retriever = index.as_retriever(similarity_top_k=self.retrieval_top_k)
-            nodes = retriever.retrieve(query)
-            all_nodes.extend(nodes)
-            print(f"[RETRIEVER] Found {len(nodes)} nodes in {name}")
+        # Retrieve from collection
+        print(f"[RETRIEVER] Querying dense vector index...")
+        retriever = collection.as_retriever(similarity_top_k=self.retrieval_top_k)
+        nodes = retriever.retrieve(query)
+        print(f"[RETRIEVER] Found {len(nodes)} nodes")
 
         # Filter by minimum score threshold
         filtered_nodes = [
-            node for node in all_nodes
+            node for node in nodes
             if node.score >= self.min_score_threshold
         ]
 
-        if len(filtered_nodes) < len(all_nodes):
-            print(f"[RETRIEVER] Filtered {len(all_nodes) - len(filtered_nodes)} nodes (score < {self.min_score_threshold})")
+        if len(filtered_nodes) < len(nodes):
+            print(f"[RETRIEVER] Filtered {len(nodes) - len(filtered_nodes)} nodes (score < {self.min_score_threshold})")
 
         return filtered_nodes
 
@@ -426,38 +405,6 @@ class QueryEngine:
 
         return filtered_nodes
 
-    def retrieve_with_metadata(self, query: str) -> Dict:
-        """
-        Retrieve and return formatted result with metadata_generator.
-
-        This is the method that will be exposed via MCP tool.
-        Uses blended retrieval (all available indexes).
-
-        Args:
-            query: User query
-
-        Returns:
-            Dict with documents and metadata_generator
-        """
-        result = self.retrieve(query)
-
-        return {
-            "query": query,
-            "method": "blended",
-            "reranked": result.reranked,
-            "total_retrieved": result.total_retrieved,
-            "final_count": result.final_count,
-            "documents": [
-                {
-                    "text": node.node.get_content(),
-                    "score": node.score,
-                    "metadata_generator": node.node.metadata if hasattr(node.node, 'metadata_generator') else {},
-                    "hierarchy": node.node.metadata.get('hierarchy', '') if hasattr(node.node, 'metadata_generator') else ''
-                }
-                for node in result.nodes
-            ]
-        }
-
     def _strip_metadata_from_content(self, content: str) -> str:
         """
         Remove prepended metadata from content.
@@ -511,7 +458,7 @@ class QueryEngine:
             Dict following RegulationRetrievalResult or CurriculumRetrievalResult schema
         """
         # Retrieve nodes using existing pipeline
-        result = self.retrieve(query)
+        result = self._retrieve(query, collection_type=collection_type)
 
         # Build structured documents based on collection type
         documents = []
@@ -533,7 +480,7 @@ class QueryEngine:
                     "hierarchy": metadata.get("hierarchy", ""),
                     "effective_date": metadata.get("effective_date"),
                     "document_type": metadata.get("document_type", "Văn bản gốc"),
-                    "score": float(node.score)
+                    "score": round(float(node.score), 2)
                 }
                 # Validate with Pydantic
                 doc = RegulationDocument(**doc_dict)
@@ -545,11 +492,11 @@ class QueryEngine:
                     "content": clean_content,
                     "document_id": metadata.get("document_id", ""),
                     "title": metadata.get("title", ""),
-                    "program_name": metadata.get("program_name", ""),
-                    "program_code": metadata.get("program_code"),
-                    "academic_year": metadata.get("academic_year"),
-                    "section": metadata.get("section", ""),
-                    "score": float(node.score)
+                    "year": metadata.get("year"),
+                    "major": metadata.get("major"),
+                    "program_type": metadata.get("program_type"),
+                    "program_name": metadata.get("program_name"),
+                    "score": round(float(node.score), 2)
                 }
                 # Validate with Pydantic
                 doc = CurriculumDocument(**doc_dict)

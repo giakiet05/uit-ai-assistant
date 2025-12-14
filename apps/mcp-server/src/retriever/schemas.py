@@ -79,23 +79,24 @@ class CurriculumDocument(BaseModel):
         description="Tiêu đề (VD: 'Chương trình đào tạo ngành Khoa học Máy tính')"
     )
 
-    program_name: str = Field(
-        description="Tên ngành đầy đủ (VD: 'Khoa học máy tính')"
-    )
-
-    program_code: Optional[str] = Field(
+    year: Optional[int] = Field(
         default=None,
-        description="Mã ngành (VD: '7480101')"
+        description="Năm áp dụng chương trình (VD: 2024)"
     )
 
-    academic_year: Optional[str] = Field(
+    major: Optional[str] = Field(
         default=None,
-        description="Năm học (VD: '2024')"
+        description="Ngành học (VD: 'Khoa học Dữ liệu', 'Công nghệ Thông tin')"
     )
 
-    section: str = Field(
-        default="",
-        description="Phần (VD: 'Cấu trúc chương trình', 'Danh sách môn học')"
+    program_type: Optional[Literal["Chính quy", "Từ xa"]] = Field(
+        default=None,
+        description="Hệ đào tạo"
+    )
+
+    program_name: Optional[str] = Field(
+        default=None,
+        description="Tên chương trình cụ thể (VD: 'Chương trình Tiên tiến', 'Văn bằng 2', 'Chương trình Chuẩn')"
     )
 
     # Retrieval metadata
