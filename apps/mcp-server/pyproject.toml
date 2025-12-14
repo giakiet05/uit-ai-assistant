@@ -5,7 +5,6 @@ description = "MCP Server for UIT AI Assistant - Document retrieval and DAA scra
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastmcp>=0.1.0",
     "llama-index-core>=0.11.0",
     "llama-index-vector-stores-chroma>=0.1.0",
     "llama-index-embeddings-openai>=0.1.0",
@@ -21,6 +20,7 @@ dependencies = [
     "beautifulsoup4>=4.12.0",
     "lxml>=5.0.0",
     "modal>=0.60.0",
+    "fastmcp>=2.14.0",
 ]
 
 [tool.hatch.build.targets.wheel]

@@ -14,7 +14,7 @@ Design Philosophy:
 - Configurable: All parameters tunable via settings
 """
 
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Literal
 from dataclasses import dataclass
 
 from llama_index.core import VectorStoreIndex
@@ -23,6 +23,12 @@ from llama_index.core.schema import NodeWithScore
 from ..routing.base_router import BaseQueryRouter
 from ..routing.query_all_router import QueryAllRouter
 from .program_filter import apply_program_filter
+from .schemas import (
+    RegulationDocument,
+    CurriculumDocument,
+    RegulationRetrievalResult,
+    CurriculumRetrievalResult
+)
 
 
 @dataclass
@@ -451,3 +457,116 @@ class QueryEngine:
                 for node in result.nodes
             ]
         }
+
+    def _strip_metadata_from_content(self, content: str) -> str:
+        """
+        Remove prepended metadata from content.
+
+        During indexing, metadata is prepended to content for better semantic search.
+        Format:
+            Tài liệu: xxx
+            Tiêu đề: xxx
+            Cấu trúc: xxx
+            Ngày hiệu lực: xxx
+            Loại: xxx
+            ---
+            [Actual content starts here]
+
+        This method strips the metadata part, returning only the actual content.
+
+        Args:
+            content: Raw content with prepended metadata
+
+        Returns:
+            Clean content without metadata
+        """
+        # Split by separator "---"
+        if "---" in content:
+            parts = content.split("---", 1)
+            if len(parts) == 2:
+                return parts[1].strip()
+
+        # Fallback: if no separator found, return original content
+        # (handles edge cases where metadata wasn't prepended)
+        return content
+
+    def retrieve_structured(
+        self,
+        query: str,
+        collection_type: Literal["regulation", "curriculum"]
+    ) -> Dict:
+        """
+        Retrieve and return structured format with separated metadata fields.
+
+        This method replaces retrieve_with_metadata() for new tools.
+        It returns a structured JSON with:
+        - Clean content (metadata stripped)
+        - Separated metadata fields (document_id, title, hierarchy, etc.)
+
+        Args:
+            query: User query
+            collection_type: Type of collection ("regulation" or "curriculum")
+
+        Returns:
+            Dict following RegulationRetrievalResult or CurriculumRetrievalResult schema
+        """
+        # Retrieve nodes using existing pipeline
+        result = self.retrieve(query)
+
+        # Build structured documents based on collection type
+        documents = []
+
+        for node in result.nodes:
+            metadata = node.node.metadata
+            raw_content = node.node.get_content()
+
+            # Strip prepended metadata from content
+            clean_content = self._strip_metadata_from_content(raw_content)
+
+            if collection_type == "regulation":
+                # Build RegulationDocument
+                doc_dict = {
+                    "content": clean_content,
+                    "document_id": metadata.get("document_id", ""),
+                    "title": metadata.get("title", ""),
+                    "regulation_code": metadata.get("regulation_code"),
+                    "hierarchy": metadata.get("hierarchy", ""),
+                    "effective_date": metadata.get("effective_date"),
+                    "document_type": metadata.get("document_type", "Văn bản gốc"),
+                    "score": float(node.score)
+                }
+                # Validate with Pydantic
+                doc = RegulationDocument(**doc_dict)
+                documents.append(doc.model_dump())
+
+            elif collection_type == "curriculum":
+                # Build CurriculumDocument
+                doc_dict = {
+                    "content": clean_content,
+                    "document_id": metadata.get("document_id", ""),
+                    "title": metadata.get("title", ""),
+                    "program_name": metadata.get("program_name", ""),
+                    "program_code": metadata.get("program_code"),
+                    "academic_year": metadata.get("academic_year"),
+                    "section": metadata.get("section", ""),
+                    "score": float(node.score)
+                }
+                # Validate with Pydantic
+                doc = CurriculumDocument(**doc_dict)
+                documents.append(doc.model_dump())
+
+        # Build result based on collection type
+        if collection_type == "regulation":
+            result_obj = RegulationRetrievalResult(
+                query=query,
+                total_retrieved=len(documents),
+                documents=documents
+            )
+        else:  # curriculum
+            result_obj = CurriculumRetrievalResult(
+                query=query,
+                total_retrieved=len(documents),
+                documents=documents
+            )
+
+        return result_obj.model_dump()
