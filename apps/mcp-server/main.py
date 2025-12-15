@@ -19,14 +19,14 @@ from src.tools.retrieval_tools import register_retrieval_tools
 from src.tools.daa_scraping_tools import register_daa_tools
 
 # Initialize FastMCP server
-mcp = FastMCP("UIT MCP Server")
+mcp_server = FastMCP("UIT MCP Server")
 
 # Register all tools
 print("[MCP SERVER] Registering tools...")
-register_retrieval_tools(mcp)
-register_daa_tools(mcp)
+register_retrieval_tools(mcp_server)
+register_daa_tools(mcp_server)
 print("[MCP SERVER] All tools registered successfully")
 
 if __name__ == "__main__":
     print("[MCP SERVER] Starting UIT MCP Server...")
-    mcp.run("streamable-http")
+    mcp_server.run("streamable-http")

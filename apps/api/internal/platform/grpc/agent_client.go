@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/giakiet05/uit-ai-assistant/backend/internal/platform/grpc/pb"
-	"github.com/giakiet05/uit-ai-assistant/backend/internal/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -52,20 +51,13 @@ func (c *AgentClient) Close() error {
 }
 
 // Chat sends a chat request to the agent and returns the response
-func (c *AgentClient) Chat(ctx context.Context, message string, history []*model.ChatMessage) (*AgentResponse, error) {
-	// Convert history to protobuf format
-	pbHistory := make([]*pb.ChatMessage, len(history))
-	for i, msg := range history {
-		pbHistory[i] = &pb.ChatMessage{
-			Role:    string(msg.Role),
-			Content: msg.Content,
-		}
-	}
-
-	// Create request
+// Uses stateful architecture with thread_id for conversation persistence
+func (c *AgentClient) Chat(ctx context.Context, message string, userID string, threadID string) (*AgentResponse, error) {
+	// Create request (no history needed - LangGraph checkpointer manages state)
 	req := &pb.ChatRequest{
-		Message: message,
-		History: pbHistory,
+		Message:  message,
+		UserId:   userID,
+		ThreadId: threadID,
 	}
 
 	// Set timeout

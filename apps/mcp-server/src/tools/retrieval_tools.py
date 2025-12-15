@@ -1,6 +1,7 @@
 """
 MCP tools for document retrieval from UIT knowledge base.
 """
+import asyncio
 import chromadb
 from fastmcp import FastMCP
 from fastmcp.tools.tool import ToolResult
@@ -62,7 +63,7 @@ def register_retrieval_tools(mcp: FastMCP):
     query_engine = _init_query_engine()
 
     @mcp.tool()
-    def retrieve_regulation(query: str) -> ToolResult:
+    async def retrieve_regulation(query: str) -> ToolResult:
         """
         Retrieve regulation documents from UIT knowledge base.
 
@@ -83,7 +84,10 @@ def register_retrieval_tools(mcp: FastMCP):
         """
         import json
 
-        result_dict = query_engine.retrieve_structured(query, collection_type="regulation")
+        # Run blocking query_engine call in thread pool to avoid blocking event loop
+        result_dict = await asyncio.to_thread(
+            query_engine.retrieve_structured, query, collection_type="regulation"
+        )
 
         # Validate with Pydantic
         result_model = RegulationRetrievalResult(**result_dict)
@@ -98,7 +102,7 @@ def register_retrieval_tools(mcp: FastMCP):
         )
 
     @mcp.tool()
-    def retrieve_curriculum(query: str) -> ToolResult:
+    async def retrieve_curriculum(query: str) -> ToolResult:
         """
         Retrieve curriculum documents from UIT knowledge base.
 
@@ -119,7 +123,10 @@ def register_retrieval_tools(mcp: FastMCP):
         """
         import json
 
-        result_dict = query_engine.retrieve_structured(query, collection_type="curriculum")
+        # Run blocking query_engine call in thread pool to avoid blocking event loop
+        result_dict = await asyncio.to_thread(
+            query_engine.retrieve_structured, query, collection_type="curriculum"
+        )
 
         # Validate with Pydantic
         result_model = CurriculumRetrievalResult(**result_dict)

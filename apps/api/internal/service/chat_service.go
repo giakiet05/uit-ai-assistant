@@ -82,15 +82,13 @@ func (s *chatService) Chat(ctx context.Context, userID string, sessionID *string
 		}
 	}
 
-	// Step 2: Load conversation history (last 20 messages)
-	history, err := s.messageRepo.GetBySessionID(ctx, session.ID.Hex(), 20)
-	if err != nil {
-		return nil, fmt.Errorf("failed to load history: %w", err)
-	}
+	// Step 2: Construct thread_id for LangGraph checkpointer
+	// Format: "user_id:session_id" (e.g., "507f1f77bcf86cd799439011:507f191e810c19729de860ea")
+	threadID := fmt.Sprintf("%s:%s", userID, session.ID.Hex())
 
-	// Step 3: Call agent via gRPC
+	// Step 3: Call agent via gRPC (no history needed - checkpointer manages state)
 	startTime := time.Now()
-	agentResp, err := s.agentClient.Chat(ctx, message, history)
+	agentResp, err := s.agentClient.Chat(ctx, message, userID, threadID)
 	if err != nil {
 		return nil, fmt.Errorf("agent call failed: %w", err)
 	}

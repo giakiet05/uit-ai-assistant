@@ -28,7 +28,9 @@ const (
 //
 // gRPC service
 type AgentClient interface {
-	// Non-streaming chat
+	// Non-streaming chat (stateful với LangGraph checkpointer)
+	// API server lưu history vào MongoDB để hiển thị UI
+	// Agent lưu state vào checkpointer để xử lý conversation
 	Chat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*ChatResponse, error)
 }
 
@@ -56,7 +58,9 @@ func (c *agentClient) Chat(ctx context.Context, in *ChatRequest, opts ...grpc.Ca
 //
 // gRPC service
 type AgentServer interface {
-	// Non-streaming chat
+	// Non-streaming chat (stateful với LangGraph checkpointer)
+	// API server lưu history vào MongoDB để hiển thị UI
+	// Agent lưu state vào checkpointer để xử lý conversation
 	Chat(context.Context, *ChatRequest) (*ChatResponse, error)
 	mustEmbedUnimplementedAgentServer()
 }
