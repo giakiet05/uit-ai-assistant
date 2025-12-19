@@ -9,6 +9,9 @@ services:
   mongodb:
     container_name: mongodb-prod
     restart: unless-stopped
+    command: ["mongod", "--quiet", "--logpath", "/dev/null"]
+    logging:
+      driver: "none"
     # For production, consider using managed MongoDB (Atlas, AWS DocumentDB)
     # and remove this service entirely
 
@@ -22,17 +25,25 @@ services:
   mcp-server:
     container_name: mcp-server-prod
     restart: unless-stopped
+    build:
+      target: production
     env_file:
       - ../apps/mcp-server/.env.prod
     volumes:
-      - ../data:/app/data:ro  # Read-only in production
+      - ../data:/app/data  # Read-write (ChromaDB needs to write)
     environment:
       - ENV=production
+    healthcheck:
+      interval: 60s  # Check every 1 minute (instead of 10s)
+      timeout: 10s
+      retries: 3
 
   # Agent - Production settings
   agent:
     container_name: agent-prod
     restart: unless-stopped
+    build:
+      target: production
     env_file:
       - ../apps/agent/.env.prod
     environment:
