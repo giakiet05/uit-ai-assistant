@@ -52,6 +52,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create dummy .env files for docker compose validation
+        run: |
+          # Create minimal dummy env files so docker compose config works
+          touch apps/agent/.env.dev
+          touch apps/mcp-server/.env.dev
+          touch apps/api-gateway/.env.dev
+          touch apps/web/.env.dev
+
       - name: Check Docker Compose syntax
         run: |
           cd infra
