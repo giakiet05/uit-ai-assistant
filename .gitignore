@@ -10,3 +10,15 @@ wheels/
 .venv
 .env
 data/
+.claude
+CLAUDE.md
+GEMINI.md
+.vscode
+.idea
+
+node_modules/
+tmp
+.env.production
+.env.development
+.env.dev 
+.env.prod

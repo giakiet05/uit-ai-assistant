@@ -1,0 +1,82 @@
+"""
+Centralized configuration for MCP Server.
+
+This service is responsible for:
+- Document retrieval from vector store
+- DAA portal scraping (grades, schedule)
+"""
+
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+
+class Paths:
+    """Path configurations for MCP Server."""
+
+    load_dotenv()
+    # Get DATA_DIR from env or use default (mounted volume in Docker)
+    DATA_DIR = Path(os.getenv("DATA_DIR", "/app/data"))
+
+    # Vector store path (read-only, built by knowledge-builder)
+    VECTOR_STORE_DIR = DATA_DIR / "vector_store"
+
+
+class Credentials:
+    """API keys and sensitive credentials."""
+
+    def __init__(self):
+        """Load credentials from environment."""
+        load_dotenv()
+        self.OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+        self.GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
+
+class Retrieval:
+    """Configuration for retrieval and vector search."""
+
+    # Available ChromaDB collections
+    AVAILABLE_COLLECTIONS = ["regulation", "curriculum"]
+
+    # Retrieval configuration
+    SIMILARITY_TOP_K = 7
+    MINIMUM_SCORE_THRESHOLD = 0.15
+
+    def __init__(self):
+        """Load retrieval configs from environment."""
+        load_dotenv()
+        self.EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-small")
+        self.MODAL_RERANKER_URL = os.getenv(
+            "MODAL_RERANKER_URL",
+            "https://giakiet05--viranker-reranker-rerank-endpoint.modal.run"
+        )
+
+
+class Settings:
+    """
+    Main settings singleton for MCP Server.
+
+    Contains only configurations relevant to:
+    - Reading vector store
+    - Retrieving documents
+    - Scraping DAA portal
+    """
+
+    def __init__(self):
+        print("[CONFIG] Initializing MCP Server settings...")
+
+        # Load credentials first (used by other modules)
+        self.credentials = Credentials()
+
+        # Static configs
+        self.paths = Paths()
+
+        # Dynamic configs (load from env)
+        self.retrieval = Retrieval()
+
+        print(f"[CONFIG] Vector store path: {self.paths.VECTOR_STORE_DIR}")
+        print(f"[CONFIG] Embed model: {self.retrieval.EMBED_MODEL}")
+
+
+# Singleton instance
+settings = Settings()

@@ -1,0 +1,72 @@
+# Production overrides (explicit usage)
+#
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# This file contains production-specific settings
+
+services:
+  # MongoDB - Production settings
+  mongodb:
+    container_name: mongodb-prod
+    restart: unless-stopped
+    command: ["mongod", "--quiet", "--logpath", "/dev/null"]
+    logging:
+      driver: "none"
+    # For production, consider using managed MongoDB (Atlas, AWS DocumentDB)
+    # and remove this service entirely
+
+  # Redis - Production settings
+  redis:
+    container_name: redis-prod
+    restart: unless-stopped
+    # For production, consider using managed Redis (AWS ElastiCache, Redis Cloud)
+
+  # MCP Server - Production settings
+  mcp-server:
+    container_name: mcp-server-prod
+    restart: unless-stopped
+    build:
+      target: production
+    env_file:
+      - ../apps/mcp-server/.env.prod
+    volumes:
+      - ../data:/app/data  # Read-write (ChromaDB needs to write)
+    environment:
+      - ENV=production
+    healthcheck:
+      interval: 60s  # Check every 1 minute (instead of 10s)
+      timeout: 10s
+      retries: 3
+
+  # Agent - Production settings
+  agent:
+    container_name: agent-prod
+    restart: unless-stopped
+    build:
+      target: production
+    env_file:
+      - ../apps/agent/.env.prod
+    environment:
+      - ENV=production
+
+  # API Gateway - Production settings
+  api-gateway:
+    container_name: api-gateway-prod
+    restart: unless-stopped
+    build:
+      target: production
+    env_file:
+      - ../apps/api-gateway/.env.prod
+    environment:
+      - ENV=production
+
+  # Web - Production settings
+  web:
+    container_name: web-prod
+    restart: unless-stopped
+    build:
+      target: production
+    ports:
+      - "80:80"  # Nginx production port
+    environment:
+      - NODE_ENV=production
