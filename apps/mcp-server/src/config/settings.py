@@ -13,10 +13,10 @@ from dotenv import load_dotenv
 
 class Paths:
     """Path configurations for MCP Server."""
-    # Navigate from settings.py to project root
-    # apps/mcp-server/src/config/settings.py -> root
-    ROOT_DIR = Path(__file__).resolve().parents[4]
-    DATA_DIR = ROOT_DIR / "data"
+
+    load_dotenv()
+    # Get DATA_DIR from env or use default (mounted volume in Docker)
+    DATA_DIR = Path(os.getenv("DATA_DIR", "/app/data"))
 
     # Vector store path (read-only, built by knowledge-builder)
     VECTOR_STORE_DIR = DATA_DIR / "vector_store"
@@ -24,6 +24,7 @@ class Paths:
 
 class Credentials:
     """API keys and sensitive credentials."""
+
     def __init__(self):
         """Load credentials from environment."""
         load_dotenv()
@@ -33,6 +34,10 @@ class Credentials:
 
 class Retrieval:
     """Configuration for retrieval and vector search."""
+
+    # Available ChromaDB collections
+    AVAILABLE_COLLECTIONS = ["regulation", "curriculum"]
+
     # Retrieval configuration
     SIMILARITY_TOP_K = 7
     MINIMUM_SCORE_THRESHOLD = 0.15
@@ -41,24 +46,10 @@ class Retrieval:
         """Load retrieval configs from environment."""
         load_dotenv()
         self.EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-small")
-
-
-class QueryRouting:
-    """Configuration for query routing strategy."""
-    def __init__(self):
-        """Load query routing configs from environment."""
-        load_dotenv()
-
-        # "query_all" | "llm_classification"
-        self.STRATEGY = os.getenv("ROUTING_STRATEGY", "query_all")
-        self.AVAILABLE_COLLECTIONS = os.getenv(
-            "AVAILABLE_COLLECTIONS",
-            "regulation,curriculum"
-        ).split(",")
-
-        # LLM classification settings (for llm_classification strategy)
-        self.CLASSIFICATION_MODEL = os.getenv("CLASSIFICATION_MODEL", "gpt-4o-mini")
-        self.CLASSIFICATION_TEMPERATURE = float(os.getenv("CLASSIFICATION_TEMPERATURE", "0.0"))
+        self.MODAL_RERANKER_URL = os.getenv(
+            "MODAL_RERANKER_URL",
+            "https://giakiet05--viranker-reranker-rerank-endpoint.modal.run"
+        )
 
 
 class Settings:
@@ -70,6 +61,7 @@ class Settings:
     - Retrieving documents
     - Scraping DAA portal
     """
+
     def __init__(self):
         print("[CONFIG] Initializing MCP Server settings...")
 
@@ -81,11 +73,9 @@ class Settings:
 
         # Dynamic configs (load from env)
         self.retrieval = Retrieval()
-        self.query_routing = QueryRouting()
 
         print(f"[CONFIG] Vector store path: {self.paths.VECTOR_STORE_DIR}")
         print(f"[CONFIG] Embed model: {self.retrieval.EMBED_MODEL}")
-        print(f"[CONFIG] Routing strategy: {self.query_routing.STRATEGY}")
 
 
 # Singleton instance

@@ -105,56 +105,23 @@ class QueryEngine:
 
 
     def _setup_local_reranker(self):
-        """Setup local reranker model (ViRanker on CPU)."""
-        try:
-            from FlagEmbedding import FlagReranker
-
-            print(f"[RERANKER] Loading ViRanker model locally (CPU): {self.reranker_model}")
-            self.reranker = FlagReranker(
-                self.reranker_model,
-                use_fp16=True  # Faster inference
-            )
-            print(f"[RERANKER] ViRanker loaded successfully on CPU")
-
-        except ImportError:
-            print("[WARNING] FlagEmbedding not installed. Reranker disabled.")
-            print("           Install with: pip install -U FlagEmbedding")
-            self.use_reranker = False
-        except Exception as e:
-            print(f"[WARNING] Failed to load reranker: {e}")
-            self.use_reranker = False
+        """
+        Local reranker is no longer supported (removed FlagEmbedding dependency).
+        Use Modal GPU reranker instead.
+        """
+        raise RuntimeError(
+            "Local reranker not available. FlagEmbedding dependency removed to reduce Docker image size.\n"
+            "Please use Modal GPU reranker by setting use_modal=True.\n"
+            "Deploy the Modal reranker with: modal deploy modal/reranker_service.py"
+        )
 
     def _setup_modal_reranker(self):
-        """Setup Modal reranker (ViRanker on GPU via Modal SDK)."""
-        try:
-            import modal
+        """Setup Modal reranker (ViRanker on GPU via HTTP endpoint)."""
+        from src.config.settings import settings
 
-            print(f"[RERANKER] Connecting to Modal GPU reranker: {self.reranker_model}")
-
-            # Lookup deployed Modal class using correct API
-            # Use modal.Cls.from_name() instead of modal.Cls.lookup()
-            ViRankerReranker = modal.Cls.from_name(
-                "viranker-reranker",  # App name (from modal.App("viranker-reranker"))
-                "ViRankerReranker"    # Class name (from @app.cls)
-            )
-
-            # Create instance (this is a proxy to remote class)
-            self.modal_reranker = ViRankerReranker()
-
-            print(f"[RERANKER] Connected to Modal GPU reranker successfully")
-
-        except ImportError as e:
-            print(f"[WARNING] Modal SDK not installed: {e}")
-            print("           Install with: pip install modal")
-            print("           Falling back to local CPU reranker")
-            self.use_modal = False
-            self._setup_local_reranker()
-        except Exception as e:
-            print(f"[WARNING] Failed to connect to Modal reranker: {e}")
-            print("           Make sure the app is deployed: modal deploy modal/reranker_service.py")
-            print("           Falling back to local CPU reranker")
-            self.use_modal = False
-            self._setup_local_reranker()
+        self.modal_reranker_url = settings.retrieval.MODAL_RERANKER_URL
+        print(f"[RERANKER] Using Modal HTTP endpoint: {self.modal_reranker_url}")
+        print(f"[RERANKER] Modal reranker configured successfully")
 
     def _retrieve(
         self,
@@ -326,8 +293,8 @@ class QueryEngine:
 
         # Check if reranker is available (local or Modal)
         if self.use_modal:
-            if not hasattr(self, 'modal_reranker'):
-                print("[WARNING] Modal reranker not initialized, skipping reranking")
+            if not hasattr(self, 'modal_reranker_url'):
+                print("[WARNING] Modal reranker URL not configured, skipping reranking")
                 return nodes
         else:
             if not hasattr(self, 'reranker'):
@@ -341,30 +308,35 @@ class QueryEngine:
 
         # Get reranker scores
         if self.use_modal:
-            # Modal GPU reranking via Modal SDK
-            print(f"[RERANKER] Using Modal GPU...")
+            # Modal GPU reranking via HTTP endpoint
+            print(f"[RERANKER] Using Modal GPU (this may take 10-60s on cold start)...")
             try:
-                # Call remote method using .remote() API
-                scores = self.modal_reranker.rerank.remote(
-                    query=query,
-                    texts=texts,
-                    normalize=True
+                import requests
+
+                # Call HTTP endpoint with longer timeout for cold start
+                # Cold start: ~10-60s (first request after idle)
+                # Warm: ~1-3s (subsequent requests)
+                response = requests.post(
+                    self.modal_reranker_url,
+                    json={
+                        "query": query,
+                        "texts": texts,
+                        "normalize": True
+                    },
+                    timeout=120  # 2 minutes to handle cold start
                 )
+                response.raise_for_status()
+                scores = response.json()["scores"]
                 print(f"[RERANKER] Modal GPU reranking completed")
 
+            except requests.exceptions.Timeout:
+                print(f"[WARNING] Modal reranking timed out (cold start can take 60s+)")
+                print("           Skipping reranking for this query")
+                return nodes
             except Exception as e:
                 print(f"[WARNING] Modal reranking failed: {e}")
-                print("           Falling back to local reranking for this query")
-                # Fallback to local reranker
-                if hasattr(self, 'reranker'):
-                    pairs = [[query, text] for text in texts]
-                    scores = self.reranker.compute_score(pairs, normalize=True)
-                    if not isinstance(scores, list):
-                        scores = [scores]
-                else:
-                    # No fallback available, return nodes as-is
-                    print("           No local reranker available, skipping reranking")
-                    return nodes
+                print("           No local reranker available, skipping reranking")
+                return nodes
         else:
             # Local CPU reranking
             print(f"[RERANKER] Using local CPU...")

@@ -1,0 +1,63 @@
+# Development overrides (auto-merged with docker-compose.yml)
+#
+# Usage: docker compose up
+#
+# This file is automatically used by Docker Compose when you run `docker compose up`
+
+services:
+  # MongoDB - Dev settings
+  mongodb:
+    command: ["mongod", "--quiet", "--logpath", "/dev/null"]
+    logging:
+      driver: "none"  # Disable logs in dev
+
+  # Redis - Dev settings
+  redis:
+
+  # MCP Server - Dev settings
+  mcp-server:
+    env_file:
+      - ../apps/mcp-server/.env.dev
+    volumes:
+      - ../apps/mcp-server:/app
+      - /app/.venv  # Exclude .venv from host mount
+      - ../data:/app/data  # ChromaDB needs write permission
+    environment:
+      - ENV=development
+    command: ["uv", "run", "python", "main.py"]
+
+  # Agent - Dev settings
+  agent:
+    env_file:
+      - ../apps/agent/.env.dev
+    volumes:
+      - ../apps/agent:/app
+      - /app/.venv  # Exclude .venv from host mount
+    environment:
+      - ENV=development
+    command: ["uv", "run", "python", "main.py"]
+
+  # API Gateway - Dev settings
+  api-gateway:
+    build:
+      target: development
+    env_file:
+      - ../apps/api-gateway/.env.dev
+    volumes:
+      - ../apps/api-gateway:/app
+    environment:
+      - ENV=development
+    command: ["go", "run", "main.go"]
+
+  # Web - Dev settings
+  web:
+    build:
+      target: development
+    volumes:
+      - ../apps/web:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"  # Dev server port
+    environment:
+      - NODE_ENV=development
+    command: ["pnpm", "run", "dev"]

@@ -1,45 +1,27 @@
 """
-This module provides a simple and flexible way to create LlamaIndex LLM instances.
+This module provides a simple and flexible way to create LangChain LLM instances.
 """
 
 from dotenv import load_dotenv
-from llama_index.core.llms import LLM
-from llama_index.llms.ollama import Ollama
-from llama_index.llms.openai import OpenAI
-from llama_index.llms.gemini import Gemini
+from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from .settings import settings
 
 # Load environment variables from .env file
 load_dotenv()
 
-def _create_ollama_llm(model: str, **kwargs) -> Ollama:
-    """
-    Creates a LlamaIndex Ollama instance with a robust try-except block.
-    """
-    default_kwargs = {
-        "base_url": "http://localhost:11434",
-        "temperature": 0.5,  # Default temperature, can be overridden
-        "request_timeout": 120.0
-    }
-    final_kwargs = {**default_kwargs, **kwargs}
 
-    print(f"[INFO] Attempting to create Ollama LLM with model: {model}")
-    try:
-        llm = Ollama(model=model, **final_kwargs)
-        print("✅ Ollama LLM instance created.")
-        return llm
-    except Exception as e:
-        print(f"[ERROR] Failed to create Ollama LLM instance.")
-        print(f"  Error details: {e}")
-        print("  Suggestions:")
-        print("    1. Ensure the Ollama server is running: 'ollama serve'")
-        print(f"    2. Ensure the model '{model}' is available: 'ollama list' or 'ollama pull {model}'")
-        raise ConnectionError("Failed to initialize Ollama LLM. Please check the server and model availability.")
-
-def _create_openai_llm(model: str, **kwargs) -> OpenAI:
+def _create_openai_llm(model: str, **kwargs) -> ChatOpenAI:
     """
-    Creates a LlamaIndex OpenAI instance.
+    Creates a LangChain ChatOpenAI instance.
+
+    Args:
+        model: Model name (e.g., "gpt-4o", "gpt-4o-mini")
+        **kwargs: Additional parameters (temperature, etc.)
+
+    Returns:
+        ChatOpenAI instance
     """
     api_key = settings.credentials.OPENAI_API_KEY
     if not api_key:
@@ -50,12 +32,20 @@ def _create_openai_llm(model: str, **kwargs) -> OpenAI:
     }
     final_kwargs = {**default_kwargs, **kwargs}
 
-    print(f"[INFO] Creating OpenAI LLM with model: {model}")
-    return OpenAI(model=model, api_key=api_key, **final_kwargs)
+    print(f"[LLM] Creating OpenAI LLM with model: {model}")
+    return ChatOpenAI(model=model, api_key=api_key, **final_kwargs)
 
-def _create_gemini_llm(model: str, **kwargs) -> Gemini:
+
+def _create_gemini_llm(model: str, **kwargs) -> ChatGoogleGenerativeAI:
     """
-    Creates a LlamaIndex Gemini instance.
+    Creates a LangChain ChatGoogleGenerativeAI instance.
+
+    Args:
+        model: Model name (e.g., "gemini-2.0-flash-exp", "gemini-1.5-pro")
+        **kwargs: Additional parameters (temperature, etc.)
+
+    Returns:
+        ChatGoogleGenerativeAI instance
     """
     api_key = settings.credentials.GOOGLE_API_KEY
     if not api_key:
@@ -66,19 +56,19 @@ def _create_gemini_llm(model: str, **kwargs) -> Gemini:
     }
     final_kwargs = {**default_kwargs, **kwargs}
 
-    print(f"[INFO] Creating Gemini LLM with model: {model}")
-    return Gemini(model=model, api_key=api_key, **final_kwargs)
+    print(f"[LLM] Creating Gemini LLM with model: {model}")
+    return ChatGoogleGenerativeAI(model=model, google_api_key=api_key, **final_kwargs)
 
-def create_llm(provider: str, model: str, **kwargs) -> LLM:
+
+def create_llm(provider: str, model: str, **kwargs):
     """
-    A factory function that creates and returns a LlamaIndex LLM instance.
+    A factory function that creates and returns a LangChain LLM instance.
 
     Args:
-        provider: LLM provider ("ollama", "openai", or "gemini")
+        provider: LLM provider ("openai" or "gemini")
         model: Model name/identifier
         **kwargs: Additional parameters to override defaults
             - temperature (float): Controls randomness (default: 0.5)
-            - system_prompt (str): Custom system prompt (for ollama/openai)
             - Other provider-specific parameters
 
     Returns:
@@ -91,16 +81,14 @@ def create_llm(provider: str, model: str, **kwargs) -> LLM:
         # Override temperature
         llm = create_llm("openai", "gpt-4o", temperature=0.7)
 
-        # Override multiple parameters
-        llm = create_llm("openai", "gpt-4o", temperature=0.3, system_prompt="Custom prompt")
+        # Gemini model
+        llm = create_llm("gemini", "gemini-2.0-flash-exp", temperature=0.3)
     """
     provider = provider.lower()
 
-    if provider == "ollama":
-        return _create_ollama_llm(model=model, **kwargs)
-    elif provider == "openai":
+    if provider == "openai":
         return _create_openai_llm(model=model, **kwargs)
     elif provider == "gemini":
         return _create_gemini_llm(model=model, **kwargs)
     else:
-        raise ValueError(f"Unsupported LLM provider: '{provider}'. Supported: ['ollama', 'openai', 'gemini']")
+        raise ValueError(f"Unsupported LLM provider: '{provider}'. Supported: ['openai', 'gemini']")

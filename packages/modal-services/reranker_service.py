@@ -54,7 +54,7 @@ MODEL_NAME = "namdp-ptit/ViRanker"
     gpu="T4",  # NVIDIA T4 GPU (16GB VRAM, good for reranking)
     volumes={MODEL_DIR: model_volume},  # Cache model weights
     timeout=300,  # 5 minutes timeout
-    scaledown_window=120,  # Keep container warm for 2 minutes (renamed from container_idle_timeout)
+    scaledown_window=600,  # Keep container warm for 10 minutes (renamed from container_idle_timeout)
 )
 class ViRankerReranker:
     """

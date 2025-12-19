@@ -35,7 +35,7 @@ def _init_query_engine() -> QueryEngine:
     db = chromadb.PersistentClient(path=str(settings.paths.VECTOR_STORE_DIR))
 
     collections = {}
-    for category in settings.query_routing.AVAILABLE_COLLECTIONS:
+    for category in settings.retrieval.AVAILABLE_COLLECTIONS:
         print(f"[RETRIEVAL TOOLS] Loading collection: {category}")
         chroma_collection = db.get_or_create_collection(category)
         vector_store = ChromaVectorStore(chroma_collection=chroma_collection)

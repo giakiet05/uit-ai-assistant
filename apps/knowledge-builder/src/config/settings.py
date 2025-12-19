@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 
 class Paths:
     """Path configurations for Knowledge Builder."""
+
     # Navigate from settings.py to project root
     # apps/knowledge-builder/src/config/settings.py -> root
     ROOT_DIR = Path(__file__).resolve().parents[4]
@@ -25,20 +26,16 @@ class Paths:
     PROCESSED_DATA_DIR = DATA_DIR / os.getenv("PROCESSED_DATA_DIR", "processed")
     VECTOR_STORE_DIR = DATA_DIR / "vector_store"
 
-    # Test paths (can override via env vars)
-    RAW_TEST_DIR = DATA_DIR / "raw_test"
-    PROCESSED_TEST_DIR = DATA_DIR / "processed_test"
-
 
 class Domains:
     """Configuration for data sources and domains to be crawled."""
-    START_URLS = {
-        "daa.uit.edu.vn": "https://daa.uit.edu.vn/"
-    }
+
+    START_URLS = {"daa.uit.edu.vn": "https://daa.uit.edu.vn/"}
 
 
 class Credentials:
     """API keys and sensitive credentials."""
+
     def __init__(self):
         """Load credentials from environment."""
         load_dotenv()
@@ -49,6 +46,7 @@ class Credentials:
 
 class LLM:
     """LLM configuration (models, providers)."""
+
     def __init__(self):
         """Load LLM configs from environment."""
         load_dotenv()
@@ -58,10 +56,11 @@ class LLM:
 
 class Indexing:
     """Configuration for indexing and vector store."""
+
     # Chunking configuration
-    CHUNK_SIZE = 1024           # Target chunk size for sub-chunking
-    CHUNK_OVERLAP = 200         # Overlap between chunks (20% of chunk size)
-    MAX_TOKENS = 8000           # Max tokens before sub-chunking
+    CHUNK_SIZE = 1024  # Target chunk size for sub-chunking
+    CHUNK_OVERLAP = 200  # Overlap between chunks (20% of chunk size)
+    MAX_TOKENS = 8000  # Max tokens before sub-chunking
 
     def __init__(self):
         """Load indexing configs from environment."""
@@ -72,6 +71,7 @@ class Indexing:
 
 class Processing:
     """Configuration for document processing and parsing."""
+
     def __init__(self):
         """Load processing configs from environment."""
         load_dotenv()
@@ -82,19 +82,28 @@ class Processing:
         self.PARSE_MODEL = os.getenv("PARSE_MODEL", "openai-gpt-4o-mini")
 
         # Processing behavior
-        self.SKIP_ANNOUNCEMENTS = os.getenv("SKIP_ANNOUNCEMENTS", "true").lower() == "true"
-        self.PROCESS_CATEGORIES = os.getenv("PROCESS_CATEGORIES", "regulation,curriculum").split(",")
+        self.SKIP_ANNOUNCEMENTS = (
+            os.getenv("SKIP_ANNOUNCEMENTS", "true").lower() == "true"
+        )
+        self.PROCESS_CATEGORIES = os.getenv(
+            "PROCESS_CATEGORIES", "regulation,curriculum"
+        ).split(",")
 
         # Content filtering
-        self.ENABLE_CONTENT_FILTER = os.getenv("ENABLE_CONTENT_FILTER", "true").lower() == "true"
+        self.ENABLE_CONTENT_FILTER = (
+            os.getenv("ENABLE_CONTENT_FILTER", "true").lower() == "true"
+        )
         self.MIN_CONTENT_SCORE = float(os.getenv("MIN_CONTENT_SCORE", "40.0"))
 
         # Metadata generation
-        self.METADATA_GENERATION_MODEL = os.getenv("METADATA_GENERATION_MODEL", "gpt-4o-mini")
+        self.METADATA_GENERATION_MODEL = os.getenv(
+            "METADATA_GENERATION_MODEL", "gpt-4o-mini"
+        )
 
 
 class Preprocessing:
     """Configuration for markdown preprocessing (structure fixing)."""
+
     def __init__(self):
         """Load preprocessing configs from environment."""
         load_dotenv()
@@ -102,7 +111,9 @@ class Preprocessing:
         # Google Gemini for markdown fixing
         self.GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-exp")
         self.GEMINI_TEMPERATURE = float(os.getenv("GEMINI_TEMPERATURE", "0.1"))
-        self.GEMINI_MAX_OUTPUT_TOKENS = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "65000"))
+        self.GEMINI_MAX_OUTPUT_TOKENS = int(
+            os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "65000")
+        )
 
         # Rate limiting (Google AI Studio free tier)
         self.GEMINI_RPM = int(os.getenv("GEMINI_RPM", "10"))  # Requests per minute
@@ -112,13 +123,16 @@ class Preprocessing:
 
 class Crawler:
     """Configuration for web crawling."""
+
     def __init__(self):
         """Load crawler configs from environment."""
         load_dotenv()
 
         # Crawling behavior
         self.MAX_DEPTH = int(os.getenv("CRAWLER_MAX_DEPTH", "3"))
-        self.DELAY_BETWEEN_REQUESTS = float(os.getenv("CRAWLER_DELAY", "1.0"))  # seconds
+        self.DELAY_BETWEEN_REQUESTS = float(
+            os.getenv("CRAWLER_DELAY", "1.0")
+        )  # seconds
         self.USER_AGENT = os.getenv("CRAWLER_USER_AGENT", "UIT-AI-Assistant-Bot/1.0")
 
 
@@ -132,6 +146,7 @@ class Settings:
     - Generating metadata
     - Building vector store
     """
+
     def __init__(self):
         print("[CONFIG] Initializing Knowledge Builder settings...")
 
@@ -159,10 +174,6 @@ class Settings:
             self.paths.RAW_DATA_DIR,
             self.paths.PROCESSED_DATA_DIR,
             self.paths.VECTOR_STORE_DIR,
-
-            # Test directories
-            self.paths.RAW_TEST_DIR,
-            self.paths.PROCESSED_TEST_DIR,
         ]
         for directory in directories_to_create:
             os.makedirs(directory, exist_ok=True)
