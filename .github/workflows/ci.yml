@@ -36,11 +36,11 @@ jobs:
           tags: uit-ai-assistant-${{ matrix.service }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          target: ${{ matrix.service == 'web' || matrix.service == 'api-gateway' || matrix.service == 'agent' || matrix.service == 'mcp-server' && 'development' || '' }}
+          target: development
 
       - name: Image built successfully
         run: |
-          echo "✅ ${{ matrix.service }} image built successfully!"
+          echo "${{ matrix.service }} image built successfully!"
           docker images | grep uit-ai-assistant-${{ matrix.service }} || true
 
   # Job 2: Integration test (start all services)
@@ -65,41 +65,41 @@ jobs:
       - name: Start services with Docker Compose
         run: |
           cd infra
-          docker-compose up -d --build
+          docker compose up -d --build
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
 
       - name: Wait for services to be healthy
         run: |
-          echo "⏳ Waiting for services to start..."
+          echo "Waiting for services to start..."
           sleep 30
 
           # Check service status
           cd infra
-          docker-compose ps
+          docker compose ps
 
       - name: Test API Gateway health
         run: |
-          echo "🔍 Testing API Gateway..."
-          curl -f http://localhost:8080/health || curl -f http://localhost:8080/ || echo "⚠️  API Gateway health check failed (might be expected if no /health endpoint)"
+          echo "Testing API Gateway..."
+          curl -f http://localhost:8080/health || curl -f http://localhost:8080/ || echo "API Gateway health check failed (might be expected if no /health endpoint)"
 
       - name: Test Web frontend
         run: |
-          echo "🔍 Testing Web..."
-          curl -f http://localhost:3000 || echo "⚠️  Web health check failed"
+          echo "Testing Web..."
+          curl -f http://localhost:3000 || echo "Web health check failed"
 
       - name: Show logs on failure
         if: failure()
         run: |
           cd infra
-          echo "📋 Docker Compose Logs:"
-          docker-compose logs --tail=100
+          echo "Docker Compose Logs:"
+          docker compose logs --tail=100
 
       - name: Cleanup
         if: always()
         run: |
           cd infra
-          docker-compose down -v
+          docker compose down -v
 
   # Job 3: Lint and code quality (optional)
   lint:
@@ -113,15 +113,15 @@ jobs:
       - name: Check Docker Compose syntax
         run: |
           cd infra
-          docker-compose config > /dev/null
-          echo "✅ docker-compose.yml is valid"
+          docker compose config > /dev/null
+          echo "docker-compose.yml is valid"
 
       - name: Check Dockerfiles
         run: |
-          echo "🔍 Checking Dockerfiles..."
+          echo "Checking Dockerfiles..."
           for dockerfile in apps/*/Dockerfile; do
             echo "Checking $dockerfile..."
-            docker run --rm -i hadolint/hadolint < "$dockerfile" || echo "⚠️  $dockerfile has warnings"
+            docker run --rm -i hadolint/hadolint < "$dockerfile" || echo "$dockerfile has warnings"
           done
 
   # Job 4: Build summary
@@ -134,9 +134,9 @@ jobs:
     steps:
       - name: Summary
         run: |
-          echo "## 🎉 CI Pipeline Results" >> $GITHUB_STEP_SUMMARY
+          echo "## CI Pipeline Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ All jobs completed!" >> $GITHUB_STEP_SUMMARY
+          echo "All jobs completed!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
