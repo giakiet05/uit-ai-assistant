@@ -4,12 +4,6 @@ package agent;
 
 option go_package = "github.com/giakiet05/uit-ai-assistant/backend/internal/grpc/pb";
 
-// Message trong lịch sử chat
-message ChatMessage {
-  string role = 1;     // "user" hoặc "assistant"
-  string content = 2;
-}
-
 // Tool call metadata
 message ToolCall {
   string tool_name = 1;
@@ -25,10 +19,11 @@ message Source {
   string url = 4;
 }
 
-// Request gọi agent
+// Request gọi agent (stateful architecture)
 message ChatRequest {
-  string message = 1;                 // Câu hỏi của user
-  repeated ChatMessage history = 2;   // Lịch sử chat (sorted by timestamp)
+  string message = 1;      // Câu hỏi của user
+  string user_id = 2;      // User ID (để lookup credentials từ Redis)
+  string thread_id = 3;    // Thread ID cho LangGraph checkpointer (format: "user_id:conversation_id")
 }
 
 // Response từ agent
@@ -43,6 +38,8 @@ message ChatResponse {
 
 // gRPC service
 service Agent {
-  // Non-streaming chat
+  // Non-streaming chat (stateful với LangGraph checkpointer)
+  // API server lưu history vào MongoDB để hiển thị UI
+  // Agent lưu state vào checkpointer để xử lý conversation
   rpc Chat(ChatRequest) returns (ChatResponse);
 }

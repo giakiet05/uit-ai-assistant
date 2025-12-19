@@ -20,3 +20,5 @@ node_modules/
 tmp
 .env.production
 .env.development
+.env.dev 
+.env.prod

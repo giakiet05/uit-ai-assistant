@@ -1,220 +1,215 @@
 """
-gRPC Server for UIT AI Assistant Agent.
+gRPC server for LangGraph agent.
 
-This server exposes the UITAgent via gRPC for the Go backend to call.
-
-Architecture:
-    Go Backend (port 8080)
-        ↓ gRPC call
-    Agent gRPC Server (port 50051)
-        ↓ uses
-    UITAgent → ReActAgent → MCP Tools
-
-Workflow:
-1. Start MCP server: uv run python -m src.mcp.retrieval_server (port 8000)
-2. Start gRPC server: uv run python -m src.grpc.agent_server (port 50051)
-3. Go backend calls gRPC to get AI responses
+This server:
+1. Loads LangGraph agent with checkpointer for state persistence
+2. Receives requests with user_id + thread_id (no history needed)
+3. Uses thread_id to load conversation state from checkpointer
+4. Invokes agent graph with state management
+5. Returns response to API server (which stores in MongoDB for UI)
 """
 
-import grpc
-from grpc_reflection.v1alpha import reflection
-from concurrent import futures
-import json
 import asyncio
+from concurrent import futures
+import grpc
 
-# LlamaIndex imports
-from llama_index.core.memory import ChatMemoryBuffer
-from llama_index.core.llms import ChatMessage as LlamaChatMessage, MessageRole
-
-# Generated stubs
-from . import agent_pb2, agent_pb2_grpc
-
-# Agent imports
-from ..core.agent import UITAgent, SharedResources
-from ..config.settings import settings
+from src.config.llm_provider import create_llm
+from src.config.settings import settings
+from src.tools.mcp_loader import load_mcp_tools
+from src.tools.credential_tool import get_user_credential
+from src.graph.agent_graph import create_agent_graph
+from src.graph.checkpointer import create_checkpointer
+from src.grpc.pb import agent_pb2, agent_pb2_grpc
 
 
 class AgentServicer(agent_pb2_grpc.AgentServicer):
-    """
-    gRPC Servicer implementation.
+    """gRPC servicer for agent with LangGraph state management."""
 
-    Responsibilities:
-    1. Nhận ChatRequest từ Go backend
-    2. Rebuild ChatMemoryBuffer từ history
-    3. Tạo UITAgent instance (lightweight, stateless)
-    4. Gọi agent.chat() để lấy response
-    5. Map AgentResponse → protobuf ChatResponse
-    6. Trả về cho Go backend
-    """
-
-    def __init__(self, resources: SharedResources):
+    def __init__(self, graph):
         """
-        Initialize servicer với SharedResources.
+        Initialize agent servicer.
 
         Args:
-            resources: Singleton chứa LLM + MCP tools (đã load sẵn)
+            graph: Compiled LangGraph agent with checkpointer
         """
-        self.resources = resources
-        print("[Agent Servicer] Initialized with shared resources")
+        self.graph = graph
+        print("[AGENT SERVER] AgentServicer initialized")
 
-    async def Chat(self, request, context):
+    def Chat(self, request, context):
         """
-        Handle Chat request (non-streaming).
+        Handle chat request (stateful with LangGraph checkpointer).
 
         Args:
-            request: ChatRequest (message + history)
+            request: ChatRequest with message, user_id, thread_id
             context: gRPC context
 
         Returns:
-            ChatResponse (content + metadata)
+            ChatResponse with agent's reply
         """
+        print(f"\n{'='*70}")
+        print(f"[AGENT SERVER] Received request:")
+        print(f"  - User ID: {request.user_id}")
+        print(f"  - Thread ID: {request.thread_id}")
+        print(f"  - Message: {request.message[:100]}...")
+        print(f"{'='*70}\n")
+
         try:
-            print(f"\n{'='*60}")
-            print(f"[gRPC] Received Chat request")
-            print(f"[gRPC] Message: {request.message}")
-            print(f"[gRPC] History length: {len(request.history)}")
-            print(f"{'='*60}")
-
-            # Step 1: Rebuild ChatMemoryBuffer từ history
-            memory = ChatMemoryBuffer.from_defaults(
-                token_limit=settings.chat.MEMORY_TOKEN_LIMIT,
-                llm=self.resources.llm
+            # Run async graph invocation in event loop
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            response = loop.run_until_complete(
+                self._ainvoke_agent(request.message, request.user_id, request.thread_id)
             )
+            loop.close()
 
-            for msg in request.history:
-                memory.put(LlamaChatMessage(
-                    role=MessageRole(msg.role),  # "user" hoặc "assistant"
-                    content=msg.content
-                ))
-
-            print(f"[gRPC] Rebuilt memory with {len(request.history)} messages")
-
-            # Step 2: Tạo UITAgent instance (lightweight, stateless)
-            agent = UITAgent(self.resources)
-
-            # Step 3: Gọi agent.chat()
-            print(f"[gRPC] Calling UITAgent.chat()...")
-            agent_response = await agent.chat(request.message, memory)
-
-            print(f"[gRPC] Got response from agent")
-            print(f"[gRPC] Content length: {len(agent_response.content)} chars")
-            print(f"[gRPC] Tool calls: {len(agent_response.tool_calls)}")
-            print(f"[gRPC] Sources: {len(agent_response.sources)}")
-
-            # Step 4: Convert AgentResponse → protobuf ChatResponse
-            pb_tool_calls = [
-                agent_pb2.ToolCall(
-                    tool_name=tc.tool_name,
-                    args_json=json.dumps(tc.args),
-                    output=tc.output
-                )
-                for tc in agent_response.tool_calls
-            ]
-
-            pb_sources = [
-                agent_pb2.Source(
-                    title=src.title,
-                    content=src.content,
-                    score=src.score,
-                    url=src.url
-                )
-                for src in agent_response.sources
-            ]
-
-            response = agent_pb2.ChatResponse(
-                content=agent_response.content,
-                tool_calls=pb_tool_calls,
-                reasoning_steps=agent_response.reasoning_steps,
-                sources=pb_sources,
-                tokens_used=agent_response.tokens_used or 0,
-                latency_ms=agent_response.latency_ms or 0
-            )
-
-            print(f"[gRPC] Returning response to Go backend\n")
             return response
 
         except Exception as e:
-            print(f"[gRPC ERROR] {e}")
-            import traceback
-            traceback.print_exc()
+            print(f"[AGENT SERVER] Error: {e}")
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details(f"Agent error: {str(e)}")
-            return agent_pb2.ChatResponse(content=f"Error: {str(e)}")
+            return agent_pb2.ChatResponse(content=f"Xin lỗi, đã xảy ra lỗi: {str(e)}")
+
+    async def _ainvoke_agent(self, message: str, user_id: str, thread_id: str):
+        """
+        Invoke agent graph asynchronously.
+
+        Args:
+            message: User's message
+            user_id: User ID (for credential lookup)
+            thread_id: Thread ID (for state persistence)
+
+        Returns:
+            ChatResponse protobuf message
+        """
+        # Build config with thread_id for checkpointer
+        config = {
+            "configurable": {"thread_id": thread_id},
+            "recursion_limit": 50  # Increased from default 25 to handle complex tool chains
+        }
+
+        # Invoke graph (will automatically load state from checkpointer if exists)
+        result = await self.graph.ainvoke(
+            {
+                "messages": [("user", message)],
+                "user_id": user_id
+            },
+            config=config
+        )
+
+        # Extract agent's response (last message)
+        agent_message = result["messages"][-1]
+        content = agent_message.content
+
+        print(f"\n[AGENT SERVER] Response sent:")
+        print(f"  - Content length: {len(content)} chars")
+        print(f"  - Preview: {content[:200]}...")
+
+        # Build ChatResponse
+        return agent_pb2.ChatResponse(
+            content=content,
+            tool_calls=[],  # TODO: Extract tool calls from messages if needed
+            reasoning_steps=[],
+            sources=[],
+            tokens_used=0,  # TODO: Add token counting
+            latency_ms=0
+        )
 
 
-async def serve():
+async def _initialize_agent():
     """
-    Start gRPC server.
+    Initialize LangGraph agent with all components.
 
-    Workflow:
-    1. Initialize SharedResources (load LLM)
-    2. Load MCP tools asynchronously
-    3. Create AgentServicer với resources
-    4. Start gRPC server on port 50051
-    5. Wait for termination
+    Returns:
+        Compiled graph ready for invocation
     """
-    print("\n" + "="*60)
-    print("UIT AI Assistant - Agent gRPC Server")
-    print("="*60)
+    print("\n" + "="*70)
+    print("Initializing LangGraph Agent Server")
+    print("="*70 + "\n")
 
-    # Step 1: Initialize SharedResources
-    print("\n[Startup] Initializing SharedResources...")
-    resources = SharedResources()
+    # Step 1: Create LLM
+    print("[1/5] Creating LLM...")
+    llm = create_llm(
+        provider=settings.llm.PROVIDER,
+        model=settings.llm.MODEL,
+        temperature=0.7
+    )
+    print(f"✅ LLM created: {settings.llm.PROVIDER}/{settings.llm.MODEL}\n")
 
     # Step 2: Load MCP tools
-    print("[Startup] Loading MCP tools from retrieval server...")
-    print("[Startup] Make sure MCP server is running at http://127.0.0.1:8000/mcp")
-    print("[Startup] Start it with: uv run python -m src.mcp.retrieval_server\n")
+    print("[2/5] Loading MCP tools...")
+    try:
+        mcp_tools = await load_mcp_tools()
+        print(f"✅ MCP tools loaded: {len(mcp_tools)} tools\n")
+    except Exception as e:
+        print(f"⚠️  MCP tools failed to load: {e}")
+        print("⚠️  Continuing with native tools only...\n")
+        mcp_tools = []
 
-    await resources.load_tools_async()
+    # Step 3: Add native tools
+    print("[3/5] Adding native tools...")
+    native_tools = [get_user_credential]
+    all_tools = mcp_tools + native_tools
+    print(f"✅ Total tools: {len(all_tools)}")
+    print(f"   - MCP tools: {len(mcp_tools)}")
+    print(f"   - Native tools: {len(native_tools)}\n")
 
-    if not resources.tools:
-        print("\n[WARNING] No tools loaded! Agent will run without retrieval capabilities.")
-        print("[WARNING] Check if MCP server is running.\n")
-    else:
-        print(f"\n[Startup] ✅ Loaded {len(resources.tools)} tools successfully\n")
+    # Step 4: Create checkpointer
+    print("[4/5] Creating checkpointer...")
+    try:
+        checkpointer = create_checkpointer(backend=settings.checkpointer.BACKEND)
+        print("✅ Checkpointer created\n")
+    except Exception as e:
+        print(f"⚠️  Checkpointer failed: {e}")
+        print("⚠️  Running without persistence...\n")
+        checkpointer = None
 
-    # Step 3: Create gRPC server
-    print("[Startup] Starting gRPC server on port 50051...")
-    server = grpc.aio.server(
-        futures.ThreadPoolExecutor(max_workers=10),
-        options=[
-            ('grpc.max_send_message_length', 50 * 1024 * 1024),  # 50MB
-            ('grpc.max_receive_message_length', 50 * 1024 * 1024),  # 50MB
-        ]
+    # Step 5: Create agent graph
+    print("[5/5] Creating agent graph...")
+    graph = create_agent_graph(
+        llm=llm,
+        tools=all_tools,
+        checkpointer=checkpointer,
+        tool_timeout=120  # 2 minutes for MCP tools (handles cold start)
     )
+    print("✅ Agent graph created\n")
 
-    # Step 4: Add servicer
+    print("="*70)
+    print("✅ Agent server initialization complete!")
+    print("="*70 + "\n")
+
+    return graph
+
+
+def serve():
+    """Start gRPC server."""
+    # Initialize agent (runs async initialization)
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    graph = loop.run_until_complete(_initialize_agent())
+    loop.close()
+
+    # Create gRPC server
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     agent_pb2_grpc.add_AgentServicer_to_server(
-        AgentServicer(resources),
+        AgentServicer(graph),
         server
     )
 
-    # Step 5: Enable reflection (for grpcurl)
-    SERVICE_NAMES = (
-        agent_pb2.DESCRIPTOR.services_by_name['Agent'].full_name,
-        reflection.SERVICE_NAME,
-    )
-    reflection.enable_server_reflection(SERVICE_NAMES, server)
+    # Bind to port
+    port = settings.grpc.PORT
+    server.add_insecure_port(f"[::]:{port}")
 
-    # Step 6: Bind port
-    server.add_insecure_port('[::]:50051')
-    await server.start()
+    print(f"[AGENT SERVER] Starting gRPC server on port {port}...")
+    server.start()
+    print(f"[AGENT SERVER] ✅ Server running on port {port}\n")
 
-    print("\n" + "="*60)
-    print("✅ gRPC Server is ready!")
-    print("   Listening on: localhost:50051")
-    print("   Service: agent.Agent")
-    print("   Method: Chat")
-    print("   Reflection: Enabled")
-    print("="*60)
-    print("\nPress Ctrl+C to stop the server\n")
-
-    # Step 7: Wait for termination
     try:
-        await server.wait_for_termination()
+        server.wait_for_termination()
     except KeyboardInterrupt:
-        print("\n\n[Shutdown] Received Ctrl+C, stopping server...")
-        await server.stop(grace=5)
-        print("[Shutdown] Server stopped gracefully\n")
+        print("\n[AGENT SERVER] Shutting down...")
+        server.stop(0)
 
+
+if __name__ == "__main__":
+    serve()

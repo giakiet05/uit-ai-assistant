@@ -1,0 +1,108 @@
+# Base Docker Compose configuration (shared between dev and prod)
+#
+# Usage:
+#   Dev:  docker compose up
+#   Prod: docker compose -f docker-compose.yml -f docker-compose.prod.yml up
+
+name: uit-ai-assistant
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: uit_ai_assistant
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27018:27017"
+    networks:
+      - uit-ai-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis
+  redis:
+    image: redis:latest
+    ports:
+      - "6380:6379"
+    networks:
+      - uit-ai-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MCP Server
+  mcp-server:
+    build:
+      context: ../apps/mcp-server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - uit-ai-network
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # Agent Service (LangGraph)
+  agent:
+    build:
+      context: ../apps/agent
+      dockerfile: Dockerfile
+    ports:
+      - "50051:50051"
+    networks:
+      - uit-ai-network
+    depends_on:
+      redis:
+        condition: service_healthy
+      mcp-server:
+        condition: service_healthy
+
+  # API Gateway (Go)
+  api-gateway:
+    build:
+      context: ../apps/api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - uit-ai-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      agent:
+        condition: service_started
+
+  # Web Frontend
+  web:
+    build:
+      context: ../apps/web
+      dockerfile: Dockerfile
+    networks:
+      - uit-ai-network
+    depends_on:
+      - api-gateway
+
+networks:
+  uit-ai-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
