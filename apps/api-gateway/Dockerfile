@@ -3,9 +3,6 @@ FROM golang:1.25 AS development
 
 WORKDIR /app
 
-# Install air for hot reload (optional)
-RUN go install github.com/air-verse/air@latest
-
 # Copy go.mod and go.sum
 COPY go.mod go.sum ./
 RUN go mod download
@@ -14,6 +11,7 @@ RUN go mod download
 COPY . .
 
 EXPOSE 8080
+# Just use go run - simple and works with volume mount
 CMD ["go", "run", "main.go"]
 
 # Production build stage
@@ -26,12 +24,14 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o main .
+# Build optimized binary (strip debug info, disable CGO)
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o main .
 
 # Production runtime stage (default)
-FROM debian:bookworm-slim AS production
+FROM alpine:latest AS production
 
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+# Install ca-certificates for HTTPS
+RUN apk --no-cache add ca-certificates
 
 WORKDIR /app
 
