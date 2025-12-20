@@ -1,5 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080"
 
+// Debug: Log API URL to console
+console.log('[API Client] VITE_API_URL:', import.meta.env.VITE_API_URL)
+console.log('[API Client] API_URL:', API_URL)
+console.log('[API Client] All env vars:', import.meta.env)
+
 export interface ApiResponse<T = any> {
   success: boolean
   message: string
