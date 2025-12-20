@@ -27,7 +27,7 @@ jobs:
             echo "Starting deployment..."
 
             # Navigate to project directory
-            cd /app/uit-ai-assistant || exit 1
+            cd ~/uit-ai-assistant || exit 1
 
             # Pull latest code
             echo "Pulling latest code from main branch..."
