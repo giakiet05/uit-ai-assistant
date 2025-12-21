@@ -1,6 +1,6 @@
 "use client"
 
-import { Plus, Trash2 } from "lucide-react"
+import { Plus, Trash2, X } from "lucide-react"
 import { useState } from "react"
 
 interface Conversation {
@@ -15,6 +15,8 @@ interface ChatSidebarProps {
   onSelectConversation: (id: string) => void
   onNewConversation: () => void
   onDeleteConversation?: (id: string) => void
+  isOpen?: boolean
+  onClose?: () => void
 }
 
 export default function ChatSidebar({
@@ -23,12 +25,44 @@ export default function ChatSidebar({
   onSelectConversation,
   onNewConversation,
   onDeleteConversation,
+  isOpen = false,
+  onClose,
 }: ChatSidebarProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
 
   return (
-    <div className="w-64 bg-card border-r border-border flex flex-col h-screen">
-      <div className="p-6 border-b border-border">
+    <>
+      {/* Backdrop for mobile - only show when sidebar is open */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sidebar */}
+      <div
+        className={`
+          w-64 bg-card border-r border-border flex flex-col h-screen z-50
+          fixed lg:relative lg:translate-x-0
+          transition-transform duration-300 ease-in-out
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
+      <div className="p-4 md:p-6 border-b border-border">
+        <div className="flex items-center justify-between mb-4 lg:hidden">
+          <h2 className="text-lg font-semibold text-foreground">Conversations</h2>
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-muted rounded-lg transition-colors"
+              aria-label="Close sidebar"
+            >
+              <X className="w-5 h-5 text-foreground" />
+            </button>
+          )}
+        </div>
         <button
           onClick={() => {
             console.log("New conversation button clicked")
@@ -76,5 +110,6 @@ export default function ChatSidebar({
         <p className="text-xs text-muted-foreground px-2">v1.0.0</p>
       </div>
     </div>
+    </>
   )
 }

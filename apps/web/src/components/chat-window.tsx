@@ -19,9 +19,10 @@ interface ChatWindowProps {
   conversationTitle: string
   onSendMessage: (content: string) => void
   isLoading?: boolean
+  onToggleSidebar?: () => void
 }
 
-export default function ChatWindow({ messages, conversationTitle, onSendMessage, isLoading = false }: ChatWindowProps) {
+export default function ChatWindow({ messages, conversationTitle, onSendMessage, isLoading = false, onToggleSidebar }: ChatWindowProps) {
   const [input, setInput] = useState("")
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -72,7 +73,7 @@ export default function ChatWindow({ messages, conversationTitle, onSendMessage,
 
   return (
     <div className="flex-1 flex flex-col bg-background h-screen">
-      <ChatHeader conversationTitle={conversationTitle} />
+      <ChatHeader conversationTitle={conversationTitle} onToggleSidebar={onToggleSidebar} />
 
       <div className="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-6">
         {messages.length === 0 ? (
