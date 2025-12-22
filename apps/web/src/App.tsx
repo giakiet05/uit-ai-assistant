@@ -15,8 +15,9 @@ function App() {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="dark"
-      enableSystem
+      defaultTheme="light"
+      forcedTheme="light"
+      enableSystem={false}
       storageKey="uit-ai-theme"
       disableTransitionOnChange
     >

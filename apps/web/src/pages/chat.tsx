@@ -11,6 +11,7 @@ import type { ChatMessageResponse } from "@/lib/api"
 export default function ChatPage() {
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null)
   const [isNewConversation, setIsNewConversation] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const { sessions, loading: sessionsLoading, refetch: refetchSessions } = useChatSessions()
   const { messages, loading: messagesLoading, addMessage, clearMessages, setMessages } = useChatMessages(activeSessionId)
   const { sendMessage, loading: sendingMessage } = useSendMessage()
@@ -112,15 +113,24 @@ export default function ChatPage() {
       <ChatSidebar
         conversations={formattedSessions}
         activeConversationId={activeSessionId || ""}
-        onSelectConversation={handleSelectConversation}
-        onNewConversation={handleNewConversation}
+        onSelectConversation={(id) => {
+          handleSelectConversation(id)
+          setIsSidebarOpen(false) // Close sidebar on mobile after selection
+        }}
+        onNewConversation={() => {
+          handleNewConversation()
+          setIsSidebarOpen(false) // Close sidebar on mobile after creating new conversation
+        }}
         onDeleteConversation={handleDeleteConversation}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
       <ChatWindow
         messages={formattedMessages}
         conversationTitle={activeSession?.title || "Cuộc trò chuyện mới"}
         onSendMessage={handleSendMessage}
         isLoading={sendingMessage}
+        onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
       />
     </div>
   )
