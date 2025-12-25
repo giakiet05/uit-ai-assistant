@@ -1,0 +1,49 @@
+\chapter{Mở đầu}
+
+% Trình bày lí do chọn đề tài, mục đích, đối tượng và phạm vi nghiên cứu
+
+\section{Lý do chọn đề tài}
+
+Sinh viên Đại học Công nghệ Thông tin (UIT) phải quản lý một lượng lớn thông tin học vụ từ nhiều hệ thống khác nhau.
+Các thông tin này bao gồm quy định về điều kiện tốt nghiệp, yêu cầu môn học theo ngành, lịch học, lịch thi, điểm số,
+và các tài liệu học tập. Tuy nhiên, các thông tin này không được tập trung ở một nơi mà phân tán trên nhiều nền tảng
+và hệ thống khác nhau như DAA portal, website khoa, trang thông báo, v.v.
+
+Để tìm kiếm thông tin, sinh viên phải truy cập nhiều trang web, ghi nhớ các quy định, hoặc liên hệ với cán bộ hỗ trợ.
+Quá trình này tốn thời gian, dễ dẫn đến nhầm lẫn, và không hiệu quả. Nhận thấy vấn đề này, đề tài quyết định xây dựng
+một AI agent có khả năng trả lời các câu hỏi tự nhiên từ sinh viên, giúp họ nhanh chóng truy cập thông tin học vụ một cách
+dễ dàng và chính xác.
+
+\section{Mục đích}
+
+Đề tài có mục đích xây dựng một AI agent có khả năng hỗ trợ sinh viên UIT trong việc quản lý và tra cứu thông tin học vụ.
+Cụ thể, AI agent sẽ có khả năng hiểu các câu hỏi tự nhiên từ sinh viên, suy luận logic để xác định loại thông tin cần tìm,
+gọi các công cụ thích hợp (truy vấn knowledge base hoặc lấy dữ liệu từ DAA portal), và cung cấp câu trả lời chính xác
+một cách nhanh chóng.
+
+Bên cạnh đó, đề tài cũng nhằm chứng minh khả năng tích hợp và ứng dụng thực tế các công nghệ AI hiện đại như Retrieval-Augmented
+Generation (RAG), Model Context Protocol (MCP), và LangGraph trong việc xây dựng các ứng dụng phục vụ người dùng cuối.
+
+\section{Đối tượng nghiên cứu}
+
+Đối tượng nghiên cứu của đề tài là các sinh viên Đại học Công nghệ Thông tin (UIT), đặc biệt là những sinh viên
+cần tra cứu thông tin học vụ như quy định tốt nghiệp, yêu cầu môn học, lịch thi, điểm số, thời khóa biểu, và tài liệu
+học tập. Ngoài ra, đề tài cũng tập trung vào việc phát triển một AI agent có khả năng hiểu và xử lý các câu hỏi tự nhiên
+từ sinh viên, làm nền tảng để các ứng dụng tương tự có thể áp dụng cho các trường đại học khác.
+
+\section{Phạm vi nghiên cứu}
+
+Phạm vi nghiên cứu của đề tài bao gồm:
+
+\textbf{Về mặt chức năng:} AI agent được xây dựng để trả lời các câu hỏi liên quan đến (1) quy định đào tạo và tốt nghiệp
+của UIT, (2) yêu cầu môn học theo từng ngành học, (3) thông tin lịch thi và lịch học, (4) điểm số và kết quả học tập
+lấy từ DAA portal. Đề tài không bao gồm các chức năng khác như đăng ký môn học, xin học lại, hay các dịch vụ hành chính
+khác.
+
+\textbf{Về mặt công nghệ:} Đề tài tập trung vào việc tích hợp ba thành phần chính: Retrieval-Augmented Generation (RAG)
+cho knowledge base, Model Context Protocol (MCP) cho tích hợp công cụ, và LangGraph cho orchestration logic của AI agent.
+Phạm vi không bao gồm việc huấn luyện mô hình LLM từ đầu, mà sử dụng các mô hình có sẵn như Claude hoặc các mô hình mã
+nguồn mở khác.
+
+\textbf{Về mặt triển khai:} Hệ thống được thiết kế cho môi trường UIT với dữ liệu và hệ thống của trường này. Tuy nhiên,
+kiến trúc được thiết kế để có thể mở rộng cho các trường đại học khác trong tương lai.

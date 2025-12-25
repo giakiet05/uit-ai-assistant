@@ -1,0 +1,30 @@
+graph TD
+    start["User Query"]
+
+    subgraph agent_node["Agent Node"]
+        reasoning["Reasoning<br/>(LLM analyzes query + context)"]
+        decision{"Decision"}
+    end
+
+    subgraph tool_node["Tool Node"]
+        tool_execution["Execute Tool<br/>(MCP or Native)"]
+        tool_result["Tool Result"]
+    end
+
+    final_answer["Final Answer"]
+
+    start --> reasoning
+    reasoning --> decision
+
+    decision -->|"Need tool"| tool_execution
+    decision -->|"Can answer"| final_answer
+
+    tool_execution --> tool_result
+    tool_result -->|"Add to context"| reasoning
+
+    style start fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style agent_node fill:#fff3e0,stroke:#e65100
+    style tool_node fill:#e8f5e9,stroke:#2e7d32
+    style final_answer fill:#c8e6c9,stroke:#1b5e20,stroke-width:3px
+    style reasoning fill:#ffcc80,stroke:#e65100,stroke-width:2px
+    style decision fill:#fff9c4,stroke:#f57f17,stroke-width:2px

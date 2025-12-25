@@ -1,0 +1,95 @@
+\chapter{Cơ sở lí thuyết}
+
+% Trình bày cơ sở lí thuyết, các khái niệm và công nghệ chính sử dụng trong đề tài
+
+\section{Retrieval-Augmented Generation}
+
+Retrieval-Augmented Generation (RAG) là một kỹ thuật kết hợp giữa information retrieval (IR) và generative models để cải thiện
+chất lượng câu trả lời của các mô hình AI. Thay vì chỉ dựa vào tri thức đã được huấn luyện sẵn trong mô hình, RAG cho phép
+mô hình truy cập vào một kho dữ liệu ngoài (knowledge base) để tìm kiếm thông tin liên quan, sau đó sử dụng thông tin đó
+để sinh ra câu trả lời chính xác hơn.
+
+Quy trình của RAG bao gồm ba bước chính: (1) Truy vấn (Query) - người dùng đặt câu hỏi; (2) Tìm kiếm (Retrieval) - hệ thống
+tìm kiếm các tài liệu hoặc đoạn văn bản liên quan từ knowledge base; (3) Sinh ra câu trả lời (Generation) - mô hình sử dụng
+thông tin tìm được kết hợp với câu hỏi để sinh ra câu trả lời hoàn chỉnh.
+
+Ưu điểm của RAG là nó cho phép hệ thống cung cấp thông tin chính xác từ nguồn dữ liệu được kiểm soát, giảm bớt vấn đề hallucination
+(mô hình tạo ra thông tin sai) của các generative models. Đây là lý do chính tại sao RAG được sử dụng trong đề tài này để xây dựng
+knowledge base về quy định đào tạo và chương trình học của UIT.
+
+\section{Vector Embeddings và Semantic Search}
+
+Vector embeddings là phương pháp biểu diễn text dưới dạng các vector số học trong không gian đa chiều. Mỗi từ hoặc câu
+được chuyển đổi thành một vector có giá trị từ -1 đến 1, sao cho các text có ý nghĩa tương tự sẽ có vector gần nhau
+trong không gian này. Ví dụ, "lịch thi" và "ngày thi" sẽ có embedding vector gần nhau vì chúng cùng ý nghĩa.
+
+Semantic search sử dụng embeddings để tìm kiếm thông tin dựa trên ý nghĩa thay vì so khớp text chính xác. Khi người dùng
+đặt câu hỏi, hệ thống sẽ chuyển câu hỏi thành embedding, sau đó so sánh với các embeddings của tài liệu trong knowledge base
+để tìm các tài liệu có ý nghĩa tương tự nhất. Điều này cho phép tìm kiếm chính xác hơn so với phương pháp từ khóa truyền thống,
+vì nó hiểu ngữ cảnh và ý nghĩa của câu hỏi, không chỉ các từ khóa.
+
+Trong đề tài này, embeddings được sử dụng kết hợp với RAG để xây dựng knowledge base, cho phép agent tìm kiếm các quy định
+và tài liệu học vụ một cách chính xác dựa trên ý nghĩa của câu hỏi từ sinh viên.
+
+\section{Model Context Protocol}
+
+\subsection{Khái niệm}
+
+Model Context Protocol (MCP) là một giao thức tiêu chuẩn được phát triển bởi Anthropic để cho phép các LLM kết nối và sử dụng các tools hoặc services bên ngoài.
+Trước khi có MCP, việc tích hợp các công cụ với LLM phải làm thủ công, không có chuẩn chung, và rất khó bảo trì khi số lượng tools tăng lên.
+Mỗi công cụ cần một cách tích hợp khác nhau, dẫn đến code phức tạp và khó tái sử dụng.
+
+MCP giải quyết vấn đề này bằng cách cung cấp một giao thức chuẩn hóa. Với MCP, các LLM có thể dễ dàng kết nối với bất kỳ MCP Server nào,
+mà không cần phải viết code tích hợp riêng cho từng công cụ. Điều này mang lại những lợi ích như: (1) dễ bảo trì - chỉ cần cập nhật MCP Server, không cần sửa LLM;
+(2) tái sử dụng - MCP Server có thể được sử dụng bởi nhiều LLM khác nhau; (3) chuẩn hóa - cung cấp một cách nhất quán để tích hợp tools.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/mcp/mcp-simple-diagram.png}
+    \caption{Minh họa đơn giản về MCP}
+    \label{fig:mcp_simple}
+\end{figure}
+
+\subsection{Kiến trúc}
+
+MCP hoạt động theo kiến trúc client-server. Hệ thống gồm hai thành phần chính: MCP Client và MCP Server.
+
+MCP Client được tích hợp vào agent và đóng vai trò là người yêu cầu. Khi agent cần gọi một công cụ, nó gửi yêu cầu đến MCP Client với thông tin
+về công cụ cần gọi và các tham số. MCP Client sau đó gửi yêu cầu này đến MCP Server thông qua giao thức MCP.
+
+MCP Server nhận yêu cầu từ MCP Client, xác định công cụ (tool) được yêu cầu, thực thi công cụ đó với các tham số được cung cấp,
+và trả về kết quả cho MCP Client. Mỗi tool là một công cụ cụ thể có thể lấy dữ liệu từ một nguồn (như knowledge base, database, external API),
+xử lý dữ liệu, hoặc thực hiện một hành động nào đó.
+
+Quy trình hoạt động tổng thể: Agent suy luận và quyết định công cụ nào cần gọi → MCP Client gửi yêu cầu → MCP Server thực thi công cụ
+→ Kết quả trả về cho MCP Client → Agent nhận kết quả và sử dụng để tiếp tục suy luận hoặc tạo câu trả lời.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/mcp/mcp-architecture.png}
+    \caption{Kiến trúc của MCP}
+    \label{fig:mcp_architecture}
+\end{figure}
+
+\subsection{Ứng dụng trong đề tài}
+
+Trong đề tài này, MCP được sử dụng để tích hợp các tools hỗ trợ agent trả lời câu hỏi từ sinh viên. Các tools chính bao gồm:
+(1) Knowledge Base Retrieval - tìm kiếm thông tin từ knowledge base về quy định, chương trình học;
+(2) DAA Integration - lấy dữ liệu từ DAA portal như lịch thi, điểm số, thời khóa biểu;
+(3) các tools xử lý dữ liệu khác. Khi sinh viên đặt câu hỏi, agent sẽ quyết định tools nào cần gọi, MCP sẽ thực thi những tools đó,
+và agent sẽ kết hợp kết quả để tạo ra câu trả lời hoàn chỉnh.
+
+\section{LangGraph và Agent Orchestration}
+
+LangGraph là một framework cho phép thiết kế và orchestrate các agent phức tạp. Agent là một thực thể có khả năng suy luận,
+lựa chọn hành động, và thực thi các công cụ để đạt mục tiêu. LangGraph cung cấp cấu trúc graph-based cho phép mô hình hóa
+logic của agent dưới dạng các nodes (trạng thái) và edges (chuyển đổi trạng thái).
+
+Agent trong LangGraph thường tuân theo ReAct pattern (Reasoning + Acting): (1) Reasoning - agent suy luận dựa trên câu hỏi của
+người dùng để xác định tools nào cần gọi; (2) Acting - agent gọi các tools và nhận kết quả; (3) Reflection - agent suy luận lại
+dựa trên kết quả nhận được để quyết định bước tiếp theo, cho đến khi có câu trả lời hoàn chỉnh.
+
+Trong đề tài này, LangGraph được sử dụng để thiết kế AI agent hỗ trợ sinh viên. Agent graph bao gồm các states như:
+(1) Initial State - nhận câu hỏi từ sinh viên; (2) Reasoning State - suy luận và xác định tools cần gọi; (3) Tool Calling State -
+gọi MCP tools; (4) Generation State - sinh ra câu trả lời; (5) End State - trả về câu trả lời cho sinh viên. LangGraph quản lý
+việc chuyển đổi giữa các states này, cho phép agent xử lý các multi-step queries phức tạp.

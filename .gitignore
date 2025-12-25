@@ -20,5 +20,19 @@ node_modules/
 tmp
 .env.production
 .env.development
-.env.dev 
+.env.dev
 .env.prod
+
+# LaTeX temporary files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex.gz(busy)
+*.bbl
+*.blg

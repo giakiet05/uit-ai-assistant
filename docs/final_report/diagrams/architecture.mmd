@@ -1,0 +1,76 @@
+graph TD
+    subgraph user_layer["User Interface Layer"]
+        web_frontend["Web Frontend<br/>(React + Vite)"]
+        browser_extension["Browser Extension<br/>(Svelte)"]
+    end
+
+    subgraph api_layer["API Gateway Layer"]
+        api_gateway["API Gateway<br/>(Go + Gin)"]
+    end
+
+    subgraph agent_layer["Agent Layer"]
+        agent["AI Agent<br/>(LangGraph + ReAct)"]
+        native_tools["Native Tools<br/>(get_user_credential)"]
+    end
+
+    subgraph mcp_layer["MCP Server Layer"]
+        mcp_server["MCP Server<br/>(FastMCP)"]
+
+        subgraph mcp_tools["MCP Tools"]
+            retrieval_reg["retrieve_regulation"]
+            retrieval_cur["retrieve_curriculum"]
+            daa_grades["get_grades"]
+            daa_schedule["get_schedule"]
+        end
+
+        reranker["Reranker Service<br/>(Modal GPU)"]
+    end
+
+    subgraph storage_layer["Storage Layer"]
+        mongodb[("MongoDB<br/>Chat Sessions")]
+        postgres[("PostgreSQL<br/>Agent State")]
+        redis[("Redis<br/>Credentials")]
+        chromadb[("ChromaDB<br/>Vectors")]
+    end
+
+    subgraph external["External Systems"]
+        daa_system["DAA Portal<br/>(Scraped)"]
+    end
+
+    web_frontend -->|HTTP/REST| api_gateway
+    browser_extension -->|Sync Cookies| redis
+
+    api_gateway -->|gRPC| agent
+    api_gateway <-->|Read/Write Sessions| mongodb
+
+    agent -->|HTTP/MCP| mcp_server
+    agent <-->|Load/Save State| postgres
+    agent -->|Get Credentials| native_tools
+    native_tools <-->|Read Cookies| redis
+
+    mcp_server --> retrieval_reg
+    mcp_server --> retrieval_cur
+    mcp_server --> daa_grades
+    mcp_server --> daa_schedule
+
+    retrieval_reg -->|Query| chromadb
+    retrieval_cur -->|Query| chromadb
+    retrieval_reg -->|Rerank| reranker
+    retrieval_cur -->|Rerank| reranker
+
+    daa_grades -->|Scrape with Cookie| daa_system
+    daa_schedule -->|Scrape with Cookie| daa_system
+
+    style user_layer fill:#e3f2fd,stroke:#1565c0
+    style api_layer fill:#f3e5f5,stroke:#6a1b9a
+    style agent_layer fill:#fff3e0,stroke:#e65100
+    style mcp_layer fill:#e8f5e9,stroke:#2e7d32
+    style storage_layer fill:#fce4ec,stroke:#c2185b
+    style external fill:#ffebee,stroke:#c62828
+
+    style agent fill:#ffcc80,stroke:#e65100,stroke-width:3px
+    style mongodb fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px
+    style postgres fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px
+    style redis fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px
+    style chromadb fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px
+    style reranker fill:#fff9c4,stroke:#f57f17,stroke-width:2px
