@@ -1,0 +1,266 @@
+% !TeX program = lualatex
+
+\documentclass[a4paper]{report}
+
+% ===== PACKAGES FOR VIETNAMESE & FONTS =====
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+% ===== PAGE SETUP =====
+\usepackage[
+    top=3cm,
+    bottom=3.5cm,
+    left=3.5cm,
+    right=2cm
+]{geometry}
+
+% ===== LINE SPACING =====
+\usepackage{setspace}
+\onehalfspacing
+
+% ===== FORMATTING =====
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+% ===== CHAPTER FORMATTING =====
+\usepackage{titlesec}
+\titleformat{\chapter}
+  {\normalfont\huge\bfseries}
+  {Chương \thechapter}
+  {0.5em}
+  {}
+\titlespacing*{\chapter}{0pt}{-0.2in}{0.3in}
+
+% ===== VIETNAMESE LABELS =====
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\contentsname}{Mục lục}
+
+% ===== TABLE OF CONTENTS FORMATTING =====
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecnumwidth}{3em}
+\renewcommand{\cftsubsecnumwidth}{3em}
+
+% ===== HEADER & FOOTER =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ===== HYPERREF SETUP =====
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+\begin{document}
+
+% ===== FONT SIZE 13pt =====
+\fontsize{13pt}{15.6pt}\selectfont
+
+% ===== TITLE PAGE =====
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    {\Large \bfseries ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}
+
+    {\Large \bfseries TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN}
+
+    {\Large \bfseries KHOA CÔNG NGHỆ PHẦN MỀM}
+
+    \vspace{3cm}
+
+    {\Large \bfseries BÁO CÁO}
+
+    \vspace{1cm}
+
+    {\LARGE \bfseries CHUẨN BỊ DỮ LIỆU\\CHO HỆ THỐNG UIT AI ASSISTANT}
+
+    \vspace{3cm}
+
+    {\large \bfseries NHÓM THỰC HIỆN:}
+
+    {\large Quách Gia Kiệt - 23520819} \\
+    {\large Nguyễn Tuấn Kiệt - 23520815}
+
+    \vspace{1cm}
+
+    {\large \bfseries GV HƯỚNG DẪN:}
+
+    {\large Th.S Nguyễn Công Hoan}
+
+    \vspace{3cm}
+
+    {\large TP. HỒ CHÍ MINH, 2025}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ===== MAIN CONTENT =====
+
+\chapter{Giới thiệu}
+
+Hệ thống UIT AI Assistant sử dụng kỹ thuật RAG (Retrieval-Augmented Generation) để trả lời câu hỏi của sinh viên về quy định đào tạo và chương trình học. Dữ liệu được thu thập từ các nguồn chính thức của trường, bao gồm:
+
+\begin{itemize}
+    \item Website DAA.UIT: Chương trình đào tạo các khóa
+    \item Website chính thức UIT: Quyết định, thông báo, quy chế
+\end{itemize}
+
+Quy mô dữ liệu:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{@{}lrrr@{}}
+        \toprule
+        \textbf{Danh mục}                 & \textbf{Số lượng} & \textbf{Dung lượng} & \textbf{Định dạng} \\ \midrule
+        Quy định (regulation)             & 27 file           & $\sim$30 MB         & PDF                \\
+        Chương trình đào tạo (curriculum) & 100+ file         & $\sim$69,000 dòng   & Markdown           \\ \bottomrule
+    \end{tabular}
+    \caption{Thống kê dữ liệu thô}
+\end{table}
+
+\chapter{Cấu trúc dữ liệu}
+
+\section{Dữ liệu quy định (regulation)}
+
+Các file PDF quy định có cấu trúc văn bản hành chính chuẩn:
+
+\begin{itemize}
+    \item \textbf{Header:} Logo, tên trường, số quyết định, ngày ban hành
+    \item \textbf{Body:} Phân cấp theo CHƯƠNG $>$ Điều $>$ Khoản $>$ Mục (a, b, c)
+    \item \textbf{Bảng biểu:} Danh sách môn học, điểm số, học phí
+    \item \textbf{Footer:} Chữ ký, phụ lục, số trang
+\end{itemize}
+
+Ví dụ: Quyết định 790 - Quy chế đào tạo (28/9/2022) có 27 trang, 5 chương, 40+ điều về tổ chức đào tạo, đăng ký học, thi cử, xét tốt nghiệp.
+
+\section{Dữ liệu chương trình đào tạo (curriculum)}
+
+Các file Markdown có cấu trúc:
+
+\begin{itemize}
+    \item \textbf{Phần 1:} Mục tiêu đào tạo, vị trí việc làm, quan điểm xây dựng chương trình
+    \item \textbf{Phần 2:} Chuẩn đầu ra (LO1-LO10)
+    \item \textbf{Phần 3:} Khối kiến thức
+          \begin{itemize}
+              \item Đại cương: 45 TC (lý luận chính trị, toán-tin, ngoại ngữ)
+              \item Chuyên nghiệp: 68 TC (cơ sở nhóm ngành, cơ sở ngành, chuyên ngành)
+              \item Tốt nghiệp: 12 TC (đồ án, khóa luận)
+          \end{itemize}
+    \item \textbf{Phần 4:} Danh sách môn học chi tiết (Mã môn, Tên môn, TC, LT, TH)
+    \item \textbf{Phần 5:} Điều kiện tốt nghiệp
+\end{itemize}
+
+Ví dụ: Chương trình Cử nhân CNTT khóa 2020 có $\geq$125 TC, chia thành 4 hướng chuyên ngành (phân tích dữ liệu, quản lý doanh nghiệp, web, ứng dụng CNTT).
+
+\chapter{Đặc trưng dữ liệu}
+
+\section{Đặc điểm chung}
+
+\begin{itemize}
+    \item \textbf{Ngôn ngữ:} Tiếng Việt, có thuật ngữ tiếng Anh
+    \item \textbf{Văn phong:} Hành chính (quy định), học thuật (chương trình)
+    \item \textbf{Cấu trúc phân cấp:} 3-5 cấp lồng nhau
+\end{itemize}
+
+\section{Named Entities quan trọng}
+
+Các thực thể cần trích xuất:
+
+\begin{itemize}
+    \item Tên môn học: IT001, SE104, IS217...
+    \item Tên quyết định: QĐ 790, TB 1192, QĐ 1393...
+    \item Số tín chỉ: 3 TC, 4 TC, 125 TC...
+    \item Học kỳ/Khóa: Khóa 15, Khóa 2020...
+    \item Chuẩn đầu ra: LO1, LO2, ..., LO10
+    \item Ngày ban hành: 28/9/2022, 20/12/2022...
+\end{itemize}
+
+\section{Cấu trúc phân cấp}
+
+Cấu trúc phân cấp rõ ràng giúp chunking thông minh:
+
+\begin{itemize}
+    \item Quy định: CHƯƠNG I $>$ Điều 1 $>$ Khoản 1 $>$ Mục a, b, c
+    \item Chương trình: Phần $>$ Mục $>$ Tiểu mục $>$ Bảng
+\end{itemize}
+
+\section{Mối quan hệ ngữ nghĩa}
+
+\begin{itemize}
+    \item \textbf{Môn tiên quyết:} IT001 $\rightarrow$ IT002 $\rightarrow$ IT003
+    \item \textbf{Khối kiến thức:} Phân loại theo cơ sở nhóm ngành, cơ sở ngành, chuyên ngành
+    \item \textbf{Quy định thay thế:} QĐ 1393 (2023) thay thế một phần QĐ 790 (2022)
+    \item \textbf{Chuẩn đầu ra - Môn học:} LO1 (Kiến thức nền tảng) $\rightarrow$ MA006, MA003, MA004
+\end{itemize}
+
+\chapter{Vấn đề cần xử lý}
+
+\section{Vấn đề với PDF (regulation)}
+
+\subsection{Letterhead và Footer noise}
+
+Mỗi trang có header/footer lặp lại: logo, tên trường, số trang, chữ ký. Gây nhiễu cho embedding và retrieval.
+
+\subsection{Bảng biểu phức tạp}
+
+Bảng có merged cells, nhiều cột, nhiều cấp header. Parse dễ bị sai cấu trúc, thiếu thông tin, markdown table malformed.
+
+\subsection{Multi-column Layout}
+
+Văn bản 2 cột dễ bị parse sai thứ tự (đọc ngang thay vì dọc từng cột).
+
+\subsection{Chất lượng scan}
+
+Một số PDF là scan từ giấy, OCR có thể nhận dạng sai ký tự (ví dụ: "Điều" thành "Đjều").
+
+\section{Vấn đề với Markdown (curriculum)}
+
+\subsection{Navigation và Menu duplicates}
+
+Mỗi file MD crawl từ web có navigation menu, header/footer website lặp lại nhiều lần, không cần thiết.
+
+\subsection{Malformed Markdown}
+
+Bảng thiếu dấu |, số cột không đều. Heading không có space (\#\#Heading thay vì \#\# Heading). List item không đúng indent.
+
+\subsection{Inconsistent Structure}
+
+Mỗi khóa/ngành có format hơi khác nhau:
+\begin{itemize}
+    \item Khóa 2020: "1.1. Mục tiêu đào tạo"
+    \item Khóa 2022: "1.1 Mục tiêu đào tạo"
+    \item Khóa 2024: "Mục tiêu đào tạo"
+\end{itemize}
+
+\section{Vấn đề chung}
+
+\subsection{Chunking Complexity}
+
+Document dài (100+ trang). Chunk cố định có thể cắt giữa "Điều 5" và "Khoản 2", mất ngữ cảnh. Cần chunking thông minh theo semantic boundaries.
+
+\subsection{Semantic Overlap}
+
+Quy định mới thay thế/cập nhật quy định cũ, có thể có thông tin trùng lặp hoặc mâu thuẫn. Agent cần biết quy định nào mới nhất.
+
+\subsection{Low-quality Content}
+
+Một số page chỉ có header/footer, không có nội dung. File parse lỗi hoàn toàn. Nội dung quá ngắn (dưới 50 từ). Cần filter để reject.
+
+\chapter{Kết luận}
+
+Báo cáo này mô tả cấu trúc, đặc trưng và các vấn đề cần xử lý của dữ liệu cho hệ thống UIT AI Assistant. Dữ liệu bao gồm 27 file PDF quy định và 100+ file Markdown chương trình đào tạo, với các đặc trưng quan trọng như named entities, cấu trúc phân cấp và mối quan hệ ngữ nghĩa. Các vấn đề chính cần giải quyết là letterhead noise, bảng biểu phức tạp, malformed markdown và chunking complexity.
+
+\end{document}

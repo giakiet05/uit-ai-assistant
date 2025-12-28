@@ -1,0 +1,761 @@
+% !TeX program = lualatex
+
+\documentclass[a4paper]{report}
+
+% ===== PACKAGES FOR VIETNAMESE & FONTS =====
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+% ===== PAGE SETUP =====
+\usepackage[
+    top=3cm,
+    bottom=3.5cm,
+    left=3.5cm,
+    right=2cm
+]{geometry}
+
+% ===== LINE SPACING =====
+\usepackage{setspace}
+\onehalfspacing
+
+% ===== FORMATTING =====
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+% ===== CHAPTER FORMATTING =====
+\usepackage{titlesec}
+\titleformat{\chapter}
+  {\normalfont\huge\bfseries}
+  {Chương \thechapter}
+  {0.5em}
+  {}
+\titlespacing*{\chapter}{0pt}{-0.2in}{0.3in}
+
+% ===== VIETNAMESE LABELS =====
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\contentsname}{Mục lục}
+
+% ===== TABLE OF CONTENTS FORMATTING =====
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecnumwidth}{3em}
+\renewcommand{\cftsubsecnumwidth}{3em}
+
+% ===== HEADER & FOOTER =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ===== HYPERREF SETUP =====
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+\begin{document}
+
+% ===== FONT SIZE 13pt =====
+\fontsize{13pt}{15.6pt}\selectfont
+
+% ===== TITLE PAGE =====
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    {\Large \bfseries ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}
+
+    {\Large \bfseries TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN}
+
+    {\Large \bfseries KHOA CÔNG NGHỆ PHẦN MỀM}
+
+    \vspace{3cm}
+
+    {\Large \bfseries TÀI LIỆU KỸ THUẬT}
+
+    \vspace{1cm}
+
+    {\LARGE \bfseries TECH STACK\\HỆ THỐNG UIT AI ASSISTANT}
+
+    \vspace{3cm}
+
+    {\large \bfseries NHÓM THỰC HIỆN:}
+
+    {\large Quách Gia Kiệt - 23520819} \\
+    {\large Nguyễn Tuấn Kiệt - 23520815}
+
+    \vspace{1cm}
+
+    {\large \bfseries GV HƯỚNG DẪN:}
+
+    {\large Th.S Nguyễn Công Hoan}
+
+    \vspace{3cm}
+
+    {\large TP. HỒ CHÍ MINH, 2025}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ===== MAIN CONTENT =====
+
+\chapter{Giới thiệu}
+
+Tài liệu này mô tả chi tiết về tech stack được sử dụng trong hệ thống UIT AI Assistant - một hệ thống AI hỗ trợ sinh viên truy vấn thông tin học vụ. Hệ thống được xây dựng trên kiến trúc microservices, kết hợp các công nghệ hiện đại trong lĩnh vực backend, AI/ML, database, và frontend.
+
+Tech stack được lựa chọn dựa trên các tiêu chí:
+\begin{itemize}
+    \item \textbf{Hiệu năng:} Khả năng xử lý requests nhanh và ổn định
+    \item \textbf{Khả năng mở rộng:} Dễ dàng thêm tính năng mới và scale hệ thống
+    \item \textbf{Hệ sinh thái:} Có community lớn, tài liệu phong phú, và libraries hỗ trợ
+    \item \textbf{Đặc thù bài toán:} Phù hợp với yêu cầu xử lý tiếng Việt và tích hợp AI
+\end{itemize}
+
+Hệ thống được tổ chức thành 5 thành phần chính: Backend Services (API Gateway, AI Agent, MCP Server), AI/ML Components (RAG, LLM, Embeddings), Data Layer (4 loại databases), Frontend (Web + Extension), và Infrastructure (Docker, Communication Protocols).
+
+\chapter{Backend Technologies}
+
+\section{Go - API Gateway}
+
+\subsection{Mô tả}
+
+API Gateway được phát triển bằng Go với framework Gin. Go là ngôn ngữ compiled, statically-typed, được thiết kế bởi Google, nổi tiếng với hiệu năng cao và concurrency tốt.
+
+\subsection{Vai trò trong hệ thống}
+
+API Gateway đóng vai trò cầu nối giữa frontend và backend services. Các chức năng chính:
+
+\begin{itemize}
+    \item Xử lý HTTP/REST requests từ web frontend
+    \item Quản lý chat sessions và lưu trữ chat history vào MongoDB
+    \item Giao tiếp với AI Agent thông qua gRPC
+    \item Cache credentials và session data trong Redis
+    \item Expose WebSocket endpoint để support real-time streaming
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Hiệu năng cao:} Go compiler tạo native binary, runtime không có GC pauses lớn
+    \item \textbf{Concurrency:} Goroutines và channels giúp xử lý nhiều requests đồng thời hiệu quả
+    \item \textbf{Gin framework:} Lightweight, nhanh, dễ sử dụng cho REST APIs
+    \item \textbf{gRPC support:} Go có support tốt cho gRPC, phù hợp cho communication với Python Agent
+\end{itemize}
+
+\section{Python - AI Agent và MCP Server}
+
+\subsection{Mô tả}
+
+AI Agent và MCP Server được xây dựng bằng Python, sử dụng các frameworks chuyên biệt:
+\begin{itemize}
+    \item \textbf{LangGraph:} Framework để xây dựng agent với stateful, multi-step reasoning
+    \item \textbf{FastMCP:} Framework để triển khai Model Context Protocol server
+    \item \textbf{LangChain:} Library cho LLM integration và tool calling
+\end{itemize}
+
+\subsection{Vai trò trong hệ thống}
+
+\textbf{AI Agent:}
+\begin{itemize}
+    \item Orchestrate toàn bộ quy trình xử lý query
+    \item Thực hiện ReAct pattern (Reasoning \& Acting)
+    \item Gọi MCP tools và native tools để lấy thông tin
+    \item Tổng hợp kết quả và sinh câu trả lời cho sinh viên
+    \item Quản lý state và context thông qua checkpointer
+\end{itemize}
+
+\textbf{MCP Server:}
+\begin{itemize}
+    \item Expose các tools theo chuẩn Model Context Protocol
+    \item Cung cấp retrieval tools (retrieve\_regulation, retrieve\_curriculum)
+    \item Cung cấp DAA integration tools (get\_grades, get\_schedule)
+    \item Thực thi tool functions và trả về structured JSON results
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Hệ sinh thái AI/ML:} Python là ngôn ngữ dominates trong lĩnh vực AI, có hầu hết các libraries và frameworks
+    \item \textbf{LangGraph:} Cho phép xây dựng agent với complex reasoning flow, state persistence, và human-in-the-loop
+    \item \textbf{FastMCP:} Triển khai MCP protocol dễ dàng, tự động generate tool schemas từ Python functions
+    \item \textbf{Rapid development:} Python có syntax đơn giản, phù hợp cho việc thử nghiệm và iterate nhanh
+\end{itemize}
+
+\chapter{AI \& ML Technologies}
+
+\section{Large Language Models}
+
+Hệ thống hỗ trợ hai nhà cung cấp LLM chính thông qua LangChain:
+
+\subsection{OpenAI GPT}
+
+\begin{itemize}
+    \item \textbf{Models:} GPT-4, GPT-4-turbo, GPT-3.5-turbo
+    \item \textbf{Vai trò:} Thực hiện reasoning, tool calling, và text generation
+    \item \textbf{Ưu điểm:} Function calling tốt, hiểu ngữ cảnh sâu, response chất lượng cao
+\end{itemize}
+
+\subsection{Google Gemini}
+
+\begin{itemize}
+    \item \textbf{Models:} Gemini Pro, Gemini Flash
+    \item \textbf{Vai trò:} Thực hiện reasoning và generation, đặc biệt dùng Gemini Flash cho metadata generation
+    \item \textbf{Ưu điểm:} Chi phí thấp hơn GPT, xử lý tiếng Việt tốt, có free tier rộng rãi
+\end{itemize}
+
+\section{RAG Framework - LlamaIndex}
+
+\subsection{Mô tả}
+
+LlamaIndex (trước đây là GPT Index) là framework chuyên biệt cho việc xây dựng RAG (Retrieval-Augmented Generation) systems. Framework cung cấp các công cụ cho indexing, retrieval, và query processing.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Xây dựng knowledge base từ documents (PDF, DOCX)
+    \item Chunking strategies cho văn bản tiếng Việt và cấu trúc quy định UIT
+    \item Query processing và semantic search
+    \item Integration với ChromaDB vector store
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Specialized for RAG:} Tập trung vào retrieval, không bloated như LangChain
+    \item \textbf{Flexible chunking:} Hỗ trợ custom chunking strategies
+    \item \textbf{Multi-database support:} Dễ dàng switch giữa các vector stores
+    \item \textbf{Query engine:} Có sẵn query optimization và reranking pipelines
+\end{itemize}
+
+\section{Agent Orchestration - LangGraph}
+
+\subsection{Mô tả}
+
+LangGraph là framework từ LangChain team dành cho việc xây dựng stateful, multi-actor applications với LLMs. Framework cho phép mô hình hóa agent logic dưới dạng directed graph với nodes và edges.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Xây dựng AI Agent với ReAct pattern (Reasoning \& Acting)
+    \item Quản lý agent state qua nhiều lượt hội thoại
+    \item Orchestrate luồng xử lý: agent node → tools node → agent node
+    \item Persist state vào PostgreSQL qua checkpointer
+    \item Support conditional routing và loops trong agent flow
+\end{itemize}
+
+\subsection{Kiến trúc Agent Graph}
+
+Agent được mô hình hóa bằng StateGraph với các thành phần:
+
+\begin{itemize}
+    \item \textbf{AgentState:} Chứa messages (chat history) và user context
+    \item \textbf{Agent Node:} LLM thực hiện reasoning và quyết định gọi tools
+    \item \textbf{Tools Node:} Thực thi tools mà LLM yêu cầu
+    \item \textbf{Conditional Edges:} Route dựa trên LLM output (cần tools hay không)
+    \item \textbf{Checkpointer:} Tự động save/load state từ PostgreSQL
+\end{itemize}
+
+Flow: START → Agent Node → [Conditional] → Tools Node → Agent Node → ... → END
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{State management:} Built-in checkpointer cho conversation persistence
+    \item \textbf{Complex flows:} Hỗ trợ multi-step reasoning, loops, conditional routing
+    \item \textbf{Debuggability:} Visualize graph, inspect state tại mỗi node
+    \item \textbf{Human-in-the-loop:} Có thể interrupt và resume execution
+    \item \textbf{Tool integration:} Tích hợp tốt với LangChain tools và MCP adapters
+    \item \textbf{Production-ready:} Thread-safe, có persistence, error handling
+\end{itemize}
+
+\section{Embeddings - OpenAI text-embedding-3-small}
+
+\subsection{Mô tả}
+
+OpenAI text-embedding-3-small là embedding model tạo vector representations cho text. Model có dimensionality 1536, được train trên multilingual data bao gồm tiếng Việt.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Convert documents thành vector embeddings trong quá trình indexing
+    \item Convert user queries thành vectors để thực hiện semantic search
+    \item Đảm bảo query và documents nằm trong cùng embedding space
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Quality:} Accuracy cao trên nhiều benchmarks
+    \item \textbf{Vietnamese support:} Xử lý tiếng Việt tốt hơn các open-source alternatives
+    \item \textbf{Cost-effective:} text-embedding-3-small rẻ hơn đáng kể so với ada-002
+    \item \textbf{Dimensionality:} 1536 dimensions cân bằng giữa accuracy và storage cost
+\end{itemize}
+
+\section{Reranking - ViRanker}
+
+\subsection{Mô tả}
+
+ViRanker là cross-encoder model được fine-tune cho tiếng Việt, dùng để rerank các candidates từ semantic search. Model được deploy trên Modal serverless GPU.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Nhận top-K candidates từ ChromaDB semantic search
+    \item Tính toán relevance scores chi tiết hơn simple cosine similarity
+    \item Rerank candidates theo scores và filter theo threshold
+    \item Trả về top-3 chunks chính xác nhất cho agent
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Vietnamese-specific:} Model được train riêng cho tiếng Việt
+    \item \textbf{Cross-encoder architecture:} Hiểu ngữ cảnh tốt hơn bi-encoder embeddings
+    \item \textbf{Modal deployment:} Serverless GPU giúp scale tự động và chỉ trả tiền khi sử dụng
+    \item \textbf{Accuracy improvement:} Cải thiện đáng kể so với chỉ dùng cosine similarity
+\end{itemize}
+
+\section{Document Parsing - LlamaParse}
+
+\subsection{Mô tả}
+
+LlamaParse là document parser dựa trên LLM, có khả năng hiểu cấu trúc tài liệu phức tạp. Parser sử dụng vision models để analyze layout và extract content chính xác.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Parse PDF và DOCX thành Markdown format
+    \item Xử lý các bảng biểu phức tạp với merged cells
+    \item Nhận diện hierarchy của tài liệu (CHƯƠNG, Điều, Khoản)
+    \item Giữ nguyên formatting quan trọng (lists, numbering)
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{LLM-based:} Hiểu context tốt hơn rule-based parsers (PyPDF, PDFMiner)
+    \item \textbf{Table handling:} Parse bảng phức tạp chính xác, tạo markdown tables đúng format
+    \item \textbf{Layout understanding:} Xử lý multi-column, letterhead, footer tốt
+    \item \textbf{Vietnamese support:} Không bị OCR errors với tiếng Việt
+\end{itemize}
+
+\chapter{Data Layer}
+
+Hệ thống sử dụng 4 loại databases khác nhau, mỗi loại phục vụ một mục đích cụ thể trong kiến trúc.
+
+\section{MongoDB}
+
+\subsection{Mô tả}
+
+MongoDB là NoSQL document database, lưu trữ dữ liệu dưới dạng JSON-like documents (BSON).
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Lưu trữ chat sessions (session\_id, user\_id, created\_at, updated\_at)
+    \item Lưu trữ chat messages (role, content, timestamp, session\_id)
+    \item Query để hiển thị chat history trên frontend
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Schema flexibility:} Messages có thể có fields khác nhau (text, tool calls, etc.)
+    \item \textbf{Document model:} Phù hợp với chat data có cấu trúc nested
+    \item \textbf{Query performance:} Fast queries cho listing sessions và messages
+    \item \textbf{Easy to scale:} Replica sets và sharding khi cần
+\end{itemize}
+
+\section{PostgreSQL}
+
+\subsection{Mô tả}
+
+PostgreSQL là relational database, ACID-compliant, hỗ trợ JSONB và advanced queries.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Làm backend cho LangGraph checkpointer
+    \item Lưu trữ agent state (messages, context) theo thread\_id
+    \item Support atomic updates và transactions
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{ACID compliance:} Đảm bảo consistency khi update state
+    \item \textbf{JSONB support:} Lưu agent state dưới dạng JSON nhưng vẫn có ACID
+    \item \textbf{LangGraph compatibility:} Official checkpointer support
+    \item \textbf{Reliability:} Mature, stable, có backup/recovery tốt
+\end{itemize}
+
+\section{Redis}
+
+\subsection{Mô tả}
+
+Redis là in-memory key-value store, hỗ trợ các data structures như strings, hashes, lists, sets.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Cache DAA cookies sync từ browser extension
+    \item Store session tokens và temporary data
+    \item Fast lookups cho credentials khi agent gọi DAA tools
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Speed:} In-memory, sub-millisecond latency
+    \item \textbf{TTL support:} Tự động expire cookies sau một khoảng thời gian
+    \item \textbf{Simple:} Key-value model đơn giản, phù hợp cho caching
+    \item \textbf{Lightweight:} Không cần overhead của full database
+\end{itemize}
+
+\section{ChromaDB}
+
+\subsection{Mô tả}
+
+ChromaDB là vector database được thiết kế cho AI applications. Database lưu trữ embeddings và metadata, hỗ trợ similarity search.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Lưu trữ vector embeddings của knowledge base chunks
+    \item Lưu trữ metadata (document\_id, title, category, hierarchy\_path)
+    \item Thực hiện semantic search với approximate nearest neighbor
+    \item Tổ chức data thành collections (regulation, curriculum)
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Easy to use:} Python-first API, không cần setup phức tạp
+    \item \textbf{Metadata filtering:} Filter theo category trước khi search
+    \item \textbf{Lightweight:} Có thể chạy embedded hoặc client-server
+    \item \textbf{Open source:} Free, self-hostable, không vendor lock-in
+\end{itemize}
+
+\chapter{Frontend Technologies}
+
+\section{Web Frontend - React}
+
+\subsection{Mô tả}
+
+Web frontend được xây dựng bằng React với Vite làm build tool và Tailwind CSS cho styling.
+
+\subsection{Tech stack chi tiết}
+
+\begin{itemize}
+    \item \textbf{React:} Library cho building UI với component-based architecture
+    \item \textbf{Vite:} Next-generation build tool, fast HMR, optimized builds
+    \item \textbf{Tailwind CSS:} Utility-first CSS framework
+    \item \textbf{React Router:} Client-side routing
+\end{itemize}
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Cung cấp chat interface cho sinh viên
+    \item Hiển thị danh sách sessions và chat history
+    \item Gửi messages tới API Gateway qua HTTP
+    \item User authentication và authorization
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{React:} Component reusability, large ecosystem, team familiarity
+    \item \textbf{Vite:} Nhanh hơn Create React App đáng kể, DX tốt
+    \item \textbf{Tailwind:} Rapid UI development, consistent design, no CSS files bloat
+    \item \textbf{Responsive:} Hoạt động tốt trên cả desktop và mobile
+\end{itemize}
+
+\section{Browser Extension - Svelte}
+
+\subsection{Mô tả}
+
+Browser extension được phát triển bằng Svelte, tuân theo Chrome Extension Manifest V3.
+
+\subsection{Vai trò trong hệ thống}
+
+\begin{itemize}
+    \item Tự động detect khi sinh viên truy cập daa.uit.edu.vn
+    \item Extract cookies từ browser
+    \item Upload cookies lên Redis với key format daa\_cookie:user\_id
+    \item Background service để sync cookies định kỳ
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Bundle size:} Svelte compiles to vanilla JS, nhẹ hơn React
+    \item \textbf{Performance:} Không có virtual DOM overhead
+    \item \textbf{Simplicity:} Extension logic đơn giản, không cần complexity của React
+    \item \textbf{Manifest V3:} Svelte phù hợp với service worker architecture
+\end{itemize}
+
+\chapter{Infrastructure \& Communication}
+
+\section{Docker \& Docker Compose}
+
+\subsection{Mô tả}
+
+Tất cả các services được containerized bằng Docker và orchestrate bằng Docker Compose.
+
+\subsection{Services được containerize}
+
+\begin{itemize}
+    \item API Gateway (Go)
+    \item AI Agent (Python)
+    \item MCP Server (Python)
+    \item Knowledge Builder CLI (Python)
+    \item MongoDB
+    \item PostgreSQL
+    \item Redis
+    \item ChromaDB
+\end{itemize}
+
+\subsection{Lý do lựa chọn}
+
+\begin{itemize}
+    \item \textbf{Environment consistency:} Dev, staging, prod giống nhau
+    \item \textbf{Dependency isolation:} Mỗi service có dependencies riêng
+    \item \textbf{Easy deployment:} docker-compose up để start toàn bộ stack
+    \item \textbf{Resource management:} Limit CPU/memory cho từng container
+\end{itemize}
+
+\section{Communication Protocols}
+
+Hệ thống sử dụng nhiều protocols khác nhau cho communication giữa các components.
+
+\subsection{HTTP/REST}
+
+\begin{itemize}
+    \item \textbf{Frontend ↔ API Gateway:} REST APIs cho chat operations
+    \item \textbf{Browser Extension ↔ API Gateway:} POST requests để upload cookies
+    \item \textbf{Agent ↔ MCP Server:} MCP protocol over HTTP
+\end{itemize}
+
+\subsection{gRPC}
+
+\begin{itemize}
+    \item \textbf{API Gateway ↔ AI Agent:} Bidirectional streaming cho chat
+    \item \textbf{Ưu điểm:} Binary protocol, nhanh hơn JSON/REST, support streaming
+\end{itemize}
+
+\subsection{WebSocket}
+
+\begin{itemize}
+    \item \textbf{Frontend ↔ API Gateway:} Real-time streaming responses (planned)
+    \item \textbf{Ưu điểm:} Full-duplex communication, low latency
+\end{itemize}
+
+\subsection{MCP over HTTP}
+
+\begin{itemize}
+    \item \textbf{Agent ↔ MCP Server:} Tool discovery và invocation
+    \item \textbf{Ưu điểm:} Chuẩn hóa tool integration, không hard-code, dễ add tools mới
+\end{itemize}
+
+\chapter{Pipelines \& System Flow}
+
+\section{Indexing Pipeline}
+
+Pipeline xây dựng knowledge base từ raw documents thành vector embeddings.
+
+\subsection{Luồng xử lý}
+
+\begin{enumerate}
+    \item \textbf{Document Collection:}
+          \begin{itemize}
+              \item Thu thập PDF từ website UIT
+              \item Crawl Markdown từ DAA portal
+              \item Lưu vào data/raw/regulation và data/raw/curriculum
+          \end{itemize}
+
+    \item \textbf{Parsing \& Cleaning:}
+          \begin{itemize}
+              \item LlamaParse convert PDF → Markdown
+              \item Loại bỏ letterhead, footer, navigation
+              \item Normalize headings và lists
+          \end{itemize}
+
+    \item \textbf{Metadata Generation:}
+          \begin{itemize}
+              \item LLM extract metadata (title, category, year, effective\_date)
+              \item Validate schema với Pydantic
+              \item Lưu vào data/processed/
+          \end{itemize}
+
+    \item \textbf{Chunking:}
+          \begin{itemize}
+              \item Chia documents theo semantic boundaries
+              \item Nhận diện hierarchy (CHƯƠNG, Điều, Khoản)
+              \item Add context (metadata + hierarchy\_path) vào mỗi chunk
+          \end{itemize}
+
+    \item \textbf{Embedding \& Indexing:}
+          \begin{itemize}
+              \item OpenAI text-embedding-3-small tạo vectors
+              \item ChromaDB lưu embeddings + metadata
+              \item Tổ chức thành collections (regulation, curriculum)
+          \end{itemize}
+\end{enumerate}
+
+\subsection{Tools sử dụng}
+
+\begin{itemize}
+    \item Knowledge Builder CLI (Python)
+    \item LlamaParse API
+    \item Google Gemini Flash (metadata generation)
+    \item OpenAI Embeddings API
+    \item ChromaDB
+\end{itemize}
+
+\section{Retrieval Pipeline}
+
+Pipeline tìm kiếm và trả về chunks liên quan từ knowledge base.
+
+\subsection{Luồng xử lý}
+
+\begin{enumerate}
+    \item \textbf{Query Embedding:}
+          \begin{itemize}
+              \item Agent gọi MCP tool retrieve\_regulation/retrieve\_curriculum
+              \item MCP Server nhận query string
+              \item OpenAI embeddings convert query → vector
+          \end{itemize}
+
+    \item \textbf{Semantic Search:}
+          \begin{itemize}
+              \item ChromaDB search theo cosine similarity
+              \item Filter theo collection (regulation hoặc curriculum)
+              \item Lấy top-20 candidates
+          \end{itemize}
+
+    \item \textbf{Reranking:}
+          \begin{itemize}
+              \item Gửi query + candidates tới ViRanker (Modal GPU)
+              \item ViRanker tính relevance scores
+              \item Rank lại candidates theo scores
+          \end{itemize}
+
+    \item \textbf{Filtering:}
+          \begin{itemize}
+              \item Filter theo threshold score (≥0.25)
+              \item Program filter (tránh nhầm lẫn giữa các ngành)
+              \item Lấy top-3 chunks
+          \end{itemize}
+
+    \item \textbf{Return Results:}
+          \begin{itemize}
+              \item MCP Server trả JSON: chunks + metadata
+              \item Agent nhận kết quả, add vào context
+              \item LLM sử dụng context để sinh câu trả lời
+          \end{itemize}
+\end{enumerate}
+
+\section{Agent ReAct Flow}
+
+Luồng xử lý query của agent theo ReAct pattern.
+
+\subsection{Luồng xử lý}
+
+\begin{enumerate}
+    \item \textbf{User Query:}
+          \begin{itemize}
+              \item Sinh viên gửi message từ frontend
+              \item API Gateway forward tới Agent qua gRPC
+              \item Agent load state từ PostgreSQL checkpointer
+          \end{itemize}
+
+    \item \textbf{Reasoning:}
+          \begin{itemize}
+              \item LLM analyze query + chat history + tool results
+              \item Quyết định có cần gọi tools không
+              \item Nếu có: chọn tools và generate arguments
+          \end{itemize}
+
+    \item \textbf{Acting:}
+          \begin{itemize}
+              \item Agent gọi MCP tools (retrieve, get\_grades, get\_schedule)
+              \item Agent gọi native tools (get\_user\_credential)
+              \item Tools thực thi và trả kết quả
+          \end{itemize}
+
+    \item \textbf{Observation:}
+          \begin{itemize}
+              \item Agent nhận tool results
+              \item Add results vào state as tool messages
+              \item Quay lại bước Reasoning với context mới
+          \end{itemize}
+
+    \item \textbf{Response:}
+          \begin{itemize}
+              \item Khi đủ thông tin, LLM sinh câu trả lời
+              \item Agent save state vào PostgreSQL
+              \item API Gateway save message vào MongoDB
+              \item Response trả về frontend
+          \end{itemize}
+\end{enumerate}
+
+\subsection{Tools available}
+
+\textbf{MCP Tools:}
+\begin{itemize}
+    \item retrieve\_regulation(query: str) → chunks
+    \item retrieve\_curriculum(query: str) → chunks
+    \item get\_grades(cookie: str) → grades JSON
+    \item get\_schedule(cookie: str) → schedule JSON
+\end{itemize}
+
+\textbf{Native Tools:}
+\begin{itemize}
+    \item get\_user\_credential(user\_id: str) → cookie from Redis
+\end{itemize}
+
+\chapter{Kết luận}
+
+Tech stack của hệ thống UIT AI Assistant được lựa chọn và tổ chức cẩn thận để đáp ứng các yêu cầu về hiệu năng, khả năng mở rộng, và đặc thù xử lý tiếng Việt.
+
+\section{Điểm mạnh}
+
+\begin{itemize}
+    \item \textbf{Kiến trúc modular:} Separation of concerns rõ ràng, dễ maintain và extend
+    \item \textbf{Best-in-class tools:} Mỗi component dùng công nghệ phù hợp nhất (Go cho gateway, Python cho AI)
+    \item \textbf{Chuẩn hóa:} Sử dụng MCP protocol, gRPC, REST - tránh hard-coding
+    \item \textbf{Vietnamese-optimized:} LlamaParse, ViRanker, custom chunking cho tiếng Việt
+    \item \textbf{Scalable:} Docker, microservices, multiple databases cho different workloads
+\end{itemize}
+
+\section{Trade-offs}
+
+\begin{itemize}
+    \item \textbf{Complexity:} Nhiều technologies khác nhau, learning curve cao
+    \item \textbf{Operational overhead:} Phải manage 4 databases, multiple services
+    \item \textbf{Cost:} OpenAI API, LlamaParse, Modal GPU có chi phí
+    \item \textbf{Latency:} Multi-hop requests (Gateway → Agent → MCP → ChromaDB) add latency
+\end{itemize}
+
+\section{Cải tiến trong tương lai}
+
+\begin{itemize}
+    \item Thêm observability (Prometheus metrics, tracing với OpenTelemetry)
+    \item Implement caching layer để giảm LLM API calls
+    \item Migrate ChromaDB sang Qdrant hoặc Weaviate cho production scale
+    \item Add load balancing và horizontal scaling cho Agent và MCP Server
+    \item Implement CI/CD pipelines và automated testing
+\end{itemize}
+
+\end{document}
