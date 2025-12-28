@@ -1,0 +1,20 @@
+\chapter{Kết luận}
+
+Đề tài đã xây dựng được bước đầu một AI agent hỗ trợ sinh viên Đại học Công nghệ Thông tin (UIT) trong việc quản lý và tra cứu thông tin học vụ.
+Hệ thống tích hợp Retrieval-Augmented Generation (RAG) để xây dựng knowledge base, Model Context Protocol (MCP) để kết nối các công cụ bên ngoài,
+và LangGraph để orchestrate logic của agent theo ReAct pattern. Kết quả là một nền tảng hoàn chỉnh end-to-end gồm AI agent, API Gateway,
+web interface, và browser extension, cho phép sinh viên tương tác với agent để lấy thông tin học vụ.
+Tuy nhiên, hệ thống hiện tại vẫn còn những hạn chế về độ chính xác truy vấn, số lượng tính năng, và cần cải thiện thêm trong các phiên bản tiếp theo.
+
+Đề tài có những đóng góp chính sau:
+
+Thứ nhất, chứng minh khả năng tích hợp thực tế các công nghệ AI hiện đại (RAG, MCP, LangGraph) trong việc xây dựng ứng dụng phục vụ người dùng cuối.
+Thứ hai, cung cấp giải pháp thực tế cho bài toán quản lý thông tin học vụ phân tán ở các trường đại học, đặc biệt là UIT.
+Thứ ba, thiết kế kiến trúc modular cho phép dễ dàng mở rộng và tích hợp các dịch vụ bên ngoài mới trong tương lai.
+Cuối cùng, xây dựng nên một nền tảng có thể được sử dụng như một điểm khởi đầu cho các nghiên cứu tiếp theo về AI agents và RAG systems.
+
+Dựa trên kết quả đạt được và những hạn chế hiện tại, có những hướng phát triển tiếp theo được đề xuất.
+Đầu tiên, nâng cấp hệ thống RAG thành Agentic RAG để cho phép agent tự động quyết định chiến lược truy vấn và xử lý dữ liệu.
+Thứ hai, triển khai kiến trúc multi-agent để xử lý các loại truy vấn khác nhau và so sánh hiệu năng với hệ thống single-agent hiện tại.
+Thứ ba, tận dụng đầy đủ các tính năng nâng cao của MCP trong tương lai khi use case phức tạp hơn.
+Cuối cùng, tối ưu hóa độ chính xác và latency của hệ thống thông qua cải thiện embedding models và tối ưu hóa retrieval strategy.
