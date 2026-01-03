@@ -140,6 +140,10 @@ Examples:
         "--categories", "-c",
         help="Comma-separated categories (e.g., regulation,curriculum)"
     )
+    index_parser.add_argument(
+        "--file", "-f",
+        help="Path to single file to index (e.g., data/processed/regulation/file.md)"
+    )
 
     # Parse arguments
     args = parser.parse_args()

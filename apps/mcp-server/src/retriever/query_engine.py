@@ -14,6 +14,7 @@ Design Philosophy:
 - Configurable: All parameters tunable via settings
 """
 
+import unicodedata
 from typing import List, Dict, Optional, Literal
 from dataclasses import dataclass
 
@@ -27,6 +28,27 @@ from .schemas import (
     RegulationRetrievalResult,
     CurriculumRetrievalResult
 )
+
+
+def normalize_vietnamese_text(text: str) -> str:
+    """
+    Normalize Vietnamese text to NFC form.
+
+    This fixes Unicode normalization issues where the same Vietnamese character
+    can be represented in different ways:
+    - NFC (composed): 'ó' as single character U+00F3
+    - NFD (decomposed): 'ó' as 'o' U+006F + combining acute U+0301
+
+    Example:
+        'Khóa' (NFC) vs 'Khoá' (NFD) - same visual, different bytes
+
+    Args:
+        text: Input text (may be in NFC or NFD form)
+
+    Returns:
+        Normalized text in NFC form (composed)
+    """
+    return unicodedata.normalize('NFC', text)
 
 
 @dataclass
@@ -148,9 +170,12 @@ class QueryEngine:
         Returns:
             RetrievalResult with retrieved and reranked nodes
         """
+        # Normalize query text (fix Unicode normalization issues)
+        query = normalize_vietnamese_text(query)
+
         print(f"\n{'='*70}")
         print(f"[QUERY ENGINE] Blended Retrieval")
-        print(f"[QUERY ENGINE] Query: {query}")
+        print(f"[QUERY ENGINE] Query (normalized): {query}")
         print(f"[QUERY ENGINE] Collection: {collection_type}")
         print(f"{'='*70}\n")
 

@@ -7,6 +7,7 @@ with separate collections per category (regulation, curriculum, etc.).
 
 import chromadb
 import json
+import unicodedata
 from typing import List, Optional, Dict
 
 # --- Centralized Config Import ---
@@ -22,6 +23,28 @@ from llama_index.core import (
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from .splitters.smart_node_splitter import SmartNodeSplitter
 from llama_index.embeddings.openai import OpenAIEmbedding
+
+
+def normalize_vietnamese_text(text: str) -> str:
+    """
+    Normalize Vietnamese text to NFC form.
+
+    Vietnamese diacritics can be represented in two Unicode forms:
+    - NFC (composed): 'ó' = U+00F3 (single character)
+    - NFD (decomposed): 'ó' = U+006F + U+0301 (base + combining mark)
+
+    Example: 'Khóa' (NFC) vs 'Khoá' (NFD) - visually identical but different bytes.
+    This causes vector search failures as embeddings differ.
+
+    Normalization ensures consistent representation for both queries and documents.
+
+    Args:
+        text: Raw Vietnamese text
+
+    Returns:
+        NFC-normalized text
+    """
+    return unicodedata.normalize('NFC', text)
 
 
 class DocumentIndexer:
@@ -177,6 +200,109 @@ class DocumentIndexer:
 
         return self.stats
 
+    def index_single_file(self, file_path) -> bool:
+        """
+        Index a single markdown file.
+
+        Args:
+            file_path: Path to .md file (e.g., data/processed/regulation/file.md)
+
+        Returns:
+            True if successful, False otherwise
+        """
+        from pathlib import Path
+
+        file_path = Path(file_path)
+
+        print(f"\n{'='*70}")
+        print(f"🔨 INDEXING SINGLE FILE")
+        print(f"   File: {file_path}")
+        print(f"{'='*70}\n")
+
+        # Infer category from path (e.g., data/processed/regulation/file.md → regulation)
+        try:
+            # Assuming structure: */processed/{category}/{file}.md
+            category = file_path.parent.name
+            print(f"[INFO] Inferred category: {category}")
+        except:
+            print(f"[ERROR] Could not infer category from path: {file_path}")
+            return False
+
+        # Load single document
+        try:
+            # Read markdown content
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Normalize Unicode (fix 'Khóa' NFC vs 'Khoá' NFD mismatch)
+            content = normalize_vietnamese_text(content)
+
+            if not content.strip():
+                print(f"[ERROR] Empty content in {file_path.name}")
+                return False
+
+            # Load metadata from corresponding JSON file
+            json_file = file_path.with_suffix('.json')
+            metadata = {}
+
+            if json_file.exists():
+                try:
+                    with open(json_file, 'r', encoding='utf-8') as f:
+                        metadata = json.load(f)
+                except Exception as e:
+                    print(f"[WARNING] Failed to load metadata for {file_path.name}: {e}")
+
+            # Create Document
+            doc = Document(
+                text=content,
+                metadata=metadata,
+                id_=metadata.get("document_id", file_path.stem)
+            )
+
+            # Clean metadata
+            doc.metadata = self._clean_metadata(doc.metadata)
+
+            print(f"[INFO] Loaded document: {doc.id_}")
+
+        except Exception as e:
+            print(f"[ERROR] Failed to load file: {e}")
+            return False
+
+        # Index document
+        try:
+            # Create/get collection
+            collection_name = category
+            print(f"[INFO] Creating ChromaDB collection: {collection_name}")
+            chroma_collection = self.chroma_client.get_or_create_collection(collection_name)
+
+            # Create vector store and storage context
+            vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
+            storage_context = StorageContext.from_defaults(vector_store=vector_store)
+
+            # Parse document to nodes
+            print(f"[INFO] Parsing document to nodes...")
+            node_parser = LlamaSettings.node_parser
+            nodes = node_parser.get_nodes_from_documents([doc])
+
+            # Print parsing stats
+            if hasattr(node_parser, 'get_stats'):
+                stats = node_parser.get_stats()
+                print(f"[INFO] Parsing stats: {stats['total_chunks']} initial chunks, {stats['large_chunks_split']} split, {stats['final_nodes']} final nodes")
+
+            # Build index from parsed nodes
+            print(f"[INFO] Embedding & indexing {len(nodes)} nodes...")
+            index = VectorStoreIndex(
+                nodes=nodes,
+                storage_context=storage_context,
+            )
+
+            print(f"[SUCCESS] Indexed {file_path.name} into collection '{collection_name}' ({len(nodes)} nodes)")
+            return True
+
+        except Exception as e:
+            print(f"[ERROR] Failed to index file: {e}")
+            return False
+
     def _load_documents_from_category(self, category: str) -> List[Document]:
         """
         Load all documents from a category directory.
@@ -207,6 +333,9 @@ class DocumentIndexer:
                 # Read markdown content
                 with open(md_file, 'r', encoding='utf-8') as f:
                     content = f.read()
+
+                # Normalize Unicode (fix 'Khóa' NFC vs 'Khoá' NFD mismatch)
+                content = normalize_vietnamese_text(content)
 
                 if not content.strip():
                     print(f"[WARNING] Empty content in {md_file.name}, skipping")

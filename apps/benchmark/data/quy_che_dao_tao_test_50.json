@@ -1,0 +1,627 @@
+[
+  {
+    "id": "qcdt_001",
+    "question": "Điều kiện để sinh viên được xét tốt nghiệp là gì?",
+    "ground_truth": "Sinh viên được xét tốt nghiệp khi đáp ứng các điều kiện: hoàn thành đủ số tín chỉ theo chương trình đào tạo, đạt chuẩn đầu ra của chương trình, hoàn thành các học phần điều kiện (giáo dục quốc phòng - an ninh, giáo dục thể chất), có ĐTBCTL đạt yêu cầu, hoàn thành khóa luận tốt nghiệp hoặc tích lũy đủ tín chỉ thay thế, và đáp ứng các yêu cầu khác theo quy định của Trường và ĐHQG-HCM.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_002",
+    "question": "Một tín chỉ học tập được quy định bằng bao nhiêu tiết học lý thuyết?",
+    "ground_truth": "Một tín chỉ học tập được quy định bằng 15 tiết học lý thuyết.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_003",
+    "question": "Học phần tiên quyết là gì?",
+    "ground_truth": "Học phần tiên quyết là học phần bắt buộc sinh viên phải học trước và tích lũy mới được học tiếp sang học phần có liên quan khác.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_004",
+    "question": "Khóa luận tốt nghiệp có khối lượng tương đương bao nhiêu tín chỉ?",
+    "ground_truth": "Khóa luận tốt nghiệp có khối lượng tương đương 10 tín chỉ.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_005",
+    "question": "Quy chế này áp dụng cho hệ đào tạo nào?",
+    "ground_truth": "Quy chế này áp dụng đối với hệ đại học chính quy của Trường Đại học Công nghệ Thông tin thuộc ĐHQG-HCM. Quy định đào tạo hệ đại học từ xa và các chương trình đặc biệt được xây dựng, điều chỉnh phù hợp với đặc thù hệ đào tạo/chương trình dựa trên cơ sở quy chế này.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_006",
+    "question": "Điểm trung bình tích lũy (ĐTBTL) được tính như thế nào?",
+    "ground_truth": "Điểm trung bình tích lũy (ĐTBTL) là điểm trung bình có trọng số của tất cả các học phần tích lũy từ đầu khóa học đến thời điểm tính, được tính theo công thức: ĐTBTL = Σ(Điểm học phần × Số tín chỉ học phần) / Σ(Số tín chỉ các học phần).",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_007",
+    "question": "Học kỳ hè kéo dài bao nhiêu tuần?",
+    "ground_truth": "Học kỳ hè kéo dài từ 8 đến 10 tuần.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_008",
+    "question": "Sinh viên có thể đăng ký tối đa bao nhiêu tín chỉ trong một học kỳ chính?",
+    "ground_truth": "Sinh viên có thể đăng ký tối đa 24 tín chỉ trong một học kỳ chính (không kể học phần điều kiện và học lại).",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_009",
+    "question": "Điểm học phần được tính như thế nào?",
+    "ground_truth": "Điểm học phần là điểm đánh giá kết quả học tập của sinh viên đối với từng học phần, được tính dựa trên các thành phần: điểm chuyên cần, điểm bài tập, điểm thực hành, điểm kiểm tra giữa kỳ, và điểm thi kết thúc học phần. Tỷ trọng của từng thành phần được quy định trong đề cương chi tiết của học phần.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_010",
+    "question": "Học phần song hành là gì?",
+    "ground_truth": "Học phần song hành là học phần được đăng ký đồng thời hoặc sau khi đăng ký học phần tiên quyết của nó.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_011",
+    "question": "Thời gian tối đa để sinh viên hoàn thành chương trình đại học là bao nhiêu?",
+    "ground_truth": "Thời gian tối đa để sinh viên hoàn thành chương trình đại học là 8 năm (không kể thời gian bảo lưu kết quả học tập).",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_012",
+    "question": "Sinh viên có ĐTBTL dưới bao nhiêu sẽ bị cảnh báo học vụ lần 1?",
+    "ground_truth": "Sinh viên có điểm trung bình tích lũy (ĐTBTL) dưới 1.40 sẽ bị cảnh báo học vụ lần 1.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_013",
+    "question": "Một tín chỉ thực hành tương đương bao nhiêu tiết?",
+    "ground_truth": "Một tín chỉ thực hành, thảo luận trên lớp, thí nghiệm tại phòng máy được quy định bằng 30 tiết (mỗi tiết 50 phút).",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_014",
+    "question": "Sinh viên có thể bảo lưu kết quả học tập tối đa bao nhiêu lần?",
+    "ground_truth": "Sinh viên có thể bảo lưu kết quả học tập tối đa 2 lần trong toàn khóa học.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_015",
+    "question": "Học kỳ chính kéo dài bao nhiêu tuần?",
+    "ground_truth": "Học kỳ chính kéo dài từ 15 đến 17 tuần (không kể thời gian thi).",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_016",
+    "question": "Điểm số nào được coi là đạt học phần?",
+    "ground_truth": "Học phần đạt khi điểm học phần từ 5.0 trở lên (thang điểm 10) hoặc từ C trở lên (thang điểm chữ).",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_017",
+    "question": "Sinh viên phải đạt ĐTBTL tối thiểu bao nhiêu để được xét tốt nghiệp?",
+    "ground_truth": "Sinh viên phải đạt điểm trung bình tích lũy (ĐTBTL) tối thiểu 2.00 để được xét tốt nghiệp.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_018",
+    "question": "Học phần tự chọn là gì?",
+    "ground_truth": "Học phần tự chọn là học phần mà sinh viên có thể lựa chọn đăng ký trong danh sách các học phần do Khoa/Bộ môn phụ trách chuyên ngành đề xuất và được Nhà trường phê duyệt.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_019",
+    "question": "Sinh viên bị buộc thôi học khi nào?",
+    "ground_truth": "Sinh viên bị buộc thôi học khi: bị cảnh báo học vụ lần thứ 3, hết thời hạn học tập tối đa (8 năm) mà chưa tốt nghiệp, vi phạm quy chế đào tạo nghiêm trọng, hoặc bị kỷ luật ở mức buộc thôi học.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_020",
+    "question": "Một năm học có mấy học kỳ chính?",
+    "ground_truth": "Một năm học có 2 học kỳ chính (học kỳ 1 và học kỳ 2).",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_021",
+    "question": "Học phần bắt buộc là gì?",
+    "ground_truth": "Học phần bắt buộc là học phần sinh viên phải tích lũy bắt buộc theo yêu cầu của chương trình đào tạo.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_022",
+    "question": "Sinh viên có thể đăng ký rút học phần trong bao lâu kể từ ngày khai giảng?",
+    "ground_truth": "Sinh viên có thể đăng ký rút học phần trong vòng 3 tuần đầu tiên kể từ ngày khai giảng (đối với học kỳ chính) hoặc trong vòng 1 tuần (đối với học kỳ hè).",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_023",
+    "question": "Xếp loại tốt nghiệp Xuất sắc yêu cầu ĐTBTL bao nhiêu?",
+    "ground_truth": "Xếp loại tốt nghiệp Xuất sắc yêu cầu ĐTBTL từ 3.60 đến 4.00 và đáp ứng các điều kiện khác như không có học phần dưới 7.0, thời gian học không quá thời gian chuẩn.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_024",
+    "question": "Điểm F tương đương với bao nhiêu trên thang điểm 10?",
+    "ground_truth": "Điểm F tương đương với điểm dưới 4.0 trên thang điểm 10.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_025",
+    "question": "Sinh viên có thể đăng ký tối đa bao nhiêu tín chỉ trong học kỳ hè?",
+    "ground_truth": "Sinh viên có thể đăng ký tối đa 15 tín chỉ trong học kỳ hè.",
+    "question_type": "simple",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false
+    }
+  },
+  {
+    "id": "qcdt_026",
+    "question": "Sinh viên đăng ký 12 tín chỉ học mới và 3 tín chỉ học lại trong học kỳ hè, học phí được tính như thế nào?",
+    "ground_truth": "Đối với học kỳ hè, học phí được tính theo công thức: Học phí = HPTCHM × TCHPHM + HPTCHL × TCHPHL + HPTCCT × TCHPCT. Với sinh viên đăng ký 12 tín chỉ học mới (TCHPHM = 12) và 3 tín chỉ học lại (TCHPHL = 3), học phí sẽ là: Học phí = HPTCHM × 12 + HPTCHL × 3 + HPTCCT × 0. Mức học phí cụ thể cho mỗi loại TCHP được Trường công bố đầu năm học.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve công thức học phí học kỳ hè + định nghĩa các loại TCHP, sau đó áp dụng vào trường hợp cụ thể"
+    }
+  },
+  {
+    "id": "qcdt_027",
+    "question": "So sánh học phần tiên quyết và học phần học trước có gì khác nhau?",
+    "ground_truth": "Học phần tiên quyết là học phần bắt buộc sinh viên phải học trước và TÍCH LŨY (đạt điểm ≥ 5) mới được học tiếp sang học phần có liên quan khác. Trong khi đó, học phần học trước là học phần sinh viên phải học trước khi học các học phần có liên quan khác, nhưng học phần học trước CÓ THỂ THI ĐẠT HOẶC KHÔNG ĐẠT. Khác biệt chính: học phần tiên quyết bắt buộc phải tích lũy (đạt), còn học phần học trước không bắt buộc phải đạt.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve định nghĩa cả 2 loại học phần, sau đó so sánh và chỉ ra điểm khác biệt"
+    }
+  },
+  {
+    "id": "qcdt_028",
+    "question": "Một học phần lý thuyết 3 tín chỉ sẽ có bao nhiêu tiết học và sinh viên cần bao nhiêu giờ tự học?",
+    "ground_truth": "Một học phần lý thuyết 3 tín chỉ sẽ có: 3 × 15 = 45 tiết học lý thuyết (mỗi tiết 50 phút). Để tiếp thu được một tín chỉ, sinh viên phải dành ít nhất 30 giờ chuẩn bị cá nhân (tự học), do đó với 3 tín chỉ, sinh viên cần: 3 × 30 = 90 giờ tự học.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve định nghĩa tín chỉ (15 tiết/TC) + yêu cầu tự học (30 giờ/TC), sau đó tính toán cho 3 tín chỉ"
+    }
+  },
+  {
+    "id": "qcdt_029",
+    "question": "Sinh viên có ĐTBHK đạt 3.2 và ĐTBTL đạt 2.8 thì được nhận học bổng khuyến khích học tập không?",
+    "ground_truth": "Để được xét học bổng khuyến khích học tập, sinh viên phải đồng thời đạt ĐTBHK ≥ 3.00 VÀ ĐTBTL ≥ 2.50 (cùng với các điều kiện khác như không có học phần dưới 4.0, đủ điều kiện về rèn luyện). Sinh viên có ĐTBHK = 3.2 (≥ 3.00) và ĐTBTL = 2.8 (≥ 2.50) đáp ứng tiêu chí về điểm số, tuy nhiên cần kiểm tra thêm các điều kiện khác để xác định cuối cùng.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve điều kiện học bổng về ĐTBHK và ĐTBTL, sau đó so sánh với case cụ thể"
+    }
+  },
+  {
+    "id": "qcdt_030",
+    "question": "Sinh viên muốn chuyển từ ngành A sang ngành B, cần đáp ứng điều kiện gì và thời hạn nộp đơn như thế nào?",
+    "ground_truth": "Sinh viên muốn chuyển ngành cần: (1) Có ĐTBTL ≥ 2.50 tại thời điểm nộp đơn, (2) Không vi phạm quy chế đào tạo, (3) Không bị kỷ luật. Thời hạn nộp đơn: trước tuần thứ 3 của học kỳ 1 hoặc học kỳ 2. Ngoài ra còn phải qua xét duyệt của Khoa/Bộ môn và được Hiệu trưởng phê duyệt.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve điều kiện chuyển ngành + thời hạn nộp đơn"
+    }
+  },
+  {
+    "id": "qcdt_031",
+    "question": "So sánh xếp loại tốt nghiệp Giỏi và Khá về yêu cầu ĐTBTL và điều kiện khác?",
+    "ground_truth": "Xếp loại Giỏi yêu cầu: ĐTBTL từ 3.20 đến dưới 3.60, không có học phần nào dưới 6.0, thời gian học không quá 1.5 lần thời gian chuẩn. Xếp loại Khá yêu cầu: ĐTBTL từ 2.50 đến dưới 3.20, không có học phần nào dưới 5.0, thời gian học không quá 1.5 lần thời gian chuẩn. Khác biệt chính: ngưỡng ĐTBTL (Giỏi cao hơn), điểm tối thiểu học phần (Giỏi yêu cầu ≥ 6.0, Khá yêu cầu ≥ 5.0).",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve tiêu chí xếp loại Giỏi và Khá, sau đó so sánh"
+    }
+  },
+  {
+    "id": "qcdt_032",
+    "question": "Nếu sinh viên học 18 tín chỉ trong học kỳ, trong đó có 3 tín chỉ học phần điều kiện, thì số tín chỉ được tính vào giới hạn đăng ký là bao nhiêu?",
+    "ground_truth": "Số tín chỉ được tính vào giới hạn đăng ký là 15 tín chỉ (18 - 3 = 15). Theo quy định, sinh viên có thể đăng ký tối đa 24 tín chỉ trong một học kỳ chính, KHÔNG KỂ học phần điều kiện và học lại. Do đó, học phần điều kiện (3 tín chỉ) không tính vào giới hạn 24 tín chỉ.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve quy định về giới hạn đăng ký tín chỉ và học phần điều kiện, sau đó tính toán"
+    }
+  },
+  {
+    "id": "qcdt_033",
+    "question": "Sinh viên bị cảnh báo học vụ lần 2 với ĐTBTL = 1.30, sau đó học kỳ tiếp theo đạt ĐTBHK = 2.80 và ĐTBTL lên 1.65, sinh viên này có bị cảnh báo tiếp không?",
+    "ground_truth": "Sinh viên bị cảnh báo học vụ khi ĐTBTL < 1.40 (lần 1), ĐTBTL < 1.60 (lần 2), ĐTBTL < 2.00 (lần 3). Sinh viên này từ ĐTBTL = 1.30 (cảnh báo lần 2) lên 1.65, đã vượt ngưỡng 1.60, do đó KHÔNG BỊ CẢNH BÁO TIẾP trong kỳ này. Tuy nhiên, nếu ĐTBTL giảm xuống dưới 2.00 trong các kỳ sau, sẽ bị cảnh báo lần 3.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve quy định về cảnh báo học vụ các mức, sau đó áp dụng vào case cụ thể"
+    }
+  },
+  {
+    "id": "qcdt_034",
+    "question": "Sinh viên học lại một học phần 4 lần, lần 1 được 3.5, lần 2 được 4.8, lần 3 được 5.2, lần 4 được 6.0. Điểm nào được tính vào ĐTBTL?",
+    "ground_truth": "Khi sinh viên học lại một học phần nhiều lần, chỉ điểm của lần học cuối cùng được tính vào ĐTBTL (các lần trước không tính). Do đó, điểm 6.0 (lần 4) sẽ được tính vào ĐTBTL. Tuy nhiên, cần lưu ý rằng sinh viên chỉ được học lại tối đa theo quy định (thường là 2-3 lần), việc học lại 4 lần có thể không được phép.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve quy định về học lại và cách tính điểm ĐTBTL khi học lại"
+    }
+  },
+  {
+    "id": "qcdt_035",
+    "question": "Tính tổng số giờ (cả lý thuyết và tự học) mà sinh viên cần bỏ ra cho một học phần 2 tín chỉ lý thuyết?",
+    "ground_truth": "Một học phần 2 tín chỉ lý thuyết có: 2 × 15 = 30 tiết học lý thuyết trên lớp (30 tiết × 50 phút = 1500 phút = 25 giờ). Sinh viên cần tự học: 2 × 30 = 60 giờ. Tổng cộng: 25 + 60 = 85 giờ.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve quy đổi tín chỉ lý thuyết và giờ tự học, sau đó tính tổng"
+    }
+  },
+  {
+    "id": "qcdt_036",
+    "question": "Sinh viên A có 120 tín chỉ tích lũy, trong đó có 10 tín chỉ khóa luận, chương trình yêu cầu 130 tín chỉ. Sinh viên B có 128 tín chỉ tích lũy, không làm khóa luận. Ai đủ điều kiện xét tốt nghiệp?",
+    "ground_truth": "Để xét tốt nghiệp, sinh viên cần: hoàn thành đủ số tín chỉ theo chương trình (130 TC) VÀ hoàn thành khóa luận (10 TC) HOẶC tích lũy đủ tín chỉ thay thế khóa luận. Sinh viên A: 120 TC + 10 TC khóa luận = 130 TC → ĐỦ ĐIỀU KIỆN. Sinh viên B: 128 TC, không khóa luận, chưa đủ 130 TC → CHƯA ĐỦ ĐIỀU KIỆN (cần thêm 2 TC hoặc làm khóa luận).",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve điều kiện tốt nghiệp về tín chỉ và khóa luận, sau đó so sánh 2 case"
+    }
+  },
+  {
+    "id": "qcdt_037",
+    "question": "So sánh học phần cải thiện và học phần học lại về điều kiện đăng ký và cách tính điểm?",
+    "ground_truth": "Học phần học lại: là học phần sinh viên đã học nhưng CHƯA ĐẠT (điểm < 5.0), sinh viên phải đăng ký học lại để tích lũy. Điểm lần học cuối cùng được tính vào ĐTBTL. Học phần cải thiện: là học phần sinh viên ĐÃ ĐẠT (điểm ≥ 5.0) nhưng muốn học lại để cải thiện điểm số. Điều kiện: chỉ được cải thiện theo quy định tại Điều 14 Khoản 3. Điểm cao nhất trong các lần học được tính vào ĐTBTL.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve định nghĩa học lại và cải thiện, sau đó so sánh"
+    }
+  },
+  {
+    "id": "qcdt_038",
+    "question": "Nếu sinh viên bảo lưu kết quả 1 năm (2 học kỳ), sau đó quay lại học thêm 3 năm, tổng thời gian học là 4 năm. Sinh viên này còn bao nhiêu năm để hoàn thành chương trình?",
+    "ground_truth": "Thời gian tối đa để hoàn thành chương trình là 8 năm, KHÔNG KỂ thời gian bảo lưu. Sinh viên này đã học 4 năm (không kể 1 năm bảo lưu), còn lại: 8 - 4 = 4 năm để hoàn thành chương trình.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve quy định về thời gian học tối đa và bảo lưu, sau đó tính toán"
+    }
+  },
+  {
+    "id": "qcdt_039",
+    "question": "Sinh viên vi phạm quy chế thi lần 1 bị kỷ luật khiển trách, lần 2 bị cảnh cáo. Nếu vi phạm lần 3, hình thức kỷ luật nào có thể được áp dụng?",
+    "ground_truth": "Các hình thức kỷ luật theo mức độ tăng dần là: Khiển trách, Cảnh cáo, Đình chỉ học tập, Buộc thôi học. Sinh viên đã bị Khiển trách (lần 1), Cảnh cáo (lần 2), nếu vi phạm lần 3, có thể bị Đình chỉ học tập hoặc Buộc thôi học tùy theo mức độ nghiêm trọng của vi phạm.",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve các mức kỷ luật, sau đó suy luận mức tiếp theo"
+    }
+  },
+  {
+    "id": "qcdt_040",
+    "question": "Tính ĐTBHK của sinh viên đăng ký 4 học phần: HP1 (3TC, điểm 7.5), HP2 (4TC, điểm 8.0), HP3 (2TC, điểm 6.0), HP4 (3TC, điểm 9.0)?",
+    "ground_truth": "ĐTBHK = Σ(Điểm học phần × Số tín chỉ) / Σ(Số tín chỉ) = [(7.5×3) + (8.0×4) + (6.0×2) + (9.0×3)] / (3+4+2+3) = [22.5 + 32.0 + 12.0 + 27.0] / 12 = 93.5 / 12 = 7.79 (làm tròn 2 chữ số thập phân).",
+    "question_type": "multi_hop",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 2,
+      "contains_wrong_assumption": false,
+      "reasoning": "Cần retrieve công thức tính ĐTBHK, sau đó áp dụng tính toán"
+    }
+  },
+  {
+    "id": "qcdt_041",
+    "question": "Học phần thực hành được tính 30 tiết bằng 1 tín chỉ, đúng không?",
+    "ground_truth": "Đúng. Theo Điều 4, một tín chỉ học tập được quy định bằng 30 tiết thảo luận trên lớp, thí nghiệm, thực hành tại phòng máy theo phương thức học tập trực tiếp hoặc trực tuyến. Vậy 30 tiết thực hành tương đương 1 tín chỉ.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": false,
+      "reasoning": "Câu hỏi này không chứa thông tin sai, nhưng test khả năng verify thông tin của RAG"
+    }
+  },
+  {
+    "id": "qcdt_042",
+    "question": "Sinh viên có thể đăng ký học cải thiện bất kỳ học phần nào đã đạt điểm từ 5 trở lên, đúng không?",
+    "ground_truth": "Không hoàn toàn đúng. Học phần học cải thiện là học phần sinh viên đã học có kết quả đạt (từ 5 điểm trở lên), nhưng muốn đăng ký học lại. Tuy nhiên, sinh viên CHỈ ĐƯỢC đăng ký học cải thiện THEO QUY ĐỊNH tại Khoản 3 Điều 14 của quy chế này. Không phải bất kỳ học phần nào đã đạt đều có thể đăng ký học cải thiện, mà phải tuân theo các điều kiện cụ thể được quy định.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa assumption sai: 'bất kỳ học phần nào'. Thực tế phải theo quy định cụ thể tại Điều 14 Khoản 3"
+    }
+  },
+  {
+    "id": "qcdt_043",
+    "question": "Sinh viên bị cảnh báo học vụ lần 3 sẽ bị đình chỉ học tập 1 năm, đúng không?",
+    "ground_truth": "Không đúng. Sinh viên bị cảnh báo học vụ lần 3 sẽ BỊ BUỘC THÔI HỌC, không phải đình chỉ học tập. Đình chỉ học tập là hình thức kỷ luật do vi phạm quy chế, còn cảnh báo học vụ lần 3 dẫn đến buộc thôi học do không đạt yêu cầu về học tập.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa thông tin sai: cảnh báo lần 3 → buộc thôi học (không phải đình chỉ)"
+    }
+  },
+  {
+    "id": "qcdt_044",
+    "question": "Học kỳ hè kéo dài 12 tuần, đúng không?",
+    "ground_truth": "Không đúng. Học kỳ hè kéo dài từ 8 đến 10 tuần, không phải 12 tuần.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa thông tin sai về thời gian học kỳ hè"
+    }
+  },
+  {
+    "id": "qcdt_045",
+    "question": "Để được xếp loại tốt nghiệp Xuất sắc, sinh viên phải có ĐTBTL từ 3.5 trở lên, đúng không?",
+    "ground_truth": "Không chính xác. Để được xếp loại tốt nghiệp Xuất sắc, sinh viên phải có ĐTBTL từ 3.60 đến 4.00 (không phải từ 3.5), cùng với các điều kiện khác như không có học phần nào dưới 7.0 và thời gian học không quá thời gian chuẩn.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa ngưỡng điểm sai (3.5 thay vì 3.6)"
+    }
+  },
+  {
+    "id": "qcdt_046",
+    "question": "Sinh viên có thể bảo lưu kết quả học tập tối đa 3 lần trong toàn khóa, đúng không?",
+    "ground_truth": "Không đúng. Sinh viên chỉ có thể bảo lưu kết quả học tập tối đa 2 lần trong toàn khóa học, không phải 3 lần.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa số lần sai (3 thay vì 2)"
+    }
+  },
+  {
+    "id": "qcdt_047",
+    "question": "Thời gian tối đa để hoàn thành chương trình đại học là 10 năm, kể cả thời gian bảo lưu, đúng không?",
+    "ground_truth": "Không đúng. Thời gian tối đa để hoàn thành chương trình đại học là 8 năm (không phải 10 năm), và KHÔNG KỂ thời gian bảo lưu kết quả học tập (không phải 'kể cả').",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa 2 lỗi: thời gian sai (10 năm thay vì 8) và 'kể cả' thay vì 'không kể'"
+    }
+  },
+  {
+    "id": "qcdt_048",
+    "question": "Điểm C tương đương với khoảng điểm 6.0 - 6.9 trên thang điểm 10, đúng không?",
+    "ground_truth": "Không đúng. Điểm C tương đương với khoảng điểm 5.0 - 6.4 trên thang điểm 10, không phải 6.0 - 6.9.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa khoảng điểm sai cho thang điểm chữ"
+    }
+  },
+  {
+    "id": "qcdt_049",
+    "question": "Sinh viên có ĐTBTL dưới 1.20 sẽ bị cảnh báo học vụ lần 2, đúng không?",
+    "ground_truth": "Không đúng. Sinh viên có ĐTBTL dưới 1.40 sẽ bị cảnh báo học vụ lần 1 (không phải lần 2). Cảnh báo học vụ lần 2 áp dụng khi ĐTBTL dưới 1.60.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa ngưỡng điểm và số lần cảnh báo sai"
+    }
+  },
+  {
+    "id": "qcdt_050",
+    "question": "Sinh viên có thể đăng ký tối đa 20 tín chỉ trong học kỳ chính, kể cả học phần điều kiện, đúng không?",
+    "ground_truth": "Không đúng. Sinh viên có thể đăng ký tối đa 24 tín chỉ (không phải 20) trong một học kỳ chính, và KHÔNG KỂ học phần điều kiện và học lại (không phải 'kể cả'). Học phần điều kiện không tính vào giới hạn 24 tín chỉ này.",
+    "question_type": "negative",
+    "metadata": {
+      "document": "790-qd-dhcntt_28-9-22_quy_che_dao_tao.md",
+      "category": "regulation",
+      "expected_tool_calls": 1,
+      "contains_wrong_assumption": true,
+      "reasoning": "Câu hỏi chứa 2 lỗi: số tín chỉ sai (20 thay vì 24) và 'kể cả' thay vì 'không kể'"
+    }
+  }
+]
