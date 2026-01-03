@@ -1,0 +1,2202 @@
+[
+  {
+    "id": "reg_0329",
+    "question": "Người học được tham gia những gì trong quá trình học đối với chương trình đào tạo từ xa?",
+    "ground_truth": "Đối với chương trình đào tạo từ xa, người học có thể tham gia tư vấn định hướng nghề nghiệp, các buổi hướng dẫn, chương trình thực tập nghề nghiệp.",
+    "metadata": {
+      "article": "Điều 5. Trạm đào tạo từ xa của Trường ĐHCNTT",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "tham gia tư vấn định hướng nghề nghiệp, các buổi hướng dẫn, chương trình thực tập nghề nghiệp"
+    }
+  },
+  {
+    "id": "reg_0283",
+    "question": "Số tiền cần phải đóng khi học lại của sinh viên CTTT được quy định thế nào?",
+    "ground_truth": "Đơn giá tín chỉ học lại của sinh viên CTTT do Hiệu trưởng quy định vào đầu mỗi năm học.",
+    "metadata": {
+      "article": "Điều 14. Học phí",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Đơn giá tín chỉ học lại#Hiệu trưởng quy định vào đầu mỗi năm học."
+    }
+  },
+  {
+    "id": "reg_0333",
+    "question": "Học phí chương trình ĐTTX được tính như thế nào?",
+    "ground_truth": "Học phí chương trình ĐTTX được tính theo công thức sau:\nHọc phí = HPTCHM × TCHPHM + HPTCHL × TCHPHL + HPTCCT × TCHPCT\nTrong đó: HPTCHM: mức học phí cho loại tín chỉ học phí học mới. TCHPHM: tổng số tín chỉ học phí của các môn học mới. HPTCHL: mức học phí cho loại tín chỉ học phí học lại. TCHPHL: tổng số tín chỉ học phí của các môn học lại. HPTCCT: mức học phí cho loại tín chỉ học phí học cải thiện. TCHPCT: tổng số tín chỉ học phí của các môn học cải thiện",
+    "metadata": {
+      "article": "Điều 10. Nguyên tắc xác định học phí",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Học phí = HPTCHM × TCHPHM + HPTCHL × TCHPHL + HPTCCT × TCHPCT\nTrong đó: \n-\tHPTCHM: mức học phí cho loại tín chỉ học phí học mới. \n-\tTCHPHM: tổng số tín chỉ học phí của các môn học mới. \n-\tHPTCHL: mức học phí cho loại tín chỉ học phí học lại. \n-\tTCHPHL: tổng số tín chỉ học phí của các môn học lại. \n-\tHPTCCT: mức học phí cho loại tín chỉ học phí học cải thiện. \n-\tTCHPCT: tổng số tín chỉ học phí của các môn học cải thiện"
+    }
+  },
+  {
+    "id": "reg_0334",
+    "question": "Lớp học phần CT CLC sẽ được mở nếu số lượng SV đăng ký tối thiểu là bao nhiêu SV/lớp đối với các môn học thuộc kiến thức cơ sở nhóm ngành?",
+    "ground_truth": "Lớp học phần CT CLC sẽ được mở nếu số lượng SV đăng ký tối thiểu là 30 SV/lớp đối với các môn học thuộc kiến thức cơ sở nhóm ngành.",
+    "metadata": {
+      "article": "Điều 7. Tổ chức lớp",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "tối thiểu 30 SV/lớp"
+    }
+  },
+  {
+    "id": "reg_0261",
+    "question": "Sinh viên hệ đào tạo từ xa nếu muốn xin chuyển ngành thì cần làm gì?",
+    "ground_truth": "Sinh viên hệ đào tạo từ xa nếu muốn xin chuyển ngành cần nộp đơn xin chuyển ngành cho P.ĐTĐH.",
+    "metadata": {
+      "article": "Điều 18. Chuyển ngành, chuyển hệ đào tạo, chuyển trường, chuyển trạm ĐTTX",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "nộp đơn xin chuyển ngành cho P.ĐTĐH"
+    }
+  },
+  {
+    "id": "reg_0084",
+    "question": "Mẫu đề thi có thể được tham khảo tại đâu ?",
+    "ground_truth": "Mẫu đề thi có thể được tham khảo tại phần Phụ lục.",
+    "metadata": {
+      "article": "Điều 8. Ra đề thi và in đề thi",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Phụ lục"
+    }
+  },
+  {
+    "id": "reg_0111",
+    "question": "Tân sinh viên cần đạt điều kiện gì để nhận học bổng?",
+    "ground_truth": "3 tân sinh viên có kết quả xét tuyển cao nhất sẽ được nhận học bổng tân sinh viên.",
+    "metadata": {
+      "article": "Điều 15. Học bổng",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "03 tân sinh viên có kết quả xét tuyển cao nhất, "
+    }
+  },
+  {
+    "id": "reg_0113",
+    "question": "Trong quá trình học tập, sinh viên CTTN sẽ có những ưu ái nào?",
+    "ground_truth": "Trong quá trình học tập, sinh viên CTTN sẽ có những ưu ái được tạo điều kiện để thể hiện vai trò chủ động.",
+    "metadata": {
+      "article": "Điều 10. Giảng dạy các môn CTTN",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "được tạo điều kiện để thể hiện vai trò chủ động"
+    }
+  },
+  {
+    "id": "reg_0155",
+    "question": "Việc cấp văn bằng và chứng chỉ cần có chung thẩm quyền của đơn vị nào?",
+    "ground_truth": "Văn bằng và chứng chỉ cần có chung thẩm quyền do Hiệu trưởng Trường cấp.",
+    "metadata": {
+      "article": "Điều 12. Thẩm quyền cấp văn bằng, chứng chỉ",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Hiệu trưởng Trường cấp"
+    }
+  },
+  {
+    "id": "reg_0070",
+    "question": "Ngành CNTT được xây dựng chương trình đào tạo theo định hướng gì?",
+    "ground_truth": "Ngành CNTT được xây dựng chương trình đào tạo theo định hướng đào tạo nguồn nhân lực chất lượng cao, đáp ứng nhu cầu phát triển khoa học, công nghệ, kinh tế, xã hội đất nước và hội nhập quốc tế.",
+    "metadata": {
+      "article": "Điều 7. Chương trình đào tạo",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "đào tạo nguồn nhân lực chất lượng cao, đáp ứng nhu cầu phát triển khoa học, công nghệ, kinh tế, xã hội đất nước và hội nhập quốc tế"
+    }
+  },
+  {
+    "id": "reg_0192",
+    "question": "Ý nghĩa của việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường là gì?",
+    "ground_truth": "Ý nghĩa của việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường là: góp phần nâng cao tỷ lệ sinh viên tốt nghiệp và tốt nghiệp đúng hạn; mở rộng các đối tượng được phép đăng ký học tập tại Trường, góp phần nâng cao vị thế và hình ảnh của Trường.",
+    "metadata": {
+      "article": "Điều 2. Mục đích, ý nghĩa",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Góp phần nâng cao tỷ lệ sinh viên tốt nghiệp và tốt nghiệp đúng hạn.#Mở rộng các đối tượng được phép đăng ký học tập tại Trường, góp phần nâng cao vị thế và hình ảnh của Trường."
+    }
+  },
+  {
+    "id": "reg_0251",
+    "question": "Mỗi phòng thi sẽ có bao nhiêu mã đề?",
+    "ground_truth": "Mỗi phòng thi sẽ có tối thiểu 4 mã đề trắc nghiệm khác nhau được đánh mã số hoặc ký hiệu riêng để phân biệt.",
+    "metadata": {
+      "article": "Điều 8. Ra đề thi và in đề thi",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "tối thiểu 4 mã đề trắc nghiệm khác nhau được đánh mã số hoặc ký hiệu riêng để phân biệt"
+    }
+  },
+  {
+    "id": "reg_0206",
+    "question": "Cập nhật loại 3 có thay đổi tên Tiếng Anh môn học không?",
+    "ground_truth": "Cập nhật loại 3 có thay đổi tên tiếng Anh của môn học.",
+    "metadata": {
+      "article": "Điều 5. Cập nhật CTĐT được phân thành 3 loại sau đây.",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "Thay đổi tên tiếng Anh của môn học."
+    }
+  },
+  {
+    "id": "reg_0188",
+    "question": "Việc tiêu hủy bằng đại học đã được cấp có thuộc quyền của PĐTĐH không?",
+    "ground_truth": "Phòng Đào tạo Đại học có quyền hủy bỏ bằng đại học, chứng chỉ.",
+    "metadata": {
+      "article": "Điều 3. Trách nhiệm của các đơn vị, cá nhân trong việc quản lý văn bằng, chứng chỉ",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "Phòng Đào tạo Sau đại học & Khoa học Công nghệ (PĐTSĐH-KHCN) có trách nhiệm quản lý việc cấp văn bằng thạc sĩ, tiến sĩ; thực hiện các thủ tục đề nghị cấp phôi bằng từ ĐHQG-HCM, quản lý phôi, thông tin in lên phôi và tổ chức thực hiện công tác lưu trữ, cấp phát, thu hồi, hủy bỏ bằng thạc sĩ, tiến sĩ; bản sao bằng thạc sĩ, tiến sĩ của Trường ĐHCNTT."
+    }
+  },
+  {
+    "id": "reg_0216",
+    "question": "Yêu cầu như thế nào về loại mực đối với môn thi trắc nghiệm?",
+    "ground_truth": "Trên phiếu TLTN chỉ được viết một thứ mực, không phải là mực đỏ.",
+    "metadata": {
+      "article": "Điều 13. Trách nhiệm của sinh viên dự thi",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Trên phiếu TLTN chỉ được viết một thứ mực, không phải là mực đỏ"
+    }
+  },
+  {
+    "id": "reg_0383",
+    "question": "Thông tin về cấp văn bằng, chứng chỉ có dễ truy cập không?",
+    "ground_truth": "Thông tin về cấp văn bằng, chứng chỉ có dễ truy cập vì chúng được đảm bảo dễ quản lý, truy cập, tìm kiếm.",
+    "metadata": {
+      "article": "Điều 5. Công bố thông tin về cấp văn bằng, chứng chỉ trên trang thông tin điện tử",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "đảm bảo dễ quản lý, truy cập, tìm kiếm."
+    }
+  },
+  {
+    "id": "reg_0396",
+    "question": "Sinh viên nộp KLTN ở đâu sau khi bảo vệ trước hội đồng?",
+    "ground_truth": "Sau khi bảo vệ trước hội đồng, sinh viên nộp KLTN ở trang web Cổng thông tin đào tạo (https://daa.uit.edu.vn).",
+    "metadata": {
+      "article": "Cách thức nộp Khoá luận tốt nghiệp",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "trang web Cổng thông tin đào tạo (https://daa.uit.edu.vn)"
+    }
+  },
+  {
+    "id": "reg_0382",
+    "question": "Thời gian giảng viên công bố đề cương chi tiết của môn học là khi nào?",
+    "ground_truth": "Thời gian giảng viên công bố đề cương chi tiết của môn học là vào đầu mỗi học kỳ.",
+    "metadata": {
+      "article": "Điều 11. Đánh giá kết quả học tập của học phần",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "vào đầu mỗi học kỳ."
+    }
+  },
+  {
+    "id": "reg_0399",
+    "question": "Điều kiện thứ hai cần phải đáp ứng trong việc mở lớp theo phương thức DHTT là gì?",
+    "ground_truth": "Điều kiện thứ hai trong việc mở lớp theo phương thức DHTT là: Trường hợp môn học chưa có đầy đủ học liệu điện tử, Trường chỉ cho phép đối với giảng viên là chuyên gia đang ở nước ngoài. Trường hợp này, giảng viên ở nước ngoài lên lớp trực tuyến qua phần mềm Microsoft Teams (xem quy định tại Điều 10) theo thời khóa biểu; ĐVQLMH phải phân công thêm giảng viên cùng tham gia giảng dạy hoặc phân công thêm trợ giảng lý thuyết.",
+    "metadata": {
+      "article": "Điều 6. Trường hợp, điều kiện mở lớp theo phương thức DHTT và DHKH",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Trường hợp môn học chưa có đầy đủ học liệu điện tử, Trường chỉ cho phép đối với giảng viên là chuyên gia đang ở nước ngoài. Trường hợp này, giảng viên ở nước ngoài lên lớp trực tuyến qua phần mềm Microsoft Teams (xem quy định tại Điều 10) theo thời khóa biểu; ĐVQLMH phải phân công thêm giảng viên cùng tham gia giảng dạy hoặc phân công thêm trợ giảng lý thuyết."
+    }
+  },
+  {
+    "id": "reg_0380",
+    "question": "Phòng Kế hoạch-Tài chính có trách nhiệm gì?",
+    "ground_truth": "Phòng Kế hoạch-Tài chính có trách nhiệm phối hợp, kiểm tra để thực hiện nghĩa vụ tài chính đối với những người tham gia giảng dạy và hỗ trợ giảng dạy.",
+    "metadata": {
+      "article": "Điều 12. Tổ chức thực hiện",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": " phối hợp, kiểm tra để thực hiện nghĩa vụ tài chính đối với những người tham gia giảng dạy và hỗ trợ giảng dạy."
+    }
+  },
+  {
+    "id": "reg_0631",
+    "question": "Sinh viên  CLC nếu không đóng học phí từng học kỳ thì có thể đóng học phí thế nào?",
+    "ground_truth": "Sinh viên có thể đóng học phí cả năm.",
+    "metadata": {
+      "article": "Điều 14. Học phí",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "Sinh viên có thể đóng học phí cả năm"
+    }
+  },
+  {
+    "id": "reg_0635",
+    "question": "Khi phát hiện sai sót trong đề thi thì ai sẽ báo cáo với đơn vị tổ chức môn thi về vấn đề này?",
+    "ground_truth": "Khi phát hiện sai sót trong đề thi, các CBCT phải báo cáo với đơn vị tổ chức môn thi.",
+    "metadata": {
+      "article": "Điều 10. Xử lý các sự cố bất thường của đề thi",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "các CBCT"
+    }
+  },
+  {
+    "id": "reg_0643",
+    "question": "Yêu cầu của trợ giảng thực hành theo hình thức 2 là gì?",
+    "ground_truth": "Yêu cầu của trợ giảng thực hành theo hình thức 2 là tổ chức ít nhất 15 tiết gặp trực tiếp sinh viên để hướng dẫn và giải đáp thắc mắc của sinh viên trong quá trình thực hiện các nội dung thực hành. Thời khóa biểu các buổi thực hành này phải được đăng ký và công bố cho sinh viên của lớp từ đầu học kỳ.",
+    "metadata": {
+      "article": "Điều 12. Giảng viên và trợ giảng",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "tổ chức ít nhất 15 tiết gặp trực tiếp sinh viên để hướng dẫn và giải đáp thắc mắc của sinh viên trong quá trình thực hiện các nội dung thực hành. Thời khóa biểu các buổi thực hành này phải được đăng ký và công bố cho sinh viên của lớp từ đầu học kỳ."
+    }
+  },
+  {
+    "id": "reg_0642",
+    "question": "Kiểm tra ngoại ngữ đầu vào để làm gì?",
+    "ground_truth": "Kiểm tra ngoại ngữ đầu vào để phân loại trình độ theo quy định chung của Trường.",
+    "metadata": {
+      "article": "Điều 11. Đào tạo ngoại ngữ",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "phân loại trình độ theo quy định chung của Trường."
+    }
+  },
+  {
+    "id": "reg_0624",
+    "question": "Trách nhiệm của một trợ giảng lý thuyết là gì?",
+    "ground_truth": "Trách nhiệm của một trợ giảng lý thuyết bao gồm các nhiệm vụ sau:\n - Nắm vững đề cương môn học, phối hợp chặt chẽ với GVMH để đạt chất lượng giảng dạy tốt nhất.\n - Hỗ trợ sinh viên học tập thông qua hệ thống Moodle. \n - Hỗ trợ GVMH trong các hoạt động giảng dạy, bao gồm: chuẩn bị bài giảng, phụ đạo, hướng dẫn bài tập, thảo luận và chấm bài. \n - Tham gia giờ học lý thuyết hoặc trực tại phòng làm việc để hỗ trợ sinh viên với thời lượng bằng hai phần ba số tiết lý thuyết của môn học (chưa quy đổi). Lịch dạy hoặc lịch trực được thông báo công khai cho sinh viên biết trên trang thông tin điện tử của Trường.",
+    "metadata": {
+      "article": "Điều 4. Tiêu chuẩn và trách nhiệm của trợ giảng môn học (TGMH)",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "Nắm vững đề cương môn học, phối hợp chặt chẽ với GVMH để đạt chất lượng giảng dạy tốt nhất.\n - Hỗ trợ sinh viên học tập thông qua hệ thống Moodle.#Hỗ trợ GVMH trong các hoạt động giảng dạy, bao gồm: chuẩn bị bài giảng, phụ đạo, hướng dẫn bài tập, thảo luận và chấm bài. \n - Tham gia giờ học lý thuyết hoặc trực tại phòng làm việc để hỗ trợ sinh viên với thời lượng bằng hai phần ba số tiết lý thuyết của môn học (chưa quy đổi). Lịch dạy hoặc lịch trực được thông báo công khai cho sinh viên biết trên trang thông tin điện tử của Trường."
+    }
+  },
+  {
+    "id": "reg_0748",
+    "question": "Nếu số lượng sinh viên của các lớp được mở ít hơn tiêu chuẩn thì đơn giá/tín chỉ như thế nào?",
+    "ground_truth": "Nếu số lượng sinh viên của các lớp được mở ít hơn tiêu chuẩn thì đơn giá/tín chỉ sẽ do Hiệu trưởng quyết định.",
+    "metadata": {
+      "article": "Điều 4. Quy định về học phí",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "sẽ do Hiệu trưởng quyết định."
+    }
+  },
+  {
+    "id": "reg_0717",
+    "question": "Những vi phạm nào sẽ bị xử lý theo quy chế tuyển sinh đại học hình thức ĐTTX hiện hành?",
+    "ground_truth": "Các vi phạm trong tuyển sinh sẽ bị xử lý theo quy chế tuyển sinh đại học hình thức ĐTTX hiện hành.",
+    "metadata": {
+      "article": "Điều 23. Xử lý vi phạm",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "các vi phạm trong tuyển sinh"
+    }
+  },
+  {
+    "id": "reg_0755",
+    "question": "Hiệu trưởng sẽ là người quyết định mở ngành đào tạo khi đã đảm bảo những điều kiện nào?",
+    "ground_truth": "Khi Trường đã đảm bảo các điều kiện, trình tự thủ tục trong xây dựng và tổ chức thẩm định đề án mở ngành đào tạo theo Quy định này và các văn bản hướng dẫn về mở ngành đào tạo ĐHQG-HCM (nếu có).",
+    "metadata": {
+      "article": "Điều 5. Thẩm quyền quyết định mở ngành đào tạo",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "đảm bảo các điều kiện, trình tự thủ tục trong xây dựng và tổ chức thẩm định đề án mở ngành đào tạo theo Quy định này và các văn bản hướng dẫn về mở ngành đào tạo ĐHQG-HCM (nếu có)."
+    }
+  },
+  {
+    "id": "reg_0669",
+    "question": "Việc phân chia sinh viên CTTT vào các lớp tiếng Anh dựa theo tiêu chí nào?",
+    "ground_truth": "Các lớp tiếng Anh cho sinh viên CTTT được chia theo trình độ khác nhau.",
+    "metadata": {
+      "article": "Điều 5. Tổ chức chương trình",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "trình độ khác nhau"
+    }
+  },
+  {
+    "id": "reg_0692",
+    "question": "Giảng viên môn học cần phải làm gì để đảm bảo số tiết học khi trước đó thông báo nghỉ?",
+    "ground_truth": "Trước đó giảng viên đã thông báo nghỉ thì cần phải dạy bù đúng theo quy định của trường để đảm bảo số tiết học.",
+    "metadata": {
+      "article": "Điều 3. Tiêu chuẩn và trách nhiệm của giảng viên giảng dạy môn học (GVMH)",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "dạy bù đúng theo quy định của Trường."
+    }
+  },
+  {
+    "id": "reg_0870",
+    "question": "CBCT thu bài thi của sinh viên khi nào?",
+    "ground_truth": "CBCT thu bài của sinh viên sau khi thời gian làm bài thi kết thúc.",
+    "metadata": {
+      "article": "Điều 12. Trách nhiệm của cán bộ coi thi",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Khi hết giờ làm bài"
+    }
+  },
+  {
+    "id": "reg_0878",
+    "question": "Sau khi tạm dừng học tập, sinh viên muốn quay lại Trường tiếp tục học tập thì phải làm gì?",
+    "ground_truth": "Sau khi tạm dừng học tập, sinh viên muốn quay lại Trường tiếp tục học tập thì phải hoàn tất thủ tục nhập học theo quy định của Trường.",
+    "metadata": {
+      "article": "Điều 17. Thôi học, tạm dừng học tập",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "hoàn tất thủ tục nhập học theo quy định của Trường"
+    }
+  },
+  {
+    "id": "reg_0862",
+    "question": "Những ai có trong hệ thống đào tạo từ xa của Trường ĐHCNTT?",
+    "ground_truth": "Những người có trong hệ thống đào tạo từ xa của Trường ĐHCNTT bao gồm đội ngũ giảng viên, cán bộ hỗ trợ học tập và cán bộ quản lý.",
+    "metadata": {
+      "article": "Điều 2. Hệ thống đào tạo từ xa",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "đội ngũ giảng viên, cán bộ hỗ trợ học tập, cán bộ quản lý"
+    }
+  },
+  {
+    "id": "reg_0880",
+    "question": "Điểm thành phần của mỗi môn học như thế nào?",
+    "ground_truth": "Điểm thành phần của mỗi môn học bao gồm: Cuối kỳ (bắt buộc phải có), Giữa kỳ, Thực hành (bắt buộc phải có đối với những môn học có tín chỉ thực hành) và Quá trình (gồm các điểm được cho trong quá trình học như điểm bài tập, thuyết trình, chuyên cần, …).",
+    "metadata": {
+      "article": "Điều 21. Đánh giá kết quả học tập của học phần, học kỳ, năm học, toàn khóa",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Cuối kỳ (bắt buộc phải có), Giữa kỳ, Thực hành (bắt buộc phải có đối với những môn học có tín chỉ thực hành) và Quá trình (gồm các điểm được cho trong quá trình học như điểm bài tập, thuyết trình, chuyên cần, …)"
+    }
+  },
+  {
+    "id": "reg_0873",
+    "question": "Khối kiến thức giáo dục chuyên nghiệp gồm cái gì?",
+    "ground_truth": "Khối kiến thức giáo dục chuyên nghiệp gồm các học phần cơ sở ngành và các học phần chuyên ngành.",
+    "metadata": {
+      "article": "Điều 7. Chương trình đào tạo",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "các học phần cơ sở ngành và các học phần chuyên ngành"
+    }
+  },
+  {
+    "id": "reg_0404",
+    "question": "Trong quá trình học, sinh viên phải đạt các chuẩn gì về ngoại ngữ?",
+    "ground_truth": "Trong quá trình học, sinh viên phải đạt các chuẩn quá trình và chuẩn đầu ra theo quy định về đào tạo ngoại ngữ hiện hành của Trường.",
+    "metadata": {
+      "article": "Điều 11. Đào tạo ngoại ngữ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "các chuẩn quá trình và chuẩn đầu ra"
+    }
+  },
+  {
+    "id": "reg_0409",
+    "question": "Đơn vị thông báo mở phúc khảo tới sinh viên là đơn vị nào?",
+    "ground_truth": "Đơn vị thông báo mở phúc khảo tới sinh viên là Phòng Đào tạo Đại học/ Văn phòng Đặc biệt.",
+    "metadata": {
+      "article": "Điều 20. Quy trình phúc khảo",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "Phòng Đào tạo Đại học/ Văn phòng Đặc biệt"
+    }
+  },
+  {
+    "id": "reg_0437",
+    "question": "Khung chương trình đào tạo ĐH-ThS được thiết kế theo quy định hiện hành về thiết kế chương trình đào tạo trình độ tiến sĩ phải không?",
+    "ground_truth": "Khung chương trình đào tạo ĐH-ThS được thiết kế theo quy định hiện hành về thiết kế chương trình đào tạo trình độ đại học và thạc sĩ.",
+    "metadata": {
+      "article": "Điều 5. Thiết kế chương trình đào tạo",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "yes_no",
+      "extractive_answer": "thiết kế theo quy định hiện hành về thiết kế chương trình đào tạo trình độ đại học và thạc sĩ."
+    }
+  },
+  {
+    "id": "reg_0417",
+    "question": "Trong giờ thi những người làm nhiệm vụ phục vụ thi không được phép làm gì?",
+    "ground_truth": "Trong giờ thi những người làm nhiệm vụ phục vụ thi không được phép thảo luận, sao chép, giải đề, mang đề ra ngoài hoặc giải thích đề thi cho SV.",
+    "metadata": {
+      "article": "Điều 12. Trách nhiệm của cán bộ coi thi",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "thảo luận, sao chép, giải đề, mang đề ra ngoài hoặc giải thích đề thi cho SV"
+    }
+  },
+  {
+    "id": "reg_0423",
+    "question": "Về việc tra cứu danh mục số lượng tín chỉ và học phần dự kiến trong học kỳ được thông báo vào thời gian nào?",
+    "ground_truth": "Vào đầu mỗi học kỳ, sinh viên có thể tra cứu các học phần và số lượng tín chỉ của mỗi học phần.",
+    "metadata": {
+      "article": "Điều 13. Thông báo kế hoạch đào tạo",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "Đầu mỗi học kỳ"
+    }
+  },
+  {
+    "id": "reg_0507",
+    "question": "CVHT là gì?",
+    "ground_truth": "mỗi lớp sinh hoạt do một CVHT phụ trách, CVHT do đơn vị chuyên môn đề xuất vào đầu mỗi năm học đáp ứng các tiêu chuẩn theo quy định của Trường. CVHT làm nhiệm vụ theo quy định chung của trường, ngoài ra CVHT của các CT CLC dành tối thiểu 04 giờ làm việc/tuần để gặp gỡ sinh viên tại trường nhằm nắm bắt tình hình học tập, sinh hoạt và đề xuất hỗ trợ kịp thời đến các đơn vị liên quan. CVHT có trách nhiệm công bố giờ và địa điểm làm việc cho sinh viên tại trang thông tin điện tử và bảng thông báo của đơn vị chuyên môn.",
+    "metadata": {
+      "article": "Điều 8. Đội ngũ quản lý và cố vấn học tập",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "mỗi lớp sinh hoạt do một CVHT phụ trách, CVHT do đơn vị chuyên môn đề xuất vào đầu mỗi năm học đáp ứng các tiêu chuẩn theo quy định của Trường. CVHT làm nhiệm vụ theo quy định chung của trường, ngoài ra CVHT của các CT CLC dành tối thiểu 04 giờ làm việc/tuần để gặp gỡ sinh viên tại trường nhằm nắm bắt tình hình học tập, sinh hoạt và đề xuất hỗ trợ kịp thời đến các đơn vị liên quan. CVHT có trách nhiệm công bố giờ và địa điểm làm việc cho sinh viên tại trang thông tin điện tử và bảng thông báo của đơn vị chuyên môn."
+    }
+  },
+  {
+    "id": "reg_0512",
+    "question": "Điều kiện thứ hai của việc mở lớp theo phương thức DHKH là gì?",
+    "ground_truth": "Điều kiện thứ hai của việc mở lớp theo phương thức DHKH là môn học phải có đầy đủ học liệu điện tử cho tối thiểu 1/3 nội dung môn học theo đề cương môn học là điều kiện thứ hai trong việc mở lớp theo phương thức DHKH.",
+    "metadata": {
+      "article": "Điều 6. Trường hợp, điều kiện mở lớp theo phương thức DHTT và DHKH",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "Môn học phải có đầy đủ học liệu điện tử cho tối thiểu 1/3 nội dung môn học theo đề cương môn học"
+    }
+  },
+  {
+    "id": "reg_0541",
+    "question": "Quy định nào liên quan đến việc chọn lựa cán bộ phản biện?\n\n\n\n\n\n",
+    "ground_truth": "Khi chọn CBPB phải khác với CBHD và không được là người có quan hệ ruột thịt với SV (cha, mẹ, vợ, chồng, anh, chị, em ruột).",
+    "metadata": {
+      "article": "Điều 8. Phản biện KLTN",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "CBPB phải khác với CBHD và không được là người có quan hệ ruột thịt với SV (cha, mẹ, vợ, chồng, anh, chị, em ruột)."
+    }
+  },
+  {
+    "id": "reg_0520",
+    "question": "Thời điểm nộp chứng chỉ xét miễn các môn học ngoại ngữ được tính từ khi nào?",
+    "ground_truth": "Thời điểm nộp chứng chỉ xét miễn các môn học ngoại ngữ được tính từ khi bắt đầu thực hiện đăng ký học phần của mỗi học kỳ.",
+    "metadata": {
+      "article": "Điều 8. Chuẩn quá trình về ngoại ngữ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "khi bắt đầu thực hiện đăng ký học phần của mỗi học kỳ"
+    }
+  },
+  {
+    "id": "reg_0552",
+    "question": "Đơn vị thực hiện việc công bố kết quả phúc khảo bài thi các môn học hệ đại học chính quy của Trường là đơn vị nào?",
+    "ground_truth": "Đơn vị thực hiện việc công bố kết quả phúc khảo là Phòng Đào tạo Đại học/ Văn phòng Đặc biệt.",
+    "metadata": {
+      "article": "Điều 20. Quy trình phúc khảo",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "Phòng Đào tạo Đại học/ Văn phòng Đặc biệt"
+    }
+  },
+  {
+    "id": "reg_0487",
+    "question": "Khoa nào nằm trong phạm vi áp dụng của quy định chương trình tài năng?",
+    "ground_truth": "Phạm vi áp dụng của quy định chương trình tài năng là các Khoa có đào tạo CTTN.",
+    "metadata": {
+      "article": "Điều 1. Phạm vi điều chỉnh và đối tượng áp dụng",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "open",
+      "extractive_answer": "các Khoa có đào tạo CTTN"
+    }
+  },
+  {
+    "id": "reg_0499",
+    "question": "CT CLC có sự khác biệt so với chương trình đại trà không?",
+    "ground_truth": "CT CLC có sự khác biệt so với chương trình đại trà.",
+    "metadata": {
+      "article": "Điều 5. Chương trình đào tạo",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "yes_no",
+      "extractive_answer": "CT CLC có sự khác biệt so với chương trình đại trà"
+    }
+  },
+  {
+    "id": "reg_0486",
+    "question": "Các học phần Giáo dục quốc phòng-An ninh và Giáo dục thể chất có tính vào tổng số tín chỉ của các chương trình đào tạo không?",
+    "ground_truth": "Tổng số tín chỉ của các chương trình đào tạo sẽ không tính các học phần Giáo dục quốc phòng-An ninh và Giáo dục thể chất.",
+    "metadata": {
+      "article": "Điều 7. Chương trình đào tạo",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "yes_no",
+      "extractive_answer": "không tính Giáo dục quốc phòng-An ninh và Giáo dục thể chất"
+    }
+  },
+  {
+    "id": "reg_0503",
+    "question": "Học phần tích luỹ là gì?",
+    "ground_truth": "Học phần tích luỹ là học phần mà sinh viên có kết quả tổng kết học phần được từ 5 điểm trở lên.",
+    "metadata": {
+      "article": "Điều 3. Môn học",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "open",
+      "extractive_answer": "học phần mà sinh viên có kết quả tổng kết học phần được từ 5 điểm trở lên"
+    }
+  },
+  {
+    "id": "reg_0484",
+    "question": "Chương trình CLC đào tạo đại học theo hệ chính quy hay từ xa?",
+    "ground_truth": "Chương trình CLC đào tạo đại học theo hệ chính quy.",
+    "metadata": {
+      "article": "Điều 2. Giải thích từ ngữ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "open",
+      "extractive_answer": "hệ chính quy"
+    }
+  },
+  {
+    "id": "reg_0579",
+    "question": "Khi nhận được Quyết định thu hồi văn bằng, chứng chỉ, người được cấp chứng chỉ phải làm gì?",
+    "ground_truth": "Khi nhận được Quyết định thu hồi văn bằng, chứng chỉ, người được cấp chứng chỉ phải nộp lại chứng chỉ cho Trường trong thời hạn 30 ngày, kể từ ngày nhận được Quyết định thu hồi văn bằng, chứng chỉ.",
+    "metadata": {
+      "article": "Điều 4. Quyền và nghĩa vụ của người được cấp văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ ĐỐI VỚI HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Nộp lại văn bằng, chứng chỉ cho Trường trong thời hạn 30 ngày, kể từ ngày nhận được Quyết định thu hồi văn bằng, chứng chỉ."
+    }
+  },
+  {
+    "id": "reg_0605",
+    "question": "Các thành phần của điểm môn học là gì?",
+    "ground_truth": "Các thành phần của điểm môn học gồm điểm quá trình (chuyên cần), điểm thực hành, điểm thi giữa học phần (giữa kỳ), điểm thi kết thúc học phần (cuối kỳ).",
+    "metadata": {
+      "article": "Điều 11. Đánh giá kết quả học tập của học phần",
+      "document": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ ĐỐI VỚI HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "điểm quá trình (chuyên cần), điểm thực hành, điểm thi giữa học phần (giữa kỳ), điểm thi kết thúc học phần (cuối kỳ)."
+    }
+  },
+  {
+    "id": "reg_0596",
+    "question": "Trách nhiệm của đơn vị phụ trách quản lý hạ tầng công nghệ thông tin - truyền thông là gì?",
+    "ground_truth": "Trách nhiệm của đơn vị phụ trách quản lý hạ tầng công nghệ thông tin - truyền thông là: Quản lý, vận hành và đảm bảo an ninh, an toàn: hệ thống máy chủ, cổng thông tin và hạ tầng kết nối mạng phục vụ DHTT, DHKH. Cấp phát tài khoản, tạo lớp học phần, phân quyền cho người dùng trên các hệ thống; hỗ trợ kỹ thuật cho giảng viên và sinh viên trong quá trình giảng dạy và học tập; hỗ trợ bộ phận chức năng thực hiện nhiệm vụ quản lý, thanh tra, kiểm tra. Tham gia giám sát quá trình DHTT, DHKH; kịp thời phát hiện, xử lý và báo cáo lãnh đạo đơn vị các hiện tượng bất thường trong quá trình DHTT, DHKH; lập các báo cáo liên quan khi được yêu cầu. Tạm ngưng hoặc vô hiệu hóa các khóa học, các nội dung trên khóa học và tài khoản người dùng vi phạm các quy định của pháp luật hiện hành và các điều khoản trong quy định này.",
+    "metadata": {
+      "article": "Điều 14. Trách nhiệm của đơn vị phụ trách quản lý hạ tầng công nghệ thông tin - truyền thông",
+      "document": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ ĐỐI VỚI HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Quản lý, vận hành và đảm bảo an ninh, an toàn: hệ thống máy chủ, cổng thông tin và hạ tầng kết nối mạng phục vụ DHTT, DHKH. 2. Cấp phát tài khoản, tạo lớp học phần, phân quyền cho người dùng trên các hệ thống; hỗ trợ kỹ thuật cho giảng viên và sinh viên trong quá trình giảng dạy và học tập; hỗ trợ bộ phận chức năng thực hiện nhiệm vụ quản lý, thanh tra, kiểm tra. 3. Tham gia giám sát quá trình DHTT, DHKH; kịp thời phát hiện, xử lý và báo cáo lãnh đạo đơn vị các hiện tượng bất thường trong quá trình DHTT, DHKH; lập các báo cáo liên quan khi được yêu cầu. 4. Tạm ngưng hoặc vô hiệu hóa các khóa học, các nội dung trên khóa học và tài khoản người dùng vi phạm các quy định của pháp luật hiện hành và các điều khoản trong quy định này."
+    }
+  },
+  {
+    "id": "reg_0611",
+    "question": "Sinh viên dự thính được cấp giấy chứng nhận gì?",
+    "ground_truth": "Sinh viên dự thính được cấp giấy chứng nhận kết quả học tập cho những học phần đã học.",
+    "metadata": {
+      "article": "Điều 10. Chế độ học tập của sinh viên",
+      "document": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ ĐỐI VỚI HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "kết quả học tập cho những học phần đã học"
+    }
+  },
+  {
+    "id": "reg_0583",
+    "question": "Sinh viên được xét miễn các môn học ngoại ngữ ở học kỳ thứ 3 không?",
+    "ground_truth": "Sinh viên được xét miễn các môn học ngoại ngữ trong vòng 4 học kỳ chính.",
+    "metadata": {
+      "article": "Điều 7. Thời điểm xét miễn, cách tính điểm miễn các môn học ngoại ngữ",
+      "document": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ ĐỐI VỚI HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "trong vòng 4 học kỳ chính"
+    }
+  },
+  {
+    "id": "reg_0899",
+    "question": "Công thức tính mức phí hỗ trợ trong trường hợp được hỗ trợ 50% kinh phí là gì?",
+    "ground_truth": "Công thức tính mức phí hỗ trợ trong trường hợp được hỗ trợ 50% kinh phí là: (đơn giá in 1 trang × số trang × số lượng giáo trình xuất bản) × 50%.",
+    "metadata": {
+      "article": "Điều 13. Kinh phí giáo trình ĐHQG hỗ trợ cho xuất bản giáo trình",
+      "document": "Thay đổi quy trình nộp khóa luận tốt nghiệp sau khi bảo vệ trước hội đồng",
+      "question_type": "open",
+      "extractive_answer": "(đơn giá in 1 trang × số trang × số lượng giáo trình xuất bản) × 50%"
+    }
+  },
+  {
+    "id": "reg_0901",
+    "question": "Thời gian để Khoa tổng hợp điểm vào danh sách sinh viên tham gia KLTN và gởi cho P. ĐTĐH là bao lâu?",
+    "ground_truth": "Khoa tổng hợp điểm vào danh sách sinh viên tham gia KLTN và gởi cho P. ĐTĐH trong khoảng thời gian không quá 2 tuần sau ngày bảo vệ.",
+    "metadata": {
+      "article": "Điều 14. Chế độ lưu trữ",
+      "document": "Thay đổi quy trình nộp khóa luận tốt nghiệp sau khi bảo vệ trước hội đồng",
+      "question_type": "open",
+      "extractive_answer": "không quá 2 tuần sau ngày bảo vệ."
+    }
+  },
+  {
+    "id": "reg_0898",
+    "question": "Hiệu trưởng có nhiệm vụ như thế nào trong quy định về khóa luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy?",
+    "ground_truth": "Hiệu trưởng sẽ ra quyết định giao nhiệm vụ hướng dẫn KLTN trong quy định về khóa luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy.",
+    "metadata": {
+      "article": "Điều 5. Xét duyệt sinh viên được làm KLTN",
+      "document": "Thay đổi quy trình nộp khóa luận tốt nghiệp sau khi bảo vệ trước hội đồng",
+      "question_type": "open",
+      "extractive_answer": "sẽ ra quyết định giao nhiệm vụ hướng dẫn KLTN"
+    }
+  },
+  {
+    "id": "reg_0900",
+    "question": "CBCT được gọi là gì?",
+    "ground_truth": "CBCT được gọi là phân công cán bộ coi thi.",
+    "metadata": {
+      "article": "Điều 7. Phân công cán bộ coi thi (CBCT)",
+      "document": "Thay đổi quy trình nộp khóa luận tốt nghiệp sau khi bảo vệ trước hội đồng",
+      "question_type": "open",
+      "extractive_answer": "Phân công cán bộ coi thi"
+    }
+  },
+  {
+    "id": "reg_0945",
+    "question": "Nếu đang chịu trách nhiệm hành chính thì có nhận văn bằng, chứng chỉ được không?",
+    "ground_truth": "Chỉ có thể nhận văn bằng, chứng chỉ nếu không đang trong thời gian bị truy cứu trách nhiệm hình sự.",
+    "metadata": {
+      "article": "Điều 13. Điều kiện cấp văn bằng, chứng chỉ",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "yes_no",
+      "extractive_answer": "Không đang trong thời gian bị truy cứu trách nhiệm hình sự."
+    }
+  },
+  {
+    "id": "reg_0942",
+    "question": "Các môn học có thể có phương thức giảng dạy khác nhau không?",
+    "ground_truth": "Các môn học có thể có phương thức giảng dạy khác nhau vì từng môn học được lên kế hoạch cụ thể về phương thức giảng dạy.",
+    "metadata": {
+      "article": "Điều 5. Tổ chức đào tạo phương thức DHTT và DHKH",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "yes_no",
+      "extractive_answer": "kế hoạch cụ thể về phương thức giảng dạy đối với từng môn học,"
+    }
+  },
+  {
+    "id": "reg_0948",
+    "question": "Khi thu hồi chứng chỉ, Trường sẽ làm gì?",
+    "ground_truth": "Khi thu hồi chứng chỉ, Trường sẽ ra quyết định thu hồi, hủy bỏ văn bằng, chứng chỉ.",
+    "metadata": {
+      "article": "Điều 22. Thu hồi, hủy bỏ văn bằng, chứng chỉ",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "ra quyết định thu hồi, hủy bỏ văn bằng, chứng chỉ"
+    }
+  },
+  {
+    "id": "reg_0914",
+    "question": "Số tín chỉ tích luỹ tối thiểu của chương trình cử nhân cao hơn hay thấp hơn chương trình đặc thù?",
+    "ground_truth": "Số tín chỉ tích luỹ tối thiểu của chương trình cử nhân thấp hơn chương trình đặc thù do tối thiểu là 120 đối với đào tạo chương trình cử nhân và tối thiểu 150 tín chỉ đối với chương trình đặc thù.",
+    "metadata": {
+      "article": "Điều 7. Chương trình đào tạo",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "tối thiểu là 120 và tối đa là 132 tín chỉ đối với đào tạo chương trình cử nhân; tối thiểu 150 tín chỉ đối với chương trình đào tạo chuyên sâu đặc thù trình độ đại học"
+    }
+  },
+  {
+    "id": "reg_0926",
+    "question": "Ai sẽ đảm đương việc đề nghị người có bản sao văn bằng, chứng chỉ xuất trình bản gốc để đối chiếu trong trường hợp có bằng chứng bản sao văn bằng, chứng chỉ là giả mạo?",
+    "ground_truth": "Về việc mời người có bản sao giả mạo cung cấp bản chính văn bằng, chứng chỉ sẽ do tổ chức tiếp nhận bản sao văn bằng, chứng chỉ đảm nhận.",
+    "metadata": {
+      "article": "Điều 24. Giá trị pháp lý của bản sao văn bằng, chứng chỉ từ sổ gốc",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "tổ chức tiếp nhận bản sao văn bằng, chứng chỉ "
+    }
+  },
+  {
+    "id": "reg_0671",
+    "question": "Hiệu trưởng có thể cấp văn bằng tốt nghiệp bậc tiến sĩ được không?",
+    "ground_truth": "Về trao bằng tốt nghiệp thì bằng tiến sĩ do Hiệu trưởng Trường cấp.",
+    "metadata": {
+      "article": "Điều 12. Thẩm quyền cấp văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "yes_no",
+      "extractive_answer": "bằng tiến sĩ do Hiệu trưởng Trường cấp."
+    }
+  },
+  {
+    "id": "reg_0101",
+    "question": "Ai có trách nhiệm phải gửi báo cáo sau khi tổng kết công tác giáo trình và xây dựng kế hoạch xuất bản giáo trình?",
+    "ground_truth": "Trưởng Ban điều hành CTGT có trách nhiệm gửi báo cáo sau khi tổng kết công tác giáo trình và xây dựng kế hoạch xuất bản giáo trình.",
+    "metadata": {
+      "article": "Điều 11. Lập kế hoạch, báo cáo công tác giáo trình",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Trưởng Ban điều hành CTGT"
+    }
+  },
+  {
+    "id": "reg_0356",
+    "question": "Thứ tự chi tiết của đề cương các môn học trong hồ sơ thẩm định đề án mở ngành đào tạo được sắp xếp thế nào?",
+    "ground_truth": "Thứ tự chi tiết của đề cương các môn học trong hồ sơ thẩm định đề án mở ngành đào tạo được sắp xếp theo đúng thứ tự của các môn học trong chương trình đào tạo.",
+    "metadata": {
+      "article": "Điều 7. Hồ sơ thẩm định đề án mở ngành đào tạo",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "theo đúng thứ tự của các môn học trong chương trình đào tạo."
+    }
+  },
+  {
+    "id": "reg_0275",
+    "question": "Quy chuẩn về thời lượng học tập của một tiết học là bao nhiêu?",
+    "ground_truth": "Một tiết học được quy chuẩn bằng 50 phút.",
+    "metadata": {
+      "article": "Điều 4. Tín chỉ học tập – Tín chỉ học phí",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "50 phút"
+    }
+  },
+  {
+    "id": "reg_0269",
+    "question": "Phòng ĐTĐH giữ vai trò là đơn vị thực hiện chính ở những bước nào trong quy trình chấm thi?",
+    "ground_truth": "Phòng ĐTĐH giữ vai trò là đơn vị thực hiện chính ở các bước như chấm thi trắc nghiệm, kiểm tra điểm và lưu trữ trong quy trình chấm thi.",
+    "metadata": {
+      "article": "Điều 18. Quy trình chấm thi",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Chấm thi trắc nghiệm#Kiểm tra điểm#Lưu trữ"
+    }
+  },
+  {
+    "id": "reg_0230",
+    "question": "P.ĐTĐH là viết tắt của từ gì?",
+    "ground_truth": "P.ĐTĐH là viết tắt của Phòngz Đào tạo Đại học.",
+    "metadata": {
+      "article": "Điều 2. Một số thuật ngữ, chữ viết tắt sử dụng trong quy định này",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Phòng Đào tạo Đại học"
+    }
+  },
+  {
+    "id": "reg_0107",
+    "question": "Quy định về các môn chuyên đề tốt nghiệp ở đâu?",
+    "ground_truth": "Quy định về các môn chuyên đề tốt nghiệp được ghi rõ trong chương trình đào tạo.",
+    "metadata": {
+      "article": "Điều 31. Thực tập, khóa luận tốt nghiệp và chuyên đề tốt nghiệp",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "ghi rõ trong chương trình đào tạo"
+    }
+  },
+  {
+    "id": "reg_0301",
+    "question": "Cấp độ thứ nhất của chữ số đầu tiên trong mã môn học các môn thuộc khối kiến thức chuyên ngành quy định môn học nào?",
+    "ground_truth": "Các môn cơ sở ngành được quy định bởi cấp độ thứ nhất của chữ số đầu tiên trong mã môn học các môn thuộc khối kiến thức chuyên ngành.",
+    "metadata": {
+      "article": "Hệ thống mã môn học",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Các môn cơ sở ngành"
+    }
+  },
+  {
+    "id": "reg_0773",
+    "question": "Nội dung của tiêu chuẩn và trách nhiệm của giảng viên giảng dạy môn học (GVMH) là gì?\n",
+    "ground_truth": "Nội dung của tiêu chuẩn và trách nhiệm của giảng viên giảng dạy môn học (GVMH) là: GVMH phải đáp ứng tất cả những điều kiện có trình độ thạc sĩ trở lên với chuyên ngành phù hợp môn học, trừ giảng viên giảng dạy ngoại ngữ có trình độ đại học trở lên với chuyên ngành phù hợp; Có chứng chỉ nghiệp vụ sư phạm và Đáp ứng một trong các điều kiện sau: Có kết quả nghiên cứu liên quan đến môn học phụ trách được thể hiện qua: luận văn tốt nghiệp trình độ đại học/thạc sĩ/tiến sĩ; bài báo khoa học đăng trên các kỷ yếu hội nghị chuyên ngành hoặc tạp chí có uy tín; sách đã xuất bản; hoặc đề tài nghiên cứu khoa học đã được nghiệm thu; Có kinh nghiệm làm việc từ 03 năm trở lên liên quan đến môn học. Đáp ứng một trong các điều kiện sau: Hoàn thành kiến tập giảng dạy được quy định tại Điều 6 của quy định này và được giảng viên hướng dẫn kiến tập nhận xét là đạt yêu cầu; Đã học và thi đạt môn học tương đương trong quá trình học tập hoặc từ một khóa học có uy tín được Trường công nhận. GVMH có trình độ tiến sĩ hoặc môn học được mở lần đầu tiên tại trường thì không cần đáp ứng điều kiện tại Điểm d Khoản 1 Điều 3. GVMH có trách nhiệm: Giảng dạy chính và phối hợp chặt chẽ với TGMH (nếu có) để đạt chất lượng giảng dạy tốt nhất. Nắm vững đề cương môn học và giảng dạy theo đề cương môn học. Nếu có thay đổi so với đề cương môn học thì GVMH có trách nhiệm làm việc với ĐVQLMH để cập nhật đề cương môn học trước khi giảng dạy. Giảng dạy đủ số tiết học theo thời khóa biểu, thực hiện báo nghỉ và dạy bù đúng theo quy định của Trường. Cung cấp đề cương môn học, tài liệu giảng dạy và tập tin trình chiếu bài giảng - slides (nếu có sử dụng) và hỗ trợ sinh viên học tập thông qua hệ thống Moodle. Ra đề thi, tham gia coi thi, chấm thi và nộp điểm theo quy định của Trường.",
+    "metadata": {
+      "article": "Điều 3. Tiêu chuẩn và trách nhiệm của giảng viên giảng dạy môn học (GVMH)",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "1. GVMH phải đáp ứng tất cả những điều kiện sau: a. Có trình độ thạc sĩ trở lên với chuyên ngành phù hợp môn học, trừ giảng viên giảng dạy ngoại ngữ có trình độ đại học trở lên với chuyên ngành phù hợp. b. Có chứng chỉ nghiệp vụ sư phạm, c. Đáp ứng một trong các điều kiện sau: i. Có kết quả nghiên cứu liên quan đến môn học phụ trách được thể hiện qua: luận văn tốt nghiệp trình độ đại học/thạc sĩ/tiến sĩ; bài báo khoa học đăng trên các kỷ yếu hội nghị chuyên ngành hoặc tạp chí có uy tín; sách đã xuất bản; hoặc đề tài nghiên cứu khoa học đã được nghiệm thu; ii. Có kinh nghiệm làm việc từ 03 năm trở lên liên quan đến môn học. d. Đáp ứng một trong các điều kiện sau: i. Hoàn thành kiến tập giảng dạy được quy định tại Điều 6 của quy định này và được giảng viên hướng dẫn kiến tập nhận xét là đạt yêu cầu; ii. Đã học và thi đạt môn học tương đương trong quá trình học tập hoặc từ một khóa học có uy tín được Trường công nhận. 2. GVMH có trình độ tiến sĩ hoặc môn học được mở lần đầu tiên tại trường thì không cần đáp ứng điều kiện tại Điểm d Khoản 1 Điều 3. 3. GVMH có trách nhiệm: a. Giảng dạy chính và phối hợp chặt chẽ với TGMH (nếu có) để đạt chất lượng giảng dạy tốt nhất. b. Nắm vững đề cương môn học và giảng dạy theo đề cương môn học. Nếu có thay đổi so với đề cương môn học thì GVMH có trách nhiệm làm việc với ĐVQLMH để cập nhật đề cương môn học trước khi giảng dạy. c. Giảng dạy đủ số tiết học theo thời khóa biểu, thực hiện báo nghỉ và dạy bù đúng theo quy định của Trường. d. Cung cấp đề cương môn học, tài liệu giảng dạy và tập tin trình chiếu bài giảng - slides (nếu có sử dụng) và hỗ trợ sinh viên học tập thông qua hệ thống Moodle. e. Ra đề thi, tham gia coi thi, chấm thi và nộp điểm theo quy định của Trường."
+    }
+  },
+  {
+    "id": "reg_0249",
+    "question": "Khi nào sinh viên mới được phép ra khỏi phòng thi?",
+    "ground_truth": "Sinh viên được phép ra khỏi phòng thi sau 2/3 thời gian làm bài và sau khi đã nộp bài làm và đề thi cho CBCT, trừ trường hợp ốm đau cần cấp cứu do CB trực lãnh đạo thi quyết định.",
+    "metadata": {
+      "article": "Điều 13. Trách nhiệm của sinh viên dự thi",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "sau 2/3 thời gian làm bài và sau khi đã nộp bài làm và đề thi cho CBCT, trừ trường hợp ốm đau cần cấp cứu do CB trực lãnh đạo thi quyết định"
+    }
+  },
+  {
+    "id": "reg_0325",
+    "question": "Những người học không phải sinh viên của trường sẽ được cấp gì để tham gia học tập?",
+    "ground_truth": "Trường sẽ cấp cho những người học không phải sinh viên của trường mã người học cùng các tài khoản liên quan để tham gia học tập.",
+    "metadata": {
+      "article": "Điều 3. Quy định về tổ chức đào tạo",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "mã người học cùng các tài khoản liên quan"
+    }
+  },
+  {
+    "id": "reg_0718",
+    "question": "Vì lý do cá nhân, sinh viên có thể gửi đơn xin thôi học được không?",
+    "ground_truth": "Vì lý do cá nhân, sinh viên có thể gửi đơn xin thôi học.",
+    "metadata": {
+      "article": "Điều 17. Thôi học, tạm dừng học tập",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "yes_no",
+      "extractive_answer": "Trường hợp vì hoàn cảnh cá nhân, sinh viên có thể gửi đơn xin thôi học."
+    }
+  },
+  {
+    "id": "reg_0347",
+    "question": "Quy định tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin quy định điều gì?",
+    "ground_truth": "Quy định tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin quy định những điều chung về việc tổ chức các đợt thi bao gồm các công tác: chuẩn bị thi, tổ chức thi, chấm thi, công bố điểm, phúc khảo, chế độ lưu trữ và xử lý vi phạm.",
+    "metadata": {
+      "article": "Điều 1. Phạm vi điều chỉnh và đối tượng áp dụng",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "việc tổ chức các đợt thi bao gồm các công tác: chuẩn bị thi, tổ chức thi, chấm thi, công bố điểm, phúc khảo, chế độ lưu trữ và xử lý vi phạm."
+    }
+  },
+  {
+    "id": "reg_0946",
+    "question": "Sinh viên không tham gia công tác thi bị buộc thôi học trong trường hợp nào?",
+    "ground_truth": "Sinh viên không tham gia công tác thi bị buộc thôi học nếu như có các hành động tiêu cực như: thi hộ, tổ chức lấy đề thi ra và đưa bài giải vào cho SV, gây rối làm mất trất tự tại khu vực thi.",
+    "metadata": {
+      "article": "Điều 22. Xử lý cán bộ vi phạm quy định",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "có các hành động tiêu cực như: thi hộ, tổ chức lấy đề thi ra và đưa bài giải vào cho SV, gây rối làm mất trất tự tại khu vực thi"
+    }
+  },
+  {
+    "id": "reg_0136",
+    "question": "Trong trường hợp nào Trường sẽ không cấp bản sao từ sổ gốc cho người yêu cầu?",
+    "ground_truth": "Trong các trường hợp sau, Trường sẽ không cấp bản sao từ sổ gốc cho người yêu cầu: Không còn lưu giữ được sổ gốc; Trong sổ gốc không có thông tin về nội dung yêu cầu cấp bản sao; Trường từ chối cấp bản sao cho người yêu cầu. ",
+    "metadata": {
+      "article": "Điều 27. Thủ tục cấp bản sao văn bằng, chứng chỉ từ sổ gốc",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "không còn lưu giữ được sổ gốc hoặc trong sổ gốc không có thông tin về nội dung yêu cầu cấp bản sao hoặc không cấp bản sao cho người yêu cầu"
+    }
+  },
+  {
+    "id": "reg_0148",
+    "question": "Các seminar được thực hiện bằng tiếng Anh hay tiếng Việt?",
+    "ground_truth": "Sinh viên thực hiện các seminar bằng tiếng Anh.",
+    "metadata": {
+      "article": "Điều 11. Đánh giá kết quả học tập của học phần",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "tiếng Anh."
+    }
+  },
+  {
+    "id": "reg_0142",
+    "question": "Khối kiến thức giáo dục đại cương bao gồm những lĩnh vực nào?",
+    "ground_truth": "Khối kiến thức giáo dục đại cương bao gồm các lĩnh vực sau: Lý luận chính trị, Khoa học xã hội và nhân văn, Khoa học tự nhiên, Toán, Ngoại ngữ, Giáo dục quốc phòng-An ninh, Giáo dục thể chất và Kỹ năng mềm.",
+    "metadata": {
+      "article": "Điều 7. Chương trình đào tạo",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Lý luận chính trị, Khoa học xã hội và nhân văn, Khoa học tự nhiên, Toán, Ngoại ngữ, Giáo dục quốc phòng-An ninh, Giáo dục thể chất và Kỹ năng mềm"
+    }
+  },
+  {
+    "id": "reg_0372",
+    "question": "Điểm như nào là kết quả chưa đạt?",
+    "ground_truth": "Kết quả chưa đạt tức là điểm nhỏ hơn 5.",
+    "metadata": {
+      "article": "Điều 3. Môn học",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "điểm nhỏ hơn 5"
+    }
+  },
+  {
+    "id": "reg_0652",
+    "question": "Khi bị mất văn bằng, chứng chỉ cần phải trình báo cho ai?",
+    "ground_truth": "Khi bị mất văn bằng, chứng chỉ cần phải trình báo cho Trường và cơ quan công an nơi gần nhất.",
+    "metadata": {
+      "article": "Điều 4. Quyền và nghĩa vụ của người được cấp văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Trường và cơ quan công an nơi gần nhất"
+    }
+  },
+  {
+    "id": "reg_0341",
+    "question": "Tác giả tham gia biên soạn giáo trình có được tính vào khối lượng công tác hàng năm của CB-VC không?",
+    "ground_truth": "Tác giả tham gia biên soạn giáo trình được tính vào khối lượng công tác hàng năm của CB-VC.",
+    "metadata": {
+      "article": "Điều 9. Nghĩa vụ và quyền lợi trong biên soạn giáo trình",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "yes_no",
+      "extractive_answer": "Được tính vào khối lượng công tác hàng năm của CB-VC (theo qui chế chi tiêu nội bộ của trường ĐHCNTT)"
+    }
+  },
+  {
+    "id": "reg_0288",
+    "question": "Đơn vị quản lý môn học bàn giao những gì cho P.ĐTĐH?",
+    "ground_truth": "Đơn vị quản lý môn học bàn giao bài thi và hồ sơ thi của sinh viên cho P.ĐTĐH.",
+    "metadata": {
+      "article": "Điều 25. Trách nhiệm của Đơn vị quản lý môn học",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "bài thi và hồ sơ thi"
+    }
+  },
+  {
+    "id": "reg_0441",
+    "question": "Giữa văn bằng 2 và liên thông thì cái nào có thời gian dài hơn?",
+    "ground_truth": "Văn bằng 2 có thời giời gian từ 2 năm đến 3 năm, liên thông có thời gian 1,5 năm đến 2,5 năm. Vậy văn bằng 2 có thời gian dài hơn.",
+    "metadata": {
+      "article": "Điều 6. Khoá học",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "2 năm đến 3 năm học đối với văn bằng 2#từ 1,5 năm đến 2,5 năm học đối với liên thông"
+    }
+  },
+  {
+    "id": "reg_0548",
+    "question": "Nội dung của Điều 19 trong QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin là gì?",
+    "ground_truth": "Nội dung của Điều 19 trong QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin là: Người được cấp văn bằng, chứng chỉ có quyền yêu cầu chỉnh sửa nội dung ghi trên văn bằng, chứng chỉ trong các trường hợp sau: Được cơ quan có thẩm quyền xác nhận thay đổi hoặc cải chính hộ tịch. Được xác định lại dân tộc, xác định lại giới tính. Được bổ sung hộ tịch, điều chỉnh hộ tịch. Được đăng ký khai sinh quá hạn, đăng ký lại việc sinh.",
+    "metadata": {
+      "article": "Điều 19. Các trường hợp chỉnh sửa nội dung văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "Người được cấp văn bằng, chứng chỉ có quyền yêu cầu chỉnh sửa nội dung ghi trên văn bằng, chứng chỉ trong các trường hợp sau: 1. Được cơ quan có thẩm quyền xác nhận thay đổi hoặc cải chính hộ tịch. 2. Được xác định lại dân tộc, xác định lại giới tính. 3. Được bổ sung hộ tịch, điều chỉnh hộ tịch. 4. Được đăng ký khai sinh quá hạn, đăng ký lại việc sinh."
+    }
+  },
+  {
+    "id": "reg_0135",
+    "question": "Tuyển sinh CTTN từ năm 1 theo kết quả đầu vào tuyển sinh có chỉ tiêu tuyển sinh tối đa là bao nhiêu sinh viên/chương trình?",
+    "ground_truth": "Tuyển sinh CTTN từ năm 1 theo kết quả đầu vào tuyển sinh có chỉ tiêu tuyển sinh tối đa là 30 sinh viên/chương trình.",
+    "metadata": {
+      "article": "Điều 8. Phương thức xét tuyển đầu vào",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": 30
+    }
+  },
+  {
+    "id": "reg_0124",
+    "question": "Điểm tối thiểu của chứng chỉ VNU-EPT đạt bao nhiêu để xét tốt nghiệp đối với chương trình tiên tiến?",
+    "ground_truth": "Điểm tối thiểu của chứng chỉ VNU-EPT để xét tốt nghiệp dành cho chương trình tiên tiến là 251 điểm.",
+    "metadata": {
+      "article": "Điều 9. Văn bằng, chứng chỉ/chứng nhận được sử dụng để công nhận đạt chuẩn xét tốt nghiệp",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": 251
+    }
+  },
+  {
+    "id": "reg_0864",
+    "question": "Hình thức xử lý vi phạm nào khi làm bài thi là nặng nhất?",
+    "ground_truth": "Hình thức xử lý vi phạm nặng nhất khi làm bài thi là đình chỉ thi.",
+    "metadata": {
+      "article": "Điều 23. Xử lý sinh viên dự thi vi phạm quy định",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Đình chỉ thi"
+    }
+  },
+  {
+    "id": "reg_0151",
+    "question": "Trong cập nhật loại 2, các cập nhật về số lượng tín chỉ có phải là nội dung mà ĐVCM dự thảo không?",
+    "ground_truth": "Những nội dung mà ĐVCM dự thảo bao gồm trong cập nhật loại 2: Thay đổi trong quy định của Nhà nước, của Trường về CTĐT; Những tiến bộ mới trong lĩnh vực khoa học thuộc ngành, chuyên ngành; Các vấn đề kinh tế xã hội, kết quả nghiên cứu liên quan đến CTĐT; Ý kiến phản hồi của các bên liên quan; Những thay đổi học phần, môn học hoặc nội dung chuyên môn.",
+    "metadata": {
+      "article": "Điều 7. Quy trình cập nhật loại II cho CTĐT",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "Thay đổi trong quy định của Nhà nước, của Trường về CTĐT;\n Những tiến bộ mới trong lĩnh vực khoa học thuộc ngành, chuyên ngành;\n Các vấn đề kinh tế xã hội, kết quả nghiên cứu liên quan đến CTĐT;\n Ý kiến phản hồi của các bên liên quan;\n Những thay đổi học phần, môn học hoặc nội dung chuyên môn."
+    }
+  },
+  {
+    "id": "reg_0466",
+    "question": "Khi nào CVHT được đơn vị chuyên môn đề xuất?",
+    "ground_truth": "Vào đầu mỗi năm học CVHT sẽ được đơn vị chuyên môn đề xuất.",
+    "metadata": {
+      "article": "Điều 7. Đội ngũ quản lý và cố vấn học tập",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "open",
+      "extractive_answer": "vào đầu mỗi năm học"
+    }
+  },
+  {
+    "id": "reg_0436",
+    "question": "Kết quả thi các học phần Giáo dục thể chất có ảnh hưởng tới ĐTBHK không?",
+    "ground_truth": "Kết quả thi các học phần Giáo dục thể chất không ảnh hưởng tới ĐTBHK vì không tính kết quả thi học phần Giáo dục thể chất vào ĐTBHK.",
+    "metadata": {
+      "article": "Điều 24. Cách quản lý điểm",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "yes_no",
+      "extractive_answer": "Không tính kết quả thi các học phần Giáo dục quốc phòng-An ninh và Giáo dục thể chất vào ĐTBHK, ĐTBC hoặc ĐTBCTL."
+    }
+  },
+  {
+    "id": "reg_0936",
+    "question": "Ai thực hiện thủ tục đăng ký thực hiện giáo trình với Ban điều hành CTGT?",
+    "ground_truth": "Khoa thực hiện thủ tục đăng ký thực hiện giáo trình với Ban điều hành CTGT.",
+    "metadata": {
+      "article": "Điều 7. Quy trình tổ chức biên soạn giáo trình",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "Khoa"
+    }
+  },
+  {
+    "id": "reg_0233",
+    "question": "Trường tổ chức đào tạo cho sinh viên hệ chính quy theo khung giờ nào?",
+    "ground_truth": "Trường tổ chức đào tạo cho sinh viên hệ chính quy theo khung giờ hành chính.",
+    "metadata": {
+      "article": "Điều 10. Chế độ học tập của sinh viên",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "khung giờ hành chính"
+    }
+  },
+  {
+    "id": "reg_0569",
+    "question": "Thời gian để hoàn thành việc đổ danh sách sinh viên vào các phòng thi là bao nhiêu ngày?",
+    "ground_truth": "Thời gian để hoàn thành việc đổ danh sách sinh viên vào các phòng thi là trước 7 ngày kể từ ngày thi của môn học (kể cả ngày nghỉ).",
+    "metadata": {
+      "article": "Điều 15. Quy trình tổ chức thi (đối với hình thức vấn đáp, đồ án)",
+      "document": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ ĐỐI VỚI HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "trước 7 ngày kể từ ngày thi của môn học (kể cả ngày nghỉ)"
+    }
+  },
+  {
+    "id": "reg_0650",
+    "question": "Bộ phận nào của Trường sẽ xem xét các trường hợp có lí do chính đáng để vắng thi giữa kỳ?",
+    "ground_truth": "P.ĐTĐH sẽ xem xét các trường hợp có lí do chính đáng để vắng thi giữa kỳ.",
+    "metadata": {
+      "article": "Điều 21. Đánh giá kết quả học tập của học phần, học kỳ, năm học, toàn khóa",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "P.ĐTĐH"
+    }
+  },
+  {
+    "id": "reg_0223",
+    "question": "Nếu là nghiên cứu sinh thì có thể xin làm trợ giảng không?",
+    "ground_truth": "Để có thể làm trợ giảng CT CLC thì các nghiên cứu sinh, học viên cao học, sinh viên năm cuối có kết quả học tập đạt loại giỏi các CTĐT kỹ sư - cử nhân tài năng, CT CLC, chương trình tiên tiến tham gia hoạt động trợ giảng.",
+    "metadata": {
+      "article": "Điều 12. Giảng viên và trợ giảng",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "nghiên cứu sinh, học viên cao học, sinh viên năm cuối có kết quả học tập đạt loại giỏi các CTĐT kỹ sư - cử nhân tài năng, CT CLC, chương trình tiên tiến tham gia hoạt động trợ giảng"
+    }
+  },
+  {
+    "id": "reg_0570",
+    "question": "Điều kiện về ĐTBHK để có thể đạt được học bổng học tập CT CLC là gì?",
+    "ground_truth": "Điều kiện về điểm để có thể đạt được học bổng học tập CT CLC là ĐTBHK >= 8.0.",
+    "metadata": {
+      "article": "Điều 15. Học bổng, khen thưởng",
+      "document": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ ĐỐI VỚI HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "ĐTBHK >= 8.0"
+    }
+  },
+  {
+    "id": "reg_0619",
+    "question": "Hiệu trưởng Trường có chịu trách nhiệm về nội dung in trên phôi hay không?",
+    "ground_truth": "Hiệu trưởng Trường có chịu trách nhiệm về nội dung in trên phôi.",
+    "metadata": {
+      "article": "Điều 10. Trách nhiệm in, quản lý phôi văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "Hiệu trưởng Trường phê duyệt mẫu phôi chứng chỉ; gửi mẫu phôi chứng chỉ về Bộ GD&ĐT, ĐHQG-HCM, cơ quan công an địa phương nơi đóng trụ sở chính để báo cáo; chịu trách nhiệm về nội dung in trên phôi chứng chỉ và tổ chức in phôi chứng chỉ theo nhu cầu."
+    }
+  },
+  {
+    "id": "reg_0322",
+    "question": "Sinh viên chỉ được bảo vệ khóa luận khi nào?",
+    "ground_truth": "Sinh viên chỉ được bảo vệ khóa luận khi đã hoàn thành khóa luận và được sự đồng ý bằng văn bản của cán bộ hướng dẫn.",
+    "metadata": {
+      "article": "Điều 31. Thực tập, khóa luận tốt nghiệp và chuyên đề tốt nghiệp",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "đã hoàn thành khóa luận và được sự đồng ý bằng văn bản của cán bộ hướng dẫn."
+    }
+  },
+  {
+    "id": "reg_0518",
+    "question": "Làm thế nào để xác định năm học của sinh viên trong chương trình đào tạo?",
+    "ground_truth": "Năm học của sinh viên trong chương trình đào tạo được xác định bằng cách đạt số tín chỉ tích lũy n (theo đúng chương trình đào tạo tương ứng tại thời điểm đang xét) thỏa điều kiện: (k-1) × 30 ≤ n < k × 30. Trong đó, \"k\" là số năm học (tính từ thời điểm sinh viên bắt đầu học) và \"n\" là số tín chỉ tích lũy.",
+    "metadata": {
+      "article": "Điều 10. Chế độ học tập của sinh viên",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "Sinh viên năm thứ k (tính từ thời điểm sinh viên bắt đầu học) của một ngành và khóa học được xác định như sau: đạt số tín chỉ tích lũy n (theo đúng chương trình đào tạo tương ứng tại thời điểm đang xét) thỏa điều kiện: (k-1) × 30 ≤ n < k × 30."
+    }
+  },
+  {
+    "id": "reg_0418",
+    "question": "Đơn vị quản lý môn học (ĐVQLMH) là gì?",
+    "ground_truth": "Đơn vị quản lý môn học (ĐVQLMH) là đơn vị được Trường giao quản lý chuyên môn cho môn học, có thể là Khoa, Bộ môn, Trung tâm hoặc Tổ phụ trách môn học.",
+    "metadata": {
+      "article": "Điều 2. Giải thích từ ngữ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "Đơn vị được Trường giao quản lý chuyên môn cho môn học, có thể là Khoa, Bộ môn, Trung tâm hoặc Tổ phụ trách môn học."
+    }
+  },
+  {
+    "id": "reg_0077",
+    "question": "Đơn vị chuyên môn phụ trách đào tạo đại học là gì?",
+    "ground_truth": "Đơn vị chuyên môn phụ trách đào tạo đại học là bộ môn, khoa, phòng thí nghiệm, hoặc trung tâm nghiên cứu khoa học công nghệ thuộc Trường được Hiệu trưởng giao nhiệm vụ đào tạo.",
+    "metadata": {
+      "article": "Điều 2. Giải thích từ ngữ",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "bộ môn, khoa, phòng thí nghiệm, hoặc trung tâm nghiên cứu khoa học công nghệ thuộc Trường được Hiệu trưởng giao nhiệm vụ đào tạo"
+    }
+  },
+  {
+    "id": "reg_0180",
+    "question": "Phương thức dạy học kết hợp được định nghĩa như thế nào?",
+    "ground_truth": "Phương thức dạy học kết hợp là phương thức dạy và học có sự phối hợp một cách hợp lý, có chủ đích giữa phương thức dạy học trực tuyến với phương thức dạy học trực tiếp.",
+    "metadata": {
+      "article": "Điều 2. Giải thích từ ngữ",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "là phương thức dạy và học có sự phối hợp một cách hợp lý, có chủ đích giữa phương thức dạy học trực tuyến với phương thức dạy học trực tiếp"
+    }
+  },
+  {
+    "id": "reg_0468",
+    "question": "Thành phố trực thuộc Trung ương nơi đặt Trạm ĐTTX có nhận được báo cáo thông tin liên quan đến việc đặt hoặc thôi đặt Trạm ĐTTX khi chưa có quyết định của Hiệu trưởng không?",
+    "ground_truth": "Tại thời điểm ngay sau khi có quyết định của Hiệu trưởng, Trường mới gửi báo cáo thông tin liên quan đến việc đặt hoặc thôi đặt Trạm ĐTTX đến thành phố trực thuộc Trung ương nơi đặt Trạm ĐTTX.",
+    "metadata": {
+      "article": "Điều 6. Đặt hoặc thôi đặt trạm đào tạo từ xa mới",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "yes_no",
+      "extractive_answer": "ngay sau khi có quyết định của Hiệu trưởng."
+    }
+  },
+  {
+    "id": "reg_0634",
+    "question": "Tại sao P.ĐTĐH lại cần phải tổng hợp các ý kiến và trình cho Hiệu trưởng?",
+    "ground_truth": "P.ĐTĐH lại cần phải tổng hợp các ý kiến và trình cho Hiệu trưởng để xem xét, điều chỉnh và bổ sung sao cho hợp lý.",
+    "metadata": {
+      "article": "Điều 26. Điều khoản thi hành",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "xem xét, điều chỉnh, bổ sung cho phù hợp."
+    }
+  },
+  {
+    "id": "reg_0874",
+    "question": "Trường có ký kết hợp tác với các trường đại học nước ngoài hay không?",
+    "ground_truth": "Đại học đối tác nước ngoài (ĐHNN) là đơn vị có ký kết hợp tác (MOU) với Trường đào tạo trình độ đại học gồm cung cấp chương trình đào tạo, đề cương môn học, hỗ trợ giảng viên tham gia giảng dạy và công nhận kết quả đào tạo tại Trường nếu sinh viên học chuyển tiếp.",
+    "metadata": {
+      "article": "Điều 2. Giải thích từ ngữ",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "yes_no",
+      "extractive_answer": "Đại học đối tác nước ngoài (ĐHNN): là đơn vị có ký kết hợp tác (MOU) với Trường đào tạo trình độ đại học gồm cung cấp chương trình đào tạo, đề cương môn học, hỗ trợ giảng viên tham gia giảng dạy và công nhận kết quả đào tạo tại Trường nếu sinh viên học chuyển tiếp"
+    }
+  },
+  {
+    "id": "reg_0655",
+    "question": "Những đối tượng nào nằm trong phạm vi áp dụng của quy chế đào tạo từ xa trình độ đại học của trường Đại học Công nghệ thông tin?",
+    "ground_truth": "Những đối tượng nằm trong phạm vi áp dụng của quy chế đào tạo từ xa trình độ đại học của trường Đại học Công nghệ thông tin bao gồm sinh viên, giảng viên, các đơn vị và cá nhân có liên quan đến đào tạo từ xa trình độ đại học của Trường.",
+    "metadata": {
+      "article": "Điều 1. Phạm vi điều chỉnh và đối tượng áp dụng",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "sinh viên, giảng viên, các đơn vị và cá nhân có liên quan đến đào tạo từ xa trình độ đại học của Trường."
+    }
+  },
+  {
+    "id": "reg_0289",
+    "question": "Khoa có được cho phép mở chương trình liên thông ĐH-ThS không?",
+    "ground_truth": "Khoa được đăng ký mở chương trình ĐH-ThS.",
+    "metadata": {
+      "article": "Điều 4. Điều kiện mở chương trình đào tạo liên thông",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "yes_no",
+      "extractive_answer": "Khoa được đăng ký mở chương trình ĐH-ThS"
+    }
+  },
+  {
+    "id": "reg_0656",
+    "question": "Học phần mới là gì?",
+    "ground_truth": "Học phần mới là học phần sinh viên đăng ký học lần đầu tiên.",
+    "metadata": {
+      "article": "Điều 3. Môn học",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "học phần sinh viên đăng ký học lần đầu tiên"
+    }
+  },
+  {
+    "id": "reg_0412",
+    "question": "Giảng viên là ủy viên tổ soạn thảo đề án mở ngành đào tạo phải có trình độ thế nào đối với mở ngành đào tạo sau đại học?",
+    "ground_truth": "Giảng viên là ủy viên tổ soạn thảo đề án mở ngành đào tạo phải có trình độ tiến sĩ đối với mở ngành đào tạo sau đại học.",
+    "metadata": {
+      "article": "Điều 6. Xây dựng đề án mở ngành đào tạo",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "tiến sĩ"
+    }
+  },
+  {
+    "id": "reg_0622",
+    "question": "Phòng Đào tạo Đại học xử lý sự việc có sự thay đổi CBGD tạm thời như thế nào?",
+    "ground_truth": "Phòng Đào tạo Đại học xử lý sự việc thay đổi CBGD tạm thời bằng cách cung cấp thông tin cho Phòng Thanh tra Pháp chế và Đảm bảo Chất lượng.",
+    "metadata": {
+      "article": "QUY TRÌNH",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "cung cấp thông tin cho Phòng Thanh tra Pháp chế và Đảm bảo Chất lượng."
+    }
+  },
+  {
+    "id": "reg_0422",
+    "question": "Các phần viết hỏng trong bài thi phải xử lý như thế nào?",
+    "ground_truth": "Các phần viết hỏng trong bài thi phải dùng thước gạch chéo, không dùng bút xóa.",
+    "metadata": {
+      "article": "Điều 13. Trách nhiệm của sinh viên dự thi",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "dùng thước gạch chéo, không dùng bút xóa"
+    }
+  },
+  {
+    "id": "reg_0769",
+    "question": "Quy định về số tín chỉ tối thiểu, tối đa trong học kỳ hè là gì?",
+    "ground_truth": "Quy định về số tín chỉ trong học kỳ hè gồm tổng số tín chỉ đăng ký không được vượt quá 12 tín chỉ, sinh viên chỉ được đăng ký học lại, cải thiện điểm, các môn học ngoại ngữ và học phần Thực tập doanh nghiệp, việc đăng ký các học phần mới (ngoại trừ Thực tập doanh nghiệp và các môn ngoại ngữ) trong học kỳ hè (học vượt) chỉ dành cho các sinh viên có ĐTBC ≥ 7,0 đến thời điểm đăng ký.\nTrong trường hợp đặc biệt sinh viên muốn đăng ký vượt quá số tín chỉ tối đa hoặc ít hơn số tín chỉ tối thiểu phải được sự đồng ý của Hiệu trưởng.",
+    "metadata": {
+      "article": "Điều 14. Đăng ký học tập",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Tổng số tín chỉ đăng ký không được vượt quá 12 tín chỉ.\n-        Sinh viên chỉ được đăng ký học lại, cải thiện điểm, các môn học ngoại ngữ và học phần Thực tập doanh nghiệP.\n-        Việc đăng ký các học phần mới (ngoại trừ Thực tập doanh nghiệp và các môn ngoại ngữ) trong học kỳ hè (học vượt) chỉ dành cho các sinh viên có ĐTBC ≥ 7,0 đến thời điểm đăng ký."
+    }
+  },
+  {
+    "id": "reg_0522",
+    "question": "Nội dung thứ năm của quyết định chỉnh sửa nội dung văn bằng, chứng chỉ là gì?",
+    "ground_truth": "Nội dung thứ năm của quyết định chỉnh sửa văn bằng chứng chỉ là: Hiệu lực và trách nhiệm thi hành quyết định.",
+    "metadata": {
+      "article": "Điều 21. Nội dung chính của quyết định chỉnh sửa và áp dụng việc chỉnh sửa văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "Hiệu lực và trách nhiệm thi hành quyết định."
+    }
+  },
+  {
+    "id": "reg_0451",
+    "question": "Sinh viên có thể biết lịch dạy của trợ giảng không?",
+    "ground_truth": "Lịch dạy hoặc lịch trực được thông báo công khai cho sinh viên biết trên trang thông tin điện tử của Trường.",
+    "metadata": {
+      "article": "Điều 4. Tiêu chuẩn và trách nhiệm của trợ giảng môn học (TGMH)",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "yes_no",
+      "extractive_answer": "Lịch dạy hoặc lịch trực được thông báo công khai cho sinh viên biết trên trang thông tin điện tử của Trường."
+    }
+  },
+  {
+    "id": "reg_0381",
+    "question": "CBCT bàn giao những gì cho P.ĐTĐH trong trường hợp sinh viên có khiếu nại?",
+    "ground_truth": "CBCT bàn giao giấy vào phòng thi của sinh viên cùng với túi bài thi cho P.ĐTĐH trong trường hợp sinh viên đó có khiếu nại.",
+    "metadata": {
+      "article": "Điều 12. Trách nhiệm của cán bộ coi thi",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "giấy vào phòng thi của SV để bàn giao cùng túi bài thi"
+    }
+  },
+  {
+    "id": "reg_0309",
+    "question": "Chương trình/Ngành học trình độ đại học của sinh viên khi dự tuyển vào chương trình ĐH-ThS có thể được nói ngắn gọn là gì?",
+    "ground_truth": "Chương trình/Ngành ĐH đang học là cách nói ngắn gọn của Chương trình/Ngành học trình độ đại học của sinh viên khi dự tuyển vào chương trình ĐH-ThS.",
+    "metadata": {
+      "article": "Điều 3. Giải thích từ ngữ và chữ viết tắt",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Chương trình/Ngành ĐH đang học:"
+    }
+  },
+  {
+    "id": "reg_0908",
+    "question": "Khi nào thì CBCT thông báo thời gian thi còn lại cho sinh viên?",
+    "ground_truth": "CBCT thông báo thời gian thi còn lại cho sinh viên trước khi hết thời gian làm bài 15 phút.",
+    "metadata": {
+      "article": "Điều 12. Trách nhiệm của cán bộ coi thi",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "Trước khi hết giờ làm bài 15 phút"
+    }
+  },
+  {
+    "id": "reg_0328",
+    "question": "Bước cuối trong quy trình tổ chức thi hình thức tự luận và trắc nghiệm là gì?",
+    "ground_truth": "Bước cuối trong quy trình tổ chức thi hình thức tự luận và trắc nghiệm diễn ra khi Khoa/ Phòng Đào tạo Đại học/ Văn phòng Đặc biệt nhận, kiểm tra túi bài thi và các giấy tờ.",
+    "metadata": {
+      "article": "Điều 14. Quy trình tổ chức thi (đối với hình thức tự luận, trắc nghiệm)",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Khoa/ Phòng Đào tạo Đại học/ Văn phòng Đặc biệt sẽ nhận, kiểm tra túi bài thi và các giấy tờ."
+    }
+  },
+  {
+    "id": "reg_0291",
+    "question": "Người đề nghị chỉnh sửa văn bằng, chứng chỉ nộp hồ sơ cho Trường bằng cách nào?",
+    "ground_truth": "Người đề nghị chỉnh sửa văn bằng, chứng chỉ có thể nộp hồ sơ cho Trường thông qua việc nộp trực tiếp hoặc gửi qua đường bưu điện.",
+    "metadata": {
+      "article": "Điều 20. Hồ sơ, trình tự, thủ tục chỉnh sửa nội dung văn bằng, chứng chỉ",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "nộp trực tiếp hoặc gửi qua đường bưu điện"
+    }
+  },
+  {
+    "id": "reg_0744",
+    "question": "Ngoài các môn học đại cương, các môn học cơ sở nhóm ngành, các môn học chuyên ngành bắt buộc, chuyên đề tốt nghiệp, các môn học ngoại ngữ nằm trong chương trình đào tạo, các học phần như Thực tập doanh nghiệp, Khóa luận tốt nghiệp, môn học đồ án thì các môn học còn lại cần tối thiểu bao nhiêu sinh viên để mở lớp học phần?",
+    "ground_truth": "Ngoài các môn học đại cương, các môn học cơ sở nhóm ngành, các môn học chuyên ngành bắt buộc, chuyên đề tốt nghiệp, các môn học ngoại ngữ nằm trong chương trình đào tạo, các học phần như Thực tập doanh nghiệp, Khóa luận tốt nghiệp, môn học đồ án thì các môn học còn lại cần tối thiểu 30 sinh viên để mở lớp học phần.",
+    "metadata": {
+      "article": "Điều 12. Tổ chức lớp",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "30 sinh viên"
+    }
+  },
+  {
+    "id": "reg_0390",
+    "question": "Cán bộ phụ trách đào tạo và hỗ trợ sinh viên có cần biết ngoại ngữ không?",
+    "ground_truth": "Cán bộ phụ trách đào tạo và hỗ trợ sinh viên cần biết ngoại ngữ vì họ phải có năng lực ngoại ngữ đáp ứng yêu cầu công việc.",
+    "metadata": {
+      "article": "Điều 7. Đội ngũ quản lý và cố vấn học tập",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "có năng lực ngoại ngữ đáp ứng yêu cầu công việc."
+    }
+  },
+  {
+    "id": "reg_0867",
+    "question": "Biểu mẫu có được từ công tác nhận danh sách và vật tư là gì?",
+    "ground_truth": "Biểu mẫu có được từ công tác nhận danh sách và vật tư là danh sách dự thi (THI-M03).",
+    "metadata": {
+      "article": "Điều 11. Quy trình chuẩn bị cho kỳ thi",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "danh sách dự thi (THI-M03)"
+    }
+  },
+  {
+    "id": "reg_0723",
+    "question": "Hình thức 2 của phần thực hành là gì?",
+    "ground_truth": "Hình thức 2 của phần thực hành là tổ chức ít nhất 3 buổi gặp trực tiếp sinh viên để hướng dẫn và giải đáp thắc mắc của sinh viên trong quá trình thực hiện các nội dung thực hành.",
+    "metadata": {
+      "article": "Điều 3. Quy định về tổ chức đào tạo",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "(tổ chức ít nhất 3 buổi gặp trực tiếp sinh viên để hướng dẫn và giải đáp thắc mắc của sinh viên trong quá trình thực hiện các nội dung thực hành)"
+    }
+  },
+  {
+    "id": "reg_0168",
+    "question": "Sinh viên CT CLC có thể thanh toán học phí theo kế hoạch thu phí chung hay kế hoạch thu phí cá nhân của Trường?",
+    "ground_truth": "Sinh viên có thể đóng học phí theo kế hoạch thu học phí chung của Trường.",
+    "metadata": {
+      "article": "Điều 14. Học phí",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "kế hoạch thu học phí chung"
+    }
+  },
+  {
+    "id": "reg_0490",
+    "question": "Phòng Đào tạo Đại học nhận hồ sơ của giảng viên thỉnh giảng từ ĐVQLMH để làm gì?",
+    "ground_truth": "Phòng Đào tạo Đại học nhận hồ sơ của giảng viên thỉnh giảng từ ĐVQLMH để lưu trữ, quản lý trước khi giảng viên thỉnh giảng bắt đầu giảng dạy.",
+    "metadata": {
+      "article": "Điều 10. Quản lý giảng viên thỉnh giảng",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "open",
+      "extractive_answer": "lưu trữ, quản lý trước khi giảng viên thỉnh giảng bắt đầu giảng dạy."
+    }
+  },
+  {
+    "id": "reg_0684",
+    "question": "Sinh viên chuyển sang học các chương trình đào tạo khác của Trường vì lí do cá nhân phải thỏa mãn điều kiện gì?",
+    "ground_truth": "Sinh viên chuyển sang học các chương trình đào tạo khác của Trường vì lí do cá nhân phải được sự đồng ý của Hiệu trưởng.",
+    "metadata": {
+      "article": "Điều 9. Chuyển đổi chương trình đào tạo",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "phải được sự đồng ý của Hiệu trưởng."
+    }
+  },
+  {
+    "id": "reg_0317",
+    "question": "Bước 3 của quy trình đăng ký dạy bù có biểu mẫu không?",
+    "ground_truth": "Biểu mẫu trong bước 3 của quy trình đăng ký dạy bù là biểu mẫu P2.",
+    "metadata": {
+      "article": "QUY TRÌNH",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "yes_no",
+      "extractive_answer": "Biểu mẫu P2"
+    }
+  },
+  {
+    "id": "reg_0868",
+    "question": "Quy định nào áp dụng cho việc phân công giảng dạy cho môn học có nhiều GVMH?",
+    "ground_truth": "Đối với môn học có nhiều GVMH thì ĐVQLMH phân công 01 GVMH chính. GVMH chính có trách nhiệm chủ trì việc phối hợp với các GVMH khác để đề xuất với ĐVQLMH chỉnh sửa nội dung đề cương môn học trước khi bắt đầu giảng dạy (nếu cần); chủ trì việc làm đề kiểm tra, đề thi tập trung; và chủ trì họp các giảng viên giảng dạy môn học đột xuất khi cần nhằm đảm bảo việc giảng dạy đạt chất lượng tốt nhất.",
+    "metadata": {
+      "article": "Điều 9. Nguyên tắc phân công giảng dạy và mời giảng viên thỉnh giảng",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Đối với môn học có nhiều GVMH thì ĐVQLMH phân công 01 GVMH chính. GVMH chính có trách nhiệm chủ trì việc phối hợp với các GVMH khác để đề xuất với ĐVQLMH chỉnh sửa nội dung đề cương môn học trước khi bắt đầu giảng dạy (nếu cần); chủ trì việc làm đề kiểm tra, đề thi tập trung; và chủ trì họp các giảng viên giảng dạy môn học đột xuất khi cần nhằm đảm bảo việc giảng dạy đạt chất lượng tốt nhất."
+    }
+  },
+  {
+    "id": "reg_0568",
+    "question": "Có đơn vị nào phối hợp với cán bộ giảng dạy trong quá trình tiến hành dạy bù không?",
+    "ground_truth": "Không có đơn vị nào cùng giảng viên tham gia quá trình giảng dạy bù.",
+    "metadata": {
+      "article": "QUY TRÌNH",
+      "document": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ ĐỐI VỚI HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "không có"
+    }
+  },
+  {
+    "id": "reg_0133",
+    "question": "Việc tuyển sinh CTTN có sự tham gia đến từ các Khoa hay không?",
+    "ground_truth": "Khoa có đào tạo CTTN tham gia công tác chiêu sinh và tuyển bổ sung các sinh viên đủ tiêu chuẩn vào CTTN.",
+    "metadata": {
+      "article": "Điều 6. Trách nhiệm của Khoa có đào tạo CTTN",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "Khoa có đào tạo CTTN\nTham gia công tác chiêu sinh và tuyển bổ sung các sinh viên đủ tiêu chuẩn vào CTTN"
+    }
+  },
+  {
+    "id": "reg_0741",
+    "question": "Niêm phong túi đề có được kiểm tra trước lúc thi 15 phút không?",
+    "ground_truth": "CBCT được yêu cầu kiểm tra kỹ niêm phong túi đề ít nhất 15 phút trước giờ bắt đầu thi.",
+    "metadata": {
+      "article": "Điều 12. Trách nhiệm của cán bộ coi thi",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "yes_no",
+      "extractive_answer": "ít nhất 15 phút trước giờ bắt đầu thi để nhận danh sách thi, giấy thi, giấy nháp, túi đề thi (yêu cầu kiểm tra kỹ niêm phong túi đề)"
+    }
+  },
+  {
+    "id": "reg_0147",
+    "question": "Quá trình đánh số hiệu ghi trên phôi chứng chỉ khác gì với quá trình đánh số vào sổ cấp văn bằng, chứng chỉ?",
+    "ground_truth": "Quá trình đánh số hiệu ghi trên phôi chứng chỉ khác với quá trình đánh số vào sổ cấp văn bằng, chứng chỉ ở chỗ số hiệu ghi trên phôi chứng chỉ được lập trong toàn bộ quá trình hoạt động của Trường từ khi thực hiện việc tự in phôi chứng chỉ còn số vào sổ cấp văn bằng, chứng chỉ được lập theo từng năm từ ngày 01/01 đến hết ngày 31/12.",
+    "metadata": {
+      "article": "Điều 11. Quy định lập số hiệu, số vào sổ cấp văn bằng, chứng chỉ",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Số hiệu ghi trên phôi chứng chỉ được lập liên tục theo thứ tự số tự nhiên từ nhỏ đến lớn trong toàn bộ quá trình hoạt động của Trường từ khi thực hiện việc tự in phôi chứng chỉ#Số vào sổ cấp văn bằng, chứng chỉ được lập liên tục theo thứ tự số tự nhiên từ nhỏ đến lớn theo từng năm từ ngày 01/01 đến hết ngày 31/12"
+    }
+  },
+  {
+    "id": "reg_0119",
+    "question": "Thí sinh trúng tuyển vào hệ chính quy nhưng chưa hoàn tất thủ tục nhập học thì có được coi là sinh viên chính quy của Trường hay không?",
+    "ground_truth": "Sinh viên chính quy là thí sinh trúng tuyển vào hệ chính quy và đã hoàn tất các thủ tục nhập học theo quy định của Trường.",
+    "metadata": {
+      "article": "Điều 10. Chế độ học tập của sinh viên",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "Sinh viên chính quy là thí sinh trúng tuyển vào hệ chính quy và đã hoàn tất các thủ tục nhập học theo quy định của Trường"
+    }
+  },
+  {
+    "id": "reg_0442",
+    "question": "Có tối thiểu bao nhiêu sinh viên chương trình CLC đăng ký thì mới được mở lớp chuyên ngành?",
+    "ground_truth": "sinh viên CT CLC phải đăng ký học tối thiểu 15 SV/lớp thì mới được mở lớp học phần môn chuyên ngành",
+    "metadata": {
+      "article": "Điều 7. Tổ chức lớp",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "tối thiểu 15 SV/lớp"
+    }
+  },
+  {
+    "id": "reg_0190",
+    "question": "Sinh viên như thế nào thì mới được phép xin chuyển sang chương trình đại trà?",
+    "ground_truth": "Sinh viên được phép xin chuyển sang chương trình đại trà nếu có hoàn cảnh đặc biệt, đồng thời sinh viên có điểm trung bình chung tích lũy (ĐTBTL) tính tới thời điểm xét không dưới 6.5 và có điểm xét tuyển bằng hoặc cao hơn điểm trúng tuyển của chương trình đại trà tương ứng.",
+    "metadata": {
+      "article": "Điều 10. Chuyển từ CT CLC sang chương trình đại trà",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "có hoàn cảnh đặc biệt, đồng thời sinh viên có điểm trung bình chung tích lũy (ĐTBTL) tính tới thời điểm xét không dưới 6.5 và có điểm xét tuyển bằng hoặc cao hơn điểm trúng tuyển của chương trình đại trà tương ứng"
+    }
+  },
+  {
+    "id": "reg_0698",
+    "question": "ĐTBHK, ĐTBC và ĐTBCTL được tính như thế nào?",
+    "ground_truth": "ĐTBHK, ĐTBC và ĐTBCTL được tính như sau: A=Tổng của (Điểm của môn *số tín chỉ môn tương ứng)/ Tổng số tín chỉ của đối tượng A, A là Điểm trung bình học kỳ hoặc ĐTBC hoặc Điểm trung bình chung tích luỹ.",
+    "metadata": {
+      "article": "Điều 25. Cách tính điểm trung bình",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "        A=Tổng của (Điểm của môn *số tín chỉ môn tương ứng)/ Tổng số tín chỉ của đối tượng A\n        A là Điểm tủng bình học kỳ hoặc ĐTBC hoặc Điểm trung bình chung tích luỹ"
+    }
+  },
+  {
+    "id": "reg_0172",
+    "question": "Về chứng chỉ, sinh viên cần có chứng chỉ của ngôn ngữ nào để được xét tốt nghiệp? ",
+    "ground_truth": "Để được xét tốt nghiệp, sinh viên cần có chứng chỉ tiếng Anh, tiếng Pháp hoặc tiếng Nhật.",
+    "metadata": {
+      "article": "Điều 9. Văn bằng, chứng chỉ/chứng nhận được sử dụng để công nhận đạt chuẩn xét tốt nghiệp",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "tiếng Anh#tiếng Pháp, hoặc tiếng Nhật"
+    }
+  },
+  {
+    "id": "reg_0326",
+    "question": "Khi nào thì cần trích lục, quyết định thay đổi hoặc cải chính hộ tịch, xác định lại dân tộc, giới tính cho hồ sơ yêu cầu chỉnh sửa văn bằng, chứng chỉ?",
+    "ground_truth": "Trường hợp chỉnh sửa văn bằng, chứng chỉ do thay đổi hoặc cải chính hộ tịch, xác định lại dân tộc, xác định lại giới tính thì cần trích lục, quyết định thay đổi hoặc cải chính hộ tịch, xác định lại dân tộc, giới tính.",
+    "metadata": {
+      "article": "Điều 20. Hồ sơ, trình tự, thủ tục chỉnh sửa nội dung văn bằng, chứng chỉ",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "trường hợp chỉnh sửa văn bằng, chứng chỉ do thay đổi hoặc cải chính hộ tịch, xác định lại dân tộc, xác định lại giới tính"
+    }
+  },
+  {
+    "id": "reg_0719",
+    "question": "Vì sao 1 CBCT giơ cao phong bì khi bắt đầu giờ mở đề?",
+    "ground_truth": "Để SV thấy rõ cả mặt trước và mặt sau còn nguyên nhãn niêm phong khi bắt đầu giờ mở đề thì 1 CBCT sẽ giơ cao phong bì.",
+    "metadata": {
+      "article": "Điều 12. Trách nhiệm của cán bộ coi thi",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "để SV thấy rõ cả mặt trước và mặt sau còn nguyên nhãn niêm phong"
+    }
+  },
+  {
+    "id": "reg_0091",
+    "question": "Việc bảo vệ KLTN được hoãn lại khi nào?",
+    "ground_truth": "Việc bảo vệ KLTN được hoãn lại khi có nhiều hơn 1 thành viên hội đồng vắng mặt.",
+    "metadata": {
+      "article": "Điều 11. Tổ chức bảo vệ KLTN",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "có nhiều hơn 1 thành viên hội đồng vắng mặt"
+    }
+  },
+  {
+    "id": "reg_0346",
+    "question": "ĐHQG có những loại hỗ trợ gì khi xuất bản giáo trình?",
+    "ground_truth": "ĐHQG có các hình thức hỗ trợ kinh phí xuất bản giáo trình gồm: Hỗ trợ 50% và Hỗ trợ 100%.",
+    "metadata": {
+      "article": "Điều 13. Kinh phí giáo trình ĐHQG hỗ trợ cho xuất bản giáo trình",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Hỗ trợ 50%#Hỗ trợ 100%"
+    }
+  },
+  {
+    "id": "reg_0947",
+    "question": "Giải thích những tiêu chuẩn của giảng viên giảng dạy môn học theo điều 3 của văn bản về tiêu chuẩn và trách nhiệm của giảng viên giảng dạy môn học?",
+    "ground_truth": "Những tiêu chuẩn của giảng viên giảng dạy môn học: Có trình độ thạc sĩ trở lên với chuyên ngành phù hợp môn học, trừ giảng viên giảng dạy ngoại ngữ có trình độ đại học trở lên với chuyên ngành phù hợp; Có chứng chỉ nghiệp vụ sư phạm; Đáp ứng một trong các điều kiện sau: Có kết quả nghiên cứu liên quan đến môn học phụ trách được thể hiện qua: luận văn tốt nghiệp trình độ đại học/thạc sĩ/tiến sĩ; bài báo khoa học đăng trên các kỷ yếu hội nghị chuyên ngành hoặc tạp chí có uy tín; sách đã xuất bản; hoặc đề tài nghiên cứu khoa học đã được nghiệm thu. Có kinh nghiệm làm việc từ 03 năm trở lên liên quan đến môn học. Đáp ứng một trong các điều kiện sau: Hoàn thành kiến tập giảng dạy được quy định tại Điều 6 của quy định này và được giảng viên hướng dẫn kiến tập nhận xét là đạt yêu cầu. Đã học và thi đạt môn học tương đương trong quá trình học tập hoặc từ một khóa học có uy tín được Trường công nhận; GVMH có trình độ tiến sĩ hoặc môn học được mở lần đầu tiên tại trường thì không cần đáp ứng điều kiện tại Điểm d Khoản 1 Điều 3.",
+    "metadata": {
+      "article": "Điều 3. Tiêu chuẩn và trách nhiệm của giảng viên giảng dạy môn học (GVMH)",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "a.\tCó trình độ thạc sĩ trở lên với chuyên ngành phù hợp môn học, trừ giảng viên giảng dạy ngoại ngữ có trình độ đại học trở lên với chuyên ngành phù hợp.\nb.\tCó chứng chỉ nghiệp vụ sư phạm,\nc.\tĐáp ứng một trong các điều kiện sau:\ni.\tCó kết quả nghiên cứu liên quan đến môn học phụ trách được thể hiện qua: luận văn tốt nghiệp trình độ đại học/thạc sĩ/tiến sĩ; bài báo khoa học đăng trên các kỷ yếu hội nghị chuyên ngành hoặc tạp chí có uy tín; sách đã xuất bản; hoặc đề tài nghiên cứu khoa học đã được nghiệm thu;  \nii.\tCó kinh nghiệm làm việc từ 03 năm trở lên liên quan đến môn học. \nd.\tĐáp ứng một trong các điều kiện sau:\ni.\tHoàn thành kiến tập giảng dạy được quy định tại Điều 6 của quy định này và được giảng viên hướng dẫn kiến tập nhận xét là đạt yêu cầu;  \nii.\tĐã học và thi đạt môn học tương đương trong quá trình học tập hoặc từ một khóa học có uy tín được Trường công nhận. \n2.\tGVMH có trình độ tiến sĩ hoặc môn học được mở lần đầu tiên tại trường thì không cần đáp ứng điều kiện tại Điểm d Khoản 1 Điều 3."
+    }
+  },
+  {
+    "id": "reg_0157",
+    "question": "Những hành vi nào không được phép diễn ra trong cấp phát và sử dụng văn bằng, chứng chỉ?",
+    "ground_truth": "Hành vi gian lận không được phép diễn ra trong cấp phát và sử dụng văn bằng, chứng chỉ.",
+    "metadata": {
+      "article": "Điều 2. Nguyên tắc quản lý, cấp phát văn bằng, chứng chỉ",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "hành vi gian lận"
+    }
+  },
+  {
+    "id": "reg_0416",
+    "question": "Điểm rèn luyện 51 điểm có được xét tốt nghiệp không?",
+    "ground_truth": "Điểm rèn luyện 51 điểm được xét tốt nghiệp vì đạt điểm rèn luyện tích lũy tối thiểu là 50 điểm.",
+    "metadata": {
+      "article": "Điều 33. Điều kiện xét tốt nghiệp và công nhận tốt nghiệp",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "Đạt điểm rèn luyện tích lũy tối thiểu là 50 điểm."
+    }
+  },
+  {
+    "id": "reg_0293",
+    "question": "Phòng Đào tạo Đại học có nhiệm vụ gì trong việc thực hiện quy định về tiêu chuẩn giảng viên giảng dạy môn học và trợ giảng môn học?",
+    "ground_truth": "Phòng Đào tạo Đại học có nhiệm vụ chủ trì và hỗ trợ các khoa, bộ môn triển khai thực hiện quy định về tiêu chuẩn giảng viên giảng dạy môn học và trợ giảng môn học.",
+    "metadata": {
+      "article": "Điều 12. Tổ chức thực hiện",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "chủ trì và hỗ trợ các khoa, bộ môn triển khai thực hiện quy định"
+    }
+  },
+  {
+    "id": "reg_0428",
+    "question": "Người học được cấp chứng chỉ khi đảm bảo những yêu cầu nào?",
+    "ground_truth": "Người học được cấp văn bằng khi đảm bảo những yêu cầu sau: Văn bằng được cấp sau khi người học hoàn thành chương trình giáo dục, chương trình đào tạo theo cấp học, trình độ đào tạo và đạt các điều kiện khác theo quy định của quy chế đào tạo đại học, thạc sĩ, tiến sĩ.",
+    "metadata": {
+      "article": "Điều 13. Điều kiện cấp văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "a) Được cấp sau khi người học hoàn thành chương trình đào tạo hoặc bồi dưỡng nâng cao trình độ học vấn, nghề nghiệp theo chương trình do Bộ GD&ĐT quy định hoặc ban hành. \nb) Được cấp cho cá nhân có nhu cầu được đánh giá năng lực sử dụng CNTT hoặc có nhu cầu được cấp chứng chỉ ứng dụng CNTT theo quy định của Bộ GD&ĐT.\n3. Không đang trong thời gian bị truy cứu trách nhiệm hình sự."
+    }
+  },
+  {
+    "id": "reg_0731",
+    "question": "Những đề tài nào thì có thêm 1 đại diện doanh nghiệp hướng dẫn?",
+    "ground_truth": "Những đề tài do doanh nghiệp đề xuất thì có thể có thêm 1 đại diện doanh nghiệp hướng dẫn.",
+    "metadata": {
+      "article": "Điều 4. Xét duyệt đề tài KLTN",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "do doanh nghiệp đề xuất"
+    }
+  },
+  {
+    "id": "reg_0420",
+    "question": "Chính sách nào sẽ được hỗ trợ toàn phần trong việc kinh phí hỗ trợ của ĐHQG?",
+    "ground_truth": "Hỗ trợ 100% phí quản lý và phí biên tập của NXB ĐHQG.",
+    "metadata": {
+      "article": "Điều 13. Kinh phí giáo trình ĐHQG hỗ trợ cho xuất bản giáo trình",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "Hỗ trợ 100% phí quản lý và phí biên tập của NXB ĐHQG."
+    }
+  },
+  {
+    "id": "reg_0446",
+    "question": "Ai sẽ phụ trách làm thư ký của hội đồng thẩm định giáo trình?",
+    "ground_truth": "Đại diện Ban điều hành CTGT trường làm ủy viên thư ký tại hội đồng thẩm định giáo trình.",
+    "metadata": {
+      "article": "Điều 8. Thẩm định giáo trình",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "Đại diện Ban điều hành CTGT trường làm ủy viên thư ký."
+    }
+  },
+  {
+    "id": "reg_0623",
+    "question": "Ai tổ chức họp để thẩm định giáo trình?",
+    "ground_truth": "Chủ tịch Hội đồng thẩm định tổ chức họp để thẩm định giáo trình, Ủy viên thư ký Hội đồng ghi biên bản cuộc họp.",
+    "metadata": {
+      "article": "Điều 7. Quy trình tổ chức biên soạn giáo trình",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "Chủ tịch Hội đồng thẩm định"
+    }
+  },
+  {
+    "id": "reg_0240",
+    "question": "Ngoài việc có mặt tại lớp, trợ giảng lý thuyết còn có thể làm gì?",
+    "ground_truth": "Trợ giảng có thể tổ chức các buổi giải bài tập, thảo luận theo lịch cố định hàng tuần, ngoài giờ học lý thuyết.",
+    "metadata": {
+      "article": "Điều 10. Giảng viên, trợ giảng",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "tổ chức các buổi giải bài tập, thảo luận theo lịch cố định hàng tuần, ngoài giờ học lý thuyết"
+    }
+  },
+  {
+    "id": "reg_0098",
+    "question": "Đơn vị nào có trách nhiệm chuẩn bị hồ sơ?",
+    "ground_truth": "Trách nhiệm chuẩn bị hồ sơ là của PĐTĐH và PĐTSĐH-KHCN.",
+    "metadata": {
+      "article": "Điều 10. Trách nhiệm in, quản lý phôi văn bằng, chứng chỉ",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "PĐTĐH và PĐTSĐH-KHCN"
+    }
+  },
+  {
+    "id": "reg_0722",
+    "question": "Trong suốt quá trình đào tạo, giảng viên ĐTTX cần tăng cường điều gì?",
+    "ground_truth": "Trong suốt quá trình đào tạo, giảng viên ĐTTX cần tăng cường sự tương tác, kết nối thông tin giữa giảng viên và người học.",
+    "metadata": {
+      "article": "Điều 21. Quyền và trách nhiệm của giảng viên",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "sự tương tác, kết nối thông tin giữa giảng viên và người học"
+    }
+  },
+  {
+    "id": "reg_0912",
+    "question": "Những đề tài do ai đề xuất có thêm 1 đại diện doanh nghiệp hướng dẫn?",
+    "ground_truth": "Có thêm 1 đại diện doanh nghiệp hướng dẫn KLTN đối với những đề tài do doanh nghiệp đề xuất.",
+    "metadata": {
+      "article": "Điều 4. Xét duyệt đề tài KLTN",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "doanh nghiệp"
+    }
+  },
+  {
+    "id": "reg_0528",
+    "question": "Trước khi trình cho Hiệu trưởng ký nhận và cấp bằng cho các học viên tốt nghiệp thì PTCHC sẽ phải cùng PĐTĐH và PĐTSĐH-KHCN làm gì?",
+    "ground_truth": "PTCHC sẽ phối hợp cùng với PĐTĐH và PĐTSĐH-KHCN sẽ cần phải in thông tin cấp bằng lên phôi văn bằng theo danh sách người học tốt nghiệp đính kèm Quyết định công nhận tốt nghiệp của Hiệu trưởng Trường ĐHCNTT theo đúng mẫu trước khi trình cho Hiệu trưởng ký xác nhận.",
+    "metadata": {
+      "article": "Điều 3. Trách nhiệm của các đơn vị, cá nhân trong việc quản lý văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "in thông tin cấp bằng lên phôi văn bằng theo danh sách người học tốt nghiệp đính kèm Quyết định công nhận tốt nghiệp của Hiệu trưởng Trường ĐHCNTT theo đúng mẫu"
+    }
+  },
+  {
+    "id": "reg_0949",
+    "question": "Kế hoạch xuất bản giáo trình có liên quan gì đến vấn đề kinh phí không?",
+    "ground_truth": "Phân bổ kinh phí đủ và kịp thời cho kế hoạch xuất bản giáo trình của đơn vị.",
+    "metadata": {
+      "article": "Điều 2. Phân cấp quản lý công tác giáo trình",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "yes_no",
+      "extractive_answer": "Phân bổ kinh phí đủ và kịp thời"
+    }
+  },
+  {
+    "id": "reg_0565",
+    "question": "Việc tuyển sinh viên không phải năm nhất vào các chương trình tài năng được thực hiện vào thời điểm nào?",
+    "ground_truth": "Tuyển sinh viên năm trên vào CTTN là tuyển đầu vào lớp CTTN sau học kỳ thứ nhất nhưng không muộn hơn học kỳ thứ ba.",
+    "metadata": {
+      "article": "Điều 8. Phương thức xét tuyển đầu vào",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "Tuyển đầu vào lớp CTTN sau học kỳ thứ nhất nhưng không muộn hơn học kỳ thứ ba"
+    }
+  },
+  {
+    "id": "reg_0711",
+    "question": "Lớp ngoài giờ hành chính có những hình thức dạy - học nào?",
+    "ground_truth": "Lớp ngoài giờ hành chính có những hình thức dạy - học trực tiếp và trực tuyến.",
+    "metadata": {
+      "article": "Điều 3. Quy định về tổ chức đào tạo",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "trực tiếp hoặc trực tuyến."
+    }
+  },
+  {
+    "id": "reg_0462",
+    "question": "Đối với đào tạo từ xa, văn bằng 2 và liên thông sinh viên được công nhận và chuyển đổi tín chỉ đối với những môn học khi đã tích lũy được bao nhiêu nội dung môn học?",
+    "ground_truth": "Đối với đào tạo từ xa, văn bằng 2 và liên thông sinh viên được công nhận và chuyển đổi tín chỉ đối với những môn học đã tích lũy có từ 80% trở lên nội dung tương đương với nội dung môn học trong chương trình đào tạo.",
+    "metadata": {
+      "article": "Điều 26. Công nhận và chuyển đổi tín chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "open",
+      "extractive_answer": "80% trở lên nội dung tương đương với nội dung môn học trong chương trình đào tạo;"
+    }
+  },
+  {
+    "id": "reg_0312",
+    "question": "Học phần thay thế và học phần tương đương có điểm khác biệt gì?",
+    "ground_truth": "Học phần thay thế là học phần được sử dụng khi một học phần thuộc chương trình giáo dục thay đổi hoặc điều chỉnh, không còn tổ chức giảng dạy. Học phần tương đương là một học phần có nội dung kiến thức và thời lượng tương đương với một học phần khác.",
+    "metadata": {
+      "article": "Điều 3. Môn học",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Học phần thay thế: là học phần được sử dụng khi một học phần thuộc chương trình giáo dục thay đổi hoặc điều chỉnh, không còn tổ chức giảng dạy#Học phần tương đương: là học phần có nội dung kiến thức và thời lượng tương đương với một học phần khác."
+    }
+  },
+  {
+    "id": "reg_0756",
+    "question": "Đơn vị nào chịu trách nhiệm quản lý chương trình tài năng?",
+    "ground_truth": "VPCTĐB chịu trách nhiệm quản lý chương trình tài năng.",
+    "metadata": {
+      "article": "Điều 2. Giải thích từ ngữ",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "VPCTĐB"
+    }
+  },
+  {
+    "id": "reg_0781",
+    "question": "Các môn tiếng Anh được xét miễn được quy định ở điều mấy trong quy định về đào tạo ngoại ngữ của Trường?",
+    "ground_truth": "Các môn tiếng Anh được xét miễn được quy định ở Điều 4 và Điều 5 trong quy định về đào tạo ngoại ngữ của Trường.",
+    "metadata": {
+      "article": "Điều 3. Chương trình giảng dạy tiếng Anh",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Điều 4 và Điều 5"
+    }
+  },
+  {
+    "id": "reg_0411",
+    "question": "Khi không còn sinh viên theo học và không có khả năng tiếp tục tuyển sinh thì có tiếp tục đặt trạm ĐTTX không?",
+    "ground_truth": "Khi không còn sinh viên theo học và không có khả năng tiếp tục tuyển sinh thì thôi đặt Trạm ĐTTX.",
+    "metadata": {
+      "article": "Điều 6. Đặt hoặc thôi đặt trạm đào tạo từ xa mới",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "yes_no",
+      "extractive_answer": "Hiệu trưởng ra quyết định việc thôi đặt Trạm ĐTTX trong những trường hợp sau: \na)\tKhông còn sinh viên theo học và không có khả năng tiếp tục tuyển sinh; \nb)\tKhông còn đảm bảo các điều kiện về cơ sở vật chất để thực hiện chương trình ĐTTX; \nc)\tVi phạm các hoạt động liên quan đến ĐTTX theo quy định.\nd)\tCó công văn đề nghị thôi đặt Trạm ĐTTX của đơn vị hoặc địa phương nơi đang đặt Trạm ĐTTX. "
+    }
+  },
+  {
+    "id": "reg_0454",
+    "question": "Khi hướng dẫn sinh viên tới P.ĐTĐH CBCT cần lưu ý điều gì?",
+    "ground_truth": "Khi hướng dẫn sinh viên tới P.ĐTĐH CBCT cần lưu ý thu lại giấy vào phòng thi của SV.",
+    "metadata": {
+      "article": "Điều 12. Trách nhiệm của cán bộ coi thi",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "thu lại giấy vào phòng thi của SV"
+    }
+  },
+  {
+    "id": "reg_0154",
+    "question": "Đơn vị tổ chức thi cần chuẩn bị gì để nhận đề thi?",
+    "ground_truth": "Đơn vị tổ chức thi cần chuẩn bị nhãn túi đựng đề thi và liên hệ Thư viện đăng ký lịch nhân đề thi.",
+    "metadata": {
+      "article": "Điều 9. Nhân đề thi và đóng gói đề thi",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "nhãn túi đựng đề thi và liên hệ Thư viện đăng ký lịch nhân đề thi"
+    }
+  },
+  {
+    "id": "reg_0149",
+    "question": "Phần mềm Microsoft Teams có chức năng gì trong phục vụ DHTT, DHKH?",
+    "ground_truth": "Trong phục vụ DHTT, DHKH phần mềm Microsoft Teams có chức năng: giúp giảng viên tổ chức triển khai giảng bài, chia sẻ màn hình máy tính, hướng dẫn, giao nhiệm vụ học tập; giúp sinh viên tương tác, trao đổi thông tin với giảng viên và những sinh viên khác.",
+    "metadata": {
+      "article": "Điều 10. Hệ thống phần mềm phục vụ DHTT và DHKH",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "a) Giúp giảng viên tổ chức triển khai giảng bài, chia sẻ màn hình máy tính, hướng dẫn, giao nhiệm vụ học tập;\nb) Giúp sinh viên tương tác, trao đổi thông tin với giảng viên và những sinh viên khác."
+    }
+  },
+  {
+    "id": "reg_0716",
+    "question": "Bắt buộc nộp trên 30 quyển đối với giáo trình đã xuất bản với số lượng thế nào?",
+    "ground_truth": "Giáo trình xuất bản trên 500 quyển.",
+    "metadata": {
+      "article": "Điều 10. Phân phối giáo trình",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "giáo trình xuất bản trên 500 quyển."
+    }
+  },
+  {
+    "id": "reg_0424",
+    "question": "Điểm học phần là gì?",
+    "ground_truth": "Điểm học phần là điểm trung bình tính theo hệ số của các điềm thành phần, tính theo thang điểm 10 và được làm tròn đến 0,1.",
+    "metadata": {
+      "article": "Điều 21. Đánh giá kết quả học tập của học phần, học kỳ, năm học, toàn khóa",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "điểm trung bình tính theo hệ số của các điềm thành phần, tính theo thang điểm 10 và được làm tròn đến 0,1."
+    }
+  },
+  {
+    "id": "reg_0883",
+    "question": "Khi trường cấp văn bằng thì văn bằng đó cần thỏa những gì?",
+    "ground_truth": "Khi trường cấp văn bằng thì văn bằng đó cần ghi chính xác, đầy đủ các thông tin trên văn bằng, chứng chỉ; chỉnh sửa các nội dung ghi trên văn bằng, chứng chỉ theo quy định tại Quy chế.",
+    "metadata": {
+      "article": "Điều 4. Quyền và nghĩa vụ của người được cấp văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "ghi chính xác, đầy đủ các thông tin trên văn bằng, chứng chỉ; chỉnh sửa các nội dung ghi trên văn bằng, chứng chỉ theo quy định tại Quy chế"
+    }
+  },
+  {
+    "id": "reg_0257",
+    "question": "CBPB là gọi tắt của từ gì?",
+    "ground_truth": "CBPB gọi tắt là cán bộ phản biện.",
+    "metadata": {
+      "article": "Điều 2. Một số thuật ngữ, chữ viết tắt sử dụng trong quy định này",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Cán bộ phản biện"
+    }
+  },
+  {
+    "id": "reg_0099",
+    "question": "Đơn vị nào có trách nhiệm thiết kế chương trình đào tạo, phối hợp tổ chức tuyển sinh, đào tạo, đảm bảo chất lượng, quản lý người học chương trình ĐH-ThS?",
+    "ground_truth": "Khoa có trách nhiệm thiết kế chương trình đào tạo, phối hợp tổ chức tuyển sinh, đào tạo, đảm bảo chất lượng, quản lý người học chương trình ĐH-ThS.",
+    "metadata": {
+      "article": "Điều 13. Tổ chức thực hiện",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Khoa thiết kế chương trình đào tạo, phối hợp tổ chức tuyển sinh, đào tạo, đảm bảo chất lượng, quản lý người học chương trình ĐH-ThS"
+    }
+  },
+  {
+    "id": "reg_0458",
+    "question": "Có cần đánh số thứ tự cho từng trang trong sổ gốc cấp văn bằng, chứng chỉ không?",
+    "ground_truth": "Cần đánh số trang trong sổ gốc cấp văn bằng, chứng chỉ.",
+    "metadata": {
+      "article": "Điều 16. Sổ gốc văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "yes_no",
+      "extractive_answer": "đánh số trang"
+    }
+  },
+  {
+    "id": "reg_0881",
+    "question": "Các quyết định cho phép chuyển ngành, chuyển trạm ĐTTX, chuyển hệ đào tạo do ai quyết định?",
+    "ground_truth": "Các quyết định cho phép chuyển ngành, chuyển trạm ĐTTX, chuyển hệ đào tạo đều do Hiệu trưởng quyết định.",
+    "metadata": {
+      "article": "Điều 18. Chuyển ngành, chuyển hệ đào tạo, chuyển trường, chuyển trạm ĐTTX",
+      "document": "QUY ĐỊNH về việc tổ chức dạy – học ngoài giờ hành chính đối với các học phần trong chương trình đào tạo đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Hiệu trưởng"
+    }
+  },
+  {
+    "id": "reg_0784",
+    "question": "Sinh viên tốt nghiệp CTTT có thể làm việc ở nước ngoài được không?",
+    "ground_truth": "Sinh viên tốt nghiệp CTTT có thể làm việc ở nước ngoài vì họ đáp ứng được yêu cầu giao tiếp trong môi trường làm việc quốc tế.",
+    "metadata": {
+      "article": "Điều 3. Mục tiêu đào tạo",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "yes_no",
+      "extractive_answer": "đáp ứng được yêu cầu giao tiếp trong môi trường làm việc quốc tế."
+    }
+  },
+  {
+    "id": "reg_0521",
+    "question": "Ai là người tiếp nhận hồ sơ của người yêu cầu cấp lại văn bằng, chứng chỉ?",
+    "ground_truth": "Cơ quan có thẩm quyền cấp lại văn bằng, chứng chỉ là người tiếp nhận hồ sơ của người yêu cầu cấp lại văn bằng, chứng chỉ.",
+    "metadata": {
+      "article": "Điều 15. Cấp lại văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "cơ quan có thẩm quyền cấp lại văn bằng, chứng chỉ"
+    }
+  },
+  {
+    "id": "reg_0549",
+    "question": "Đơn vị nào có nhiệm vụ lập kế hoạch và điều hành công tác tổ chức thi?",
+    "ground_truth": "Phòng Đào tạo Đại học là đơn vị lập kế hoạch và điều hành công tác tổ chức thi.",
+    "metadata": {
+      "article": "Điều 2. Chỉ đạo công tác thi",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "Phòng Đào tạo Đại học"
+    }
+  },
+  {
+    "id": "reg_0426",
+    "question": "Ai là người phân công hoặc mời giảng viên thỉnh giảng về Trường?",
+    "ground_truth": "Đơn vị chuyên môn có trách nhiệm phân công giảng viên giảng dạy hoặc mời giảng viên thỉnh giảng khi cần thiết.",
+    "metadata": {
+      "article": "Điều 12. Giảng viên và trợ giảng",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "Đơn vị chuyên môn có trách nhiệm phân công giảng viên giảng dạy hoặc mời giảng viên thỉnh giảng khi cần thiết."
+    }
+  },
+  {
+    "id": "reg_0125",
+    "question": "Sinh viên chương trình tiên tiến nợ 2 tín chỉ có được làm khoá luận tốt nghiệp không?",
+    "ground_truth": "Sinh viên chương trình tiên tiến không được phép nợ quá 08 tín chỉ theo chương trình đào tạo thì có thể xét làm KLTN.",
+    "metadata": {
+      "article": "Điều 12. Thực tập doanh nghiệp và làm khóa luận tốt nghiệp",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "yes_no",
+      "extractive_answer": "Không được phép nợ quá 08 tín chỉ"
+    }
+  },
+  {
+    "id": "reg_0641",
+    "question": "DHKH là viết tắt của từ gì?",
+    "ground_truth": "DHKH nghĩa là phương thức dạy học kết hợp.",
+    "metadata": {
+      "article": "Điều 2. Giải thích từ ngữ",
+      "document": "QUY ĐỊNH TẠM THỜI VỀ ĐÀO TẠO LIÊN THÔNG TỪ TRÌNH ĐỘ ĐẠI HỌC LÊN TRÌNH ĐỘ THẠC SĨ HỆ CHÍNH QUY",
+      "question_type": "open",
+      "extractive_answer": "Phương thức dạy học kết hợp"
+    }
+  },
+  {
+    "id": "reg_0362",
+    "question": "Thời gian đào tạo được xác định trên cơ sở nào?",
+    "ground_truth": "Thời gian đào tạo được xác định trên cơ sở học phần và khối lượng tích lũy quy định cho từng chương trình.",
+    "metadata": {
+      "article": "Điều 6. Khoá học",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "cơ sở học phần và khối lượng tích lũy quy định cho từng chương trình"
+    }
+  },
+  {
+    "id": "reg_0448",
+    "question": "Sinh viên có quyền gì khi học hệ đại học từ xa?",
+    "ground_truth": "Sinh viên có quyền sau khi học hệ đại học từ xa: Được cung cấp đầy đủ thông tin về tuyển sinh, thời hạn đăng ký nộp hồ sơ, chương trình ĐTTX, điều kiện công nhận giá trị chuyển đổi kết quả học tập, kế hoạch đào tạo, quy định về ĐTTX, yêu cầu về bằng cấp và các chính sách ĐTTX của Trường. Được quyền tham gia học tập các tín chỉ cùng với hệ đào tạo chính quy, hệ vừa làm vừa học theo quy định của Trường. Được cung cấp đầy đủ các thông tin về đánh giá công nhận chuyển đổi kết quả học tập và có thể đề nghị xem xét lại việc đánh giá công nhận kết quả học tập.",
+    "metadata": {
+      "article": "Điều 22. Quyền và trách nhiệm của người học",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH CHẤT LƯỢNG CAO",
+      "question_type": "open",
+      "extractive_answer": "1. \tĐược cung cấp đầy đủ thông tin về tuyển sinh, thời hạn đăng ký nộp hồ sơ, chương trình ĐTTX, điều kiện công nhận giá trị chuyển đổi kết quả học tập, kế hoạch đào tạo, quy định về ĐTTX, yêu cầu về bằng cấp và các chính sách ĐTTX của Trường.\n2. \tĐược quyền tham gia học tập các tín chỉ cùng với hệ đào tạo chính quy, hệ vừa làm vừa học theo quy định của Trường.\n3. \tĐược cung cấp đầy đủ các thông tin về đánh giá công nhận chuyển đổi kết quả học tập và có thể đề nghị xem xét lại việc đánh giá công nhận kết quả học tập."
+    }
+  },
+  {
+    "id": "reg_0193",
+    "question": "Ai là người ký quyết định mở ngành và báo cáo cho bộ GD&ĐT?",
+    "ground_truth": "Hiệu trưởng là người ký quyết định mở ngành và báo cáo cho bộ GD&ĐT.",
+    "metadata": {
+      "article": "Điều 6. Xây dựng đề án mở ngành đào tạo",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Hiệu trưởng"
+    }
+  },
+  {
+    "id": "reg_0276",
+    "question": "Bổn phận của PTTPC-ĐBCL là gì?",
+    "ground_truth": "Bổn phận của PTTPC-ĐBCL là thực hiện công tác thanh tra, kiểm tra việc thực hiện các quy định về văn bằng, chứng chỉ.",
+    "metadata": {
+      "article": "Điều 3. Trách nhiệm của các đơn vị, cá nhân trong việc quản lý văn bằng, chứng chỉ",
+      "document": "QUY CHẾ Văn bằng, chứng chỉ của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "thực hiện công tác thanh tra, kiểm tra việc thực hiện các quy định về văn bằng, chứng chỉ."
+    }
+  },
+  {
+    "id": "reg_0492",
+    "question": "Nếu phôi văn bằng có chất lượng không bảo đảm thì có bị hủy hay không?",
+    "ground_truth": "Nếu phôi văn bằng có chất lượng không bảo đảm thì các đơn vị quản lý việc cấp văn bằng, chứng chỉ lập hội đồng hủy phôi bằng.",
+    "metadata": {
+      "article": "Điều 3. Trách nhiệm của các đơn vị, cá nhân trong việc quản lý văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TÀI NĂNG",
+      "question_type": "open",
+      "extractive_answer": "Đối với phôi văn bằng, chứng chỉ#chất lượng không bảo đảm#thì lập hội đồng hủy phôi bằng"
+    }
+  },
+  {
+    "id": "reg_0146",
+    "question": "Từng CBCT phải ký và ghi rõ họ tên vào đâu?",
+    "ground_truth": "Giấy thi và giấy nháp của SV phải được tất cả CBCT ký và ghi rõ họ tên.",
+    "metadata": {
+      "article": "Điều 12. Trách nhiệm của cán bộ coi thi",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "giấy thi và giấy nháp của SV"
+    }
+  },
+  {
+    "id": "reg_0068",
+    "question": "Nếu thỏa các điều kiện và muốn chuyển sang chương trình đại trà thì sinh viên cần làm những gì?",
+    "ground_truth": "Nếu thỏa các điều kiện và muốn chuyển sang chương trình đại trà thì sinh viên cần làm đơn xin chuyển chương trình kèm các minh chứng để Ban Giám hiệu xem xét và ra quyết định.",
+    "metadata": {
+      "article": "Điều 10. Chuyển từ CT CLC sang chương trình đại trà",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "làm đơn xin chuyển chương trình kèm các minh chứng để Ban Giám hiệu xem xét và ra quyết định."
+    }
+  },
+  {
+    "id": "reg_0554",
+    "question": "Trách nhiệm của giảng viên ĐTTX là gì khi thông tin liên lạc xảy ra sự cố?",
+    "ground_truth": "Khi thông tin liên lạc xảy ra sự cố, giảng viên có trách nhiệm hỗ trợ người học giải quyết những khó khăn nảy sinh.",
+    "metadata": {
+      "article": "Điều 21. Quyền và trách nhiệm của giảng viên",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "hỗ trợ người học giải quyết những khó khăn nảy sinh"
+    }
+  },
+  {
+    "id": "reg_0207",
+    "question": "Từ khi nào các Trạm ĐTTX gửi báo cáo cho Hiệu trưởng thông qua P.ĐTĐH?",
+    "ground_truth": "Từ ngày 01 tháng 12 đến trước ngày 15 tháng 12 hàng năm các Trạm ĐTTX gửi báo cáo cho Hiệu trưởng thông qua P.ĐTĐH.",
+    "metadata": {
+      "article": "Điều 24. Chế độ báo cáo",
+      "document": "QUY CHẾ ĐÀO TẠO TỪ XA TRÌNH ĐỘ ĐẠI HỌC CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Từ ngày 01 tháng 12 đến trước ngày 15 tháng 12 hàng năm"
+    }
+  },
+  {
+    "id": "reg_0367",
+    "question": "Tân sinh viên khi bắt đầu học tuần học đầu tiên thì nhận tài liệu học tập của từng môn học thế nào?",
+    "ground_truth": "Trong tuần đầu tiên của học kỳ, giảng viên phải thông báo công khai cho sinh viên về đề cương giảng dạy môn học.",
+    "metadata": {
+      "article": "Điều 12. Giảng viên và trợ giảng",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "Trong tuần đầu tiên của học kỳ, giảng viên phải thông báo công khai cho sinh viên về đề cương giảng dạy môn học"
+    }
+  },
+  {
+    "id": "reg_0951",
+    "question": "Quy trình phân công cán bộ coi thi về việc ban hành Quy trình phân công cán bộ coi thi cho các đợt thi tập trung hệ đại học chính quy gồm có bao nhiêu giai đoạn?",
+    "ground_truth": "Quy trình phân công cán bộ coi thi gồm 3 giai đoạn.",
+    "metadata": {
+      "article": "Nội dung quy trình",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": 3
+    }
+  },
+  {
+    "id": "reg_0130",
+    "question": "Thẩm quyền của ban điều hành CTGT trường ĐHCNTT là gì?",
+    "ground_truth": "Thẩm quyền của ban điều hành CTGT trường ĐHCNTT là sử dụng kinh phí giáo trình từ nguồn kinh phí hỗ trợ của ĐHQG.",
+    "metadata": {
+      "article": "Điều 12. Thẩm quyền sử dụng kinh phí giáo trình",
+      "document": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ CHO HỆ ĐẠI HỌC CHÍNH QUY CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "sử dụng kinh phí giáo trình từ nguồn kinh phí hỗ trợ của ĐHQG"
+    }
+  },
+  {
+    "id": "reg_0928",
+    "question": "Điều gì sẽ xảy ra nếu như đề thi bị lộ?",
+    "ground_truth": "Nếu như đề thi bị lộ, Hiệu trưởng quyết định đình chỉ thi hoặc hủy kết quả môn thi đó đồng thời đơn vị tổ chức thi có trách nhiệm kiểm tra, xác minh, kết luận nguyên nhân lộ đề thi, người làm lộ đề thi và những người liên quan, tiến hành xử lý theo quy định.",
+    "metadata": {
+      "article": "Điều 10. Xử lý các sự cố bất thường của đề thi",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "Hiệu trưởng quyết định đình chỉ thi hoặc hủy kết quả môn thi đó, Đơn vị tổ chức thi có trách nhiệm kiểm tra, xác minh, kết luận nguyên nhân lộ đề thi, người làm lộ đề thi và những người liên quan, tiến hành xử lý theo quy định."
+    }
+  },
+  {
+    "id": "reg_0721",
+    "question": "Việc đăng ký học tập, học lại và học cải thiện của chương trình đào tạo từ xa được quy định như thế nào?",
+    "ground_truth": "Đối với việc đăng ký học tập, học lại và học cải thiện của chương trình đào tạo từ xa, sinh viên được phép đăng ký học những môn học được Trường mở lớp trong học kỳ; sinh viên phải đăng ký học lại các môn học chưa đạt (có điểm tổng kết môn học dưới 5,0) đối với những môn học có tính chất bắt buộc trong chương trình đào tạo; sinh viên được đăng ký học lại môn học đã đạt để cải thiện điểm. Kết quả cao nhất trong các lần học sẽ được chọn để tính vào điểm trung bình chung tích lũy và điểm trung bình tích lũy toàn khóa.",
+    "metadata": {
+      "article": "Điều 16. Đăng ký học tập, học lại và học cải thiện",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "1. \tSinh viên được phép đăng ký học những môn học được Trường mở lớp trong học kỳ.\n2. \tHọc lại: Sinh viên phải đăng ký học lại các môn học chưa đạt (có điểm tổng kết môn học dưới 5,0) đối với những môn học có tính chất bắt buộc trong chương trình đào tạo . \n3. \tHọc cải thiện: Sinh viên được đăng ký học lại môn học đã đạt để cải thiện điểm. Kết quả cao nhất trong các lần học sẽ được chọn để tính vào điểm trung bình chung tích lũy và điểm trung bình tích lũy toàn khóa."
+    }
+  },
+  {
+    "id": "reg_0930",
+    "question": "Việc lập sổ hiệu ghi trên phôi chứng chỉ được lập trong khoảng thời gian nào?",
+    "ground_truth": "Sổ hiệu ghi trên phôi chứng chỉ được lập trong toàn bộ quá trình hoạt động của Trường từ khi thực hiện việc tự in phôi chứng chỉ.",
+    "metadata": {
+      "article": "Điều 11. Quy định lập số hiệu, số vào sổ cấp văn bằng, chứng chỉ",
+      "document": "Về khoá luận tốt nghiệp cho đào tạo bậc đại học hệ chính quy",
+      "question_type": "open",
+      "extractive_answer": "trong toàn bộ quá trình hoạt động của Trường từ khi thực hiện việc tự in phôi chứng chỉ"
+    }
+  },
+  {
+    "id": "reg_0514",
+    "question": "Về việc cấp chứng chỉ thì khi nào học viên sẽ được nhận chứng chỉ?",
+    "ground_truth": "Về việc nhận chứng chỉ thì chứng chỉ sẽ được cấp sau khi người học hoàn thành chương trình đào tạo hoặc bồi dưỡng nâng cao trình độ học vấn, nghề nghiệp theo chương trình do Bộ GD&ĐT quy định hoặc ban hành. ",
+    "metadata": {
+      "article": "Điều 13. Điều kiện cấp văn bằng, chứng chỉ",
+      "document": "QUY ĐỊNH ĐÀO TẠO CHƯƠNG TRÌNH TIÊN TIẾN",
+      "question_type": "open",
+      "extractive_answer": "sau khi người học hoàn thành chương trình đào tạo hoặc bồi dưỡng nâng cao trình độ học vấn, nghề nghiệp"
+    }
+  },
+  {
+    "id": "reg_0751",
+    "question": "Quy trình của việc báo nghỉ dạy và thay đổi CBGD như thế nào?",
+    "ground_truth": "Quy trình của việc báo nghỉ dạy và thay đổi CBGD bao gồm: Bước 1: Thông báo cho Phòng Đào tạo Đại học. Cán bộ giảng dạycó lý do chính đáng phải nghỉ dạy cần thông báo trực tiếp với Phòng Đào tạo Đại học (theo Phiếu báo nghỉ hoặc điện thoại nếu nghỉ đột xuất). Thời gian: chậm nhất là 15 phút sau khi giờ học bắt đầu. Trách nhiệm thuộc về cán bộ giảng dạy, phối hợp với Phòng Đào tạo Đại học. Biểu mẫu: P1. Bước 2 là Phòng Đào tạo Đại học xử lý sự việc. Phòng Đào tạo Đại học thông báo cho Phòng Thanh tra pháp chế và Đảm bảo Chất lượng ghi nhận, Ban Quản lý cơ sở để đóng cửa phòng học và thông báo cho lớp nghỉ. Trường hợp có cán bộ giảng dạy dạy thay, Phòng Đào tạo Đại học cung cấp thông tin cho Phòng Thanh tra Pháp chế và Đảm bảo Chất lượng. Thời gian: theo tuần hoặc ngay sau khi nhận được thông tin. Trách nhiệm thuộc về Phòng Đào tạo Đại học. Đơn vị phối hợp Phòng Thanh tra Pháp chế và Đảm bảo Chất lượng và Ban Quản lý Cơ sở. Không có biểu mẫu kèm theo. Bước 3 là cán bộ giảng dạy hoàn thiện thủ tục báo nghỉ. Cán bộ giảng dạy hoàn thiện Phiếu báo nghỉ dạy theo mẫu và nộp về Phòng Đào tạo Đại học. Phòng Đào tạo Đại học chuyển bản sao Phiếu báo nghỉ dạy có xác nhận cho Phòng Thanh tra Pháp chế và Đảm bảo Chất lượng. Thời gian: chậm nhất là 5 ngày sau buổi dạy đã nghỉ. Trách nhiệm thuộc về cán bộ giảng dạy, phối hợp với Phòng Đào tạo Đại học. Biểu mẫu kèm theo: P1.",
+    "metadata": {
+      "article": "QUY TRÌNH",
+      "document": "QUY ĐỊNH Tổ chức thi các môn học hệ đại học chính quy của Trường Đại học Công nghệ Thông tin",
+      "question_type": "open",
+      "extractive_answer": "Bước 1: Thông báo cho Phòng Đào tạo Đại học. Cán bộ giảng dạycó lý do chính đáng phải nghỉ dạy cần thông báo trực tiếp với Phòng Đào tạo Đại học (theo Phiếu báo nghỉ hoặc điện thoại nếu nghỉ đột xuất). Thời gian: chậm nhất là 15 phút sau khi giờ học bắt đầu. Trách nhiệm thuộc về cán bộ giảng dạy, phối hợp với Phòng Đào tạo Đại học. Biểu mẫu: P1.\nBước 2: Phòng Đào tạo Đại học xử lý sự việc. Phòng Đào tạo Đại học thông báo cho Phòng Thanh tra pháp chế và Đảm bảo Chất lượng ghi nhận, Ban Quản lý cơ sở để đóng cửa phòng học và thông báo cho lớp nghỉ. Trường hợp có cán bộ giảng dạy dạy thay, Phòng Đào tạo Đại học cung cấp thông tin cho Phòng Thanh tra Pháp chế và Đảm bảo Chất lượng. Thời gian: theo tuần hoặc ngay sau khi nhận được thông tin. Trách nhiệm thuộc về Phòng Đào tạo Đại học. Đơn vị phối hợp Phòng Thanh tra Pháp chế và Đảm bảo Chất lượng và Ban Quản lý Cơ sở. Không có biểu mẫu kèm theo.\nBước 3: Cán bộ giảng dạy hoàn thiện thủ tục báo nghỉ. Cán bộ giảng dạy hoàn thiện Phiếu báo nghỉ dạy theo mẫu và nộp về Phòng Đào tạo Đại học. Phòng Đào tạo Đại học chuyển bản sao Phiếu báo nghỉ dạy có xác nhận cho Phòng Thanh tra Pháp chế và Đảm bảo Chất lượng. Thời gian: chậm nhất là 5 ngày sau buổi dạy đã nghỉ. Trách nhiệm thuộc về cán bộ giảng dạy, phối hợp với Phòng Đào tạo Đại học. Biểu mẫu kèm theo: P1."
+    }
+  },
+  {
+    "id": "reg_0395",
+    "question": "Ai là người quyết định tuyển bổ sung, chuyển đổi sinh viên từ dự bị sang chính thức và ngược lại cho lớp tài năng?",
+    "ground_truth": "BĐH quyết định việc tuyển bổ sung, chuyển đổi sinh viên từ dự bị sang chính thức và ngược lại cho lớp tài năng.",
+    "metadata": {
+      "article": "Điều 9. Tuyển bổ sung và loại ra khỏi chương trình, xét chính thức và dự bị",
+      "document": "QUY ĐỊNH DẠY VÀ HỌC THEO PHƯƠNG THỨC TRỰC TUYẾN VÀ PHƯƠNG THỨC KẾT HỢP CỦA TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN",
+      "question_type": "open",
+      "extractive_answer": "BĐH"
+    }
+  }
+]
