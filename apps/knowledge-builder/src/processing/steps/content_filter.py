@@ -148,12 +148,12 @@ class ContentFilter:
         # Component 1: Word count (0-30 points)
         words = content.split()
         word_count = len(words)
-        # Scale: 0-300 words → 0-30 points
+        # Scale: 0-300 words -> 0-30 points
         score += min(word_count / 300, 1.0) * 30
 
         # Component 2: Paragraph count (0-20 points)
         paragraphs = content.count('\n\n') + 1
-        # Scale: 0-10 paragraphs → 0-20 points
+        # Scale: 0-10 paragraphs -> 0-20 points
         score += min(paragraphs / 10, 1.0) * 20
 
         # Component 3: Information density (0-30 points)
@@ -166,7 +166,7 @@ class ContentFilter:
         # Component 4: Useful keywords (0-20 points)
         content_lower = content.lower()
         keyword_matches = sum(1 for kw in self.USEFUL_KEYWORDS if kw in content_lower)
-        # Scale: 0-5 keywords → 0-20 points
+        # Scale: 0-5 keywords -> 0-20 points
         score += min(keyword_matches / 5, 1.0) * 20
 
         return min(score, 100.0)

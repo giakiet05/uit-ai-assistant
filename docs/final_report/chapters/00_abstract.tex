@@ -1,0 +1,40 @@
+% Tóm tắt đồ án (1-2 trang)
+% Trình bày tóm tắt vấn đề nghiên cứu, các hướng tiếp cận, cách giải quyết vấn đề và một số kết quả đạt được
+
+\section*{Vấn đề nghiên cứu}
+
+Sinh viên Đại học Công nghệ Thông tin (UIT) phải quản lý nhiều thông tin học vụ phức tạp từ các hệ thống
+khác nhau: tra cứu quy định về điều kiện tốt nghiệp, yêu cầu môn học theo ngành, xem lịch học và lịch thi,
+kiểm tra điểm số từ hệ thống DAA, tìm tài liệu học. Các thông tin này không được tập trung ở một nơi mà
+phân tán trên nhiều nền tảng khác nhau. Để tìm kiếm thông tin, sinh viên phải truy cập nhiều trang web, ghi nhớ các điều khoản quy định, hoặc hỏi cán bộ hỗ trợ. Quá trình
+này tốn thời gian, dễ bị nhầm lẫn, và không hiệu quả.
+
+Để giải quyết vấn đề này, đề tài xây dựng một AI agent để hỗ trợ sinh viên
+trong việc quản lý và tra cứu thông tin học vụ. AI agent có khả năng hiểu các câu hỏi tự nhiên
+từ sinh viên, suy luận logic, gọi các công cụ thích hợp, và cung cấp câu trả lời chính xác từ các nguồn dữ liệu một cách nhanh chóng.
+
+\section*{Cách giải quyết vấn đề}
+
+Để xây dựng AI agent hỗ trợ sinh viên, đề tài sử dụng một kiến trúc kết hợp ba thành phần chính:
+Retrieval-Augmented Generation (RAG), Model Context Protocol (MCP), và LangGraph để orchestrate agent logic.
+
+Cụ thể, RAG được sử dụng để xây dựng knowledge base từ các tài liệu quy định và chương trình đào tạo,
+cho phép agent tìm kiếm và trích xuất thông tin chính xác. MCP được dùng để tích hợp các công cụ bên
+ngoài như DAA portal (lấy điểm, lịch thi) và knowledge base retrieval. LangGraph được dùng để thiết kế
+AI agent theo ReAct pattern (Reasoning + Acting) có khả năng suy luận, chọn tools phù hợp, và xử lý multi-step queries.
+
+Ba thành phần này kết hợp với nhau để tạo thành một AI agent hoàn chỉnh: khi nhận câu hỏi từ người dùng,
+agent suy luận xem cần gọi tools nào (retrieval từ knowledge base hoặc scraping từ DAA), thực thi các tool
+calls đó, nhận kết quả, và sinh ra câu trả lời hoàn chỉnh cho sinh viên.
+
+\section*{Kết quả đạt được}
+
+Đề tài đã xây dựng một AI agent như một proof-of-concept để hỗ trợ sinh viên UIT quản lý và tra cứu thông tin học vụ.
+AI agent có khả năng trả lời các câu hỏi về quy định đào tạo, chương trình học, và có thể tự động lấy thông tin
+như lịch thi, điểm số, thời khóa biểu từ các hệ thống bên ngoài. Hệ thống được tích hợp vào một nền tảng web
+cho phép sinh viên tương tác với agent. Tuy nhiên, hiện tại agent còn những hạn chế như độ chính xác truy vấn chưa cao,
+số lượng tính năng còn hạn chế, và cần các bước tối ưu hóa thêm.
+
+Bất chấp những hạn chế này, kết quả đạt được chứng minh rằng kiến trúc tích hợp RAG, MCP, và LangGraph có khả năng
+hoạt động hiệu quả trong việc xây dựng AI agent hỗ trợ học vụ. Nền tảng này mở ra các cơ hội để nâng cấp thêm độ chính xác,
+mở rộng tính năng, và triển khai rộng rãi cho các trường đại học khác trong tương lai.

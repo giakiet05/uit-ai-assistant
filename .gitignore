@@ -9,7 +9,14 @@ wheels/
 # Virtual environments
 .venv
 .env
-data/
+
+# Data folders (service-specific ignores in apps/*/.gitignore)
+# Root-level data folder (if exists)
+/data/
+
+# Whitelist benchmark test sets
+!apps/benchmark/data/
+
 .claude
 CLAUDE.md
 GEMINI.md
@@ -20,5 +27,21 @@ node_modules/
 tmp
 .env.production
 .env.development
-.env.dev 
+.env.dev
 .env.prod
+
+# LaTeX temporary files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex.gz(busy)
+*.bbl
+*.blg
+
+backup/

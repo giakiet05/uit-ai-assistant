@@ -46,7 +46,7 @@ class MetadataPipeline:
             force: If True, regenerate metadata_generator even if .json exists
         """
         print("\n" + "="*70)
-        print(f"🚀 STAGE 2: METADATA GENERATION PIPELINE - START")
+        print(f" STAGE 2: METADATA GENERATION PIPELINE - START")
         print("="*70 + "\n")
 
         processed_data_path = settings.paths.PROCESSED_DATA_DIR
@@ -64,13 +64,13 @@ class MetadataPipeline:
             category_dirs = [d for d in processed_data_path.iterdir()
                            if d.is_dir() and not d.name.startswith('.')]
 
-        print(f"📊 FOUND {len(category_dirs)} CATEGORIES: {[d.name for d in category_dirs]}\n")
+        print(f" FOUND {len(category_dirs)} CATEGORIES: {[d.name for d in category_dirs]}\n")
 
         # Process each category
         for category_dir in category_dirs:
             category = category_dir.name
             print(f"\n{'='*70}")
-            print(f"📁 PROCESSING CATEGORY: {category.upper()}")
+            print(f" PROCESSING CATEGORY: {category.upper()}")
             print(f"{'='*70}\n")
 
             # Get all .md files
@@ -113,7 +113,7 @@ class MetadataPipeline:
                 content = f.read()
 
             if not content or not content.strip():
-                print(f"  ⚠️  [WARNING] Empty markdown file")
+                print(f"    [WARNING] Empty markdown file")
                 self.stats["files_failed"] += 1
                 self.stats["errors"].append({
                     "file": filename,
@@ -127,7 +127,7 @@ class MetadataPipeline:
             metadata_obj = generator.generate(md_path, content)
 
             if not metadata_obj:
-                print(f"  ❌ [ERROR] Metadata generation failed")
+                print(f"   [ERROR] Metadata generation failed")
                 self.stats["files_failed"] += 1
                 self.stats["errors"].append({
                     "file": filename,
@@ -138,7 +138,7 @@ class MetadataPipeline:
 
             # Step 3: Validate metadata_generator (basic checks)
             if not metadata_obj.title or not metadata_obj.category:
-                print(f"  ⚠️  [WARNING] Invalid metadata_generator: missing title/category")
+                print(f"    [WARNING] Invalid metadata_generator: missing title/category")
                 self.stats["files_failed"] += 1
                 self.stats["errors"].append({
                     "file": filename,
@@ -158,12 +158,12 @@ class MetadataPipeline:
                 json.dump(metadata_dict, f, ensure_ascii=False, indent=2)
 
             self.stats["files_processed"] += 1
-            print(f"  ✅ [SUCCESS] Saved metadata_generator: {json_path.name}")
-            print(f"     → Title: {metadata_obj.title[:60]}...")
-            print(f"     → Type: {getattr(metadata_obj, 'document_type', 'N/A')}")
+            print(f"   [SUCCESS] Saved metadata_generator: {json_path.name}")
+            print(f"     -> Title: {metadata_obj.title[:60]}...")
+            print(f"     -> Type: {getattr(metadata_obj, 'document_type', 'N/A')}")
 
         except Exception as e:
-            print(f"  ❌ [ERROR] Failed: {str(e)[:80]}")
+            print(f"   [ERROR] Failed: {str(e)[:80]}")
             self.stats["files_failed"] += 1
             self.stats["errors"].append({
                 "file": filename,
@@ -178,7 +178,7 @@ class MetadataPipeline:
     def _print_stats(self):
         """Print final processing statistics."""
         print("\n" + "="*70)
-        print("📊 STAGE 2 COMPLETE - STATISTICS")
+        print(" STAGE 2 COMPLETE - STATISTICS")
         print("="*70)
         print(f"   Metadata generated:     {self.stats['files_processed']}")
         print(f"   Files skipped (exist):  {self.stats['files_skipped_existing']}")
@@ -186,13 +186,13 @@ class MetadataPipeline:
         print(f"   Files failed:           {self.stats['files_failed']}")
 
         if self.stats["errors"]:
-            print(f"\n   ⚠️  {len(self.stats['errors'])} ERRORS:")
+            print(f"\n     {len(self.stats['errors'])} ERRORS:")
             for err in self.stats["errors"][:10]:
                 print(f"      • {err['file']}: {str(err['error'])[:60]}")
             if len(self.stats["errors"]) > 10:
                 print(f"      ... and {len(self.stats['errors']) - 10} more")
 
-        print("\n💡 Files are ready for indexing!")
+        print("\n Files are ready for indexing!")
         print("="*70 + "\n")
 
 

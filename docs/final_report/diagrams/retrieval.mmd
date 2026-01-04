@@ -1,0 +1,42 @@
+graph TD
+    query["User Query<br/>(from Agent)"]
+
+    query --> embed["Vectorization<br/>(OpenAI text-embedding-3-small)"]
+
+    embed --> vector_store[("ChromaDB<br/>Collections by Category")]
+
+    vector_store --> ann["Dense Retrieval<br/>Approximate Nearest Neighbor<br/>(Cosine Similarity)"]
+
+    ann --> candidates["Top-20 Candidates"]
+
+    candidates --> rerank_box["Reranking"]
+
+    subgraph rerank_box["Reranking"]
+        viranker["ViRanker<br/>(Vietnamese)"]
+        modal["Modal GPU"]
+        viranker -.-> modal
+    end
+
+    rerank_box --> scored["Scored Results"]
+
+    scored --> filter_box["Filtering & Selection"]
+
+    subgraph filter_box["Filtering & Selection"]
+        threshold["Score ≥ 0.25"]
+        threshold --> prog_filter["Program Filter"]
+        prog_filter --> top3["Select Top-3"]
+    end
+
+    filter_box --> final["Top-3 Chunks<br/>+ Metadata"]
+
+    final --> agent["Agent<br/>(Use as context)"]
+
+    style query fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style embed fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+    style vector_store fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px
+    style ann fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style rerank_box fill:#f3e5f5,stroke:#6a1b9a
+    style filter_box fill:#e8f5e9,stroke:#2e7d32
+    style final fill:#c8e6c9,stroke:#1b5e20,stroke-width:3px
+    style agent fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style modal fill:#fff9c4,stroke:#f57f17

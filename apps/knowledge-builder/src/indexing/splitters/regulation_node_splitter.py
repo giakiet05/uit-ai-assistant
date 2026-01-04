@@ -1,13 +1,14 @@
 """
-SmartNodeSplitter - Enhanced splitter with pattern detection and cleanup.
+RegulationNodeSplitter - Splitter optimized for Vietnamese regulation documents.
 
-Improvements over SimpleNodeSplitter:
-1. Title chunk merging (for regulation documents)
+Features:
+1. Title chunk merging (first 3 short headers)
 2. Pattern-based section detection (Điều X, CHƯƠNG X)
 3. Malformed markdown cleanup (empty headers)
 4. Robust against LlamaParse inconsistencies
 
-Focus: Regulation documents (curriculum support is basic)
+Designed specifically for regulation documents.
+For curriculum documents, use CurriculumNodeSplitter (future implementation).
 """
 import re
 from typing import List, Dict, Sequence
@@ -16,15 +17,15 @@ from llama_index.core.schema import BaseNode
 from .base_node_splitter import BaseNodeSplitter
 
 
-class SmartNodeSplitter(BaseNodeSplitter):
+class RegulationNodeSplitter(BaseNodeSplitter):
     """
-    Smart splitter with pattern detection and structure cleanup.
+    Splitter optimized for Vietnamese regulation documents.
 
     Features:
-    1. Merge title chunks (regulation: first 3 short headers)
+    1. Merge title chunks (first 3 short headers)
     2. Detect Vietnamese regulation patterns (Điều, CHƯƠNG)
     3. Remove malformed headers (empty ##, broken markdown)
-    4. Fallback to simple parsing if patterns fail
+    4. Robust against LlamaParse inconsistencies
 
     Inherits from BaseNodeSplitter:
     - Token counting
@@ -153,13 +154,13 @@ class SmartNodeSplitter(BaseNodeSplitter):
                 continue
 
             # Fix bullet points mistakenly marked as headers
-            # Pattern: "#### - Some text" → "- Some text"
+            # Pattern: "#### - Some text" -> "- Some text"
             bullet_header_match = re.match(r'^(#{1,6})\s*(-|\*)\s+(.+)', line)
             if bullet_header_match:
                 bullet_char = bullet_header_match.group(2)
                 content = bullet_header_match.group(3)
                 fixed_line = f"{bullet_char} {content}"
-                print(f"  [CLEANUP] Fixed bullet point header: '{line[:60]}...' → '{fixed_line[:60]}...'")
+                print(f"  [CLEANUP] Fixed bullet point header: '{line[:60]}...' -> '{fixed_line[:60]}...'")
                 cleaned_lines.append(fixed_line)
                 continue
 
@@ -222,7 +223,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
                 # Update header stack: remove headers at same or deeper level
                 header_stack = [h for h in header_stack if h['level'] < level]
 
-                # ✅ TRUNCATE header before adding to stack
+                #  TRUNCATE header before adding to stack
                 truncated_header = self._truncate_header(header_text, metadata)
 
                 # Add current header
@@ -250,7 +251,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
                         level = 2  # Default level for patterns
                         header_text = line.strip()
 
-                        # ✅ TRUNCATE pattern-detected header
+                        #  TRUNCATE pattern-detected header
                         truncated_header = self._truncate_header(header_text, metadata)
 
                         # Remove headers at same or deeper level
@@ -324,15 +325,15 @@ class SmartNodeSplitter(BaseNodeSplitter):
         - Only truncate if > max_length
 
         Examples (Regulation):
-        - "CHƯƠNG I" → "CHƯƠNG I" (short, keep)
-        - "Điều 1. Phạm vi điều chỉnh" → "Điều 1" (always truncate)
-        - "1. Văn bản này quy định..." → "Khoản 1" (always truncate)
-        - "a. Short text" → "Mục a" (always truncate)
+        - "CHƯƠNG I" -> "CHƯƠNG I" (short, keep)
+        - "Điều 1. Phạm vi điều chỉnh" -> "Điều 1" (always truncate)
+        - "1. Văn bản này quy định..." -> "Khoản 1" (always truncate)
+        - "a. Short text" -> "Mục a" (always truncate)
 
         Examples (Curriculum):
-        - "# 1. GIỚI THIỆU" → "1. GIỚI THIỆU" (keep as-is)
-        - "## 1.1. Mục tiêu đào tạo" → "1.1. Mục tiêu đào tạo" (keep as-is)
-        - "### 1.3.1. Nhóm các môn học cơ sở nhóm ngành" → "1.3.1. Nhóm các môn học cơ sở nhóm ngành" (keep as-is)
+        - "# 1. GIỚI THIỆU" -> "1. GIỚI THIỆU" (keep as-is)
+        - "## 1.1. Mục tiêu đào tạo" -> "1.1. Mục tiêu đào tạo" (keep as-is)
+        - "### 1.3.1. Nhóm các môn học cơ sở nhóm ngành" -> "1.3.1. Nhóm các môn học cơ sở nhóm ngành" (keep as-is)
 
         Args:
             header: Original header text
@@ -353,19 +354,19 @@ class SmartNodeSplitter(BaseNodeSplitter):
 
         # ========== REGULATION: TRUNCATE KNOWN PATTERNS ==========
 
-        # Pattern: "Điều X. <text>" OR "Điều X" → "Điều X"
+        # Pattern: "Điều X. <text>" OR "Điều X" -> "Điều X"
         if match := re.match(r'^(Điều\s+\d+)', header):
             return match.group(1)
 
-        # Pattern: "CHƯƠNG X - <text>" OR "CHƯƠNG X" → "CHƯƠNG X"
+        # Pattern: "CHƯƠNG X - <text>" OR "CHƯƠNG X" -> "CHƯƠNG X"
         if match := re.match(r'^(CHƯƠNG\s+[IVXLCDM0-9]+)', header):
             return match.group(1)
 
-        # Pattern: "1. <text>" → "Khoản 1" (ALWAYS, even if short)
+        # Pattern: "1. <text>" -> "Khoản 1" (ALWAYS, even if short)
         if match := re.match(r'^(\d+)\.', header):
             return f"Khoản {match.group(1)}"
 
-        # Pattern: "a)" OR "a." → "Mục a" (ALWAYS, even if short)
+        # Pattern: "a)" OR "a." -> "Mục a" (ALWAYS, even if short)
         if match := re.match(r'^([a-z])[\).]', header):
             return f"Mục {match.group(1)}"
 
@@ -486,7 +487,7 @@ class SmartNodeSplitter(BaseNodeSplitter):
         - First 3-5 chunks
         - All very short (<150 chars)
         - NOT special sections (MỤC LỤC, DANH MỤC, etc.)
-        → Likely to be title split by LlamaParse
+        -> Likely to be title split by LlamaParse
 
         Args:
             chunks: List of chunk dicts

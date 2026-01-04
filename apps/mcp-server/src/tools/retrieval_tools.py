@@ -46,9 +46,9 @@ def _init_query_engine() -> QueryEngine:
         collections=collections,
         use_reranker=True,
         top_k=3,
-        retrieval_top_k=20,
-        rerank_score_threshold=0,
-        min_score_threshold=settings.retrieval.MINIMUM_SCORE_THRESHOLD,
+        retrieval_top_k=10,
+        rerank_score_threshold=0.5,
+        min_score_threshold=0.15,
         use_modal=True
     )
 

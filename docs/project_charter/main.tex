@@ -1,0 +1,690 @@
+% !TeX program = lualatex
+
+\documentclass[a4paper]{report}
+
+% ===== PACKAGES FOR VIETNAMESE & FONTS =====
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+% ===== PAGE SETUP =====
+\usepackage[
+    top=3cm,
+    bottom=3.5cm,
+    left=3.5cm,
+    right=2cm
+]{geometry}
+
+% ===== LINE SPACING =====
+\usepackage{setspace}
+\onehalfspacing
+
+% ===== FORMATTING =====
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+
+% ===== CHAPTER FORMATTING =====
+\usepackage{titlesec}
+\titleformat{\chapter}
+  {\normalfont\huge\bfseries}
+  {Chương \thechapter}
+  {0.5em}
+  {}
+\titlespacing*{\chapter}{0pt}{-0.2in}{0.3in}
+
+% ===== VIETNAMESE LABELS =====
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\contentsname}{Mục lục}
+
+% ===== TABLE OF CONTENTS FORMATTING =====
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecnumwidth}{3em}
+\renewcommand{\cftsubsecnumwidth}{3em}
+
+% ===== HEADER & FOOTER =====
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ===== HYPERREF SETUP =====
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+\begin{document}
+
+% ===== FONT SIZE 13pt =====
+\fontsize{13pt}{15.6pt}\selectfont
+
+% ===== NO PAGE NUMBERING FOR FRONT MATTER =====
+\pagenumbering{gobble}
+
+% ===== TITLE PAGE =====
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    {\Large \bfseries ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH}
+
+    {\Large \bfseries TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN}
+
+    {\Large \bfseries KHOA CÔNG NGHỆ PHẦN MỀM}
+
+    \vspace{3cm}
+
+    {\Huge \bfseries PROJECT CHARTER}
+
+    \vspace{1cm}
+
+    {\LARGE \bfseries UIT AI ASSISTANT}
+
+    \vspace{3cm}
+
+    {\large \bfseries NHÓM THỰC HIỆN:}
+
+    {\large Quách Gia Kiệt - 23520819} \\
+    {\large Nguyễn Tuấn Kiệt - 23520815}
+
+    \vspace{1cm}
+
+    {\large \bfseries GV HƯỚNG DẪN:}
+
+    {\large Th.S Nguyễn Công Hoan}
+
+    \vspace{3cm}
+
+    {\large TP. HỒ CHÍ MINH, 2025}
+\end{titlepage}
+
+\newpage
+
+% ===== START PAGE NUMBERING =====
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% ===== DOCUMENT CONTROL =====
+\chapter*{Document Control}
+\addcontentsline{toc}{chapter}{Document Control}
+
+\section*{Document Information}
+
+\begin{itemize}
+    \item \textbf{Document Id:} UIT.SE.AIAGENT-2025
+    \item \textbf{Document Owner:} Quách Gia Kiệt
+    \item \textbf{Issue Date:} 28/12/2024
+    \item \textbf{Last Saved Date:} 28/12/2024
+    \item \textbf{File Name:} UIT.SE.AIAGENT - Project Charter.pdf
+\end{itemize}
+
+\section*{Document History}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|p{8cm}|}
+        \hline
+        \textbf{Version} & \textbf{Issue Date} & \textbf{Changes} \\
+        \hline
+        1.0              & 28/12/2024          & Initial version  \\
+        \hline
+                         &                     &                  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section*{Document Approvals}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|c|c|}
+        \hline
+        \textbf{Role}   & \textbf{Name}         & \textbf{Signature} & \textbf{Date} \\
+        \hline
+        Project Sponsor & Th.S Nguyễn Công Hoan & \checkmark         &               \\
+        \hline
+        Project Manager & Quách Gia Kiệt        & \checkmark         &               \\
+        \hline
+        Product Manager & Nguyễn Tuấn Kiệt      & \checkmark         &               \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section*{Acronyms List}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|p{8cm}|}
+        \hline
+        \textbf{Acronym} & \textbf{Full Form}             & \textbf{Description}                     \\
+        \hline
+        PM               & Project Manager                & Người chịu trách nhiệm quản lý dự án     \\
+        \hline
+        RAG              & Retrieval-Augmented Generation & Kỹ thuật kết hợp retrieval và generation \\
+        \hline
+        MCP              & Model Context Protocol         & Giao thức chuẩn hóa tool integration     \\
+        \hline
+        LLM              & Large Language Model           & Mô hình ngôn ngữ lớn                     \\
+        \hline
+        DAA              & Điểm - Attendance - Assignment & Portal học vụ của UIT                    \\
+        \hline
+        MVP              & Minimum Viable Product         & Sản phẩm tối thiểu khả thi               \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+
+% ===== TABLE OF CONTENTS =====
+\tableofcontents
+\newpage
+
+% ===== MAIN CHAPTERS =====
+
+\chapter{Project Summary, Purpose, Goals, and Success Criteria}
+
+\section{Summary}
+
+UIT AI Assistant là một dự án phát triển trợ lý ảo AI toàn diện, được thiết kế riêng để hỗ trợ sinh viên trường Đại học Công nghệ Thông tin (UIT). Hệ thống sử dụng các công nghệ AI tiên tiến như RAG (Retrieval-Augmented Generation), LangGraph agent orchestration, và Model Context Protocol để cung cấp trải nghiệm hỗ trợ thông minh, liền mạch cho sinh viên.
+
+Agent này sẽ là một người bạn đồng hành, giúp giải quyết các vấn đề từ học vụ (tra cứu quy định, chương trình đào tạo, điểm số, lịch thi), quản lý thời gian cá nhân, đến hỗ trợ học tập, nhằm đơn giản hóa và nâng cao trải nghiệm học tập tại trường.
+
+\section{Purpose and Vision}
+
+\subsection{Purpose}
+
+Mục đích chính của dự án là xây dựng một công cụ tập trung, thông minh để giải đáp thắc mắc, tự động hóa các tác vụ hành chính, và cung cấp hỗ trợ học tập cá nhân hóa cho sinh viên UIT. Dự án mong muốn giảm bớt gánh nặng cho sinh viên trong việc:
+
+\begin{itemize}
+    \item Tìm kiếm thông tin về quy định, chính sách học vụ
+    \item Tra cứu chương trình đào tạo, điều kiện tốt nghiệp
+    \item Theo dõi điểm số, lịch thi, thời khóa biểu
+    \item Quản lý công việc và thời gian học tập
+\end{itemize}
+
+Từ đó giúp sinh viên tập trung hơn vào việc học và phát triển bản thân.
+
+\subsection{Vision}
+
+Tầm nhìn của UIT AI Assistant là trở thành một trợ lý không thể thiếu đối với mỗi sinh viên UIT, đồng hành cùng họ từ lúc nhập học cho đến khi tốt nghiệp. Sản phẩm hướng tới việc xây dựng một hệ sinh thái hỗ trợ thông minh, liền mạch, giúp sinh viên khai thác tối đa tiềm năng của mình trong suốt quãng đời đại học.
+
+\section{Project Goals and Objectives}
+
+\subsection{Goals (SMART)}
+
+\begin{itemize}
+    \item \textbf{Specific:} Hoàn thành phiên bản MVP (Minimum Viable Product) của AI Assistant có khả năng:
+          \begin{itemize}
+              \item Trả lời câu hỏi về quy định và chương trình đào tạo thông qua RAG
+              \item Tra cứu điểm số, lịch thi, thời khóa biểu từ DAA portal
+              \item Giao tiếp với người dùng qua web interface
+          \end{itemize}
+
+    \item \textbf{Measurable:} Hoàn thành 100\% các tính năng đã đề ra cho MVP:
+          \begin{itemize}
+              \item Knowledge base với 27 file PDF quy định + 100+ file Markdown chương trình đào tạo
+              \item 4 MCP tools hoạt động: retrieve\_regulation, retrieve\_curriculum, get\_grades, get\_schedule
+              \item Agent có thể demo thành công các luồng nghiệp vụ chính
+              \item Hệ thống deploy production với domain public
+          \end{itemize}
+
+    \item \textbf{Achievable:} Các công nghệ (LangGraph, LlamaIndex, FastMCP, ChromaDB) đã được lựa chọn và triển khai thành công, có kế hoạch chi tiết theo 4 giai đoạn, đảm bảo tính khả thi về mặt kỹ thuật.
+
+    \item \textbf{Relevant:} Dự án đáp ứng trực tiếp nhu cầu thực tế của sinh viên UIT, giúp giải quyết các vấn đề thường gặp trong quá trình học như tìm kiếm thông tin quy định, tra cứu điểm số, quản lý lịch học.
+
+    \item \textbf{Time-bound:} Hoàn thành và báo cáo thành công phiên bản MVP trong vòng 4 tháng của Đồ án 1 (từ tháng 9/2024 đến tháng 1/1/2025).
+\end{itemize}
+
+\subsection{Objectives}
+
+Dự án được chia thành 4 giai đoạn với mục tiêu cụ thể:
+
+\textbf{Giai đoạn 1: Setup project và build RAG knowledge base}
+\begin{itemize}
+    \item Setup ChromaDB + LlamaIndex
+    \item Thu thập tài liệu từ các trang web của trường (27 quy định + 100+ chương trình đào tạo)
+    \item Build data pipeline xử lý dữ liệu (processing → chunking → indexing)
+    \item Build query engine (blended retrieval + reranking) để truy vấn
+\end{itemize}
+
+\textbf{Giai đoạn 2: Build MCP Server với các tools}
+\begin{itemize}
+    \item Setup MCP Server với FastMCP
+    \item Implement retrieval tools sử dụng query engine
+    \item Implement scraping tools để lấy thông tin từ DAA (điểm số, thời khóa biểu, lịch thi)
+    \item Test tool calling với MCP Inspector
+\end{itemize}
+
+\textbf{Giai đoạn 3: Viết logic agent và kết nối với MCP tools}
+\begin{itemize}
+    \item Setup LangGraph agent với ReAct pattern
+    \item Prompt engineering cho agent
+    \item Kết nối MCP client với MCP Server
+    \item Implement tool executor (parallel execution + timeout handling)
+    \item State management với PostgreSQL checkpointer
+    \item gRPC server để expose agent API
+\end{itemize}
+
+\textbf{Giai đoạn 4: Build GUI, API server và deploy}
+\begin{itemize}
+    \item Build API Gateway (Go + Gin) expose REST API endpoints, kết nối với agent qua gRPC
+    \item Build web frontend (React + Vite + Tailwind)
+    \item Build browser extension (Svelte) để sync cookies từ DAA
+    \item Deploy production lên VPS với domain public
+    \item Setup CI/CD tự động deploy
+\end{itemize}
+
+\section{Success Criteria}
+
+Dự án được coi là thành công khi đạt được các tiêu chí sau:
+
+\begin{itemize}
+    \item \textbf{Giảng viên hướng dẫn hài lòng:} Đánh giá cao về mặt kỹ thuật, tính ứng dụng, và độ hoàn thiện của hệ thống.
+
+    \item \textbf{Sản phẩm MVP hoạt động ổn định:}
+          \begin{itemize}
+              \item Hệ thống chạy end-to-end: user → web → API Gateway → agent → MCP → RAG/DAA
+              \item Agent có thể trả lời đúng các câu hỏi về quy định và chương trình đào tạo
+              \item Agent có thể tra cứu thành công điểm số, lịch thi từ DAA
+              \item Web interface hoạt động mượt mà, responsive
+          \end{itemize}
+
+    \item \textbf{Deployment thành công:}
+          \begin{itemize}
+              \item Live production trên VPS với domain public
+              \item CI/CD pipeline tự động deploy khi có thay đổi
+              \item Hệ thống ổn định, không có lỗi critical
+          \end{itemize}
+
+    \item \textbf{Documentation đầy đủ:}
+          \begin{itemize}
+              \item Báo cáo đồ án chi tiết về kiến trúc, công nghệ, kết quả
+              \item Tài liệu kỹ thuật (tech stack, data preparation)
+              \item README và hướng dẫn cài đặt
+          \end{itemize}
+
+    \item \textbf{Phản hồi tích cực:} Nhận được feedback tích cực từ nhóm sinh viên dùng thử (nếu có).
+\end{itemize}
+
+\chapter{Project Scope, Quality Management, and Timeline}
+
+\section{Project Scope}
+
+\subsection{Inclusions}
+
+Các tính năng và nội dung sẽ làm trong dự án:
+
+\textbf{RAG System:}
+\begin{itemize}
+    \item Knowledge base chứa 27 file PDF quy định và 100+ file Markdown chương trình đào tạo
+    \item Data pipeline: parsing (LlamaParse), cleaning, metadata generation (Gemini Flash), chunking, indexing
+    \item Query engine: semantic search (ChromaDB) + reranking (ViRanker)
+    \item Embeddings: OpenAI text-embedding-3-small
+\end{itemize}
+
+\textbf{MCP Server:}
+\begin{itemize}
+    \item Retrieval tools: retrieve\_regulation, retrieve\_curriculum
+    \item DAA integration tools: get\_grades, get\_schedule
+    \item Expose tools qua HTTP endpoint /mcp
+\end{itemize}
+
+\textbf{AI Agent:}
+\begin{itemize}
+    \item LangGraph agent với ReAct pattern
+    \item Tool calling: gọi MCP tools và native tools
+    \item State persistence với PostgreSQL checkpointer
+    \item Conversation memory qua nhiều lượt chat
+    \item gRPC server expose agent API
+\end{itemize}
+
+\textbf{Backend Services:}
+\begin{itemize}
+    \item API Gateway: Go + Gin, REST endpoints, gRPC client
+    \item MongoDB: lưu chat sessions và messages
+    \item PostgreSQL: lưu agent state
+    \item Redis: cache credentials và session data
+\end{itemize}
+
+\textbf{Frontend:}
+\begin{itemize}
+    \item Web app: React + Vite + Tailwind, chat interface
+    \item Browser extension: Svelte, sync cookies từ DAA
+\end{itemize}
+
+\textbf{Infrastructure:}
+\begin{itemize}
+    \item Docker + Docker Compose: containerization
+    \item VPS deployment với domain public
+    \item CI/CD pipeline tự động deploy
+\end{itemize}
+
+\subsection{Exclusions}
+
+Các tính năng và nội dung sẽ không làm trong Đồ án 1:
+
+\begin{itemize}
+    \item Google Calendar integration
+    \item Notion integration
+    \item Study tracker (theo dõi tín chỉ chi tiết)
+    \item Material search (tìm tài liệu học)
+    \item Web search tool
+    \item Notification scraping tool
+    \item FAQ database (sẽ làm ở Đồ án 2)
+    \item Dashboard hiển thị trực quan điểm số, thời khóa biểu
+    \item Mobile app (chỉ có web + browser extension)
+    \item Advanced analytics và reporting
+    \item Multi-language support (chỉ tiếng Việt)
+\end{itemize}
+
+\section{Quality Management}
+
+\subsection{Standards}
+
+\begin{itemize}
+    \item \textbf{Accuracy:}
+          \begin{itemize}
+              \item RAG trả lời đúng \textgreater 70\% câu hỏi về quy định và chương trình đào tạo trên bộ test
+              \item DAA scraping tools lấy đúng 100\% dữ liệu điểm số, lịch thi
+              \item Agent gọi đúng tools theo prompt ≥80\% trường hợp
+          \end{itemize}
+
+    \item \textbf{Performance:}
+          \begin{itemize}
+              \item Response time \textless 10s cho query thông thường
+              \item Response time \textless 5s cho DAA scraping (khi có cookie)
+              \item Hệ thống xử lý được ≥10 concurrent users
+          \end{itemize}
+
+    \item \textbf{Reliability:}
+          \begin{itemize}
+              \item Uptime ≥95\% trong thời gian demo
+              \item Không có lỗi critical khi golive
+              \item Tối đa 3 lỗi minor (UI glitches, slow responses)
+          \end{itemize}
+
+    \item \textbf{Security:}
+          \begin{itemize}
+              \item Cookies được encrypt trước khi lưu vào Redis
+              \item API endpoints có rate limiting
+              \item Không log sensitive information (passwords, cookies)
+          \end{itemize}
+\end{itemize}
+
+\subsection{Control Procedures}
+
+\begin{itemize}
+    \item \textbf{Code review:} Peer review sau mỗi feature hoàn thành
+    \item \textbf{Testing:}
+          \begin{itemize}
+              \item Unit tests cho data pipeline và query engine
+              \item Integration tests cho MCP tools
+              \item End-to-end tests cho agent workflows
+          \end{itemize}
+    \item \textbf{Documentation:} Cập nhật README và technical docs sau mỗi milestone
+    \item \textbf{Version control:} Git workflow với feature branches và pull requests
+    \item \textbf{Monitoring:} Logs và error tracking trong production
+\end{itemize}
+
+\subsection{Cam kết bảo mật (NDA)}
+
+Cam kết không tiết lộ hoặc chia sẻ các thông tin liên quan đến:
+\begin{itemize}
+    \item Dữ liệu cá nhân của sinh viên (điểm số, thông tin DAA)
+    \item Credentials và cookies sync từ browser extension
+    \item Source code và implementation details (trừ khi được phép)
+    \item Infrastructure và deployment configuration
+\end{itemize}
+
+\section{Timeline and Milestones}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{10cm}|}
+        \hline
+        \textbf{Date} & \textbf{Milestone Description}                                                                                \\
+        \hline
+        01/09/2024    & Khởi động dự án, setup repository, xác định roadmap                                                           \\
+        \hline
+        30/09/2024    & \textbf{Giai đoạn 1 hoàn thành:} Knowledge base sẵn sàng, query engine hoạt động cơ bản                       \\
+        \hline
+        31/10/2024    & \textbf{Giai đoạn 2 hoàn thành:} MCP Server expose 4 tools qua HTTP, test thành công với MCP Inspector        \\
+        \hline
+        30/11/2024    & \textbf{Giai đoạn 3 hoàn thành:} Agent service chạy qua gRPC, gọi được MCP tools, hoạt động với ReAct pattern \\
+        \hline
+        31/12/2024    & \textbf{Giai đoạn 4 hoàn thành:} MVP end-to-end hoàn chỉnh, deploy production, CI/CD setup                    \\
+        \hline
+        05/01/2025    & Hoàn thiện documentation, báo cáo đồ án, chuẩn bị demo                                                        \\
+        \hline
+    \end{tabular}
+    \caption{Timeline và milestones chính của dự án}
+\end{table}
+
+\chapter{Resources, Costs, and Budget}
+
+\section{Resource Management}
+
+\begin{longtable}{|l|l|l|l|l|l|}
+    \hline
+    \textbf{Role}  & \textbf{Name}    & \textbf{Assignment} & \textbf{Start} & \textbf{End}  & \textbf{\% Effort} \\
+                   &                  & \textbf{Status}     & \textbf{Date}  & \textbf{Date} & \textbf{per day}   \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Role}  & \textbf{Name}    & \textbf{Assignment} & \textbf{Start} & \textbf{End}  & \textbf{\% Effort} \\
+                   &                  & \textbf{Status}     & \textbf{Date}  & \textbf{Date} & \textbf{per day}   \\
+    \hline
+    \endhead
+    PM             & Quách Gia Kiệt   & Đã Giao             & 01/09/2024     & 01/01/2025    & 80\%               \\
+    \hline
+    Tech Lead      & Quách Gia Kiệt   & Đã Giao             & 01/09/2024     & 01/01/2025    & 100\%              \\
+    \hline
+    Backend Dev    & Nguyễn Tuấn Kiệt & Đã Giao             & 01/09/2024     & 01/01/2025    & 90\%               \\
+    \hline
+    AI/ML Engineer & Quách Gia Kiệt   & Đã Giao             & 01/09/2024     & 30/11/2024    & 100\%              \\
+    \hline
+    Frontend Dev   & Nguyễn Tuấn Kiệt & Đã Giao             & 01/12/2024     & 31/12/2024    & 100\%              \\
+    \hline
+    DevOps         & Nguyễn Tuấn Kiệt & Đã Giao             & 15/12/2024     & 01/01/2025    & 50\%               \\
+    \hline
+    QA/Tester      & Cả nhóm          & Đã Giao             & 20/12/2024     & 01/01/2025    & 40\%               \\
+    \hline
+    Documentation  & Cả nhóm          & Đã Giao             & 01/09/2024     & 01/01/2025    & 20\%               \\
+    \hline
+    \caption{Phân bổ nguồn lực dự án}
+\end{longtable}
+
+\section{Estimated Costs and Budget}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Task}         & \textbf{Service Costs} & \textbf{Infrastructure} & \textbf{Budget}  \\
+        \hline
+        OpenAI API            & 150,000                &                         & 150,000          \\
+        \hline
+        LlamaParse API        & 0 (free tier)          &                         & 0                \\
+        \hline
+        Modal GPU (ViRanker)  & 0 (free tier)          &                         & 0                \\
+        \hline
+        VPS Hosting (4 tháng) &                        & 0 (free tier)           & 0                \\
+        \hline
+        Domain Name           &                        & 0 (free)                & 0                \\
+        \hline
+        Development Tools     &                        & 0 (free/open source)    & 0                \\
+        \hline
+        \textbf{Total}        &                        &                         & \textbf{150,000} \\
+        \hline
+    \end{tabular}
+    \caption{Ước tính chi phí dự án (VNĐ)}
+\end{table}
+
+\textbf{Lưu ý:} Đây là chi phí ước tính cho giai đoạn Đồ án 1 (4 tháng). Chi phí thực tế có thể thay đổi tùy theo mức độ sử dụng API và infrastructure.
+
+\chapter{Stakeholders}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|l|p{5cm}|}
+        \hline
+        \textbf{Name}         & \textbf{Role}        & \textbf{Power} & \textbf{Interest} & \textbf{Contact}       \\
+        \hline
+        Th.S Nguyễn Công Hoan & Project Sponsor/     & Cao            & Cao               & hoannc@uit.edu.vn      \\
+                              & Giảng viên hướng dẫn &                &                   &                        \\
+        \hline
+        Quách Gia Kiệt        & Project Manager/     & Cao            & Cao               & 23520819@gm.uit.edu.vn \\
+                              & Tech Lead            &                &                   &                        \\
+        \hline
+        Nguyễn Tuấn Kiệt      & Product Manager/     & Cao            & Cao               & 23520815@gm.uit.edu.vn \\
+                              & Backend Dev          &                &                   &                        \\
+        \hline
+        Sinh viên UIT         & End Users            & Trung Bình     & Cao               & Via web app            \\
+        \hline
+        Khoa CNPM             & Academic Department  & Cao            & Trung Bình        & Via official channels  \\
+        \hline
+    \end{tabular}
+    \caption{Danh sách stakeholders}
+\end{table}
+
+\chapter{Risk Management}
+
+\begin{longtable}{|p{4cm}|l|l|p{6cm}|}
+    \hline
+    \textbf{Risk}                                                    & \textbf{Likelihood} & \textbf{Impact} & \textbf{Mitigation}                                                                                     \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Risk}                                                    & \textbf{Likelihood} & \textbf{Impact} & \textbf{Mitigation}                                                                                     \\
+    \hline
+    \endhead
+    RAG accuracy thấp, agent trả lời sai                             & Cao                 & Cao             & Tối ưu chunking strategy, sử dụng reranker (ViRanker), test thường xuyên trên bộ câu hỏi chuẩn          \\
+    \hline
+    Agent hallucination, không follow system prompt                  & Trung Bình          & Cao             & Prompt engineering cẩn thận, thêm examples, constrain output format, test nhiều scenarios               \\
+    \hline
+    API rate limits (OpenAI, LlamaParse, Modal)                      & Cao                 & Trung Bình      & Implement caching, retry logic với exponential backoff, monitor usage, có backup plan                   \\
+    \hline
+    DAA website thay đổi cấu trúc HTML, scraping tools fail          & Trung Bình          & Cao             & Modular scraping code, dễ update selectors, error handling tốt, fallback mechanisms                     \\
+    \hline
+    Performance issues khi scale (nhiều users)                       & Thấp                & Trung Bình      & Load testing trước khi golive, optimize database queries, implement caching, horizontal scaling nếu cần \\
+    \hline
+    Security vulnerabilities (credentials leak, injection attacks)   & Thấp                & Cao             & Encrypt cookies, sanitize inputs, rate limiting, security audit, không log sensitive data               \\
+    \hline
+    Infrastructure downtime (VPS, ChromaDB, databases)               & Thấp                & Cao             & Monitoring và alerting, backup strategy, documentation để recover nhanh                                 \\
+    \hline
+    Scope creep (thêm features ngoài MVP)                            & Cao                 & Trung Bình      & Scope management nghiêm ngặt, ưu tiên MVP features, features khác defer sang Đồ án 2                    \\
+    \hline
+    Team member unavailable (ốm, bận)                                & Trung Bình          & Trung Bình      & Knowledge sharing, documentation tốt, cross-training, flexible task assignment                          \\
+    \hline
+    Integration issues giữa các components (agent, MCP, API Gateway) & Trung Bình          & Cao             & Integration testing sớm, clear API contracts, mock services cho testing                                 \\
+    \hline
+    \caption{Risk analysis và mitigation strategies}
+\end{longtable}
+
+\chapter{Additional Information}
+
+\section{Technical Stack}
+
+\subsection{Backend Technologies}
+
+\begin{itemize}
+    \item \textbf{API Gateway:} Go + Gin framework
+    \item \textbf{AI Agent:} Python + LangGraph
+    \item \textbf{MCP Server:} Python + FastMCP
+    \item \textbf{Knowledge Builder:} Python CLI tool
+\end{itemize}
+
+\subsection{AI \& ML Technologies}
+
+\begin{itemize}
+    \item \textbf{LLMs:} OpenAI GPT-4, Google Gemini Flash
+    \item \textbf{RAG Framework:} LlamaIndex
+    \item \textbf{Agent Orchestration:} LangGraph
+    \item \textbf{Embeddings:} OpenAI text-embedding-3-small
+    \item \textbf{Reranking:} ViRanker (deployed on Modal GPU)
+    \item \textbf{Document Parsing:} LlamaParse
+\end{itemize}
+
+\subsection{Data Layer}
+
+\begin{itemize}
+    \item \textbf{MongoDB:} Chat sessions và messages
+    \item \textbf{PostgreSQL:} Agent state (LangGraph checkpointer)
+    \item \textbf{Redis:} Cache credentials và session data
+    \item \textbf{ChromaDB:} Vector database cho embeddings
+\end{itemize}
+
+\subsection{Frontend Technologies}
+
+\begin{itemize}
+    \item \textbf{Web App:} React + Vite + Tailwind CSS
+    \item \textbf{Browser Extension:} Svelte (Manifest V3)
+\end{itemize}
+
+\subsection{Infrastructure \& Communication}
+
+\begin{itemize}
+    \item \textbf{Containerization:} Docker + Docker Compose
+    \item \textbf{Protocols:} gRPC (API Gateway ↔ Agent), HTTP/REST (Frontend ↔ API, Agent ↔ MCP), MCP over HTTP
+    \item \textbf{Deployment:} VPS (Ubuntu), CI/CD pipeline
+\end{itemize}
+
+Chi tiết đầy đủ về tech stack có thể tham khảo tại tài liệu \textit{Tech Stack - UIT AI Assistant}.
+
+\section{Current Progress}
+
+Tính đến ngày 28/12/2024:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|p{8cm}|}
+        \hline
+        \textbf{Giai đoạn} & \textbf{\% hoàn thành} & \textbf{Chi tiết}                                                                                                                           \\
+        \hline
+        1 - Knowledge Base & 100\%                  & Knowledge base và query engine hoạt động, độ chính xác chấp nhận được                                                                       \\
+        \hline
+        2 - MCP Server     & 100\%                  & MCP Server expose 4 tools qua HTTP                                                                                                          \\
+        \hline
+        3 - AI Agent       & 80\%                   & Agent chạy được qua gRPC, tuy nhiên đôi khi không follow system prompt, còn hallucination, trả lời chưa đúng câu hỏi phức tạp, chưa có test \\
+        \hline
+        4 - GUI \& Deploy  & 100\%                  & API Gateway, web app, browser extension hoàn thành. Deploy production lên VPS với domain public, CI/CD tự động                              \\
+        \hline
+    \end{tabular}
+    \caption{Tình hình hiện tại của dự án}
+\end{table}
+
+\section{Next Steps}
+
+Công việc ưu tiên cho giai đoạn tiếp theo (Đồ án 2):
+
+\begin{enumerate}
+    \item \textbf{Xây dựng bộ test} (QUAN TRỌNG NHẤT): Unit tests, integration tests, end-to-end tests
+    \item \textbf{Tối ưu Agent:} Cải thiện system prompt, giảm hallucination, tăng accuracy
+    \item \textbf{Cache optimization:} Cache tool output để tránh gọi dư thừa
+    \item \textbf{Chunking optimization:} Tối ưu chunking strategy cho chương trình đào tạo
+    \item \textbf{PostgreSQL Checkpointer:} Migrate từ InMemory sang PostgreSQL cho persistent chat history
+    \item \textbf{Dashboard enhancements:} Hiển thị trực quan điểm số, thời khóa biểu
+    \item \textbf{Additional tools:} Web search, notification scraping, FAQ database
+    \item \textbf{Third-party integrations:} Notion, Gmail, Google Calendar
+\end{enumerate}
+
+\vspace{2cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent Tài liệu này cung cấp một cái nhìn tổng quan ở cấp cao về dự án \textbf{UIT AI Assistant}, đảm bảo sự phù hợp với các mục tiêu học thuật và kỳ vọng của các bên liên quan.
+
+\end{document}

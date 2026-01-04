@@ -1,0 +1,53 @@
+graph LR
+    subgraph collect["Data Collection"]
+        manual["Manual Input"]
+        scraping["Web Scraping"]
+    end
+
+    raw_data[("Raw Data<br/>(PDF, DOCX)")]
+    manual --> raw_data
+    scraping --> raw_data
+
+    subgraph stage1["Stage 1: Parse & Clean"]
+        parse["Parse to Markdown<br/>(LlamaParse)"]
+        parse --> clean["Clean Content<br/>(Remove headers/footers)"]
+        clean --> fix_md["Fix Markdown<br/>(Gemini LLM)"]
+        fix_md --> filter["Content Filter<br/>(Quality score ≥ 40)"]
+    end
+
+    markdown_files[("Markdown Files")]
+
+    subgraph stage2["Stage 2: Metadata Generation"]
+        meta_gen["Generate Metadata<br/>(LLM: gpt-4o-mini)"]
+        meta_gen --> meta_validate["Validate & Save"]
+    end
+
+    processed_docs[("Processed Docs<br/>+ Metadata JSON")]
+
+    subgraph stage3["Stage 3: Vector Indexing"]
+        load["Load Docs"]
+        load --> chunk["Smart Chunking<br/>(Vietnamese-aware)"]
+        chunk --> context["Prepend Context<br/>(Hierarchy + Metadata)"]
+        context --> subchunk["Sub-chunking<br/>(if > 8000 tokens)"]
+        subchunk --> embed["Generate Embeddings<br/>(OpenAI)"]
+        embed --> store_chroma["Store by Category<br/>(regulation, curriculum)"]
+    end
+
+    vector_store[("ChromaDB<br/>Vector Store")]
+
+    raw_data --> stage1
+    stage1 --> markdown_files
+    markdown_files --> stage2
+    stage2 --> processed_docs
+    processed_docs --> stage3
+    stage3 --> vector_store
+
+    style collect fill:#e1f5ff,stroke:#01579b
+    style stage1 fill:#fff3e0,stroke:#e65100
+    style stage2 fill:#f3e5f5,stroke:#6a1b9a
+    style stage3 fill:#e8f5e9,stroke:#2e7d32
+    style raw_data fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style markdown_files fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style processed_docs fill:#e0f2f1,stroke:#00695c,stroke-width:2px
+    style vector_store fill:#c8e6c9,stroke:#1b5e20,stroke-width:3px
+

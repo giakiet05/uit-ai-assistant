@@ -1,6 +1,3 @@
-# Danh sách từ viết tắt cho UIT AI Agent
-# Format: ACRONYM: "Cụm từ đầy đủ"
-
 # Trường/Tổ chức
 UIT: "Trường Đại học Công nghệ Thông tin"
 DHCNTT: "Trường Đại học Công nghệ Thông tin"
@@ -31,12 +28,10 @@ TTNT: "Trí tuệ nhân tạo"
 
 
 # Học vụ
-KLTN: "Khóa luận tốt nghiệp"
 ĐATN: "Đồ án tốt nghiệp"
 TKB: "Thời khóa biểu"
 KQHT: "Kết quả học tập"
 ĐKKQHT: "Đăng ký kết quả học tập"
-CTĐT: "Chương trình Đào tạo"
 TC: "Tín chỉ"
 HP: "Học phần"
 MH: "Môn học"
@@ -44,15 +39,112 @@ HK: "Học kỳ"
 TN: "Tốt nghiệp"
 ĐKXT: "Đăng ký xét tốt nghiệp"
 CĐRL: "Chuẩn đầu ra"
-ĐKHP: "Đăng ký học phần"
 DKHP: "Đăng ký học phần"
 
 # Điểm số
 GPA: "Điểm trung bình tích lũy"
 CPA: "Điểm trung bình chung"
 
-# Khác
-SV: "Sinh viên"
-GV: "Giảng viên"
+
 CTSV: "Công tác sinh viên"
 ĐTĐH: "Đào tạo đại học"
+ĐH: "Đại học"
+
+
+
+# Chương trình
+CT: "Chương trình"
+CTĐT: "Chương trình đào tạo"
+CTTN: "Chương trình Tài năng"
+CTTT: "Chương trình Tiên tiến"
+CLC: "Chất lượng cao"
+CTGT: "Chương trình Giáo dục thường xuyên"
+
+# Học vụ
+KLTN: "Khóa luận tốt nghiệp"
+ĐKHP: "Đăng ký học phần"
+ĐTTX: "Đào tạo từ xa"
+DHTT: "Đào tạo từ xa"
+DHKH: "Đào tạo kết hợp"
+
+# Điểm số
+ĐTBCTL: "Điểm trung bình chung tích lũy"
+ĐTBHK: "Điểm trung bình học kỳ"
+
+# Con người
+SV: "Sinh viên"
+GV: "Giảng viên"
+GVMH: "Giảng viên môn học"
+TGMH: "Trưởng giảng viên môn học"
+CVHT: "Cố vấn học tập"
+CBCT: "Cán bộ coi thi"
+CBGD: "Cán bộ giảng dạy"
+CBHD: "Cán bộ hướng dẫn"
+
+# Đơn vị
+ĐVCM: "Đơn vị chuyên môn"
+ĐVQL: "Đơn vị quản lý"
+ĐVQLMH: "Đơn vị quản lý môn học"
+
+
+# Môn học/Nội dung
+AV: "Anh văn"
+GT: "Giáo trình"
+LT: "Liên thông"
+NNCM: "Ngoại ngữ chuyên môn"
+
+# Chương trình khác
+CTC: "Chương trình chuẩn"
+CTNN: "Chương trình Ngoại ngữ"
+
+# Học phí
+HPHK: "Học phí học kỳ"
+HPTCCT: "Học phí tín chỉ học phần cơ bản/chung"
+HPTCHL: "Học phí tín chỉ học phần lý thuyết"
+HPTCHM: "Học phí tín chỉ học phần chuyên môn/mạng"
+
+# Tín chỉ
+KHTC: "Kế hoạch tín chỉ"
+TCHP: "Tín chỉ học phần"
+TCHPCT: "Tín chỉ học phần cơ bản/chung"
+TCHPHL: "Tín chỉ học phần lý thuyết"
+TCHPHM: "Tín chỉ học phần chuyên môn/mạng"
+
+# Điểm
+ĐTBC: "Điểm trung bình chung"
+ĐTBTL: "Điểm trung bình tích lũy"
+
+# Cán bộ
+CB: "Cán bộ"
+CB-VC: "Cán bộ - Viên chức"
+CBPB: "Cán bộ phản biện"
+GS: "Giáo sư"
+PGS: "Phó Giáo sư"
+TGLT: "Trưởng giảng lý thuyết"
+
+# Phòng/Ban
+BĐH: "Ban Điều hành"
+DL: "Dữ liệu và Lưu trữ"
+PĐTĐH: "Phòng Đào tạo Đại học"
+PĐTSĐH-KHCN: "Phòng Đào tạo Sau đại học - Khoa học Công nghệ"
+PTCH: "Phòng Tài chính"
+PTCHC: "Phòng Tài chính - Hành chính"
+PTTPC-ĐBCL: "Phòng Thanh tra - Pháp chế - Đảm bảo chất lượng"
+TTPC: "Thanh tra - Pháp chế"
+TTPC-ĐBCL: "Thanh tra - Pháp chế - Đảm bảo chất lượng"
+VPCTĐB: "Văn phòng Chương trình Đặc biệt"
+
+# Giáo dục/Đào tạo
+BL: "Bảo lưu"
+ĐBCL: "Đảm bảo chất lượng"
+GD: "Giáo dục"
+ĐT: "Đào tạo"
+ĐTDH: "Đào tạo đại học"
+ĐTSĐH: "Đào tạo sau đại học"
+NCKH: "Nghiên cứu khoa học"
+THPT: "Trung học phổ thông"
+
+
+# Thi/Đánh giá
+ĐMCT: "Định mức coi thi"
+TLTN: "Trắc lượng trả lời"

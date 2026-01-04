@@ -23,8 +23,80 @@ class Paths:
 
     # Production paths
     RAW_DATA_DIR = DATA_DIR / os.getenv("RAW_DATA_DIR", "raw")
-    PROCESSED_DATA_DIR = DATA_DIR / os.getenv("PROCESSED_DATA_DIR", "processed")
+    STAGES_DIR = DATA_DIR / "stages"  # NEW: Stage-based pipeline
     VECTOR_STORE_DIR = DATA_DIR / "vector_store"
+
+    # Deprecated (kept for backward compatibility during migration)
+    PROCESSED_DATA_DIR = DATA_DIR / os.getenv("PROCESSED_DATA_DIR", "processed")
+
+    @staticmethod
+    def get_stage_dir(category: str, document_id: str) -> Path:
+        """
+        Get stage directory for a document.
+
+        Args:
+            category: Document category (regulation, curriculum, etc.)
+            document_id: Document ID
+
+        Returns:
+            Path to stages/{category}/{document_id}/
+        """
+        return Paths.STAGES_DIR / category / document_id
+
+    @staticmethod
+    def get_stage_output(category: str, document_id: str, stage_output: str) -> Path:
+        """
+        Get output file path for a stage.
+
+        Args:
+            category: Document category
+            document_id: Document ID
+            stage_output: Output filename (e.g., "02-cleaned.md")
+
+        Returns:
+            Path to stages/{category}/{document_id}/{stage_output}
+        """
+        return Paths.get_stage_dir(category, document_id) / stage_output
+
+    @staticmethod
+    def get_final_output(category: str, document_id: str) -> Path:
+        """
+        Get final processed output for a document.
+
+        Args:
+            category: Document category
+            document_id: Document ID
+
+        Returns:
+            Path to final output file (05-fixed.md)
+        """
+        stage_dir = Paths.get_stage_dir(category, document_id)
+        pipeline_state_file = stage_dir / ".pipeline.json"
+
+        # Try to read final output from pipeline state
+        if pipeline_state_file.exists():
+            import json
+            with open(pipeline_state_file, 'r') as f:
+                state = json.load(f)
+                if state.get("final_output"):
+                    return stage_dir / state["final_output"]
+
+        # Fallback: return 05-fixed.md
+        return stage_dir / "05-fixed.md"
+
+    @staticmethod
+    def get_metadata(category: str, document_id: str) -> Path:
+        """
+        Get metadata file path for a document.
+
+        Args:
+            category: Document category
+            document_id: Document ID
+
+        Returns:
+            Path to metadata.json
+        """
+        return Paths.get_stage_dir(category, document_id) / "metadata.json"
 
 
 class Domains:
@@ -172,8 +244,10 @@ class Settings:
         directories_to_create = [
             # Production directories
             self.paths.RAW_DATA_DIR,
-            self.paths.PROCESSED_DATA_DIR,
+            self.paths.STAGES_DIR,  # NEW: Stage-based pipeline
             self.paths.VECTOR_STORE_DIR,
+            # Keep PROCESSED_DATA_DIR for backward compatibility (will be removed after migration)
+            self.paths.PROCESSED_DATA_DIR,
         ]
         for directory in directories_to_create:
             os.makedirs(directory, exist_ok=True)

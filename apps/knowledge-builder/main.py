@@ -4,20 +4,24 @@ UIT Knowledge Builder CLI - Build and manage knowledge base for UIT AI Assistant
 Usage:
     ukb <command> [options]
 
-Commands:
-    clean        - Stage 1: Parse & clean raw files (costs money)
-    metadata     - Stage 2: Generate metadata from processed files (cheap, can re-run)
-    process      - Run both stages (parse/clean + metadata)
-    fix-markdown - Fix markdown structure using Gemini LLM
-    reparse-file - Re-parse a single PDF file
-    index        - Build vector store index from processed documents
+Commands (New Stage-Based Pipeline):
+    pipeline     - Run processing/indexing pipelines
+    stage        - Run a specific stage
+    status       - Show pipeline status
+    migrate      - Migrate from old structure to stages/
+
+Legacy Commands (Deprecated):
+    clean        - Use 'ukb pipeline run' instead
+    metadata     - Use 'ukb stage metadata' instead
+    process      - Use 'ukb pipeline run' instead
+    index        - Use 'ukb pipeline run --indexing-only' instead
 
 Examples:
-    ukb clean --categories regulation,curriculum
-    ukb metadata --categories regulation,curriculum --force
-    ukb process --categories regulation,curriculum
-    ukb fix-markdown --category regulation
-    ukb index --categories regulation,curriculum
+    ukb pipeline run --category regulation
+    ukb pipeline run --file data/stages/regulation/790-qd-dhcntt
+    ukb stage parse --category regulation
+    ukb status --category regulation
+    ukb migrate --categories regulation
 """
 
 import argparse
@@ -140,6 +144,116 @@ Examples:
         "--categories", "-c",
         help="Comma-separated categories (e.g., regulation,curriculum)"
     )
+    index_parser.add_argument(
+        "--file", "-f",
+        help="Path to single file to index (e.g., data/processed/regulation/file.md)"
+    )
+
+    # ===== MIGRATE =====
+    migrate_parser = subparsers.add_parser(
+        "migrate",
+        help="Migrate from processed/ to stages/ structure (one-time)"
+    )
+    migrate_parser.add_argument(
+        "--categories", "-c",
+        help="Comma-separated categories to migrate (default: all)"
+    )
+    migrate_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview migration without making changes"
+    )
+
+    # ===== PIPELINE (NEW) =====
+    pipeline_parser = subparsers.add_parser(
+        "pipeline",
+        help="Run processing/indexing pipelines"
+    )
+    pipeline_subparsers = pipeline_parser.add_subparsers(dest="pipeline_command", help="Pipeline commands")
+
+    # pipeline run
+    pipeline_run_parser = pipeline_subparsers.add_parser(
+        "run",
+        help="Run full pipeline or specific range"
+    )
+    pipeline_run_parser.add_argument(
+        "--category", "-c",
+        help="Category to process (e.g., regulation)"
+    )
+    pipeline_run_parser.add_argument(
+        "--file", "-f",
+        help="Single document directory to process"
+    )
+    pipeline_run_parser.add_argument(
+        "--from-stage",
+        help="Starting stage (e.g., parse, clean, chunk)"
+    )
+    pipeline_run_parser.add_argument(
+        "--to-stage",
+        help="Ending stage (inclusive)"
+    )
+    pipeline_run_parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Force rerun all stages"
+    )
+    pipeline_run_parser.add_argument(
+        "--skip-fix-markdown",
+        action="store_true",
+        help="Skip fix-markdown stage (save cost)"
+    )
+    pipeline_run_parser.add_argument(
+        "--processing-only",
+        action="store_true",
+        help="Only run processing pipeline (parse → metadata)"
+    )
+    pipeline_run_parser.add_argument(
+        "--indexing-only",
+        action="store_true",
+        help="Only run indexing pipeline (chunk → embed-index)"
+    )
+
+    # ===== STAGE (NEW) =====
+    stage_parser = subparsers.add_parser(
+        "stage",
+        help="Run a specific stage"
+    )
+    stage_parser.add_argument(
+        "stage",
+        help="Stage name (parse, clean, normalize, filter, fix-markdown, metadata, chunk, embed-index)"
+    )
+    stage_parser.add_argument(
+        "--category", "-c",
+        help="Category to process"
+    )
+    stage_parser.add_argument(
+        "--file", "-f",
+        help="Single document directory to process"
+    )
+    stage_parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Force rerun stage"
+    )
+
+    # ===== STATUS (NEW) =====
+    status_parser = subparsers.add_parser(
+        "status",
+        help="Show pipeline status"
+    )
+    status_parser.add_argument(
+        "--category", "-c",
+        help="Category to show status for"
+    )
+    status_parser.add_argument(
+        "--file", "-f",
+        help="Single document directory to show status for"
+    )
+    status_parser.add_argument(
+        "--verbose", "-v",
+        action="store_true",
+        help="Show detailed stage information"
+    )
 
     # Parse arguments
     args = parser.parse_args()
@@ -150,33 +264,68 @@ Examples:
 
     # Dispatch to command handlers
     try:
-        if args.command == "clean":
+        # New stage-based commands
+        if args.command == "pipeline":
+            if args.pipeline_command == "run":
+                from src.commands.pipeline import run_pipeline
+                run_pipeline(args)
+            else:
+                pipeline_parser.print_help()
+
+        elif args.command == "stage":
+            from src.commands.stage import run_stage
+            run_stage(args)
+
+        elif args.command == "status":
+            from src.commands.status import run_status
+            run_status(args)
+
+        elif args.command == "migrate":
+            from src.commands.migrate import run_migrate
+            run_migrate(args)
+
+        # Legacy commands (deprecated)
+        elif args.command == "clean":
+            print("[WARNING] 'clean' command is deprecated. Use 'ukb pipeline run --processing-only' instead")
             from src.commands.clean import run_clean
             run_clean(args)
+
         elif args.command == "metadata":
+            print("[WARNING] 'metadata' command is deprecated. Use 'ukb stage metadata' instead")
             from src.commands.metadata import run_metadata
             run_metadata(args)
+
         elif args.command == "process":
+            print("[WARNING] 'process' command is deprecated. Use 'ukb pipeline run' instead")
             from src.commands.process import run_process
             run_process(args)
+
         elif args.command == "fix-markdown":
+            print("[WARNING] 'fix-markdown' command is deprecated. Use 'ukb stage fix-markdown' instead")
             from src.commands.fix_markdown import fix_markdown_command
             fix_markdown_command(
                 category=args.category,
                 file_path=args.file,
                 dry_run=args.dry_run
             )
+
         elif args.command == "reparse-file":
+            print("[WARNING] 'reparse-file' command is deprecated. Use 'ukb stage parse' instead")
             from src.commands.reparse_file import reparse_file
             reparse_file(args.filename)
+
         elif args.command == "index":
+            print("[WARNING] 'index' command is deprecated. Use 'ukb pipeline run --indexing-only' instead")
             from src.commands.index import run_index
             run_index(args)
+
     except KeyboardInterrupt:
         print("\n[INFO] Operation cancelled by user")
         sys.exit(130)
     except Exception as e:
+        import traceback
         print(f"[ERROR] {e}")
+        traceback.print_exc()
         sys.exit(1)
 
 
