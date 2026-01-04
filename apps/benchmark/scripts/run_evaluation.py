@@ -438,7 +438,7 @@ def save_results(test_set: list[dict], ragas_result, output_path: Path):
             "ground_truth": item['ground_truth'],
             "answer": item['answer'],
             "scores": {},
-            "metadata": item['metadata'],
+            "metadata": item.get('metadata', {}),
         }
 
         # Add individual scores for this question

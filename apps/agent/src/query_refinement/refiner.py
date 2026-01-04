@@ -38,16 +38,18 @@ class QueryRefiner:
         with open(acronym_path, 'r', encoding='utf-8') as f:
             self.acronyms = yaml.safe_load(f) or {}
 
-    def refine(self, query: str) -> Optional[str]:
+    def refine(self, query: str, partial: bool = True) -> Optional[str]:
         """
         Expand known acronyms in query (case-insensitive).
 
         Args:
             query: User's original query
+            partial: If True, expand only known acronyms and keep unknown as-is.
+                    If False, return None when unknown acronyms found.
 
         Returns:
-            - Expanded query if all acronyms known
-            - None if contains unknown acronyms (caller should ask user)
+            - Expanded query (with known acronyms expanded)
+            - None if partial=False and contains unknown acronyms
         """
         # Find all potential acronyms (2+ letters, case-insensitive)
         # Pattern: word boundary + letters (uppercase or lowercase)
@@ -70,24 +72,26 @@ class QueryRefiner:
             # No acronyms → return original
             return query
 
-        # Check if all acronyms are known (case-insensitive lookup)
+        # Separate known vs unknown acronyms
+        known_acronyms = []
         unknown_acronyms = []
         for acr in found_acronyms:
-            # Convert to uppercase for lookup in dictionary
-            if acr.upper() not in self.acronyms:
+            acr_upper = acr.upper()
+            # Skip empty meanings (TODO entries in YAML)
+            if acr_upper in self.acronyms and self.acronyms[acr_upper]:
+                known_acronyms.append(acr)
+            else:
                 unknown_acronyms.append(acr)
 
-        if unknown_acronyms:
-            # Has unknown acronyms → return None (signal to ask user)
+        # If has unknown and partial=False → return None
+        if unknown_acronyms and not partial:
             return None
 
-        # All acronyms known → expand them
+        # Expand known acronyms (partial mode)
         expanded_query = query
-
-        # Keep track of already expanded acronyms to avoid duplicates
         expanded_set = set()
 
-        for acronym in found_acronyms:
+        for acronym in known_acronyms:
             acr_upper = acronym.upper()
 
             if acr_upper in expanded_set:
@@ -95,8 +99,7 @@ class QueryRefiner:
 
             full_form = self.acronyms[acr_upper]
 
-            # Pattern: replace "acronym" with "acronym full_form" (case-insensitive)
-            # Use word boundary to avoid partial matches
+            # Pattern: replace "acronym" with "acronym (full_form)"
             pattern = r'\b' + re.escape(acronym) + r'\b'
             replacement = f"{acronym} ({full_form})"
 
