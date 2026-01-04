@@ -3,19 +3,35 @@ Graph nodes for LangGraph agent workflow.
 """
 
 from typing import Literal
-from langchain_core.messages import AIMessage, SystemMessage
+from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
 
 from .state import AgentState
 from ..config import BENCHMARK_PROMPT
+from ..query_refinement.refiner import QueryRefiner
 
 
 # System prompt for UIT AI Assistant (imported from config/prompts.py)
 SYSTEM_PROMPT = BENCHMARK_PROMPT
 
+# Initialize query refiner (singleton)
+_query_refiner = None
+
+def get_query_refiner():
+    """Get singleton QueryRefiner instance."""
+    global _query_refiner
+    if _query_refiner is None:
+        _query_refiner = QueryRefiner()
+    return _query_refiner
+
 
 def agent_node(state: AgentState, llm_with_tools):
     """
     Agent reasoning node - LLM decides whether to use tools or respond.
+
+    Pipeline:
+    1. Expand acronyms in user query (QueryRefiner)
+    2. Add system prompt if needed
+    3. Invoke LLM with tools
 
     Args:
         state: Current agent state
@@ -27,8 +43,20 @@ def agent_node(state: AgentState, llm_with_tools):
     messages = state["messages"]
     user_id = state["user_id"]
 
-    # Add system prompt if not already present (first invocation)
-    # Check if first message is SystemMessage
+    # Step 1: Expand acronyms in latest user message
+    refiner = get_query_refiner()
+    if messages and isinstance(messages[-1], HumanMessage):
+        user_query = messages[-1].content
+        refined_query = refiner.refine(user_query, partial=True)
+
+        if refined_query and refined_query != user_query:
+            # Replace last message with refined version
+            messages = messages[:-1] + [HumanMessage(content=refined_query)]
+            print(f"\n[QUERY REFINER] Expanded acronyms:")
+            print(f"  Original: {user_query}")
+            print(f"  Refined:  {refined_query}\n")
+
+    # Step 2: Add system prompt if not already present (first invocation)
     has_system_prompt = (
         len(messages) > 0 and
         isinstance(messages[0], SystemMessage)
@@ -39,7 +67,7 @@ def agent_node(state: AgentState, llm_with_tools):
         system_prompt_with_user_id = SYSTEM_PROMPT + f"\n\n## THÔNG TIN NGƯỜI DÙNG HIỆN TẠI\nUser ID: {user_id}\n\nKhi gọi tool `get_user_credential`, LUÔN LUÔN sử dụng user_id này."
         messages = [SystemMessage(content=system_prompt_with_user_id)] + messages
 
-    # Invoke LLM with tools
+    # Step 3: Invoke LLM with tools
     response = llm_with_tools.invoke(messages)
 
     return {"messages": [response]}

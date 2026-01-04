@@ -159,7 +159,6 @@
     "ground_truth_type": "explicit",
     "source": "Điều 16 khoản 3"
   },
-  [
   {
     "id": "qcdt_001",
     "question": "Điều kiện để sinh viên được xét tốt nghiệp là gì?",
@@ -401,6 +400,4 @@
     "ground_truth_type": "explicit",
     "source": "Điều 34"
   }
-]
-
 ]

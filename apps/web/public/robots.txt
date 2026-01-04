@@ -1,0 +1,11 @@
+# robots.txt for UIT AI Assistant
+
+User-agent: *
+Allow: /
+Disallow: /chat
+Disallow: /profile
+Disallow: /settings
+Disallow: /auth/
+
+# Sitemap location
+Sitemap: https://uit-ai-assistant.giakiet.io.vn/sitemap.xml
