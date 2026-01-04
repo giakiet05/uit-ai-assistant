@@ -4,8 +4,8 @@ import re
 from pathlib import Path
 from typing import Union, Optional, Dict
 
-from ..config.settings import settings
-from ..config.llm_provider import create_llm
+from ...config.settings import settings
+from ...config.llm_provider import create_llm
 from .base_metadata_generator import BaseMetadataGenerator
 from .metadata_models import RegulationMetadata, CurriculumMetadata, DefaultMetadata
 
@@ -38,7 +38,7 @@ class RegulationMetadataGenerator(BaseMetadataGenerator):
                     else:
                         self.regulation_codes = {}
             except (json.JSONDecodeError, FileNotFoundError):
-                print(f"  ⚠️  Failed to load regulation_codes.json, starting fresh")
+                print(f"    Failed to load regulation_codes.json, starting fresh")
                 self.regulation_codes = {}
         else:
             self.regulation_codes = {}
@@ -60,8 +60,8 @@ class RegulationMetadataGenerator(BaseMetadataGenerator):
         """
         if from_filename:
             # Pattern cho filename - Support nhiều loại văn bản:
-            # Test format: 05-quy-dinh__828_qd-dhcntt_xxx → Match phần sau __
-            # Raw format: 828_qd-dhcntt_xxx → Match từ đầu
+            # Test format: 05-quy-dinh__828_qd-dhcntt_xxx -> Match phần sau __
+            # Raw format: 828_qd-dhcntt_xxx -> Match từ đầu
 
             # Try 1: Match sau __ (test format)
             pattern_with_prefix = r'__(\d+)[-_]([a-z]+)-([a-z\u00C0-\u1EF9]+(?:-[a-z\u00C0-\u1EF9]+)?)'
@@ -91,18 +91,18 @@ class RegulationMetadataGenerator(BaseMetadataGenerator):
     def _extract_base_code_from_filename(self, filename: str) -> Optional[str]:
         """
         Extract regulation code từ filename.
-        VD: "828_qd-dhcntt_..." → "828/QĐ-ĐHCNTT"
+        VD: "828_qd-dhcntt_..." -> "828/QĐ-ĐHCNTT"
         """
         result = self._extract_regulation_code(filename, from_filename=True)
         if result:
-            print(f"  ✓ Extracted base code from filename: {result}")
+            print(f"   Extracted base code from filename: {result}")
         return result
 
     def _extract_date_from_filename(self, filename: str) -> Optional[str]:
         """
         Extract effective date từ filename.
-        VD: "828_qd-dhcntt_04-10-2022_..." → "2022-10-04"
-        VD: "108-qd-dhcntt15-3-2019_..." → "2019-03-15"
+        VD: "828_qd-dhcntt_04-10-2022_..." -> "2022-10-04"
+        VD: "108-qd-dhcntt15-3-2019_..." -> "2019-03-15"
         Pattern: DD-MM-YYYY (có thể thiếu underscore)
         """
         # Pattern: DD-MM-YYYY với separator linh hoạt (_, -, hoặc không có)
@@ -114,7 +114,7 @@ class RegulationMetadataGenerator(BaseMetadataGenerator):
             month = match.group(2).zfill(2)
             year = match.group(3)
             date_str = f"{year}-{month}-{day}"
-            print(f"  ✓ Extracted date from filename: {date_str}")
+            print(f"   Extracted date from filename: {date_str}")
             return date_str
         return None
 
@@ -160,9 +160,9 @@ Bạn là chuyên viên phân tích văn bản pháp lý.
    - KHÔNG tìm trong phần "Căn cứ" (đó là các văn bản khác)
    - CHỈ tìm số hiệu của CHÍNH VĂN BẢN NÀY:
      * Dòng "Số: XXX/QĐ-YYY" ở ĐẦU văn bản (trước phần "Căn cứ")
-     * HOẶC từ FILENAME (VD: filename có "147-qd-dhcntt" → "147/QĐ-DHCNTT")
+     * HOẶC từ FILENAME (VD: filename có "147-qd-dhcntt" -> "147/QĐ-DHCNTT")
    - Format: "147/QĐ-DHCNTT", "828/QĐ-ĐHCNTT"
-   - Nếu không tìm thấy → null
+   - Nếu không tìm thấy -> null
 
    **Nếu document_type = "update":**
    - Bước 1: Xác định TIÊU ĐỀ/CHỦ ĐỀ của văn bản này (VD: "đào tạo ngoại ngữ")
@@ -171,21 +171,21 @@ Bạn là chuyên viên phân tích văn bản pháp lý.
    - Bước 4: Chọn quyết định có chủ đề GẦN GIỐNG NHẤT (cùng lĩnh vực, có thể khác vài chữ)
    - Bước 5: Trích xuất số hiệu từ dòng đó
    - Format: "828/QĐ-ĐHCNTT"
-   - Nếu không tìm thấy văn bản tương tự → null
+   - Nếu không tìm thấy văn bản tương tự -> null
 
 **VÍ DỤ:**
 
 VD1 - Original:
 Tiêu đề: "Quy định đào tạo ngoại ngữ..."
 Số: 828/QĐ-ĐHCNTT
-→ base_regulation_code: "828/QĐ-ĐHCNTT"
+-> base_regulation_code: "828/QĐ-ĐHCNTT"
 
 VD2 - Update:
 Tiêu đề: "Sửa đổi Quy định đào tạo ngoại ngữ..."
 Phần Căn cứ:
 - Căn cứ Quyết định số 134/2006/QĐ-TTg về việc thành lập trường...  ← KHÔNG (chủ đề khác)
 - Căn cứ Quyết định số 828/QĐ-ĐHCNTT về quy định đào tạo ngoại ngữ...  ← GẦN GIỐNG! (cùng "đào tạo ngoại ngữ")
-→ base_regulation_code: "828/QĐ-ĐHCNTT"
+-> base_regulation_code: "828/QĐ-ĐHCNTT"
 
 3. **is_index_page:** true nếu là trang danh sách, false nếu là văn bản chi tiết
 
@@ -219,7 +219,7 @@ CHỈ TRẢ VỀ JSON, KHÔNG GIẢI THÍCH.
                 if llm_base_code.lower() in ["null", "none", "n/a"]:
                     llm_base_code = None
                 elif "/" not in llm_base_code:
-                    print(f"  ⚠️  Invalid base_regulation_code format: '{llm_base_code}' → Using filename fallback")
+                    print(f"    Invalid base_regulation_code format: '{llm_base_code}' -> Using filename fallback")
                     llm_base_code = None
 
             # IMPORTANT: Với văn bản "original", PRIORITIZE filename extraction
@@ -229,10 +229,10 @@ CHỈ TRẢ VỀ JSON, KHÔNG GIẢI THÍCH.
             if data.get("document_type") == "original" and filename_code:
                 # Original doc: LUÔN dùng filename (chính xác nhất)
                 llm_base_code = filename_code
-                print(f"  → Original doc: Using filename code: {filename_code}")
+                print(f"  -> Original doc: Using filename code: {filename_code}")
             elif not llm_base_code:
-                # Fallback: LLM không trả về hoặc invalid → dùng filename
-                print(f"  ⚠️  LLM did not return valid base_regulation_code, using filename...")
+                # Fallback: LLM không trả về hoặc invalid -> dùng filename
+                print(f"    LLM did not return valid base_regulation_code, using filename...")
                 llm_base_code = filename_code
 
             # PRIORITIZE: Extract date from filename (chính xác hơn LLM)
@@ -251,12 +251,12 @@ CHỈ TRẢ VỀ JSON, KHÔNG GIẢI THÍCH.
                 # Check lookup table
                 if base_num in self.regulation_codes:
                     final_base_code = self.regulation_codes[base_num]
-                    print(f"  → Using existing base code from lookup: {final_base_code}")
+                    print(f"  -> Using existing base code from lookup: {final_base_code}")
                 else:
                     final_base_code = base_num
                     self.regulation_codes[base_num] = base_num
                     self._save_regulation_codes()
-                    print(f"  → New base code registered: {final_base_code}")
+                    print(f"  -> New base code registered: {final_base_code}")
 
             # Tạo metadata_generator object
             metadata = RegulationMetadata(
@@ -273,8 +273,8 @@ CHỈ TRẢ VỀ JSON, KHÔNG GIẢI THÍCH.
             )
 
             print(f"SUCCESS: Extracted metadata_generator for {file_path.name}")
-            print(f"  → Document Type: {metadata.document_type}")
-            print(f"  → Base Regulation Code: {metadata.base_regulation_code}")
+            print(f"  -> Document Type: {metadata.document_type}")
+            print(f"  -> Base Regulation Code: {metadata.base_regulation_code}")
             return metadata
 
         except Exception as e:

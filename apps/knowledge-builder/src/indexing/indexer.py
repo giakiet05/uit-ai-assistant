@@ -3,25 +3,32 @@ Document Indexer - Category-based indexing for ChromaDB.
 
 This module provides tools for building ChromaDB vector stores from processed documents,
 with separate collections per category (regulation, curriculum, etc.).
+
+REFACTORED: Now uses IndexingPipeline (chunk -> embed-index stages).
+Legacy methods maintained for backward compatibility.
 """
 
 import chromadb
 import json
 import unicodedata
 from typing import List, Optional, Dict
+from pathlib import Path
 
 # --- Centralized Config Import ---
 from ..config.settings import settings
 
-# --- LlamaIndex v0.10+ Imports ---
+# --- New Pipeline Import ---
+from ..pipeline import IndexingPipeline
+
+# --- LlamaIndex v0.10+ Imports (kept for legacy methods) ---
 from llama_index.core import (
     VectorStoreIndex,
     StorageContext,
     Document,
-    Settings as LlamaSettings, # Use alias to avoid confusion with our own Settings
+    Settings as LlamaSettings,
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
-from .splitters.smart_node_splitter import SmartNodeSplitter
+from .splitters.regulation_node_splitter import RegulationNodeSplitter
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 
@@ -76,12 +83,12 @@ class DocumentIndexer:
             api_key=settings.credentials.OPENAI_API_KEY
         )
 
-        # Use SmartNodeSplitter for intelligent chunking
+        # Use RegulationNodeSplitter for intelligent chunking
         # 1. Pattern detection (Điều X, CHƯƠNG X) for Vietnamese regulation documents
         # 2. Title chunk merging for cleaner document structure
         # 3. Malformed markdown cleanup
         # 4. Token-aware sub-chunking with context preservation
-        node_parser = SmartNodeSplitter(
+        node_parser = RegulationNodeSplitter(
             max_tokens=settings.indexing.MAX_TOKENS,
             sub_chunk_size=settings.indexing.CHUNK_SIZE,
             sub_chunk_overlap=settings.indexing.CHUNK_OVERLAP
@@ -102,7 +109,10 @@ class DocumentIndexer:
 
     def build_collection(self, category: str) -> bool:
         """
-        Build a specific collection from processed/{category}/ files.
+        Build a specific collection using IndexingPipeline.
+
+        Iterates through all documents in stages/{category}/ and runs
+        indexing pipeline (chunk -> embed-index) for each.
 
         Args:
             category: Category name (e.g., "regulation", "curriculum")
@@ -114,64 +124,59 @@ class DocumentIndexer:
         print(f"🔨 BUILDING COLLECTION: {category}")
         print(f"{'='*70}\n")
 
-        # Get category directory
-        category_dir = settings.paths.PROCESSED_DATA_DIR / category
+        # Get category directory from stages/
+        category_dir = settings.paths.STAGES_DIR / category
 
         if not category_dir.exists():
             print(f"[WARNING] Category directory not found: {category_dir}")
+            print(f"[INFO] Run processing pipeline first to create documents")
             return False
 
-        # Load documents
-        documents = self._load_documents_from_category(category)
+        # Get all document directories
+        doc_dirs = [d for d in category_dir.iterdir() if d.is_dir()]
 
-        if not documents:
+        if not doc_dirs:
             print(f"[INFO] No documents found in category: {category}")
             return False
 
-        # Clean metadata_generator (remove non-primitive types for ChromaDB)
-        for doc in documents:
-            doc.metadata = self._clean_metadata(doc.metadata)
+        print(f"[INFO] Found {len(doc_dirs)} documents in {category}")
 
-        try:
-            # Create/get collection (domain in metadata_generator, no prefix needed)
-            collection_name = category
-            print(f"[INFO] Creating ChromaDB collection: {collection_name}")
-            chroma_collection = self.chroma_client.get_or_create_collection(collection_name)
+        # Index each document
+        indexed_count = 0
+        failed_count = 0
 
-            # Create vector store and storage context
-            vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
-            storage_context = StorageContext.from_defaults(vector_store=vector_store)
+        for doc_dir in doc_dirs:
+            document_id = doc_dir.name
 
-            # Parse documents to nodes manually (HierarchicalMarkdownParser not callable by LlamaIndex)
-            print(f"[INFO] Parsing {len(documents)} documents to nodes...")
-            node_parser = LlamaSettings.node_parser
-            nodes = node_parser.get_nodes_from_documents(documents)
+            try:
+                print(f"\n[INFO] Indexing {document_id}...")
 
-            # Print parsing stats
-            if hasattr(node_parser, 'get_stats'):
-                stats = node_parser.get_stats()
-                print(f"[INFO] Parsing stats: {stats['total_chunks']} initial chunks, {stats['large_chunks_split']} split, {stats['final_nodes']} final nodes")
+                # Run indexing pipeline
+                pipeline = IndexingPipeline(category, document_id)
+                result = pipeline.run(force=False)
 
-            # Build index from parsed nodes
-            print(f"[INFO] Embedding & indexing {len(nodes)} nodes...")
-            index = VectorStoreIndex(
-                nodes=nodes,
-                storage_context=storage_context,
-            )
+                if result['stages_run']:
+                    print(f"[SUCCESS] Indexed {document_id}: {len(result['stages_run'])} stages run")
+                    indexed_count += 1
+                else:
+                    print(f"[INFO] Skipped {document_id}: already indexed")
+                    indexed_count += 1
 
-            self.stats["collections_built"] += 1
-            self.stats["documents_indexed"] += len(documents)
+            except Exception as e:
+                print(f"[ERROR] Failed to index {document_id}: {e}")
+                failed_count += 1
+                self.stats["errors"].append({
+                    "category": category,
+                    "document_id": document_id,
+                    "error": str(e)
+                })
 
-            print(f"[SUCCESS] Built collection '{collection_name}' with {len(documents)} documents ({len(nodes)} nodes)")
-            return True
+        # Update stats
+        self.stats["collections_built"] += 1
+        self.stats["documents_indexed"] += indexed_count
 
-        except Exception as e:
-            print(f"[ERROR] Failed to build collection '{category}': {e}")
-            self.stats["errors"].append({
-                "category": category,
-                "error": str(e)
-            })
-            return False
+        print(f"\n[SUCCESS] Built collection '{category}': {indexed_count} indexed, {failed_count} failed")
+        return failed_count == 0
 
     def build_all_collections(self, categories: Optional[List[str]] = None) -> Dict:
         """
@@ -187,7 +192,7 @@ class DocumentIndexer:
             categories = settings.processing.PROCESS_CATEGORIES
 
         print("\n" + "="*70)
-        print(f"🚀 DOCUMENT INDEXER - MULTI-COLLECTION BUILD")
+        print(f" DOCUMENT INDEXER - MULTI-COLLECTION BUILD")
         print(f"   Categories: {', '.join(categories)}")
         print("="*70 + "\n")
 
@@ -202,105 +207,59 @@ class DocumentIndexer:
 
     def index_single_file(self, file_path) -> bool:
         """
-        Index a single markdown file.
+        Index a single document using IndexingPipeline.
+
+        DEPRECATED: Use IndexingPipeline directly instead:
+            >>> from src.pipeline import IndexingPipeline
+            >>> pipeline = IndexingPipeline(category, document_id)
+            >>> pipeline.run()
 
         Args:
-            file_path: Path to .md file (e.g., data/processed/regulation/file.md)
+            file_path: Path to document directory (e.g., data/stages/regulation/790-qd-dhcntt)
 
         Returns:
             True if successful, False otherwise
         """
-        from pathlib import Path
-
         file_path = Path(file_path)
 
         print(f"\n{'='*70}")
-        print(f"🔨 INDEXING SINGLE FILE")
-        print(f"   File: {file_path}")
+        print(f"🔨 INDEXING SINGLE DOCUMENT")
+        print(f"   Path: {file_path}")
         print(f"{'='*70}\n")
 
-        # Infer category from path (e.g., data/processed/regulation/file.md → regulation)
+        # Infer category and document_id from path
+        # Expected: data/stages/{category}/{document_id}/
         try:
-            # Assuming structure: */processed/{category}/{file}.md
-            category = file_path.parent.name
-            print(f"[INFO] Inferred category: {category}")
-        except:
-            print(f"[ERROR] Could not infer category from path: {file_path}")
-            return False
-
-        # Load single document
-        try:
-            # Read markdown content
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-
-            # Normalize Unicode (fix 'Khóa' NFC vs 'Khoá' NFD mismatch)
-            content = normalize_vietnamese_text(content)
-
-            if not content.strip():
-                print(f"[ERROR] Empty content in {file_path.name}")
+            if file_path.is_dir():
+                # Already a document directory
+                document_id = file_path.name
+                category = file_path.parent.name
+            else:
+                # Legacy: data/processed/{category}/{file}.md
+                print(f"[WARNING] Legacy file path detected. Please use stage-based structure.")
+                print(f"[INFO] Use IndexingPipeline directly for stage-based indexing.")
                 return False
 
-            # Load metadata from corresponding JSON file
-            json_file = file_path.with_suffix('.json')
-            metadata = {}
-
-            if json_file.exists():
-                try:
-                    with open(json_file, 'r', encoding='utf-8') as f:
-                        metadata = json.load(f)
-                except Exception as e:
-                    print(f"[WARNING] Failed to load metadata for {file_path.name}: {e}")
-
-            # Create Document
-            doc = Document(
-                text=content,
-                metadata=metadata,
-                id_=metadata.get("document_id", file_path.stem)
-            )
-
-            # Clean metadata
-            doc.metadata = self._clean_metadata(doc.metadata)
-
-            print(f"[INFO] Loaded document: {doc.id_}")
+            print(f"[INFO] Category: {category}, Document ID: {document_id}")
 
         except Exception as e:
-            print(f"[ERROR] Failed to load file: {e}")
+            print(f"[ERROR] Could not infer category/document_id from path: {e}")
             return False
 
-        # Index document
+        # Run indexing pipeline
         try:
-            # Create/get collection
-            collection_name = category
-            print(f"[INFO] Creating ChromaDB collection: {collection_name}")
-            chroma_collection = self.chroma_client.get_or_create_collection(collection_name)
+            pipeline = IndexingPipeline(category, document_id)
+            result = pipeline.run(force=False)
 
-            # Create vector store and storage context
-            vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
-            storage_context = StorageContext.from_defaults(vector_store=vector_store)
+            if result['stages_run']:
+                print(f"[SUCCESS] Indexed {document_id}: {len(result['stages_run'])} stages run")
+            else:
+                print(f"[INFO] Skipped {document_id}: already indexed")
 
-            # Parse document to nodes
-            print(f"[INFO] Parsing document to nodes...")
-            node_parser = LlamaSettings.node_parser
-            nodes = node_parser.get_nodes_from_documents([doc])
-
-            # Print parsing stats
-            if hasattr(node_parser, 'get_stats'):
-                stats = node_parser.get_stats()
-                print(f"[INFO] Parsing stats: {stats['total_chunks']} initial chunks, {stats['large_chunks_split']} split, {stats['final_nodes']} final nodes")
-
-            # Build index from parsed nodes
-            print(f"[INFO] Embedding & indexing {len(nodes)} nodes...")
-            index = VectorStoreIndex(
-                nodes=nodes,
-                storage_context=storage_context,
-            )
-
-            print(f"[SUCCESS] Indexed {file_path.name} into collection '{collection_name}' ({len(nodes)} nodes)")
             return True
 
         except Exception as e:
-            print(f"[ERROR] Failed to index file: {e}")
+            print(f"[ERROR] Failed to index document: {e}")
             return False
 
     def _load_documents_from_category(self, category: str) -> List[Document]:
@@ -396,14 +355,14 @@ class DocumentIndexer:
     def _print_stats(self):
         """Print build statistics."""
         print("\n" + "="*70)
-        print("📊 BUILD COMPLETE - STATISTICS")
+        print(" BUILD COMPLETE - STATISTICS")
         print("="*70)
         print(f"   Collections built:   {self.stats['collections_built']}")
         print(f"   Documents indexed:   {self.stats['documents_indexed']}")
         print(f"   Errors:              {len(self.stats['errors'])}")
 
         if self.stats["errors"]:
-            print(f"\n   ⚠️  ERRORS:")
+            print(f"\n     ERRORS:")
             for err in self.stats["errors"]:
                 print(f"      • {err['category']}: {err['error']}")
 
