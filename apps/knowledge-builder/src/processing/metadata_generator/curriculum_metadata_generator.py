@@ -2,8 +2,8 @@
 from pathlib import Path
 from typing import Union
 
-from ..config.settings import settings
-from ..config.llm_provider import create_llm
+from ...config.settings import settings
+from ...config.llm_provider import create_llm
 from .base_metadata_generator import BaseMetadataGenerator
 from .metadata_models import RegulationMetadata, CurriculumMetadata, DefaultMetadata
 
@@ -60,7 +60,7 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
         **Yêu cầu:**
         Trích xuất các thông tin sau từ văn bản:
         - title: Tiêu đề đầy đủ của chương trình đào tạo
-        - year: Năm áp dụng chương trình. QUAN TRỌNG: Ưu tiên extract từ TÊN FILE trước (VD: "khoa-19-2024" → year=2024, "khoa-2021" → year=2021). Nếu filename không có, mới lấy từ nội dung văn bản.
+        - year: Năm áp dụng chương trình. QUAN TRỌNG: Ưu tiên extract từ TÊN FILE trước (VD: "khoa-19-2024" -> year=2024, "khoa-2021" -> year=2021). Nếu filename không có, mới lấy từ nội dung văn bản.
         - summary: Tóm tắt ngắn gọn nội dung chính (2-3 câu)
         - keywords: Các từ khóa quan trọng (5-7 từ khóa)
         - major: Ngành học chính. Phải là một trong: {majors_list}. Nếu đây là trang danh sách nhiều ngành, đặt null.
@@ -171,9 +171,9 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
             )
 
             print(f"SUCCESS: Extracted metadata_generator for {file_path.name}")
-            print(f"  → Year: {metadata.year}")
-            print(f"  → Major: {metadata.major}")
-            print(f"  → Program: {metadata.program_name} ({metadata.program_type})")
+            print(f"  -> Year: {metadata.year}")
+            print(f"  -> Major: {metadata.major}")
+            print(f"  -> Program: {metadata.program_name} ({metadata.program_type})")
             return metadata
 
         except Exception as e:

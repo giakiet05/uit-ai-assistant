@@ -259,7 +259,7 @@ class BaseNodeSplitter(ABC):
 
             # ========== CASE 2: Chunk is too large ==========
             else:
-                print(f"  ⚠️  Chunk {idx}: {token_count} tokens > {self.max_tokens}, sub-chunking...")
+                print(f"    Chunk {idx}: {token_count} tokens > {self.max_tokens}, sub-chunking...")
                 self.stats["large_chunks_split"] += 1
 
                 # Extract context header (before separator)
@@ -275,7 +275,7 @@ class BaseNodeSplitter(ABC):
                 temp_doc = Document(text=actual_content.strip())
                 sub_chunks = self.sentence_splitter.get_nodes_from_documents([temp_doc])
 
-                print(f"     → Created {len(sub_chunks)} sub-chunks")
+                print(f"     -> Created {len(sub_chunks)} sub-chunks")
 
                 # Build hierarchy string (same for all sub-chunks)
                 header_path = chunk_data.get('header_path', [])

@@ -27,7 +27,7 @@ def _create_ollama_llm(model: str, **kwargs) -> Ollama:
     print(f"[INFO] Attempting to create Ollama LLM with model: {model}")
     try:
         llm = Ollama(model=model, **final_kwargs)
-        print("✅ Ollama LLM instance created.")
+        print(" Ollama LLM instance created.")
         return llm
     except Exception as e:
         print(f"[ERROR] Failed to create Ollama LLM instance.")

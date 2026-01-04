@@ -27,7 +27,7 @@ class MarkdownFixer:
     Fix markdown structure for regulation and curriculum documents using LLM.
 
     Supports two document types:
-    - **Regulation:** Hierarchical structure (Chương → Điều → Khoản → Mục)
+    - **Regulation:** Hierarchical structure (Chương -> Điều -> Khoản -> Mục)
     - **Curriculum:** Flexible structure (fix headers, tables, bullets)
 
     Usage:
@@ -67,13 +67,13 @@ Sửa lại cấu trúc markdown của văn bản quy định để tuân thủ 
 
 ## 1. Header Levels - CONSISTENCY RULE
 
-**QUY TẮC QUAN TRỌNG:** Trong cùng nhóm (cùng Điều), nếu CÓ BẤT KỲ item nào dài → TẤT CẢ items cùng level phải là headers!
+**QUY TẮC QUAN TRỌNG:** Trong cùng nhóm (cùng Điều), nếu CÓ BẤT KỲ item nào dài -> TẤT CẢ items cùng level phải là headers!
 
 ### Base Rules:
-- CHƯƠNG I, CHƯƠNG II, ... → `#` (Level 1)
-- Điều 1, Điều 2, ... → `##` (Level 2)
-- Khoản số (1., 2., 3., ...) → `###` (Level 3)
-- Khoản chữ cái (a., b., c., ...) → `####` (Level 4)
+- CHƯƠNG I, CHƯƠNG II, ... -> `#` (Level 1)
+- Điều 1, Điều 2, ... -> `##` (Level 2)
+- Khoản số (1., 2., 3., ...) -> `###` (Level 3)
+- Khoản chữ cái (a., b., c., ...) -> `####` (Level 4)
 
 ### Consistency Logic:
 
@@ -82,7 +82,7 @@ Sửa lại cấu trúc markdown của văn bản quy định để tuân thủ 
 Điều X có:
 1. Khoản dài (30 từ)
 2. Khoản ngắn (5 từ)
-→ CẢ HAI phải là ### headers (vì có 1 cái dài)
+-> CẢ HAI phải là ### headers (vì có 1 cái dài)
 ```
 
 **Ví dụ 2: Khoản chữ**
@@ -91,7 +91,7 @@ Khoản 1 có:
 a. Item dài (20 từ)
 b. Item ngắn (3 từ)
 c. Item dài (25 từ)
-→ CẢ BA phải là #### headers (vì có cái dài)
+-> CẢ BA phải là #### headers (vì có cái dài)
 ```
 
 **Ví dụ 3: TẤT CẢ đều ngắn**
@@ -100,18 +100,18 @@ Danh sách ngành:
 1. Khoa học máy tính (3 từ)
 2. Công nghệ thông tin (3 từ)
 3. Hệ thống thông tin (3 từ)
-→ TẤT CẢ đều ngắn (<10 từ) → Giữ plain text (KHÔNG làm header)
+-> TẤT CẢ đều ngắn (<10 từ) -> Giữ plain text (KHÔNG làm header)
 ```
 
 ### Threshold:
 - "Dài" = >= 10 từ
 - "Ngắn" = < 10 từ
-- Nếu **CÓ BẤT KỲ** item >= 10 từ → **TẤT CẢ** items cùng nhóm phải là headers
+- Nếu **CÓ BẤT KỲ** item >= 10 từ -> **TẤT CẢ** items cùng nhóm phải là headers
 
 ### How to Apply:
 1. **Scan toàn bộ Điều** trước khi quyết định
 2. **Đếm từ** trong TỪNG khoản số (1., 2., 3., ...)
-3. Nếu **BẤT KỲ** khoản nào >= 10 từ → **TẤT CẢ** khoản số trong Điều đó phải là `###`
+3. Nếu **BẤT KỲ** khoản nào >= 10 từ -> **TẤT CẢ** khoản số trong Điều đó phải là `###`
 4. Tương tự cho khoản chữ (a., b., c., ...) trong từng khoản số
 
 **Ví dụ thực tế:**
@@ -123,7 +123,7 @@ Danh sách ngành:
 ### 4. Thời điểm nộp: 2 tuần cuối tháng 7 (7 từ - NGẮN)
 ### 5. Không xét chuẩn (3 từ - NGẮN)
 ```
-→ TẤT CẢ đều `###` vì khoản 1, 2, 3 dài!
+-> TẤT CẢ đều `###` vì khoản 1, 2, 3 dài!
 
 ## 2. Special Cases
 
@@ -147,7 +147,7 @@ Danh sách ngành:
 2. **Merge:** Nối TẤT CẢ các dòng thành 1 header duy nhất
 3. **Format:** VIẾT HOA TOÀN BỘ (uppercase)
 4. **Level:** `#` (Level 1)
-5. **Metadata line** *(Ban hành kèm theo...)* → Giữ nguyên italic bên dưới
+5. **Metadata line** *(Ban hành kèm theo...)* -> Giữ nguyên italic bên dưới
 
 **Ví dụ khác:**
 ```
@@ -184,17 +184,17 @@ Output:
 ```
 
 ### Other Special Cases:
-- **Bold Điều** (ví dụ: `**Điều 6.**`) → Chuyển thành `## Điều 6.`
+- **Bold Điều** (ví dụ: `**Điều 6.**`) -> Chuyển thành `## Điều 6.`
 - Bảng:
-  - Nếu bảng nằm sau Khoản số → `####` (Level 4)
-  - Nếu bảng nằm sau Điều (no khoản) → `###` (Level 3)
-  - Nếu bảng standalone → `##` (Level 2)
-- Metadata sections (Căn cứ, Xét đề nghị, QUYẾT ĐỊNH) → `##` (Level 2)
+  - Nếu bảng nằm sau Khoản số -> `####` (Level 4)
+  - Nếu bảng nằm sau Điều (no khoản) -> `###` (Level 3)
+  - Nếu bảng standalone -> `##` (Level 2)
+- Metadata sections (Căn cứ, Xét đề nghị, QUYẾT ĐỊNH) -> `##` (Level 2)
 - Unnumbered paragraphs giữa các khoản:
   - Nếu đoạn văn KHÔNG có số (1., 2., ...) nằm giữa các khoản có số
   - Kiểm tra context: đoạn này relate tới khoản nào?
-  - Nếu là phần bổ sung cho khoản trước → Giữ nguyên plain text (KHÔNG tự gán số)
-  - Nếu độc lập và quan trọng → Có thể thêm số thứ tự (ví dụ: 2.1, 2.2) NHƯNG CHỈ NẾU chắc chắn
+  - Nếu là phần bổ sung cho khoản trước -> Giữ nguyên plain text (KHÔNG tự gán số)
+  - Nếu độc lập và quan trọng -> Có thể thêm số thứ tự (ví dụ: 2.1, 2.2) NHƯNG CHỈ NẾU chắc chắn
 
 ## 3. Preserve Content
 - **KHÔNG thay đổi** nội dung văn bản (giữ nguyên từ ngữ)
@@ -233,7 +233,7 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
     # CÁC LỖI CẦN SỬA
 
     ## 1. Link text đúng ra là header
-    **Pattern:** `[1. TÊN SECTION](url)` → `# 1. TÊN SECTION`
+    **Pattern:** `[1. TÊN SECTION](url)` -> `# 1. TÊN SECTION`
 
     **Ví dụ:**
     ```
@@ -247,12 +247,12 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
     ```
 
     **Rule:**
-    - Sections lớn (1, 2, 3) → `#` (Level 1)
-    - Subsections (1.1, 3.2) → `##` (Level 2)
-    - Sub-subsections (3.3.1) → `###` (Level 3)
+    - Sections lớn (1, 2, 3) -> `#` (Level 1)
+    - Subsections (1.1, 3.2) -> `##` (Level 2)
+    - Sub-subsections (3.3.1) -> `###` (Level 3)
 
     ## 2. Bold text đúng ra là subheader
-    **Pattern:** `**Về XXX:**` hoặc `**Nhóm XXX**` → `### Về XXX` / `### Nhóm XXX`
+    **Pattern:** `**Về XXX:**` hoặc `**Nhóm XXX**` -> `### Về XXX` / `### Nhóm XXX`
 
     **Ví dụ:**
     ```
@@ -266,7 +266,7 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
     ```
 
     ## 3. Header levels không nhất quán
-    **Pattern:** `# I` → `## II` → `### III` (không consistent)
+    **Pattern:** `# I` -> `## II` -> `### III` (không consistent)
 
     **Rule:** Normalize về cùng level nếu thấy pattern I, II, III hoặc 1.1, 1.2, 1.3
 
@@ -274,9 +274,9 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
     **LƯU Ý:** ĐA SỐ bảng đã đúng format, CHỈ fix nếu thấy lỗi rõ ràng!
 
     **Các lỗi thường gặp:**
-    - Rows thiếu separators `|` → Thêm empty cells `| | |` cho đủ số cột
-    - Nested headers → Flatten thành 1 row
-    - Row bắt đầu bằng `|` (merged cell) → Copy giá trị từ row trước
+    - Rows thiếu separators `|` -> Thêm empty cells `| | |` cho đủ số cột
+    - Nested headers -> Flatten thành 1 row
+    - Row bắt đầu bằng `|` (merged cell) -> Copy giá trị từ row trước
 
     **Ví dụ fix row thiếu separators:**
     ```
@@ -332,13 +332,13 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
     ```
 
     **Rule:**
-    - Nếu thấy `###` hoặc `##` giữa bảng → Chuyển thành table row
+    - Nếu thấy `###` hoặc `##` giữa bảng -> Chuyển thành table row
     - Remove prefix `###` / `##`, giữ lại text
     - Làm bold text: `**Text**`
     - Thêm empty cells `| | |` cho đủ số cột (đếm từ header)
 
     ## 5. Sections có title bị tách
-    **Pattern:** Title bị tách thành nhiều headers → Merge thành 1 header viết hoa
+    **Pattern:** Title bị tách thành nhiều headers -> Merge thành 1 header viết hoa
 
     **Ví dụ:**
     ```
@@ -351,7 +351,7 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
     ```
 
     ## 6. Bullet list characters không đúng
-    **Pattern:** En dash `‒` (U+2012) → Hyphen `-` (U+002D)
+    **Pattern:** En dash `‒` (U+2012) -> Hyphen `-` (U+002D)
 
     **Ví dụ:**
     ```
@@ -365,7 +365,7 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
     # QUY TẮC CHUNG
     1. **GIỮ NGUYÊN nội dung:** Không thay đổi từ ngữ, numbering
     2. **GIỮ NGUYÊN tables:** Nội dung bảng không được thay đổi, chỉ fix structure nếu SAI RÕ RÀNG
-    3. **CHỈ SỬA cấu trúc:** Header levels, link → header, bold → header, table structure (nếu sai)
+    3. **CHỈ SỬA cấu trúc:** Header levels, link -> header, bold -> header, table structure (nếu sai)
     4. **Normalize bullets:** Chuyển `‒` thành `-`
     5. **KHÔNG tự ý thêm blank lines vào bảng** - Sẽ được xử lý bằng rule-based sau
 
@@ -387,12 +387,12 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
             llm: LlamaIndex LLM instance. If None, will create Gemini LLM from settings.
         """
         if llm is None:
-            # Default: Create Gemini LLM from settings
-            print("[MARKDOWN FIXER] No LLM provided, creating default Gemini LLM from settings")
+            # Default: Create OpenAI LLM (Gemini free tier no longer available)
+            print("[MARKDOWN FIXER] No LLM provided, creating default OpenAI LLM")
             self.llm = create_llm(
-                provider="gemini",
-                model=settings.preprocessing.GEMINI_MODEL,
-                temperature=settings.preprocessing.GEMINI_TEMPERATURE
+                provider="openai",
+                model="gpt-4.1-mini",  # Fast and cheap model for markdown fixing
+                temperature=0
             )
         else:
             # Use provided LLM
@@ -414,7 +414,7 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
         Args:
             markdown_text: Deformed markdown from LlamaParse/Crawl4AI
             category: Document category - "regulation" or "curriculum"
-                     - "regulation": Fix hierarchical structure (Chương → Điều → Khoản)
+                     - "regulation": Fix hierarchical structure (Chương -> Điều -> Khoản)
                      - "curriculum": Fix headers, tables, bullets (flexible structure)
 
         Returns:
@@ -591,11 +591,11 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
                 with open(output_file, 'w', encoding='utf-8') as f:
                     f.write(fixed)
 
-                print(f"  ✅ Fixed and saved to {output_file}")
+                print(f"   Fixed and saved to {output_file}")
                 success_count += 1
 
             except Exception as e:
-                print(f"  ❌ Error: {e}")
+                print(f"   Error: {e}")
                 error_count += 1
                 continue
 

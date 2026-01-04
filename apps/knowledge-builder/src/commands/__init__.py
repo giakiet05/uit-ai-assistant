@@ -1,17 +1,13 @@
 """Commands package - CLI command handlers."""
 
-from .clean import run_clean
-from .metadata import run_metadata
-from .process import run_process
-from .index import run_index
-from .fix_markdown import fix_markdown_command
-from .reparse_file import reparse_file
+from .pipeline import run_pipeline
+from .stage import run_stage
+from .status import run_status
+from .migrate import run_migrate
 
 __all__ = [
-    "run_clean",
-    "run_metadata",
-    "run_process",
-    "run_index",
-    "fix_markdown_command",
-    "reparse_file",
+    "run_pipeline",
+    "run_stage",
+    "run_status",
+    "run_migrate",
 ]

@@ -30,7 +30,7 @@ class UitWebsiteCleaner(BaseCleaner):
         # End patterns (where we stop collecting content)
         self.end_patterns = [
             'Bài viết liên quan',  # Stop immediately when we see related articles
-            'Trang \d' ,  # Pagination starts here
+            r'Trang \d',  # Pagination starts here
             'PHÒNG ĐÀO TẠO ĐẠI HỌC',
             'Back to top'
         ]
