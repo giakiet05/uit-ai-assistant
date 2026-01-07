@@ -4,9 +4,10 @@ Metadata Stage - Generate document metadata using LLM.
 
 from pathlib import Path
 from typing import Dict, Any
+from datetime import datetime
 from ..core.stage import Stage
 from ..core.pipeline_state import PipelineState
-from ...processing.pipelines.metadata_pipeline import MetadataPipeline
+from ...processing.metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
 
 
 class MetadataStage(Stage):
@@ -15,9 +16,8 @@ class MetadataStage(Stage):
 
     Uses LLM to extract:
     - Title
-    - Summary
-    - Keywords
-    - Category-specific metadata
+    - Category-specific metadata (regulation_number, major, etc.)
+    - Document classification
 
     Output is saved as metadata.json in stage directory.
     """
@@ -29,7 +29,6 @@ class MetadataStage(Stage):
             is_idempotent=False,  # LLM may produce different results
             description="Generate metadata using LLM"
         )
-        self.metadata_generator = None
 
     def execute(
         self,
@@ -50,25 +49,27 @@ class MetadataStage(Stage):
         Returns:
             Metadata dict (also saved to metadata.json)
         """
-        # Initialize generator if needed
-        if self.metadata_generator is None:
-            self.metadata_generator = MetadataPipeline()
-
         # Read content
         content = input_path.read_text(encoding='utf-8')
 
-        # Generate metadata
-        metadata = self.metadata_generator.generate(
-            content=content,
-            category=state.category,
-            document_id=state.document_id
-        )
+        # Generate metadata using category-specific generator
+        generator = MetadataGeneratorFactory.get_generator(state.category)
+        metadata_obj = generator.generate(input_path, content)
+
+        if not metadata_obj:
+            raise RuntimeError("Metadata generation failed - generator returned None")
+
+        # Convert to dict
+        metadata_dict = metadata_obj.model_dump()
+
+        # Add generation timestamp
+        metadata_dict["_generated_at"] = datetime.now().isoformat()
 
         # Save to metadata.json
         import json
         metadata_file = state.doc_dir / "metadata.json"
         metadata_file.write_text(
-            json.dumps(metadata, indent=2, ensure_ascii=False),
+            json.dumps(metadata_dict, indent=2, ensure_ascii=False),
             encoding='utf-8'
         )
 

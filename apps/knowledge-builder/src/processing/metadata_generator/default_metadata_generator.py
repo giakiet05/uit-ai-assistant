@@ -12,17 +12,14 @@ class DefaultMetadataGenerator(BaseMetadataGenerator):
 
     def generate(self, file_path: Path, content: str) -> Union[RegulationMetadata, CurriculumMetadata, DefaultMetadata, None]:
         """
-        Triển khai logic trích xuất metadata_generator mặc định.
+        Triển khai logic trích xuất metadata mặc định cho category 'other'.
         """
         print(f"DEBUG: Using DefaultMetadataGenerator for {file_path.name}")
 
-        # Placeholder implementation for basic metadata_generator
+        # Placeholder implementation for basic metadata
         metadata = DefaultMetadata(
-            document_id=file_path.name,
             title=f"Placeholder Title for {file_path.stem}",
             category="other",
-            year=None,
-            summary="This is a default placeholder summary.",
-            keywords=["placeholder"],
+            is_index_page=False
         )
         return metadata

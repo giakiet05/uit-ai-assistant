@@ -19,20 +19,35 @@ def run_status(args):
     """
     # Determine what to show
     if args.file:
-        # Single document
+        # Single document directory
         file_path = Path(args.file)
-        
-        if not file_path.exists():
-            print(f"[ERROR] File not found: {file_path}")
+
+        # Try to resolve path in multiple ways
+        resolved_path = None
+
+        if file_path.exists() and file_path.is_dir():
+            resolved_path = file_path
+        elif args.category:
+            # Try: STAGES_DIR/{category}/{file_path}
+            candidate = settings.paths.STAGES_DIR / args.category / file_path.name
+            if candidate.exists() and candidate.is_dir():
+                resolved_path = candidate
+
+        if not resolved_path:
+            print(f"[ERROR] Document directory not found: {file_path}")
+            if args.category:
+                print(f"[HINT] Also tried: {settings.paths.STAGES_DIR / args.category / file_path.name}")
+            else:
+                print(f"[HINT] You can specify --category to help locate the document")
             return
-        
-        # Infer category and document_id
-        if file_path.is_dir():
-            document_id = file_path.name
-            category = file_path.parent.name
-        else:
-            print(f"[ERROR] Expected document directory")
-            return
+
+        # Infer category and document_id from path
+        document_id = resolved_path.name
+        category = resolved_path.parent.name
+
+        # Override category if explicitly provided
+        if args.category:
+            category = args.category
         
         _show_document_status(
             category=category,

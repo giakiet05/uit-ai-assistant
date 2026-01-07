@@ -401,83 +401,19 @@ class RegulationNodeSplitter(BaseNodeSplitter):
 
     def _prepend_context(self, chunk_data: Dict, metadata: Dict) -> str:
         """
-        Prepend document context and FULL HIERARCHY to chunk text.
+        Return chunk text without any context prepending.
 
-        Override BaseNodeSplitter to add hierarchy support.
+        Override BaseNodeSplitter to keep chunks clean.
+        Title and other metadata are already in node.metadata.
 
         Args:
             chunk_data: Dict with text, header_path, current_header
-            metadata: Document metadata_generator
+            metadata: Document metadata
 
         Returns:
-            Text with prepended context
+            Original chunk text without modifications
         """
-        context_parts = []
-
-        # ========== DOCUMENT-LEVEL CONTEXT ==========
-
-        if doc_id := metadata.get("document_id"):
-            # Clean filename for display
-            clean_id = doc_id.replace('.md', '').replace('-', ' ').title()
-            context_parts.append(f"Tài liệu: {clean_id}")
-
-        if title := metadata.get("title"):
-            context_parts.append(f"Tiêu đề: {title}")
-
-        # ========== HEADER HIERARCHY (NEW!) ==========
-        # header_path: Parent headers only (ALREADY TRUNCATED in parsing)
-        # current_header: This chunk's header (ALREADY TRUNCATED in parsing)
-        # full_path: Parents + current (e.g., ["CHƯƠNG I", "Điều 8", "Khoản 1"])
-
-        header_path = chunk_data.get('header_path', [])
-        current_header = chunk_data.get('current_header')
-
-        if header_path or current_header:
-            full_path = header_path.copy()
-            if current_header:
-                full_path.append(current_header)
-
-            if full_path:
-                path_str = " > ".join(full_path)
-                context_parts.append(f"Cấu trúc: {path_str}")
-
-        # ========== CATEGORY-SPECIFIC METADATA ==========
-
-        category = metadata.get("category")
-
-        if category == "regulation":
-            if effective_date := metadata.get("effective_date"):
-                context_parts.append(f"Ngày hiệu lực: {effective_date}")
-
-            if doc_type := metadata.get("document_type"):
-                type_map = {
-                    "original": "Văn bản gốc",
-                    "update": "Văn bản sửa đổi",
-                    "supplement": "Văn bản bổ sung"
-                }
-                context_parts.append(f"Loại: {type_map.get(doc_type, doc_type)}")
-
-        elif category == "curriculum":
-            if major := metadata.get("major"):
-                context_parts.append(f"Ngành: {major}")
-
-            if year := metadata.get("year"):
-                context_parts.append(f"Năm: {year}")
-
-            if program_type := metadata.get("program_type"):
-                context_parts.append(f"Hệ: {program_type}")
-
-            if program_name := metadata.get("program_name"):
-                context_parts.append(f"Chương trình: {program_name}")
-
-        # ========== COMBINE CONTEXT + CONTENT ==========
-
-        if context_parts:
-            context_header = "\n".join(context_parts)
-            separator = "\n---\n"
-            return f"{context_header}{separator}{chunk_data['text']}"
-        else:
-            return chunk_data['text']
+        return chunk_data['text']
 
     def _merge_title_chunks(self, chunks: List[Dict]) -> List[Dict]:
         """

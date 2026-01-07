@@ -1,5 +1,5 @@
 """
-Chunk Stage - Parse markdown into chunks using RegulationNodeSplitter.
+Chunk Stage - Parse markdown into chunks using category-specific splitters.
 """
 
 from pathlib import Path
@@ -9,19 +9,25 @@ import json
 from ..core.stage import Stage
 from ..core.pipeline_state import PipelineState
 from ...indexing.splitters.regulation_node_splitter import RegulationNodeSplitter
+from ...indexing.splitters.curriculum_node_splitter import CurriculumNodeSplitter
 from ...config.settings import settings
 from llama_index.core import Document
 
 
 class ChunkStage(Stage):
     """
-    Parse markdown into chunks.
+    Parse markdown into chunks using category-specific splitters.
 
-    Uses RegulationNodeSplitter to:
-    - Detect Vietnamese patterns (Điều, CHƯƠNG)
-    - Merge title chunks
-    - Clean malformed headers
-    - Sub-chunk large sections
+    Splitters:
+    - RegulationNodeSplitter: for regulation documents
+      - Detects Vietnamese patterns (Điều, CHƯƠNG)
+      - Merges title chunks
+      - Cleans malformed headers
+
+    - CurriculumNodeSplitter: for curriculum documents
+      - Table-aware splitting
+      - Splits by PLO groups, semesters, course groups
+      - Handles complex nested tables
 
     Output is saved as chunks.json with serialized nodes.
     """
@@ -33,7 +39,8 @@ class ChunkStage(Stage):
             is_idempotent=True,
             description="Parse markdown into chunks"
         )
-        self.node_splitter = None
+        self.regulation_splitter = None
+        self.curriculum_splitter = None
 
     def should_skip(self, state, input_path, force):
         """
@@ -52,7 +59,7 @@ class ChunkStage(Stage):
         **kwargs
     ) -> Dict[str, Any]:
         """
-        Parse markdown into chunks.
+        Parse markdown into chunks using category-specific splitter.
 
         Args:
             input_path: Path to final markdown (05-fixed.md)
@@ -63,13 +70,27 @@ class ChunkStage(Stage):
         Returns:
             Metadata dict with chunk stats
         """
-        # Initialize splitter if needed
-        if self.node_splitter is None:
-            self.node_splitter = RegulationNodeSplitter(
-                max_tokens=settings.indexing.MAX_TOKENS,
-                sub_chunk_size=settings.indexing.CHUNK_SIZE,
-                sub_chunk_overlap=settings.indexing.CHUNK_OVERLAP
-            )
+        # Select splitter based on category
+        if state.category == 'curriculum':
+            # Use CurriculumNodeSplitter for curriculum documents
+            if self.curriculum_splitter is None:
+                self.curriculum_splitter = CurriculumNodeSplitter(
+                    max_tokens=settings.indexing.MAX_TOKENS,
+                    sub_chunk_size=settings.indexing.CHUNK_SIZE,
+                    sub_chunk_overlap=settings.indexing.CHUNK_OVERLAP,
+                    enable_table_splitting=True,
+                    max_table_rows_per_chunk=15
+                )
+            node_splitter = self.curriculum_splitter
+        else:
+            # Use RegulationNodeSplitter for regulation documents (default)
+            if self.regulation_splitter is None:
+                self.regulation_splitter = RegulationNodeSplitter(
+                    max_tokens=settings.indexing.MAX_TOKENS,
+                    sub_chunk_size=settings.indexing.CHUNK_SIZE,
+                    sub_chunk_overlap=settings.indexing.CHUNK_OVERLAP
+                )
+            node_splitter = self.regulation_splitter
 
         # Read markdown content
         content = input_path.read_text(encoding='utf-8')
@@ -112,14 +133,14 @@ class ChunkStage(Stage):
         )
 
         # Parse to nodes
-        nodes = self.node_splitter.get_nodes_from_documents([doc])
+        nodes = node_splitter.get_nodes_from_documents([doc])
 
         # Serialize nodes to JSON-compatible format
         serialized_chunks = []
         for node in nodes:
             # Convert node to dict
             node_dict = node.dict()
-            
+
             # Extract essential fields for storage
             chunk_data = {
                 'id': node.node_id,
@@ -129,14 +150,14 @@ class ChunkStage(Stage):
                 'end_char_idx': node.end_char_idx,
                 'relationships': {}
             }
-            
+
             # Store relationships (if any)
             if hasattr(node, 'relationships') and node.relationships:
                 for rel_type, rel_node in node.relationships.items():
                     chunk_data['relationships'][str(rel_type)] = {
                         'node_id': rel_node.node_id if hasattr(rel_node, 'node_id') else None
                     }
-            
+
             serialized_chunks.append(chunk_data)
 
         # Save to chunks.json
@@ -148,8 +169,8 @@ class ChunkStage(Stage):
 
         # Get stats from splitter
         stats = {}
-        if hasattr(self.node_splitter, 'get_stats'):
-            stats = self.node_splitter.get_stats()
+        if hasattr(node_splitter, 'get_stats'):
+            stats = node_splitter.get_stats()
 
         # Return metadata
         return {

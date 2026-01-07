@@ -61,8 +61,6 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
         Trích xuất các thông tin sau từ văn bản:
         - title: Tiêu đề đầy đủ của chương trình đào tạo
         - year: Năm áp dụng chương trình. QUAN TRỌNG: Ưu tiên extract từ TÊN FILE trước (VD: "khoa-19-2024" -> year=2024, "khoa-2021" -> year=2021). Nếu filename không có, mới lấy từ nội dung văn bản.
-        - summary: Tóm tắt ngắn gọn nội dung chính (2-3 câu)
-        - keywords: Các từ khóa quan trọng (5-7 từ khóa)
         - major: Ngành học chính. Phải là một trong: {majors_list}. Nếu đây là trang danh sách nhiều ngành, đặt null.
         - program_type: Hệ đào tạo. Chọn một trong: {program_types_list}, hoặc null nếu không xác định được.
         - program_name: Tên chương trình cụ thể. Chọn một trong: {program_names_list}, hoặc null nếu không xác định được.
@@ -125,8 +123,6 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
         {{
             "title": "...",
             "year": 2021,
-            "summary": "...",
-            "keywords": ["keyword1", "keyword2", ...],
             "major": "...",
             "program_type": "...",
             "program_name": "...",
@@ -134,6 +130,7 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
         }}
 
         LƯU Ý: CHỈ dùng null khi THỰC SỰ không có thông tin. Nếu văn bản có nội dung chi tiết, PHẢI extract đầy đủ.
+        CHỈ TRẢ VỀ JSON, KHÔNG GIẢI THÍCH.
         """
 
         try:
@@ -156,23 +153,44 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
                     return None
                 return value
 
-            # Tạo metadata_generator object
+            # Extract major_code từ major name (mapping)
+            major_code = None
+            major_name = clean_null(data.get("major"))
+            if major_name:
+                major_code_map = {
+                    "Công nghệ Thông tin": "CNTT",
+                    "Hệ thống Thông tin": "HTTT",
+                    "Khoa học Máy tính": "KHMT",
+                    "Kỹ thuật Phần mềm": "KTPM",
+                    "Kỹ thuật Máy tính": "KTMT",
+                    "Mạng máy tính và Truyền thông dữ liệu": "MMT",
+                    "An toàn Thông tin": "ATTT",
+                    "Thương mại điện tử": "TMĐT",
+                    "Khoa học Dữ liệu": "KHDL",
+                    "Trí tuệ Nhân tạo": "TTNT",
+                    "Thiết kế Vi mạch": "TKVMC",
+                    "Truyền thông đa phương tiện": "TTĐPT"
+                }
+                major_code = major_code_map.get(major_name)
+                if major_code:
+                    print(f"   Mapped major '{major_name}' -> '{major_code}'")
+
+            # Tạo metadata object
             metadata = CurriculumMetadata(
-                document_id=file_path.name,
                 category="curriculum",
                 title=data.get("title", ""),
-                year=data.get("year"),
-                summary=data.get("summary"),
-                keywords=data.get("keywords"),
-                major=clean_null(data.get("major")),
+                major=major_name,
+                major_code=major_code,
                 program_type=clean_null(data.get("program_type")),
                 program_name=clean_null(data.get("program_name")),
+                year=data.get("year"),
+                source_url=None,  # Để null, cần manual config sau này
                 is_index_page=data.get("is_index_page", False)
             )
 
-            print(f"SUCCESS: Extracted metadata_generator for {file_path.name}")
+            print(f"SUCCESS: Extracted metadata for {file_path.name}")
             print(f"  -> Year: {metadata.year}")
-            print(f"  -> Major: {metadata.major}")
+            print(f"  -> Major: {metadata.major} ({metadata.major_code})")
             print(f"  -> Program: {metadata.program_name} ({metadata.program_type})")
             return metadata
 
