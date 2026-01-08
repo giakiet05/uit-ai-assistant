@@ -646,12 +646,13 @@ Quy tắc:
                 # Build RegulationDocument
                 doc_dict = {
                     "content": clean_content,
-                    "document_id": metadata.get("document_id", ""),
                     "title": metadata.get("title", ""),
-                    "regulation_code": metadata.get("regulation_code"),
+                    "regulation_number": metadata.get("regulation_number"),
                     "hierarchy": metadata.get("hierarchy", ""),
                     "effective_date": metadata.get("effective_date"),
-                    "document_type": metadata.get("document_type", "Văn bản gốc"),
+                    "document_type": metadata.get("document_type", "original"),
+                    "year": metadata.get("year"),
+                    "pdf_file": metadata.get("pdf_file"),
                     "score": round(float(node.score), 2)
                 }
                 # Validate with Pydantic
@@ -662,12 +663,13 @@ Quy tắc:
                 # Build CurriculumDocument
                 doc_dict = {
                     "content": clean_content,
-                    "document_id": metadata.get("document_id", ""),
                     "title": metadata.get("title", ""),
                     "year": metadata.get("year"),
                     "major": metadata.get("major"),
+                    "major_code": metadata.get("major_code"),
                     "program_type": metadata.get("program_type"),
                     "program_name": metadata.get("program_name"),
+                    "source_url": metadata.get("source_url"),
                     "score": round(float(node.score), 2)
                 }
                 # Validate with Pydantic

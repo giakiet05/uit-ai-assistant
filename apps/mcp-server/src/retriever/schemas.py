@@ -23,17 +23,13 @@ class RegulationDocument(BaseModel):
     )
 
     # Metadata fields (extracted from node.metadata)
-    document_id: str = Field(
-        description="Tên file gốc (VD: '790_Qd_Dhcntt_28_9_22_Quy_Che_Dao_Tao')"
-    )
-
     title: str = Field(
         description="Tiêu đề văn bản (VD: 'Quy chế đào tạo theo học chế tín chỉ...')"
     )
 
-    regulation_code: Optional[str] = Field(
+    regulation_number: Optional[str] = Field(
         default=None,
-        description="Số hiệu văn bản (VD: '790/QĐ-ĐHCNTT')"
+        description="Số hiệu văn bản (VD: '790', '560')"
     )
 
     hierarchy: str = Field(
@@ -46,8 +42,18 @@ class RegulationDocument(BaseModel):
     )
 
     document_type: str = Field(
-        default="Văn bản gốc",
-        description="Loại văn bản (VD: 'Văn bản gốc', 'Văn bản sửa đổi', 'Văn bản thay thế')"
+        default="original",
+        description="Loại văn bản: 'original' (Văn bản gốc), 'update' (Văn bản sửa đổi), 'replacement' (Văn bản thay thế)"
+    )
+
+    year: Optional[int] = Field(
+        default=None,
+        description="Năm ban hành văn bản (VD: 2024, 2022)"
+    )
+
+    pdf_file: Optional[str] = Field(
+        default=None,
+        description="Tên file PDF gốc (VD: '560-qd-dhcntt_5-6-2024_sua_doi_quy_dinh_dao_tao_ngoai_ngu.pdf')"
     )
 
     # Retrieval metadata
@@ -71,10 +77,6 @@ class CurriculumDocument(BaseModel):
     )
 
     # Metadata fields
-    document_id: str = Field(
-        description="Tên file gốc"
-    )
-
     title: str = Field(
         description="Tiêu đề (VD: 'Chương trình đào tạo ngành Khoa học Máy tính')"
     )
@@ -89,6 +91,11 @@ class CurriculumDocument(BaseModel):
         description="Ngành học (VD: 'Khoa học Dữ liệu', 'Công nghệ Thông tin')"
     )
 
+    major_code: Optional[str] = Field(
+        default=None,
+        description="Mã ngành (VD: '7480101', '7480201')"
+    )
+
     program_type: Optional[Literal["Chính quy", "Từ xa"]] = Field(
         default=None,
         description="Hệ đào tạo"
@@ -97,6 +104,11 @@ class CurriculumDocument(BaseModel):
     program_name: Optional[str] = Field(
         default=None,
         description="Tên chương trình cụ thể (VD: 'Chương trình Tiên tiến', 'Văn bằng 2', 'Chương trình Chuẩn')"
+    )
+
+    source_url: Optional[str] = Field(
+        default=None,
+        description="URL nguồn của tài liệu"
     )
 
     # Retrieval metadata
