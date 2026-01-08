@@ -1,0 +1,652 @@
+[
+  {
+    "id": "qcdt_001",
+    "question": "Thời gian tối đa để hoàn thành chương trình đào tạo đối với sinh viên khóa 2022 là bao lâu?",
+    "ground_truth": "Tùy theo khả năng học tập, sinh viên được kéo dài thời gian học tối đa 04 học kỳ chính so với thời gian thiết kế của chương trình.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 6, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_002",
+    "question": "Lớp học phần đại cương sẽ bị hủy nếu sĩ số đăng ký dưới bao nhiêu sinh viên?",
+    "ground_truth": "Theo quy định cập nhật (QĐ 1393/2023), lớp học phần đại cương và cơ sở ngành học chung toàn trường được mở nếu số lượng sinh viên đăng ký tối thiểu là 70 sinh viên. Nếu dưới mức này lớp sẽ không được mở.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 2 (Sửa đổi Điều 12 QĐ 790)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_003",
+    "question": "Trong học kỳ hè, tôi có thể đăng ký tối đa bao nhiêu tín chỉ và được đăng ký những loại học phần nào?",
+    "ground_truth": "Trong học kỳ hè, sinh viên được đăng ký tối đa 12 tín chỉ. Sinh viên được phép đăng ký học mới, học lại và học cải thiện điểm nếu có nhu cầu.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 3 (Sửa đổi Điều 14 QĐ 790)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_004",
+    "question": "Cách tính học phí học lại trong học kỳ hè được quy định như thế nào?",
+    "ground_truth": "Học phí học lại (HPTCHL) trong học kỳ hè được tính theo công thức chung: Học phí = HPTCHM_HKHE x TCHPHM + HPTCHL x TCHPHL + HPTCCT x TCHPCT. Cụ thể mức thu sẽ theo quy định học phí hiện hành.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 1 (Sửa đổi Điều 4 QĐ 790)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_005",
+    "question": "Sinh viên năm nhất được xếp hạng trình độ năm hai khi nào?",
+    "ground_truth": "Sinh viên được xếp trình độ năm hai khi số tín chỉ tích lũy đạt từ 30 đến dưới 60 tín chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_006",
+    "question": "Tôi muốn học cùng lúc hai chương trình (song ngành) thì cần điều kiện gì về điểm số?",
+    "ground_truth": "Sinh viên cần đáp ứng một trong hai điều kiện về điểm số: (1) Học lực tính theo ĐTBCTL xếp loại Khá trở lên và đáp ứng ngưỡng bảo đảm chất lượng của chương trình thứ hai; HOẶC (2) Học lực tính theo ĐTBCTL xếp loại Trung bình và đáp ứng điều kiện trúng tuyển của chương trình thứ hai trong năm tuyển sinh.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 18, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_007",
+    "question": "Sinh viên bị cảnh báo học vụ nếu điểm trung bình học kỳ đạt dưới 1.0 đúng không?",
+    "ground_truth": "Không chính xác. Sinh viên bị cảnh báo học vụ nếu: (1) Có Điểm trung bình học kỳ (ĐTBHK) dưới 3,0; HOẶC (2) Điểm trung bình của liên tiếp 2 học kỳ gần nhất đều dưới 4,0.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_008",
+    "question": "Tôi nghe nói chỉ cần đóng tiền là được miễn học phần đã học ở trường khác mà không cần xét duyệt?",
+    "ground_truth": "Thông tin này sai. Để miễn học phần đã học ở cơ sở đào tạo khác, sinh viên phải làm đơn kèm bảng điểm, xác nhận số tín chỉ gửi về Phòng ĐTĐH trong vòng 1 tháng đầu học kỳ. Trường có thể yêu cầu cung cấp đề cương chi tiết để đối sánh chứ không tự động miễn.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 4 (Sửa đổi Điều 23 QĐ 790)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_009",
+    "question": "Học phần giáo dục thể chất và giáo dục quốc phòng có tính vào điểm trung bình tích lũy không?",
+    "ground_truth": "Không. Kết quả học tập các học phần Giáo dục thể chất và Giáo dục quốc phòng - an ninh không tính vào điểm trung bình chung học kỳ, điểm trung bình tích lũy, nhưng là điều kiện để xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24, Khoản 7",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_010",
+    "question": "Sinh viên khóa 2021 đăng ký học hè tối đa 15 tín chỉ được không?",
+    "ground_truth": "Không được. Theo quy định cập nhật (QĐ 1393/2023), trong học kỳ hè tổng số tín chỉ đăng ký không được vượt quá 12 tín chỉ.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 3 (Sửa đổi Điều 14 QĐ 790)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_011",
+    "question": "Tôi trúng tuyển nhưng bị tai nạn phải điều trị dài ngày, tôi có được bảo lưu kết quả không và thời hạn bao lâu?",
+    "ground_truth": "Sinh viên được phép xin bảo lưu kết quả trúng tuyển nếu bị tai nạn, bệnh tật phải điều trị dài ngày. Thời gian bảo lưu không quá 01 năm. Sinh viên cần nộp đơn xin bảo lưu chậm nhất 15 ngày kể từ ngày gọi nhập học.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 11",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_012",
+    "question": "Sinh viên có thể xin nhận điểm I (hoãn thi) trong những trường hợp nào?",
+    "ground_truth": "Sinh viên được xem xét cho nhận điểm I nếu vì lý do chính đáng không thể dự thi như: ốm đau, tai nạn, việc gia đình đột xuất.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 22",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_013",
+    "question": "Tôi đã nhận điểm I môn Giải tích, tôi phải thi lại trong thời hạn bao lâu?",
+    "ground_truth": "Sinh viên phải đăng ký thi lại môn học nhận điểm I trong thời gian tối đa là 2 học kỳ chính tiếp theo. Nếu quá hạn không thi, điểm I sẽ chuyển thành điểm 0.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 22, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_014",
+    "question": "Tôi đã học một môn ở trường khác cách đây 6 năm, giờ tôi xin miễn môn đó được không?",
+    "ground_truth": "Không được. Theo quy định, sinh viên chỉ được xin miễn học phần đã thi đạt yêu cầu ở cơ sở đào tạo khác trong thời gian không quá 5 năm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 23, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_015",
+    "question": "Tôi có thể chuyển đổi tối đa bao nhiêu phần trăm tín chỉ từ trường khác sang UIT?",
+    "ground_truth": "Tổng số tín chỉ được công nhận và chuyển đổi không vượt quá 50% tổng số tín chỉ chương trình đào tạo của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 26, Khoản 5",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_016",
+    "question": "Để môn học tích lũy ở trường khác được công nhận tại UIT, nội dung môn học đó phải tương đương bao nhiêu phần trăm?",
+    "ground_truth": "Môn học được công nhận và chuyển đổi tín chỉ phải có từ 80% trở lên nội dung tương đương với môn học trong chương trình đào tạo của UIT.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 26, Khoản 2a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_017",
+    "question": "Sinh viên chương trình chuẩn muốn làm khóa luận tốt nghiệp cần thỏa mãn điều kiện gì về điểm số?",
+    "ground_truth": "Sinh viên chương trình chuẩn muốn làm khóa luận tốt nghiệp cần có điểm trung bình chung (ĐTBC) tính đến thời điểm xét làm khóa luận tối thiểu 6.5 (hoặc cao hơn tùy khoa) và không được nợ quá 8 tín chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 31, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_018",
+    "question": "Nếu tôi đăng ký thực tập doanh nghiệp nhưng quên báo cáo cuối kỳ thì có sao không?",
+    "ground_truth": "Nếu sinh viên đăng ký thực tập doanh nghiệp nhưng không báo cáo vào đúng đợt quy định thì xem như không đạt học phần này và nhận điểm 0. Sinh viên phải đăng ký học lại vào học kỳ tiếp theo.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 31, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_019",
+    "question": "Tôi đạt điểm tích lũy 3.8 (Xuất sắc) nhưng bị kỷ luật Cảnh cáo thì tốt nghiệp loại gì?",
+    "ground_truth": "Nếu sinh viên đạt loại Xuất sắc nhưng đã bị kỷ luật mức Cảnh cáo trở lên trong thời gian học, loại tốt nghiệp sẽ bị giảm 1 bậc xuống thành loại Giỏi.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 34, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_020",
+    "question": "Điểm rèn luyện dưới 50 điểm có được xét tốt nghiệp không?",
+    "ground_truth": "Không. Một trong các điều kiện để được xét tốt nghiệp là sinh viên phải đạt điểm rèn luyện tích lũy tối thiểu là 50 điểm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 33, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_021",
+    "question": "Thời gian tối đa để tôi nhận bằng tốt nghiệp sau khi có quyết định công nhận là bao lâu?",
+    "ground_truth": "Sinh viên đủ điều kiện tốt nghiệp sẽ được cấp bằng tốt nghiệp trong vòng 03 tháng tính từ ngày có quyết định công nhận tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 33, Khoản 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_022",
+    "question": "Tôi học 6 năm mới xong chương trình 4 năm thì có được xếp loại Xuất sắc không?",
+    "ground_truth": "Không. Nếu thời gian học tập vượt quá 02 học kỳ so với thời gian thiết kế (tức là quá 5 năm với chương trình 4 năm), sinh viên sẽ bị giảm 1 bậc xếp loại tốt nghiệp (từ Xuất sắc xuống Giỏi).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 34, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_023",
+    "question": "Sinh viên chương trình tài năng có bắt buộc phải làm khóa luận tốt nghiệp không?",
+    "ground_truth": "Có. Sinh viên chương trình tiên tiến và chương trình tài năng bắt buộc phải làm khóa luận tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 31, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_024",
+    "question": "Điểm trung bình học kỳ (ĐTBHK) được dùng để làm gì?",
+    "ground_truth": "Điểm trung bình học kỳ (ĐTBHK) được dùng để xét học bổng, khen thưởng và xử lý học vụ sau mỗi học kỳ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_025",
+    "question": "Điểm trung bình chung (ĐTBC) khác gì với Điểm trung bình tích lũy (ĐTBCTL)?",
+    "ground_truth": "Điểm trung bình chung (ĐTBC) tính cả các học phần không đạt, dùng để xét số tín chỉ đăng ký, học vượt, chuyển ngành. Còn Điểm trung bình tích lũy (ĐTBCTL) chỉ tính các học phần đã tích lũy (>= 5.0), dùng để xếp hạng tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24, Khoản 2 & 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_026",
+    "question": "Tôi bị đình chỉ học tập 1 học kỳ vì nhờ người thi hộ, sau đó tôi có được học lại không?",
+    "ground_truth": "Có (nếu là lần đầu). Sinh viên bị đình chỉ học tập 1 học kỳ chính nếu vi phạm lần đầu việc nhờ người thi hộ. Sau thời gian đình chỉ có thể quay lại học. Tuy nhiên, nếu vi phạm lần 2 sẽ bị buộc thôi học.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 2 & 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_027",
+    "question": "Sinh viên có thể xin thôi học vì lý do cá nhân được không?",
+    "ground_truth": "Được. Sinh viên có thể gửi đơn xin thôi học vì hoàn cảnh cá nhân để Trường xem xét ra quyết định cho phép thôi học.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 17, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_028",
+    "question": "Tôi muốn chuyển từ hình thức chính quy sang từ xa thì có được không?",
+    "ground_truth": "Được, nhưng phải được Hiệu trưởng xét cụ thể từng trường hợp. Đặc biệt, sinh viên thuộc diện buộc thôi học nếu có nguyện vọng chuyển sang đào tạo từ xa cũng phải làm đơn để Hiệu trưởng xét.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 3 (Mục a - đoạn cuối)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_029",
+    "question": "Điểm bảo lưu (BL) có tính vào điểm trung bình học kỳ không?",
+    "ground_truth": "Không. Điểm I, điểm M, điểm BL không được tính trong ĐTBHK, ĐTBC và ĐTBCTL.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24, Khoản 8",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_030",
+    "question": "Sinh viên được phép học tối đa bao nhiêu phần trăm chương trình qua mạng (online)?",
+    "ground_truth": "Đối với đào tạo chính quy, tối đa 30% tổng khối lượng của chương trình đào tạo được thực hiện bằng phương thức qua mạng (trừ trường hợp bất khả kháng như thiên tai, dịch bệnh).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 28, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_031",
+    "question": "Tôi bị buộc thôi học nếu điểm trung bình học kỳ bằng 0 trong 1 học kỳ phải không?",
+    "ground_truth": "Chưa chính xác. Sinh viên chỉ bị buộc thôi học nếu ĐTBHK của HAI học kỳ liên tiếp gần nhất bằng 0, chứ không phải chỉ 1 học kỳ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 3a",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_032",
+    "question": "Tôi có thể nhờ bạn đi thi hộ môn GDQP được không vì môn đó không tính điểm?",
+    "ground_truth": "Tuyệt đối không. Sinh viên nhờ người thi hộ (dù là môn nào) sẽ bị đình chỉ học tập 1 học kỳ chính (nếu vi phạm lần đầu) hoặc buộc thôi học (nếu vi phạm lần 2).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 2",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_033",
+    "question": "Cố vấn học tập do ai bổ nhiệm?",
+    "ground_truth": "Cố vấn học tập do Trưởng khoa/Trưởng bộ môn đề nghị và Hiệu trưởng ra quyết định bổ nhiệm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 15, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_034",
+    "question": "Sinh viên năm nhất học kỳ 1 có được tự đăng ký môn học không?",
+    "ground_truth": "Không. Riêng sinh viên khóa tuyển mới, học kỳ đầu tiên sẽ học theo thời khóa biểu được xếp sẵn dựa trên kế hoạch giảng dạy mẫu, sinh viên không tự đăng ký.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 14",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_035",
+    "question": "Chương trình đào tạo cử nhân có tối thiểu bao nhiêu tín chỉ?",
+    "ground_truth": "Tổng số tín chỉ của chương trình đào tạo cử nhân tối thiểu là 120 và tối đa là 132 tín chỉ (không tính GDQP và GDTC).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_036",
+    "question": "Sinh viên được nghỉ học tối đa bao nhiêu phần trăm số buổi mới được dự thi?",
+    "ground_truth": "Sinh viên phải có mặt từ 80% trở lên số buổi học thì mới được dự thi. Tức là chỉ được nghỉ tối đa 20% số buổi.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 20, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_037",
+    "question": "Tôi muốn chuyển ngành thì có cần phải không bị cảnh báo học vụ không?",
+    "ground_truth": "Có. Một trong các điều kiện để chuyển ngành là sinh viên không trong thời gian bị kỷ luật từ cảnh báo trở lên.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 19, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_038",
+    "question": "Học phần thực hành HT2 là gì?",
+    "ground_truth": "Thực hành Hình thức 2 (HT2) là hình thức dạy thực hành có sự hướng dẫn của giảng viên với thời lượng 09 tiết/tín chỉ thực hành, không nhất thiết phải sử dụng phòng thực hành chuyên dụng.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_039",
+    "question": "Một tín chỉ học tập bằng bao nhiêu tiết thực tập?",
+    "ground_truth": "Một tín chỉ học tập tương đương với 45 – 60 tiết thực tập, kiến tập, chuẩn bị khoá luận.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_040",
+    "question": "Nếu tôi có chứng chỉ ngoại ngữ quốc tế nhưng không phù hợp với môn thi thì có được miễn không?",
+    "ground_truth": "Quy chế quy định nếu sinh viên tham gia kỳ thi quốc tế do Trường cử đi, nếu học phần KHÔNG phù hợp chuyên môn của kỳ thi và trùng lịch thi cuối kỳ thì được nhận điểm I. Còn việc dùng chứng chỉ ngoại ngữ để miễn học phần sẽ tuân theo quy định riêng (Quy định đào tạo ngoại ngữ).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 23, Khoản 2 (Điểm M)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_041",
+    "question": "Tôi có thể xin bảng điểm ở đâu?",
+    "ground_truth": "Sinh viên có thể đề nghị Trường cấp bảng điểm trong quá trình học tập theo hướng dẫn của Phòng Đào tạo Đại học (P.ĐTĐH).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 27, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_042",
+    "question": "Học kỳ hè kéo dài bao lâu?",
+    "ground_truth": "Một học kỳ hè có tối thiểu 5 tuần thực học và 1 tuần thi.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 5, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_043",
+    "question": "Kết quả học kỳ hè được tính vào học kỳ nào để xét học bổng?",
+    "ground_truth": "Kết quả học tập của học kỳ hè được tính chung vào kết quả học tập học kỳ 2 của năm học tương ứng để xem xét xử lý học vụ. Còn việc xét học bổng thường dựa trên học kỳ chính, quy chế không ghi rõ học hè có tính vào học bổng hay không, nhưng ghi rõ là tính vào học kỳ liền kề trước đó (HK2) để quản lý điểm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16 & Điều 24.5",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_044",
+    "question": "Sinh viên liên thông học trong bao lâu?",
+    "ground_truth": "Đào tạo trình độ đại học đối với hệ liên thông được thực hiện từ 1,5 năm đến 2,5 năm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 6, Khoản 1a",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_045",
+    "question": "Tôi bị cảnh báo học vụ thì có được đăng ký học vượt không?",
+    "ground_truth": "Không. Sinh viên đang trong thời gian bị cảnh báo học vụ không được phép đăng ký học vượt (vì học vượt yêu cầu năng lực học tập tốt, trong khi cảnh báo là học kém).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24 (Suy luận từ mục đích ĐTBC)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_046",
+    "question": "Có bắt buộc phải học Giáo dục thể chất tại trường không?",
+    "ground_truth": "Có thể không. Các hoạt động Giáo dục Thể chất, Giáo dục Quốc phòng – An ninh có thể thực hiện ngoài trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_047",
+    "question": "Tôi có thể xin xem lại bài thi cuối kỳ không?",
+    "ground_truth": "Quy chế 790 không quy định chi tiết quy trình phúc khảo, nhưng sinh viên có quyền khiếu nại về điểm số theo các quy định chung về khảo thí của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "N/A (Implicit)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_048",
+    "question": "Sinh viên xếp hạng trình độ năm 4 là sao?",
+    "ground_truth": "Sinh viên năm thứ 4 là sinh viên có số tín chỉ tích lũy n thỏa mãn: (4-1)*30 <= n < 4*30, tức là từ 90 đến dưới 120 tín chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_049",
+    "question": "Mỗi tiết học lý thuyết dài bao nhiêu phút?",
+    "ground_truth": "Một tiết học được tính quy chuẩn bằng 50 phút.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_050",
+    "question": "Nếu tôi học song ngành mà bị cảnh báo học vụ ở ngành 1 thì sao?",
+    "ground_truth": "Nếu ĐTBCTL của chương trình thứ nhất đạt dưới xếp loại trung bình hoặc thuộc diện cảnh báo học vụ thì sinh viên phải dừng học chương trình thứ hai ở học kỳ tiếp theo và bị loại khỏi danh sách đã đăng ký học chương trình thứ hai.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 18, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  }
+]

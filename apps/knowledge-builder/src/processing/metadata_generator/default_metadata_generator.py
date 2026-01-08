@@ -1,8 +1,8 @@
 # src/processing/metadata_generator/default_metadata_generator.py
 from pathlib import Path
 from typing import Union
-from .base_metadata_generator import BaseMetadataGenerator
-from .metadata_models import RegulationMetadata, CurriculumMetadata, DefaultMetadata
+from processing.metadata_generator.base_metadata_generator import BaseMetadataGenerator
+from processing.metadata_generator.metadata_models import RegulationMetadata, CurriculumMetadata, DefaultMetadata
 
 class DefaultMetadataGenerator(BaseMetadataGenerator):
     """
@@ -12,17 +12,14 @@ class DefaultMetadataGenerator(BaseMetadataGenerator):
 
     def generate(self, file_path: Path, content: str) -> Union[RegulationMetadata, CurriculumMetadata, DefaultMetadata, None]:
         """
-        Triển khai logic trích xuất metadata_generator mặc định.
+        Triển khai logic trích xuất metadata mặc định cho category 'other'.
         """
         print(f"DEBUG: Using DefaultMetadataGenerator for {file_path.name}")
 
-        # Placeholder implementation for basic metadata_generator
+        # Placeholder implementation for basic metadata
         metadata = DefaultMetadata(
-            document_id=file_path.name,
             title=f"Placeholder Title for {file_path.stem}",
             category="other",
-            year=None,
-            summary="This is a default placeholder summary.",
-            keywords=["placeholder"],
+            is_index_page=False
         )
         return metadata

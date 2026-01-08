@@ -1,0 +1,652 @@
+[
+  {
+    "id": "vb_001",
+    "question": "Bằng tốt nghiệp đại học tại UIT do ai có thẩm quyền ký cấp?",
+    "ground_truth": "Bằng tốt nghiệp đại học, bằng thạc sĩ và bằng tiến sĩ do Hiệu trưởng Trường Đại học Công nghệ Thông tin cấp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 12, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_002",
+    "question": "Sau khi có quyết định công nhận tốt nghiệp, tôi phải chờ bao lâu mới được nhận bằng chính thức?",
+    "ground_truth": "Hiệu trưởng có trách nhiệm cấp văn bằng cho người học trong thời hạn 30 ngày kể từ ngày có quyết định công nhận tốt nghiệp đại học.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 14, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_003",
+    "question": "Tôi bị mất bằng tốt nghiệp đại học bản chính, nhà trường có cấp lại bản chính khác cho tôi không?",
+    "ground_truth": "Không. Theo quy định, văn bằng, chứng chỉ được cấp một lần duy nhất. Trường hợp bị mất, người học chỉ được cấp bản sao từ sổ gốc.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 2, Khoản 3 và Điều 15",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_004",
+    "question": "Bản sao văn bằng từ sổ gốc có giá trị pháp lý như thế nào so với bản chính?",
+    "ground_truth": "Bản sao văn bằng, chứng chỉ từ sổ gốc có giá trị pháp lý sử dụng thay cho bản chính trong các giao dịch, trừ trường hợp pháp luật có quy định khác.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 24, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_005",
+    "question": "Trong thời gian chờ cấp bằng chính thức, tôi có thể xin giấy tờ gì để đi xin việc?",
+    "ground_truth": "Trong thời gian chờ cấp văn bằng, người học đã tốt nghiệp được Hiệu trưởng Trường ĐHCNTT cấp giấy chứng nhận tốt nghiệp tạm thời.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 14, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_006",
+    "question": "Tôi muốn xin cấp bản sao văn bằng từ sổ gốc thì bao lâu sẽ nhận được?",
+    "ground_truth": "Nếu nộp hồ sơ trước 15 giờ, cơ quan có thẩm quyền phải cấp bản sao ngay trong ngày. Nếu nộp sau 15 giờ thì cấp trong ngày làm việc tiếp theo.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 27, Khoản 2b",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_007",
+    "question": "Tôi mới phẫu thuật chuyển đổi giới tính, tôi có được yêu cầu chỉnh sửa thông tin trên bằng tốt nghiệp đã cấp không?",
+    "ground_truth": "Có. Người được cấp văn bằng có quyền yêu cầu chỉnh sửa nội dung văn bằng trong trường hợp được xác định lại giới tính theo quy định của cơ quan có thẩm quyền.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 19, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_008",
+    "question": "Trường hợp nào thì văn bằng đã cấp bị thu hồi và hủy bỏ?",
+    "ground_truth": "Văn bằng bị thu hồi nếu: có hành vi gian lận trong học tập/thi cử/hồ sơ; cấp cho người không đủ điều kiện; bị tẩy xóa, sửa chữa; để cho người khác sử dụng; hoặc do lỗi của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 22, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_009",
+    "question": "Trên Phụ lục văn bằng, xếp loại tốt nghiệp 'Khá' được dịch sang tiếng Anh là gì?",
+    "ground_truth": "Theo Thông báo 1192/2024, xếp loại 'Khá' được dịch sang tiếng Anh là 'Good'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_010",
+    "question": "Sinh viên tốt nghiệp ngành Khoa học Máy tính thì tên văn bằng tiếng Anh là gì?",
+    "ground_truth": "Tên văn bằng tiếng Anh cho ngành Khoa học Máy tính là 'Bachelor of Science'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_011",
+    "question": "Tôi có được dùng chứng chỉ tiếng Anh TOEIC của trường Đại học Bách Khoa để xét tốt nghiệp không?",
+    "ground_truth": "Không. Theo Thông báo 119/2022, nhà trường đã ngừng sử dụng kết quả 2 kỹ năng Nói-Viết tại ĐH Bách Khoa để xét chuẩn đầu ra tốt nghiệp.",
+    "metadata": {
+      "document_name": "THÔNG BÁO CHỨNG CHỈ & PHÔI BẰNG",
+      "document_code": "119",
+      "document_year": 2022,
+      "source": "Tiêu đề Thông báo",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_012",
+    "question": "Cha mẹ có thể đi nhận bằng tốt nghiệp thay cho con được không?",
+    "ground_truth": "Được, nhưng phải có giấy ủy quyền theo quy định của pháp luật khi không trực tiếp đến nhận văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 2c",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_013",
+    "question": "UIT sử dụng phôi văn bằng do đơn vị nào phát hành?",
+    "ground_truth": "Trường ĐHCNTT thống nhất sử dụng phôi văn bằng do Đại học Quốc gia Thành phố Hồ Chí Minh (ĐHQG-HCM) in và phát hành.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 10, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_014",
+    "question": "Nếu bằng tốt nghiệp bị in sai tên do lỗi của nhà trường, tôi có được cấp lại bằng mới không?",
+    "ground_truth": "Có. Trường hợp văn bằng đã cấp nhưng phát hiện bị in sai do lỗi của Trường thì Trường có trách nhiệm cấp lại bản chính văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 15, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_015",
+    "question": "Tôi muốn xin cấp 10 bản sao bằng tốt nghiệp từ sổ gốc cùng lúc có được không và mất bao lâu?",
+    "ground_truth": "Được. Tuy nhiên, với trường hợp yêu cầu số lượng nhiều bản sao, thời hạn cấp có thể kéo dài thêm không quá 02 ngày làm việc.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 27, Khoản 2c",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_016",
+    "question": "Thông tin về việc cấp bằng của tôi có được công khai trên mạng không?",
+    "ground_truth": "Có. Trường có trách nhiệm công bố công khai thông tin về cấp văn bằng trên trang thông tin điện tử của Trường chậm nhất sau 30 ngày kể từ ngày cấp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 5, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_017",
+    "question": "Ngôn ngữ chính ghi trên văn bằng tại UIT là gì?",
+    "ground_truth": "Ngôn ngữ chính ghi trên văn bằng, chứng chỉ là tiếng Việt.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 8",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_018",
+    "question": "Bằng tốt nghiệp ngành kỹ thuật (ví dụ Kỹ thuật Máy tính) được gọi là bằng gì?",
+    "ground_truth": "Bằng tốt nghiệp đại học ngành kỹ thuật được gọi là bằng kỹ sư.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 6, Khoản 3a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_019",
+    "question": "Tôi có thể yêu cầu chỉnh sửa ngày sinh trên bằng tốt nghiệp dựa trên căn cước công dân mới không?",
+    "ground_truth": "Có, nếu bạn được cơ quan có thẩm quyền xác nhận thay đổi hoặc cải chính hộ tịch. Bạn cần nộp đơn kèm bằng gốc và các giấy tờ minh chứng (trích lục hộ tịch, CCCD...).",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 19 & 20",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_020",
+    "question": "Nếu trường UIT bị giải thể thì ai sẽ là người có thẩm quyền chỉnh sửa văn bằng của tôi?",
+    "ground_truth": "Trường hợp Trường đã giải thể, người có thẩm quyền quyết định chỉnh sửa nội dung văn bằng là thủ trưởng cơ quan đang quản lý sổ gốc cấp văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 18",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_021",
+    "question": "Hồ sơ xin cấp bản sao văn bằng qua bưu điện cần những gì?",
+    "ground_truth": "Hồ sơ gồm: Đơn đề nghị; Bản sao có chứng thực CMND/CCCD/Hộ chiếu; 01 phong bì có dán tem ghi rõ địa chỉ người nhận.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 27, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_022",
+    "question": "Tôi có chứng chỉ tin học quốc tế IC3, nhà trường có cấp phôi chứng chỉ này cho tôi không?",
+    "ground_truth": "Không. Trường chỉ cấp các loại chứng chỉ do Trường đào tạo và bồi dưỡng, hoặc chứng chỉ ứng dụng CNTT theo quy định của Bộ GD&ĐT. IC3 là chứng chỉ quốc tế do tổ chức nước ngoài cấp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 13 (Suy luận)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_023",
+    "question": "Sổ gốc cấp văn bằng được lưu trữ trong bao lâu?",
+    "ground_truth": "Sổ gốc cấp văn bằng, chứng chỉ phải được quản lý chặt chẽ và lưu trữ vĩnh viễn.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 16, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_024",
+    "question": "Tôi có được tẩy xóa nội dung trên bằng tốt nghiệp nếu thấy ghi sai không?",
+    "ground_truth": "Tuyệt đối không. Nghĩa vụ của người được cấp văn bằng là giữ gìn, bảo quản và không được tẩy xóa, chỉnh sửa nội dung trên văn bằng. Nếu có sai sót phải làm thủ tục chỉnh sửa chính thức.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 2d",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_025",
+    "question": "Xếp loại tốt nghiệp 'Xuất sắc' tiếng Anh là gì?",
+    "ground_truth": "Xếp loại 'Xuất sắc' tiếng Anh là 'Excellent'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_026",
+    "question": "Thời hạn giải quyết đơn đề nghị chỉnh sửa văn bằng là bao lâu?",
+    "ground_truth": "Trong thời hạn 05 ngày làm việc kể từ ngày nhận hồ sơ hợp lệ, Trường xem xét quyết định việc chỉnh sửa.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 20, Khoản 2b",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_027",
+    "question": "Tôi tốt nghiệp ngành Hệ thống Thông tin, tên văn bằng tiếng Anh của tôi là gì?",
+    "ground_truth": "Tên văn bằng tiếng Anh cho ngành Hệ thống Thông tin là 'Bachelor of Engineering'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_028",
+    "question": "Giấy chứng nhận tốt nghiệp tạm thời có hiệu lực đến khi nào?",
+    "ground_truth": "Giấy chứng nhận tốt nghiệp tạm thời có hiệu lực trong thời gian chờ cấp văn bằng chính thức (tối đa 30 ngày theo thời hạn cấp bằng).",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 14 (Suy luận)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_029",
+    "question": "Tôi có thể dùng chứng chỉ tiếng Nhật NAT-TEST để xét đạt chuẩn quá trình không?",
+    "ground_truth": "Có. Theo TB 35/2019, nhà trường công nhận chứng chỉ NAT-TEST cho chuẩn quá trình tiếng Nhật.",
+    "metadata": {
+      "document_name": "CÔNG NHẬN NAT-TEST",
+      "document_code": "35",
+      "document_year": 2019,
+      "source": "Tiêu đề Thông báo",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_030",
+    "question": "Ai là người trực tiếp in thông tin lên phôi bằng cho sinh viên?",
+    "ground_truth": "Phòng Tổ chức Hành chính (PTCHC) có trách nhiệm in thông tin cấp bằng lên phôi văn bằng theo danh sách người học tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 3, Khoản 4",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_031",
+    "question": "Khi nhận bằng tốt nghiệp, tôi có phải ký tên vào đâu không?",
+    "ground_truth": "Có. Người nhận văn bằng phải ký nhận vào sổ gốc cấp văn bằng, chứng chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 16 (Quy trình thực tế)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_032",
+    "question": "Bằng tốt nghiệp có được ghi hình thức đào tạo 'Từ xa' hay 'Chính quy' không?",
+    "ground_truth": "Theo quy định mới, phôi bằng tốt nghiệp đại học không ghi hình thức đào tạo. Tuy nhiên, thông tin này có thể được thể hiện trong Phụ lục văn bằng hoặc bảng điểm đính kèm.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 6 (Phôi bằng ĐHQG)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_033",
+    "question": "Tôi có thể mượn bằng gốc để đi công chứng rồi trả lại trường không?",
+    "ground_truth": "Không cần thiết và không có quy định mượn bằng. Nhà trường cấp bằng gốc cho sinh viên sở hữu vĩnh viễn sau khi tốt nghiệp. Nếu chưa được nhận bằng, bạn có thể xin cấp bản sao từ sổ gốc hoặc giấy chứng nhận tạm thời.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_034",
+    "question": "Trường hợp nào thì việc ký thay Hiệu trưởng trên văn bằng được chấp nhận?",
+    "ground_truth": "Việc ký thay Hiệu trưởng phải theo đúng quy định văn thư hiện hành và phải có văn bản báo cáo ĐHQG-HCM trước khi ký.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 17, Khoản 2",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_035",
+    "question": "Nhà trường có thu phí khi cấp bản sao văn bằng từ sổ gốc không?",
+    "ground_truth": "Quy chế 172 không quy định mức phí cụ thể nhưng nêu rõ người học có quyền yêu cầu cấp bản sao khi có nhu cầu. Mức phí sẽ theo quy định về học phí và lệ phí hiện hành của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 4 (Implicit)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_036",
+    "question": "Xếp loại 'Giỏi' tiếng Anh trên phụ lục văn bằng là 'Good' đúng không?",
+    "ground_truth": "Không đúng. Theo TB 1192/2024, xếp loại 'Giỏi' được dịch là 'Very Good', còn 'Good' là dành cho loại 'Khá'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_037",
+    "question": "Tôi có thể nộp đơn xin chỉnh sửa văn bằng qua bưu điện không?",
+    "ground_truth": "Có. Người đề nghị chỉnh sửa văn bằng nộp trực tiếp hoặc gửi qua đường bưu điện cho Trường 01 bộ hồ sơ theo quy định.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 20, Khoản 2a",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_038",
+    "question": "Nếu Hiệu trưởng đi vắng, ai là người có quyền ký giấy chứng nhận tốt nghiệp tạm thời cho tôi?",
+    "ground_truth": "Thông thường là Phó Hiệu trưởng được ủy quyền. Quy chế ghi chung là Hiệu trưởng cấp, việc ủy quyền tuân theo quy định tổ chức của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 14 (Ủy quyền)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_039",
+    "question": "Tôi tốt nghiệp ngành Mạng máy tính và Truyền thông dữ liệu, bằng tiếng Anh của tôi ghi là gì?",
+    "ground_truth": "Ngành Mạng máy tính và Truyền thông dữ liệu có văn bằng tiếng Anh là 'Bachelor of Engineering'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_040",
+    "question": "Tại sao thông tin văn bằng của tôi lại bị xóa khỏi trang web của trường?",
+    "ground_truth": "Thông tin văn bằng chỉ bị xóa hoặc cập nhật trạng thái nếu văn bằng đó bị thu hồi hoặc hủy bỏ (do gian lận, lỗi in ấn...). Nếu không thuộc trường hợp này, bạn nên liên hệ Phòng Dữ liệu để kiểm tra lỗi kỹ thuật.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 5",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_041",
+    "question": "Tôi có được cấp bản sao văn bằng từ sổ gốc nếu chưa nhận bản chính không?",
+    "ground_truth": "Có. Việc cấp bản sao văn bằng từ sổ gốc có thể được thực hiện đồng thời với việc cấp bản chính.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 25",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_042",
+    "question": "Giấy tờ tùy thân nào được chấp nhận khi làm thủ tục chỉnh sửa văn bằng?",
+    "ground_truth": "Giấy chứng minh nhân dân hoặc căn cước công dân hoặc hộ chiếu hoặc giấy tờ tùy thân hợp pháp khác có ảnh của người được cấp văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 20, Khoản 1đ",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_043",
+    "question": "Tôi muốn nộp đơn xin chỉnh sửa văn bằng thì nộp cho phòng ban nào?",
+    "ground_truth": "Hồ sơ nộp cho Phòng Đào tạo Đại học (đối với bằng đại học) hoặc Phòng Đào tạo Sau đại học (đối với bằng thạc sĩ, tiến sĩ).",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_044",
+    "question": "Tôi có thể dùng dấu chữ ký (dấu khắc sẵn) để đóng lên văn bằng không?",
+    "ground_truth": "Không. Chỉ trong trường hợp thật cần thiết và phải được ĐHQG-HCM cho phép mới được sử dụng dấu chữ ký đóng lên văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 17, Khoản 3",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_045",
+    "question": "Người đại diện theo pháp luật có quyền yêu cầu cấp bản sao văn bằng từ sổ gốc không?",
+    "ground_truth": "Có. Người đại diện theo pháp luật hoặc người đại diện theo ủy quyền của người được cấp bản chính có quyền yêu cầu cấp bản sao từ sổ gốc.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 26, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_046",
+    "question": "Trong bản sao văn bằng, nội dung ghi có khác gì so với bản chính không?",
+    "ground_truth": "Nội dung ghi trong bản sao văn bằng phải chính xác so với sổ gốc (mà sổ gốc ghi chép đầy đủ nội dung như bản chính). Do đó nội dung là khớp nhau.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 23, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_047",
+    "question": "Nếu phôi văn bằng của ĐHQG-HCM thay đổi mẫu thì khi tôi xin cấp bản sao, nhà trường dùng mẫu cũ hay mẫu mới?",
+    "ground_truth": "Trường hợp mẫu bản sao văn bằng tại thời điểm cấp bản sao đã thay đổi, nhà trường sử dụng mẫu bản sao văn bằng hiện hành để cấp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 23, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_048",
+    "question": "Tôi có thể dùng chứng chỉ tiếng Anh VNU-EPT để xét tốt nghiệp được không?",
+    "ground_truth": "Có. Chứng chỉ VNU-EPT là một trong các loại chứng chỉ được nhà trường công nhận để xét đạt chuẩn tốt nghiệp (theo TB 119 và QĐ 172).",
+    "metadata": {
+      "document_name": "THÔNG BÁO CHỨNG CHỈ & PHÔI BẰNG",
+      "document_code": "119",
+      "document_year": 2022,
+      "source": "Tiêu đề",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_049",
+    "question": "Quy chế văn bằng 172 có hiệu lực thay thế quy định nào trước đó?",
+    "ground_truth": "Quy chế 172 thay thế cho Quyết định 284/2017 và Quyết định 43/2018 về văn bằng, chứng chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 2 (QĐ ban hành)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_050",
+    "question": "Phòng nào có trách nhiệm trình Hiệu trưởng ký và đóng dấu văn bằng?",
+    "ground_truth": "Phòng Tổ chức Hành chính (PTCHC) có trách nhiệm trình Hiệu trưởng ký và đóng dấu văn bằng, chứng chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 3, Khoản 4",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  }
+]

@@ -4,9 +4,9 @@ Factory for creating appropriate file content extractors.
 import os
 from typing import Type, Dict
 
-from .base_parser import BaseParser
-from .pdf_parser import PdfParser
-from .docx_parser import DocxParser
+from processing.parser.base_parser import BaseParser
+from processing.parser.pdf_parser import PdfParser
+from processing.parser.docx_parser import DocxParser
 # XLSX not supported - use SQL database instead for structured data
 
 class ParserFactory:
@@ -57,7 +57,7 @@ class ParserFactory:
         # Try LlamaParse first if enabled
         if use_llamaparse:
             try:
-                from .llama_parser import LlamaParser
+                from processing.parser.llama_parser import LlamaParser
                 llama = LlamaParser()
                 if llama.supports_file(file_path):
                     return llama

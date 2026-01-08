@@ -4,7 +4,7 @@ Helper utilities for finding files in the project.
 
 from pathlib import Path
 from typing import Optional
-from ..config.settings import settings
+from config.settings import settings
 
 
 def find_raw_file(category: str, document_id: str) -> Optional[Path]:

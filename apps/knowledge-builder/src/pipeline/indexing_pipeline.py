@@ -6,11 +6,11 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 import logging
 
-from .core.pipeline_state import PipelineState
-from .core.stage import Stage
-from .stages.chunk_stage import ChunkStage
-from .stages.embed_index_stage import EmbedIndexStage
-from ..config.settings import settings
+from pipeline.core.pipeline_state import PipelineState
+from pipeline.core.stage import Stage
+from pipeline.stages.chunk_stage import ChunkStage
+from pipeline.stages.embed_index_stage import EmbedIndexStage
+from config.settings import settings
 
 
 logger = logging.getLogger(__name__)
@@ -150,6 +150,13 @@ class IndexingPipeline:
             input_path=input_path,
             force=force
         )
+        
+        # IMPORTANT: Cleanup ChromaDB resources for embed-index
+        if stage_name == 'embed-index' and hasattr(stage, 'cleanup'):
+            try:
+                stage.cleanup()
+            except Exception as e:
+                logger.warning(f"Failed to cleanup stage resources: {e}")
 
         # Get result from state
         stage_info = self.state.get_stage(stage_name)

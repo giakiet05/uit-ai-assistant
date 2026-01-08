@@ -3,7 +3,7 @@ Extractor for XLSX files using the openpyxl library.
 """
 import openpyxl
 
-from .base_parser import BaseParser
+from processing.parser.base_parser import BaseParser
 
 class XlsxParser(BaseParser):
     """Extracts text content from XLSX files."""

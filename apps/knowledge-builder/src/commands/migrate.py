@@ -7,8 +7,8 @@ One-time migration from legacy flat structure to stage-based structure.
 import shutil
 from pathlib import Path
 from typing import Optional, List
-from ..config.settings import settings
-from ..pipeline.core.pipeline_state import PipelineState
+from config.settings import settings
+from pipeline.core.pipeline_state import PipelineState
 
 
 def run_migrate(args):

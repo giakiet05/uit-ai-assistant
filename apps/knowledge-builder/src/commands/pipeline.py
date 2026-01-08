@@ -4,9 +4,9 @@ Pipeline command - Run processing and indexing pipelines.
 
 from pathlib import Path
 from typing import Optional, List
-from ..config.settings import settings
-from ..pipeline import ProcessingPipeline, IndexingPipeline
-from ..utils.file_finder import find_raw_file
+from config.settings import settings
+from pipeline import ProcessingPipeline, IndexingPipeline
+from utils.file_finder import find_raw_file
 
 
 def run_pipeline(args):
@@ -26,23 +26,40 @@ def run_pipeline(args):
     """
     # Determine what to process
     if args.file:
-        # Single file
+        # Single document directory
         file_path = Path(args.file)
-        
-        if not file_path.exists():
-            print(f"[ERROR] File not found: {file_path}")
-            return
-        
-        # Infer category and document_id
-        if file_path.is_dir():
-            # stages/{category}/{document_id}/
-            document_id = file_path.name
-            category = file_path.parent.name
-        else:
-            # Raw file
-            print(f"[ERROR] Expected document directory, got file: {file_path}")
+
+        # Try to resolve path in multiple ways:
+        # 1. As-is (absolute or relative from cwd)
+        # 2. From STAGES_DIR if category is provided
+
+        resolved_path = None
+
+        if file_path.exists() and file_path.is_dir():
+            resolved_path = file_path
+        elif args.category:
+            # Try: STAGES_DIR/{category}/{file_path}
+            candidate = settings.paths.STAGES_DIR / args.category / file_path.name
+            if candidate.exists() and candidate.is_dir():
+                resolved_path = candidate
+
+        if not resolved_path:
+            print(f"[ERROR] Document directory not found: {file_path}")
+            if args.category:
+                print(f"[HINT] Also tried: {settings.paths.STAGES_DIR / args.category / file_path.name}")
+            else:
+                print(f"[HINT] You can specify --category to help locate the document")
             print(f"[INFO] Use format: data/stages/{{category}}/{{document_id}}/")
             return
+
+        # Infer category and document_id from path
+        # Expected: stages/{category}/{document_id}/
+        document_id = resolved_path.name
+        category = resolved_path.parent.name
+
+        # Override category if explicitly provided
+        if args.category:
+            category = args.category
         
         _run_pipeline_for_document(
             category=category,

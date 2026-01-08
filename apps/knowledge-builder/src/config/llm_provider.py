@@ -8,7 +8,7 @@ from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
 from llama_index.llms.gemini import Gemini
 
-from .settings import settings
+from config.settings import settings
 
 # Load environment variables from .env file
 load_dotenv()

@@ -3,7 +3,7 @@ Extractor for DOCX files using the python-docx library.
 """
 import docx
 
-from .base_parser import BaseParser
+from processing.parser.base_parser import BaseParser
 
 class DocxParser(BaseParser):
     """Extracts text content from DOCX files."""

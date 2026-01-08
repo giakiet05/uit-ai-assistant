@@ -1,9 +1,9 @@
 """Commands package - CLI command handlers."""
 
-from .pipeline import run_pipeline
-from .stage import run_stage
-from .status import run_status
-from .migrate import run_migrate
+from commands.pipeline import run_pipeline
+from commands.stage import run_stage
+from commands.status import run_status
+from commands.migrate import run_migrate
 
 __all__ = [
     "run_pipeline",

@@ -126,7 +126,7 @@ class PipelineState:
 
         # Determine stages directory
         if stages_dir is None:
-            from ...config.settings import settings
+            from config.settings import settings
             stages_dir = settings.paths.STAGES_DIR
 
         self.stages_dir = Path(stages_dir)

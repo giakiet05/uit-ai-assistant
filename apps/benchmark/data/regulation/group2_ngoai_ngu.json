@@ -1,0 +1,652 @@
+[
+  {
+    "id": "nn_001",
+    "question": "Sinh viên khóa 2022 thuộc chương trình chuẩn cần đạt chứng chỉ TOEIC bao nhiêu để xét tốt nghiệp?",
+    "ground_truth": "Theo Quy định 828 (áp dụng cho khóa 2022), sinh viên chương trình chuẩn cần đạt TOEIC Nghe-Đọc 450 điểm và Nói-Viết 185 điểm (hoặc các chứng chỉ tương đương khác) để xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9, Bảng 5",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_002",
+    "question": "Sinh viên khóa 2024 chương trình chuẩn cần đạt chuẩn đầu ra tiếng Anh như thế nào?",
+    "ground_truth": "Theo Quyết định 560 (áp dụng cho khóa 2024 trở về sau), sinh viên chương trình chuẩn cần đạt TOEIC Nghe-Đọc 450 điểm và TOEIC Nói-Viết 185 điểm (mức điểm giữ nguyên so với khóa 2022, nhưng cập nhật tên bậc theo khung năng lực 6 bậc).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_003",
+    "question": "Tôi có thể dùng chứng chỉ IELTS General Training để xét miễn môn học tiếng Anh không?",
+    "ground_truth": "Có. Theo Quyết định 560/2024, Trường cho phép sinh viên sử dụng cả IELTS Academic và IELTS General để xét miễn môn học và xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_004",
+    "question": "Nếu sau 2 học kỳ chính tôi chưa đạt Anh văn 1 thì sẽ bị xử lý như thế nào?",
+    "ground_truth": "Nếu sau 2 học kỳ chính chưa đạt Anh văn 1, sinh viên chỉ được đăng ký tối đa 12 tín chỉ cho các môn học không thuộc nhóm ngoại ngữ (bao gồm cả học lại/cải thiện) cho đến khi đạt chuẩn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_005",
+    "question": "Thời hạn nộp chứng chỉ để xét miễn môn học tiếng Anh là khi nào?",
+    "ground_truth": "Sinh viên cần nộp chứng chỉ để xét miễn chậm nhất là 2 tuần trước khi bắt đầu học kỳ 1 (đối với miễn học) hoặc 2 tuần trước khi bắt đầu đăng ký học phần (đối với xét chuẩn quá trình).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4 Khoản 2 & Điều 8 Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_006",
+    "question": "Chứng chỉ ngoại ngữ dùng để xét miễn phải còn hạn bao lâu?",
+    "ground_truth": "Văn bằng/chứng chỉ/chứng nhận phải còn thời hạn hai năm tính từ ngày cấp đến ngày đăng ký xét công nhận đạt chuẩn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_007",
+    "question": "Sinh viên năm 3 có được nộp chứng chỉ để xin miễn học Anh văn 1 không?",
+    "ground_truth": "Không. Trường chỉ xét miễn các môn học ngoại ngữ trong vòng 4 học kỳ chính kể từ khi nhập học (tức hết năm 2). Sau thời gian này, sinh viên phải đăng ký học tại trường chứ không được xét miễn nữa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 1",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_008",
+    "question": "Sinh viên chương trình tài năng cần đạt IELTS bao nhiêu để tốt nghiệp?",
+    "ground_truth": "Sinh viên chương trình tài năng (CTTN) cần đạt IELTS 5.5 trở lên để xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9, Bảng 5",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_009",
+    "question": "Sinh viên chương trình tiên tiến cần đạt chuẩn đầu ra tiếng Anh cao hơn chương trình chuẩn bao nhiêu bậc?",
+    "ground_truth": "Chương trình tiên tiến cần đạt IELTS 6.0 (Bậc 5), trong khi chương trình chuẩn cần IELTS 4.5 (Bậc 3). Vậy là cao hơn 2 bậc khung năng lực 6 bậc.",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1 (Bảng điểm)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_010",
+    "question": "Nếu tôi có bằng đại học Ngôn ngữ Anh của trường khác thì có được miễn học tiếng Anh không?",
+    "ground_truth": "Có. Văn bằng tốt nghiệp đại học ngôn ngữ Anh (chính quy, không qua phiên dịch) được sử dụng để xét miễn học và xét công nhận chuẩn đầu ra ngoại ngữ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_011",
+    "question": "Tôi là sinh viên khóa 2021, tôi phải theo quy định ngoại ngữ nào?",
+    "ground_truth": "Sinh viên khóa tuyển sinh trước năm 2022 (như khóa 2021) có thể lựa chọn áp dụng quy định 828 (mới) hoặc quy định được ban hành trước đó (ví dụ QĐ 547/2019) tùy theo nguyện vọng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_012",
+    "question": "Điểm kiểm tra xếp lớp đầu khóa có tính vào điểm trung bình tích lũy không?",
+    "ground_truth": "Không. Điểm kiểm tra xếp lớp chỉ dùng để xếp lớp học phần tiếng Anh phù hợp, không tính vào điểm trung bình.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4 (Implicit context)",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_013",
+    "question": "Sinh viên không tham gia kiểm tra xếp lớp đầu khóa và không nộp chứng chỉ thì được xếp vào lớp nào?",
+    "ground_truth": "Nếu không dự thi và không nộp chứng chỉ, sinh viên được mặc định xếp vào trình độ tương ứng với điểm kiểm tra dưới 300 (thường là lớp sơ cấp hoặc Anh văn 1 tùy chương trình).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_014",
+    "question": "Môn Kỹ năng viết tiếng Anh (ENG07) có bắt buộc học không?",
+    "ground_truth": "Không. Môn Kỹ năng viết tiếng Anh (ENG07) và Kỹ năng thuyết trình (ENG06) là môn tự chọn, sinh viên đăng ký để tích lũy thêm tín chỉ nếu có nguyện vọng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_015",
+    "question": "Sinh viên chương trình Việt - Nhật có cần học tiếng Anh không?",
+    "ground_truth": "Sinh viên chương trình định hướng Nhật Bản không bắt buộc hoàn thành chương trình tiếng Anh tại Điều 3, nhưng vẫn có thể chọn tiếng Anh để xét tốt nghiệp nếu muốn (mặc dù chuẩn chính là tiếng Nhật).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 2, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_016",
+    "question": "Chứng chỉ VNU-EPT 200 điểm có được miễn Anh văn 3 không?",
+    "ground_truth": "Để miễn Anh văn 3, sinh viên cần đạt chứng chỉ tương đương TOEIC 450. Quy đổi VNU-EPT tương ứng cần tra bảng (thường khoảng 176+ là đạt Bậc 3/TOEIC 450). Nếu VNU-EPT 200 điểm (trên mức 176) thì được miễn Anh văn 3.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 5 & Điều 9",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_017",
+    "question": "Tôi có chứng chỉ TOEIC 500 nhưng đã hết hạn 1 tháng, tôi có được xét miễn Anh văn 2 không?",
+    "ground_truth": "Không. Văn bằng/chứng chỉ phải còn hiệu lực tính đến ngày đăng ký xét công nhận đạt chuẩn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_018",
+    "question": "Sinh viên hệ liên thông có bị xét chuẩn quá trình ngoại ngữ không?",
+    "ground_truth": "Không. Quy định không xét chuẩn quá trình đối với chương trình văn bằng hai và chương trình liên thông từ cao đẳng lên đại học.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 5",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_019",
+    "question": "Điểm Miễn (M) của môn tiếng Anh có được tính vào điểm trung bình học kỳ để xét học bổng không?",
+    "ground_truth": "Không. Sinh viên được nhận điểm Miễn cho môn học được miễn nhưng điểm này không tính vào điểm trung bình chung, điểm trung bình chung tích lũy, điểm trung bình học kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_020",
+    "question": "Lớp học Ngoại ngữ chuyên môn (NNCM) có trợ giảng người Việt không?",
+    "ground_truth": "Có. Mỗi lớp học NNCM có tối thiểu 01 trợ giảng để hỗ trợ sinh viên, và trợ giảng có thể sử dụng tiếng Việt trong quá trình hỗ trợ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_021",
+    "question": "Điều kiện để đăng ký học môn chuyên ngành bằng tiếng Anh (NNCM) là gì?",
+    "ground_truth": "Để học lớp NNCM tiếng Anh, sinh viên phải có chứng chỉ TOEIC 400 trở lên (hoặc tương đương) hoặc đã đạt môn Anh văn 2 (ENG02).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 2a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_022",
+    "question": "Tôi học chương trình Chất lượng cao, tôi cần đạt bao nhiêu điểm TOEIC Nói-Viết để ra trường?",
+    "ground_truth": "Sinh viên chương trình Chất lượng cao (CLC) cần đạt điểm TOEIC Nói-Viết tối thiểu 205 điểm (đối với khóa 2024 theo QĐ 560/2024) hoặc theo quy định tương ứng của khóa nhập học (thường là Bậc 4).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_023",
+    "question": "Có được dùng chứng chỉ tiếng Nhật để xét tốt nghiệp cho chương trình chuẩn không?",
+    "ground_truth": "Được. Sinh viên chương trình chuẩn được quyền chọn một trong các chứng chỉ ngoại ngữ: tiếng Anh, tiếng Nhật hoặc tiếng Pháp để xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 2, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_024",
+    "question": "Nếu tôi có IELTS 6.0 thì tôi được miễn những môn tiếng Anh nào?",
+    "ground_truth": "Với IELTS 6.0 (tương đương Bậc 5 trở lên), sinh viên được miễn toàn bộ các học phần tiếng Anh trong chương trình (Anh văn 1, 2, 3 và các học phần nâng cao nếu có tùy chương trình).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 5, Bảng 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_025",
+    "question": "Tôi học chương trình Việt Nhật, tôi cần chứng chỉ tiếng Nhật cấp độ nào để được miễn học môn Tiếng Nhật 1?",
+    "ground_truth": "Sinh viên cần có chứng chỉ JLPT N5 hoặc NAT-TEST N5 để được miễn môn Tiếng Nhật 1 (JAN01).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 6, Bảng 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_026",
+    "question": "Cán bộ giảng dạy môn chuyên ngành bằng tiếng Anh phải có trình độ ngoại ngữ thế nào?",
+    "ground_truth": "Cán bộ giảng dạy phải có trình độ tiếng Anh tối thiểu tương đương cấp độ C1 (khung Châu Âu) hoặc tốt nghiệp đại học nước ngoài/trong nước chương trình tiếng Anh toàn phần.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 11",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_027",
+    "question": "Sinh viên khóa 2020 muốn áp dụng quy chuẩn ngoại ngữ của khóa 2022 có được không?",
+    "ground_truth": "Được. Các khóa tuyển sinh trước năm 2022 có thể lựa chọn áp dụng quy định mới (828) thay vì quy định cũ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_028",
+    "question": "Tôi quên nộp chứng chỉ xét chuẩn quá trình đợt này thì có được đăng ký học phần bình thường không?",
+    "ground_truth": "Nếu bạn đã đến hạn xét chuẩn (ví dụ sau 2 HK phải có AV1) mà chưa nộp chứng chỉ minh chứng, hệ thống sẽ ghi nhận là chưa đạt chuẩn và bạn sẽ bị giới hạn đăng ký tối đa 12 tín chỉ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_029",
+    "question": "Môn Anh văn sơ cấp (dành cho sinh viên thi đầu vào < 300) có tính tín chỉ tích lũy không?",
+    "ground_truth": "Thông thường các môn sơ cấp/bổ trợ không tính vào tín chỉ tích lũy tốt nghiệp mà chỉ là điều kiện để học tiếp AV1. (Cần verify: Quy chế 828 không ghi rõ điều này, nhưng theo Bảng 1 thì lộ trình bắt đầu từ AV1/AV sơ cấp tùy trình độ).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3 & Bảng 1 (Implicit)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_030",
+    "question": "Tôi đạt TOEIC 450 Nghe-Đọc nhưng Nói-Viết chỉ được 160 thì có đủ chuẩn tốt nghiệp khóa 2024 không?",
+    "ground_truth": "Không. Với khóa 2024 (theo QĐ 560), chuẩn Nói-Viết yêu cầu là 185 điểm (đối với hệ Chuẩn). Mức 160 chưa đạt.",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1 (Bảng điểm)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_031",
+    "question": "Có bao nhiêu đợt xét miễn ngoại ngữ trong năm?",
+    "ground_truth": "Trường tổ chức xét miễn ngoại ngữ 4 đợt/năm, tương ứng với 4 đợt xét tốt nghiệp đại học.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_032",
+    "question": "Tôi có chứng chỉ Cambridge PET (Pass) thì tương đương bậc mấy?",
+    "ground_truth": "Chứng chỉ Cambridge PET (Pass) tương đương Bậc 3 (theo khung năng lực 6 bậc).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1 (Bảng điểm)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_033",
+    "question": "Chương trình tiên tiến học những môn tiếng Anh nào?",
+    "ground_truth": "Chương trình tiên tiến học lộ trình gồm: Anh văn sơ cấp 1, 2 (nếu cần) -> Anh văn 1, 2, 3 -> Anh văn 4, 5 (Advanced English 1, 2).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3, Bảng 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_034",
+    "question": "Sinh viên khóa 2023 có cần áp dụng chuẩn TOEIC Nói-Viết 185 điểm không?",
+    "ground_truth": "Không. Chuẩn 185 điểm (Nói-Viết) quy định tại QĐ 560 chỉ áp dụng cho khóa tuyển sinh từ năm 2024 trở về sau. Khóa 2023 áp dụng mức điểm cũ (thường là 180 hoặc thấp hơn tùy hệ).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_035",
+    "question": "Tôi có chứng chỉ Aptis có được dùng xét tốt nghiệp không?",
+    "ground_truth": "Trong danh mục các chứng chỉ được liệt kê tại QĐ 828 và 560, không thấy đề cập đến chứng chỉ Aptis. Sinh viên nên sử dụng các chứng chỉ quy định rõ như TOEIC, IELTS, TOEFL, VNU-EPT hoặc Cambridge.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_036",
+    "question": "Sinh viên có thể sử dụng chứng chỉ tiếng Anh để miễn học môn Giáo dục thể chất không?",
+    "ground_truth": "Dĩ nhiên là không. Chứng chỉ tiếng Anh chỉ dùng để miễn các môn học tiếng Anh, không liên quan đến Giáo dục thể chất.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 5",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_037",
+    "question": "Nếu tôi học song bằng, bằng 1 là CNTT, bằng 2 là Ngôn ngữ Anh thì có được miễn tiếng Anh cho bằng 1 không?",
+    "ground_truth": "Có (nếu đã tốt nghiệp bằng 2). Văn bằng tốt nghiệp đại học ngành Ngôn ngữ Anh được dùng để xét miễn và công nhận chuẩn đầu ra cho bằng CNTT.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_038",
+    "question": "Tôi muốn học môn chuyên ngành bằng tiếng Nhật thì cần điều kiện gì?",
+    "ground_truth": "Sinh viên phải có chứng chỉ JLPT N4 trở lên hoặc đã đạt môn Tiếng Nhật 3 (JAN03) thì mới được đăng ký học môn chuyên ngành bằng tiếng Nhật.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 2b",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_039",
+    "question": "Môn Anh văn 3 có mã môn học là gì?",
+    "ground_truth": "Môn Anh văn 3 có mã môn học là ENG03.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_040",
+    "question": "Có bắt buộc phải thi xếp lớp đầu khóa không?",
+    "ground_truth": "Không bắt buộc nếu bạn nộp chứng chỉ tiếng Anh để xét miễn. Nếu không nộp chứng chỉ và cũng không thi, bạn sẽ bị xếp vào lớp trình độ thấp nhất.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 2 & 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_041",
+    "question": "Hạn chót để nộp chứng chỉ miễn xếp lớp đầu khóa là bao giờ?",
+    "ground_truth": "Chậm nhất là 2 tuần trước khi bắt đầu học kỳ 1.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_042",
+    "question": "Sinh viên CLC định hướng Nhật Bản sau 4 học kỳ phải đạt chuẩn gì?",
+    "ground_truth": "Phải đạt môn Tiếng Nhật 2 (JAN02) hoặc có chứng chỉ JLPT N5 / NAT-TEST N5. Nếu không sẽ bị hạn chế tín chỉ đăng ký.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_043",
+    "question": "Tôi có chứng chỉ TOEFL iBT 45 điểm thì tương đương bậc mấy?",
+    "ground_truth": "TOEFL iBT 45 điểm tương đương Bậc 3 (theo bảng quy đổi của khóa 2024 và cả khóa cũ).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1 (Bảng điểm)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_044",
+    "question": "Trường có tổ chức thi IELTS nội bộ không?",
+    "ground_truth": "Quy định không đề cập đến việc Trường tổ chức thi IELTS nội bộ. Trường chỉ tổ chức kiểm tra xếp lớp đầu khóa (dạng thức TOEIC) và công nhận chứng chỉ quốc tế từ các đơn vị khảo thí uy tín.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "N/A (Negative)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_045",
+    "question": "Sau khi tốt nghiệp, nếu tôi thi đạt chứng chỉ tiếng Anh cao hơn thì có được cấp lại bằng tốt nghiệp loại cao hơn không?",
+    "ground_truth": "Không. Bằng tốt nghiệp chỉ cấp một lần. Việc đạt chuẩn ngoại ngữ chỉ là điều kiện để xét tốt nghiệp, không làm thay đổi xếp loại tốt nghiệp (trừ khi việc thiếu chuẩn làm chậm tiến độ dẫn đến bị hạ bậc).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9 (Suy luận)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_046",
+    "question": "Sinh viên có quyền khiếu nại về kết quả xếp lớp đầu khóa không?",
+    "ground_truth": "Quy định không ghi rõ quy trình khiếu nại xếp lớp, nhưng theo quy chế chung của trường, sinh viên luôn có quyền thắc mắc/khiếu nại về kết quả học tập/thi cử.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_047",
+    "question": "Môn ngoại ngữ chuyên môn (NNCM) có được tính vào tín chỉ tự chọn không?",
+    "ground_truth": "Môn NNCM là các môn học thuộc khối kiến thức cơ bản, cơ sở hoặc chuyên ngành. Nếu nó nằm trong danh sách môn tự chọn của CTĐT thì được tính.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 1a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_048",
+    "question": "Quy định 828 có áp dụng cho sinh viên Văn bằng 2 không?",
+    "ground_truth": "Có. Quy định này áp dụng cho cả sinh viên chương trình văn bằng hai (VB2).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_049",
+    "question": "Tôi đạt IELTS 5.0 thì được điểm A môn Anh văn 1 phải không?",
+    "ground_truth": "Theo quy định, sinh viên được miễn môn học thì được nhận \"điểm Miễn\" (không tính vào ĐTB), chứ không quy định quy đổi thành điểm số cụ thể (như điểm A hay 10).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_050",
+    "question": "Nếu tôi bị điểm F môn Anh văn 1 thì có bị cảnh báo học vụ không?",
+    "ground_truth": "Có thể. Môn Anh văn 1 (nếu là môn bắt buộc trong chương trình) nếu rớt sẽ ảnh hưởng đến ĐTBHK. Nếu ĐTBHK thấp dưới mức quy định (3.0 hoặc 2.0 tùy quy chế tín chỉ) thì sẽ bị cảnh báo học vụ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16 (Quy chế 790)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  }
+]

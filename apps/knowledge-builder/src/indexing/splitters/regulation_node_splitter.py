@@ -10,11 +10,13 @@ Features:
 Designed specifically for regulation documents.
 For curriculum documents, use CurriculumNodeSplitter (future implementation).
 """
+
 import re
 from typing import List, Dict, Sequence
 from llama_index.core import Document
 from llama_index.core.schema import BaseNode
-from .base_node_splitter import BaseNodeSplitter
+
+from indexing.splitters.base_node_splitter import BaseNodeSplitter
 
 
 class RegulationNodeSplitter(BaseNodeSplitter):
@@ -35,16 +37,16 @@ class RegulationNodeSplitter(BaseNodeSplitter):
     """
 
     # Regulation patterns (for pattern detection when markdown headers are missing)
-    DIEU_PATTERN = re.compile(r'^\*?\*?Điều\s+\d+\.')  # Điều 10. or **Điều 10.**
-    CHUONG_PATTERN = re.compile(r'^CHƯƠNG\s+[IVXLCDM0-9]+')  # CHƯƠNG 1, CHƯƠNG I
-    CHUONG_PATTERN_2 = re.compile(r'^##?\s*Chương\s+\d+')  # ## Chương 1
+    DIEU_PATTERN = re.compile(r"^\*?\*?Điều\s+\d+\.")  # Điều 10. or **Điều 10.**
+    CHUONG_PATTERN = re.compile(r"^CHƯƠNG\s+[IVXLCDM0-9]+")  # CHƯƠNG 1, CHƯƠNG I
+    CHUONG_PATTERN_2 = re.compile(r"^##?\s*Chương\s+\d+")  # ## Chương 1
 
     # NOTE: Khoản (1., 2., ...) and Mục (a), b), ...) are NOT pattern-detected
     # because they conflict with markdown lists and cause false positives.
     # They MUST have markdown headers (###) to be detected.
 
     # Special sections to keep as single chunks
-    SPECIAL_SECTIONS = ['MỤC LỤC', 'DANH MỤC TỪ VIẾT TẮT', 'QUYẾT ĐỊNH']
+    SPECIAL_SECTIONS = ["MỤC LỤC", "DANH MỤC TỪ VIẾT TẮT", "QUYẾT ĐỊNH"]
 
     def __init__(
         self,
@@ -54,7 +56,7 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         encoding_model: str = "text-embedding-3-small",
         enable_title_merging: bool = True,
         enable_pattern_detection: bool = True,
-        max_header_level: int = 4
+        max_header_level: int = 3,
     ):
         """
         Initialize smart splitter.
@@ -83,12 +85,12 @@ class RegulationNodeSplitter(BaseNodeSplitter):
 
         print(f"  - title_merging: {self.enable_title_merging}")
         print(f"  - pattern_detection: {self.enable_pattern_detection}")
-        print(f"  - max_header_level: {self.max_header_level} ({'# to ' + '#'*self.max_header_level})")
+        print(
+            f"  - max_header_level: {self.max_header_level} ({'# to ' + '#'*self.max_header_level})"
+        )
 
     def get_nodes_from_documents(
-        self,
-        documents: Sequence[Document],
-        show_progress: bool = False
+        self, documents: Sequence[Document], show_progress: bool = False
     ) -> List[BaseNode]:
         """
         Parse documents to nodes with smart handling.
@@ -123,9 +125,7 @@ class RegulationNodeSplitter(BaseNodeSplitter):
 
             # Step 5: Token check and sub-chunk if needed
             nodes = self._process_chunks_with_token_check(
-                chunks_with_context,
-                chunks_data,
-                doc.metadata
+                chunks_with_context, chunks_data, doc.metadata
             )
 
             all_nodes.extend(nodes)
@@ -144,35 +144,37 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         Returns:
             Cleaned markdown text
         """
-        lines = text.split('\n')
+        lines = text.split("\n")
         cleaned_lines = []
 
         for line in lines:
             # Remove empty headers (##\n, ###\n, etc.)
-            if re.match(r'^#{1,6}\s*$', line):
+            if re.match(r"^#{1,6}\s*$", line):
                 print(f"  [CLEANUP] Removed empty header: '{line}'")
                 continue
 
             # Fix bullet points mistakenly marked as headers
             # Pattern: "#### - Some text" -> "- Some text"
-            bullet_header_match = re.match(r'^(#{1,6})\s*(-|\*)\s+(.+)', line)
+            bullet_header_match = re.match(r"^(#{1,6})\s*(-|\*)\s+(.+)", line)
             if bullet_header_match:
                 bullet_char = bullet_header_match.group(2)
                 content = bullet_header_match.group(3)
                 fixed_line = f"{bullet_char} {content}"
-                print(f"  [CLEANUP] Fixed bullet point header: '{line[:60]}...' -> '{fixed_line[:60]}...'")
+                print(
+                    f"  [CLEANUP] Fixed bullet point header: '{line[:60]}...' -> '{fixed_line[:60]}...'"
+                )
                 cleaned_lines.append(fixed_line)
                 continue
 
             # Remove standalone separators that might confuse parser
-            if re.match(r'^-{3,}$|^={3,}$', line.strip()):
+            if re.match(r"^-{3,}$|^={3,}$", line.strip()):
                 # Keep separator but don't let it become a header
                 cleaned_lines.append(line)
                 continue
 
             cleaned_lines.append(line)
 
-        return '\n'.join(cleaned_lines)
+        return "\n".join(cleaned_lines)
 
     def _parse_by_headers(self, text: str, metadata: Dict) -> List[Dict]:
         """
@@ -193,11 +195,11 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         header_stack = []  # Stack tracking current hierarchy
         current_chunk_lines = []
 
-        lines = text.split('\n')
+        lines = text.split("\n")
 
         for line in lines:
             # Detect markdown headers
-            header_match = re.match(r'^(#{1,6})\s+(.+)', line)
+            header_match = re.match(r"^(#{1,6})\s+(.+)", line)
 
             if header_match:
                 # ========== HEADER DETECTED ==========
@@ -212,22 +214,34 @@ class RegulationNodeSplitter(BaseNodeSplitter):
                 # Save previous chunk if exists
                 if current_chunk_lines:
                     chunk_data = {
-                        'text': '\n'.join(current_chunk_lines),
-                        'header_path': [h['text'] for h in header_stack[:-1]],  # Parents only
-                        'current_header': header_stack[-1]['text'] if header_stack else None,
-                        'level': header_stack[-1]['level'] if header_stack else 0
+                        "text": "\n".join(current_chunk_lines),
+                        "header_path": [
+                            h["text"] for h in header_stack[:-1]
+                        ],  # Parents only (truncated)
+                        "full_header_path": [
+                            h for h in header_stack[:-1]
+                        ],  # Full parent headers with metadata
+                        "current_header": (
+                            header_stack[-1]["text"] if header_stack else None
+                        ),
+                        "level": header_stack[-1]["level"] if header_stack else 0,
                     }
                     chunks.append(chunk_data)
                     current_chunk_lines = []
 
                 # Update header stack: remove headers at same or deeper level
-                header_stack = [h for h in header_stack if h['level'] < level]
+                header_stack = [h for h in header_stack if h["level"] < level]
 
                 #  TRUNCATE header before adding to stack
                 truncated_header = self._truncate_header(header_text, metadata)
 
-                # Add current header
-                header_stack.append({'level': level, 'text': truncated_header})
+                # Add current header (save both truncated and full text)
+                header_stack.append({
+                    "level": level, 
+                    "text": truncated_header,
+                    "full_text": header_text,  # Keep full header for prepending
+                    "markdown_prefix": "#" * level  # Save markdown prefix (##, ###, etc.)
+                })
 
                 # Start new chunk
                 current_chunk_lines = [line]
@@ -240,10 +254,15 @@ class RegulationNodeSplitter(BaseNodeSplitter):
                         # Treat as implicit header
                         if current_chunk_lines:
                             chunk_data = {
-                                'text': '\n'.join(current_chunk_lines),
-                                'header_path': [h['text'] for h in header_stack[:-1]],
-                                'current_header': header_stack[-1]['text'] if header_stack else None,
-                                'level': header_stack[-1]['level'] if header_stack else 0
+                                "text": "\n".join(current_chunk_lines),
+                                "header_path": [h["text"] for h in header_stack[:-1]],
+                                "full_header_path": [h for h in header_stack[:-1]],
+                                "current_header": (
+                                    header_stack[-1]["text"] if header_stack else None
+                                ),
+                                "level": (
+                                    header_stack[-1]["level"] if header_stack else 0
+                                ),
                             }
                             chunks.append(chunk_data)
 
@@ -255,8 +274,13 @@ class RegulationNodeSplitter(BaseNodeSplitter):
                         truncated_header = self._truncate_header(header_text, metadata)
 
                         # Remove headers at same or deeper level
-                        header_stack = [h for h in header_stack if h['level'] < level]
-                        header_stack.append({'level': level, 'text': truncated_header})
+                        header_stack = [h for h in header_stack if h["level"] < level]
+                        header_stack.append({
+                            "level": level, 
+                            "text": truncated_header,
+                            "full_text": header_text,
+                            "markdown_prefix": ""  # No markdown prefix for pattern-detected
+                        })
 
                         current_chunk_lines = [line]
                         self.stats["patterns_detected"] += 1
@@ -268,10 +292,11 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         # Save last chunk
         if current_chunk_lines:
             chunk_data = {
-                'text': '\n'.join(current_chunk_lines),
-                'header_path': [h['text'] for h in header_stack[:-1]],  # Parents only
-                'current_header': header_stack[-1]['text'] if header_stack else None,
-                'level': header_stack[-1]['level'] if header_stack else 0
+                "text": "\n".join(current_chunk_lines),
+                "header_path": [h["text"] for h in header_stack[:-1]],  # Parents only
+                "full_header_path": [h for h in header_stack[:-1]],  # Full parent headers
+                "current_header": header_stack[-1]["text"] if header_stack else None,
+                "level": header_stack[-1]["level"] if header_stack else 0,
             }
             chunks.append(chunk_data)
 
@@ -310,7 +335,9 @@ class RegulationNodeSplitter(BaseNodeSplitter):
 
         return False
 
-    def _truncate_header(self, header: str, metadata: Dict = None, max_length: int = 80) -> str:
+    def _truncate_header(
+        self, header: str, metadata: Dict = None, max_length: int = 80
+    ) -> str:
         """
         Truncate header to avoid duplication in hierarchy.
 
@@ -343,10 +370,10 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         Returns:
             Truncated header
         """
-        category = metadata.get('category', '') if metadata else ''
+        category = metadata.get("category", "") if metadata else ""
 
         # ========== CURRICULUM: KEEP HEADERS AS-IS ==========
-        if category == 'curriculum':
+        if category == "curriculum":
             # Only truncate if extremely long
             if len(header) <= max_length:
                 return header
@@ -355,19 +382,19 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         # ========== REGULATION: TRUNCATE KNOWN PATTERNS ==========
 
         # Pattern: "Điều X. <text>" OR "Điều X" -> "Điều X"
-        if match := re.match(r'^(Điều\s+\d+)', header):
+        if match := re.match(r"^(Điều\s+\d+)", header):
             return match.group(1)
 
         # Pattern: "CHƯƠNG X - <text>" OR "CHƯƠNG X" -> "CHƯƠNG X"
-        if match := re.match(r'^(CHƯƠNG\s+[IVXLCDM0-9]+)', header):
+        if match := re.match(r"^(CHƯƠNG\s+[IVXLCDM0-9]+)", header):
             return match.group(1)
 
         # Pattern: "1. <text>" -> "Khoản 1" (ALWAYS, even if short)
-        if match := re.match(r'^(\d+)\.', header):
+        if match := re.match(r"^(\d+)\.", header):
             return f"Khoản {match.group(1)}"
 
         # Pattern: "a)" OR "a." -> "Mục a" (ALWAYS, even if short)
-        if match := re.match(r'^([a-z])[\).]', header):
+        if match := re.match(r"^([a-z])[\).]", header):
             return f"Mục {match.group(1)}"
 
         # ========== FOR OTHER HEADERS: ONLY TRUNCATE IF LONG ==========
@@ -393,91 +420,48 @@ class RegulationNodeSplitter(BaseNodeSplitter):
             return chunks
 
         # Title merging (regulation only)
-        category = metadata.get('category', '')
-        if self.enable_title_merging and category == 'regulation':
+        category = metadata.get("category", "")
+        if self.enable_title_merging and category == "regulation":
             chunks = self._merge_title_chunks(chunks)
 
         return chunks
 
     def _prepend_context(self, chunk_data: Dict, metadata: Dict) -> str:
         """
-        Prepend document context and FULL HIERARCHY to chunk text.
+        Prepend "## Điều X. Title\n" to Khoản chunks (### level).
 
-        Override BaseNodeSplitter to add hierarchy support.
+        Only prepend to Khoản chunks, NOT to Điều chunks.
+        This helps with retrieval by making the article number visible in chunk text.
+
+        Format: "## Điều 10. Khóa luận tốt nghiệp\n{chunk_text}"
 
         Args:
-            chunk_data: Dict with text, header_path, current_header
-            metadata: Document metadata_generator
+            chunk_data: Dict with text, header_path, current_header, full_header_path
+            metadata: Document metadata
 
         Returns:
-            Text with prepended context
+            Chunk text with "## Điều X. Title\n" prepended if this is a Khoản chunk
         """
-        context_parts = []
-
-        # ========== DOCUMENT-LEVEL CONTEXT ==========
-
-        if doc_id := metadata.get("document_id"):
-            # Clean filename for display
-            clean_id = doc_id.replace('.md', '').replace('-', ' ').title()
-            context_parts.append(f"Tài liệu: {clean_id}")
-
-        if title := metadata.get("title"):
-            context_parts.append(f"Tiêu đề: {title}")
-
-        # ========== HEADER HIERARCHY (NEW!) ==========
-        # header_path: Parent headers only (ALREADY TRUNCATED in parsing)
-        # current_header: This chunk's header (ALREADY TRUNCATED in parsing)
-        # full_path: Parents + current (e.g., ["CHƯƠNG I", "Điều 8", "Khoản 1"])
-
-        header_path = chunk_data.get('header_path', [])
-        current_header = chunk_data.get('current_header')
-
-        if header_path or current_header:
-            full_path = header_path.copy()
-            if current_header:
-                full_path.append(current_header)
-
-            if full_path:
-                path_str = " > ".join(full_path)
-                context_parts.append(f"Cấu trúc: {path_str}")
-
-        # ========== CATEGORY-SPECIFIC METADATA ==========
-
-        category = metadata.get("category")
-
-        if category == "regulation":
-            if effective_date := metadata.get("effective_date"):
-                context_parts.append(f"Ngày hiệu lực: {effective_date}")
-
-            if doc_type := metadata.get("document_type"):
-                type_map = {
-                    "original": "Văn bản gốc",
-                    "update": "Văn bản sửa đổi",
-                    "supplement": "Văn bản bổ sung"
-                }
-                context_parts.append(f"Loại: {type_map.get(doc_type, doc_type)}")
-
-        elif category == "curriculum":
-            if major := metadata.get("major"):
-                context_parts.append(f"Ngành: {major}")
-
-            if year := metadata.get("year"):
-                context_parts.append(f"Năm: {year}")
-
-            if program_type := metadata.get("program_type"):
-                context_parts.append(f"Hệ: {program_type}")
-
-            if program_name := metadata.get("program_name"):
-                context_parts.append(f"Chương trình: {program_name}")
-
-        # ========== COMBINE CONTEXT + CONTENT ==========
-
-        if context_parts:
-            context_header = "\n".join(context_parts)
-            separator = "\n---\n"
-            return f"{context_header}{separator}{chunk_data['text']}"
-        else:
-            return chunk_data['text']
+        text = chunk_data["text"]
+        current_header = chunk_data.get("current_header", "")
+        full_header_path = chunk_data.get("full_header_path", [])
+        
+        # Check if current chunk is a Khoản (level 3, header like "Khoản 1")
+        # and has a parent Điều in full_header_path
+        if current_header and re.match(r"^Khoản\s+\d+", current_header):
+            # Find parent Điều in full_header_path
+            for parent_header in full_header_path:
+                parent_text = parent_header.get("text", "")
+                if re.match(r"^Điều\s+\d+", parent_text):
+                    # Get full header text and markdown prefix
+                    full_text = parent_header.get("full_text", parent_text)
+                    markdown_prefix = parent_header.get("markdown_prefix", "##")
+                    
+                    # Prepend "## Điều X. Title\n" to the chunk text
+                    return f"{markdown_prefix} {full_text}\n{text}"
+        
+        # Otherwise, return original text (including Điều chunks)
+        return text
 
     def _merge_title_chunks(self, chunks: List[Dict]) -> List[Dict]:
         """
@@ -501,16 +485,20 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         # Identify title chunks
         title_chunks = []
         for i, chunk in enumerate(chunks[:5]):  # Check first 5
-            text = chunk['text'].strip()
-            header = chunk.get('current_header', '')
+            text = chunk["text"].strip()
+            header = chunk.get("current_header", "")
 
             # Stop if we hit a special section (not part of title)
-            if header and any(marker in header.upper() for marker in self.SPECIAL_SECTIONS):
+            if header and any(
+                marker in header.upper() for marker in self.SPECIAL_SECTIONS
+            ):
                 print(f"  [MERGE] Stopped at special section: {header}")
                 break
 
-            content_lines = [l for l in text.split('\n') if l.strip() and not l.startswith('#')]
-            content_text = '\n'.join(content_lines)
+            content_lines = [
+                l for l in text.split("\n") if l.strip() and not l.startswith("#")
+            ]
+            content_text = "\n".join(content_lines)
 
             # Criteria for title chunk:
             # 1. Very short (<150 chars of content)
@@ -525,20 +513,20 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         if len(title_chunks) > 1:
             print(f"  [MERGE] Merging {len(title_chunks)} title chunks into 1")
 
-            merged_text = '\n'.join(c['text'] for c in title_chunks)
-            merged_header = ' '.join(
-                c['current_header'] for c in title_chunks if c['current_header']
+            merged_text = "\n".join(c["text"] for c in title_chunks)
+            merged_header = " ".join(
+                c["current_header"] for c in title_chunks if c["current_header"]
             )
 
             merged = {
-                'text': merged_text,
-                'current_header': merged_header or 'TITLE',
-                'level': 0,
-                'is_title': True
+                "text": merged_text,
+                "current_header": merged_header or "TITLE",
+                "level": 0,
+                "is_title": True,
             }
 
             self.stats["title_chunks_merged"] = len(title_chunks)
 
-            return [merged] + chunks[len(title_chunks):]
+            return [merged] + chunks[len(title_chunks) :]
 
         return chunks

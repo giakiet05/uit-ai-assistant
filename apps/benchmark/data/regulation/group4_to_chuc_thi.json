@@ -1,0 +1,652 @@
+[
+  {
+    "id": "thi_001",
+    "question": "Sinh viên đến trễ bao nhiêu phút thì không được dự thi?",
+    "ground_truth": "Sinh viên đến chậm quá 15 phút sau khi đã bóc đề thi thì không được dự thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_002",
+    "question": "Nếu bị khiển trách vì nhìn bài bạn, tôi sẽ bị trừ bao nhiêu điểm?",
+    "ground_truth": "Sinh viên bị khiển trách trong khi thi môn nào sẽ bị trừ 25% số điểm thi của môn đó.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 23",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_003",
+    "question": "Trên đề thi gốc cần có chữ ký của những ai theo quy định mới nhất?",
+    "ground_truth": "Theo Quyết định 1376/2023 (sửa đổi QĐ 1139), trên đề thi gốc phải có đầy đủ hai chữ ký của: (1) cán bộ ra đề và (2) lãnh đạo khoa/Trưởng bộ môn/Trưởng môn học xác nhận đã kiểm tra.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1376",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_004",
+    "question": "Tôi muốn phúc khảo bài thi thì nộp đơn ở đâu và trong thời hạn bao lâu?",
+    "ground_truth": "Sinh viên theo dõi thông báo của phòng ĐTĐH để đăng ký phúc khảo trên hệ thống. Thời gian Khoa chấm phúc khảo và trả kết quả là trong vòng 7 ngày.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 19",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_005",
+    "question": "Cán bộ coi thi có được mang điện thoại vào phòng thi không?",
+    "ground_truth": "Không. Theo quy định cập nhật (QĐ 1376/2023), cán bộ coi thi không được mang các thiết bị thu phát thông tin vào phòng thi.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1376",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_006",
+    "question": "Nếu bị lập biên bản cảnh cáo vì trao đổi giấy nháp, bài thi của tôi bị xử lý thế nào?",
+    "ground_truth": "Sinh viên bị xử lý vi phạm mức cảnh cáo (do trao đổi bài/giấy nháp hoặc tái phạm lỗi khiển trách) sẽ bị trừ 50% số điểm thi của môn đó.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 23",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_007",
+    "question": "Thời gian làm bài thi tự luận tối thiểu và tối đa là bao nhiêu phút?",
+    "ground_truth": "Đề thi đảm bảo thời gian làm bài tối thiểu là 60 phút và tối đa là 120 phút (trường hợp khác phải có sự phê duyệt của Hiệu trưởng).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_008",
+    "question": "Tôi quên thẻ sinh viên thì có được vào thi không?",
+    "ground_truth": "Được, nếu bạn có giấy tờ tùy thân hợp lệ khác thay thế như: chứng minh nhân dân, căn cước công dân hoặc bằng lái xe.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_009",
+    "question": "Nếu tôi không có tên trong danh sách thi nhưng đã đóng học phí thì phải làm sao?",
+    "ground_truth": "Bạn cần liên hệ ngay Phòng Đào tạo Đại học (P.ĐTĐH) để được cấp giấy vào phòng thi. Cán bộ coi thi không được cho sinh viên vào nếu không có tên và không có giấy này.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 12, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_010",
+    "question": "Đề thi trắc nghiệm phải có tối thiểu bao nhiêu câu?",
+    "ground_truth": "Đề thi theo hình thức trắc nghiệm phải có tối thiểu 20 câu.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_011",
+    "question": "Có bao nhiêu hình thức thi được quy định tại UIT?",
+    "ground_truth": "Có 4 hình thức thi: a) Tự luận (hoặc kết hợp trắc nghiệm); b) Trắc nghiệm; c) Vấn đáp; d) Đồ án.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_012",
+    "question": "Nếu phát hiện đề thi bị sai sót, cán bộ coi thi phải làm gì?",
+    "ground_truth": "CBCT phải báo cáo ngay cho đơn vị tổ chức môn thi đó để có phương án xử lý. Tùy mức độ, lãnh đạo trực thi sẽ quyết định hoặc xin ý kiến Hiệu trưởng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_013",
+    "question": "Tôi có được tự chọn chỗ ngồi trong phòng thi không?",
+    "ground_truth": "Không. Trước giờ thi 10 phút, CBCT sẽ đánh số chỗ ngồi theo danh sách và sinh viên phải ngồi đúng vị trí quy định, tuyệt đối không tự sắp chỗ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 12, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_014",
+    "question": "Sinh viên có được mang bia rượu vào phòng thi không?",
+    "ground_truth": "Không. Quy định cấm mang vũ khí, chất gây nổ, gây cháy, bia, rượu vào khu vực thi và phòng thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13, Khoản 2b",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_015",
+    "question": "Bài thi được lưu trữ trong bao lâu?",
+    "ground_truth": "Bài thi được lưu trữ trong thời hạn 05 tháng sau khi kết thúc đợt thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 21",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_016",
+    "question": "Ai là người có quyền cho phép sinh viên dự thi muộn (trong vòng 15 phút đầu)?",
+    "ground_truth": "Cán bộ coi thi. Nếu sinh viên đến chưa quá 15 phút sau khi bóc đề, CBCT có thể cho phép vào thi (nhưng không bù giờ).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13 (Implicit)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_017",
+    "question": "Đề thi trắc nghiệm mỗi phòng thi phải có bao nhiêu mã đề?",
+    "ground_truth": "Mỗi phòng thi phải có tối thiểu 4 mã đề trắc nghiệm khác nhau.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_018",
+    "question": "Khi nào thì sinh viên được phép lật đề thi lên?",
+    "ground_truth": "Khi sinh viên cuối cùng trong phòng nhận được đề thi, Cán bộ coi thi mới cho phép sinh viên lật đề thi lên và kiểm tra tình trạng đề.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 12, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_019",
+    "question": "Nếu cán bộ coi thi bỏ ra ngoài 2 lần không xin phép thì bị xử lý sao?",
+    "ground_truth": "Cán bộ coi thi bỏ coi thi mà không thông báo từ 2 lần trở lên trong một đợt thi sẽ bị xử lý Cảnh cáo.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 22, Khoản 2a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_020",
+    "question": "Sinh viên không chịu ký biên bản vi phạm thì biên bản có giá trị không?",
+    "ground_truth": "Có. Nếu sinh viên không chịu ký tên vào biên bản thì hai cán bộ coi thi sẽ cùng ký vào biên bản để xác nhận sự việc.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 23",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_021",
+    "question": "Mỗi học kỳ có mấy lần thi lý thuyết?",
+    "ground_truth": "Mỗi học kỳ tổ chức 01 lần thi lý thuyết giữa kỳ và 01 lần thi lý thuyết cuối kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_022",
+    "question": "Việc chấm phúc khảo bài thi do ai thực hiện?",
+    "ground_truth": "Khoa quản lý môn học có trách nhiệm cử cán bộ chấm thi phúc khảo (thường là người khác với người chấm lần đầu để đảm bảo khách quan).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 19, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_023",
+    "question": "Điểm thi trên hệ thống khác với điểm ghi trên bài thi thì lấy điểm nào?",
+    "ground_truth": "Về nguyên tắc, điểm trên bài thi gốc là căn cứ chính xác nhất. P.ĐTĐH chịu trách nhiệm kiểm tra và xử lý khiếu nại nếu có sự sai lệch này.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 17, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_024",
+    "question": "Tôi có thể xem điểm thi ở đâu?",
+    "ground_truth": "Sinh viên xem điểm thi trên Hệ thống quản lý điểm của Trường.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 17, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_025",
+    "question": "Cán bộ chấm thi phải công bố điểm trong thời hạn bao lâu?",
+    "ground_truth": "Quy chế 1139 không ghi cụ thể số ngày (như 7 hay 10 ngày) mà chỉ ghi chung là 'trong thời hạn chấm thi và nộp điểm' do Trường quy định cho từng đợt.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 17, Khoản 1",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_026",
+    "question": "Sinh viên có được hút thuốc trong phòng thi không?",
+    "ground_truth": "Tuyệt đối không.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13, Khoản 2b",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_027",
+    "question": "Nếu tôi đăng ký học phần nhưng chưa đóng học phí thì có được thi không?",
+    "ground_truth": "Không. Điều kiện dự thi là phải có đăng ký môn học hợp lệ VÀ đóng học phí đầy đủ trước thời hạn quy định.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_028",
+    "question": "Quy trình chấm chéo áp dụng cho trường hợp nào?",
+    "ground_truth": "Đối với kỳ thi cuối học kỳ, các môn học có nhiều hơn 01 cán bộ giảng dạy phải thực hiện chấm chéo (cán bộ này chấm cho lớp của cán bộ kia).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 2",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_029",
+    "question": "Nếu bị lộ đề thi, ai là người quyết định đình chỉ thi?",
+    "ground_truth": "Hiệu trưởng là người quyết định đình chỉ thi hoặc hủy kết quả môn thi đó khi đề thi bị lộ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_030",
+    "question": "Sinh viên có được mang điện thoại vào phòng thi nếu đã tắt nguồn không?",
+    "ground_truth": "Quy chế không ghi rõ 'cấm mang vào' hay 'cấm sử dụng' đối với sinh viên (chỉ ghi cấm vũ khí, chất nổ...). Tuy nhiên, thông lệ thi cử (và quy định xử lý vi phạm Điều 22) cấm 'sử dụng phương tiện liên lạc'. Để an toàn, sinh viên không nên mang hoặc phải để ở khu vực quy định.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13 (Suy luận)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_031",
+    "question": "Cán bộ coi thi phải có mặt trước giờ thi bao lâu?",
+    "ground_truth": "Cán bộ coi thi phải có mặt tại địa điểm tập trung ít nhất 15 phút trước giờ bắt đầu thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 12, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_032",
+    "question": "Trong giờ thi, cán bộ coi thi được đứng ở đâu?",
+    "ground_truth": "Theo quy định mới (QĐ 1376), một CBCT bao quát từ đầu phòng tới cuối phòng, các CBCT còn lại đứng ở vị trí có thể bao quát chung cả phòng. CBCT không được đứng gần sinh viên.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1376",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_033",
+    "question": "Nếu sinh viên thắc mắc về đề thi, CBCT có được giải thích riêng không?",
+    "ground_truth": "Không. CBCT chỉ được trả lời công khai các câu hỏi của sinh viên trong phạm vi quy định để cả phòng cùng nghe.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1376",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_034",
+    "question": "Đơn vị nào chịu trách nhiệm nhân bản đề thi?",
+    "ground_truth": "Đơn vị tổ chức thi (Khoa/Bộ môn/P.ĐTĐH) chịu trách nhiệm nhân đề thi. Thư viện hỗ trợ địa điểm và kỹ thuật.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 9",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_035",
+    "question": "Số lượng đề thi dự phòng tối thiểu là bao nhiêu?",
+    "ground_truth": "Khi đóng gói, phải đảm bảo dư 3 đề thi để dự phòng cho từng phòng thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 5",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_036",
+    "question": "Cán bộ ra đề thi có được coi thi môn đó không?",
+    "ground_truth": "Có. Quy định nêu rõ: 'trong thời gian thi, cán bộ ra đề thi của môn thi phải có mặt để xử lý... (cán bộ ra đề thi có thể là cán bộ coi thi)'.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_037",
+    "question": "Tôi có thể xin hoãn thi nếu bị ốm vào ngày thi không?",
+    "ground_truth": "Quy chế tổ chức thi 1139 không quy định chi tiết về thủ tục 'hoãn thi' (chỉ nói về điều kiện dự thi). Tuy nhiên, Quy chế đào tạo tín chỉ (790) có quy định về việc nhận điểm I (hoãn thi) nếu có lý do chính đáng như ốm đau.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 22 (Quy chế 790)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_038",
+    "question": "Nếu tôi làm mất thẻ sinh viên ngay trước giờ thi thì sao?",
+    "ground_truth": "Bạn có thể sử dụng các giấy tờ tùy thân khác có ảnh như CMND/CCCD hoặc bằng lái xe để vào phòng thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_039",
+    "question": "Đề thi vấn đáp gồm những gì?",
+    "ground_truth": "Đề thi vấn đáp gồm bộ các câu hỏi liên quan đến nội dung môn học.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 5",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_040",
+    "question": "Ai chịu trách nhiệm bảo mật đề thi?",
+    "ground_truth": "Cán bộ ra đề thi và đơn vị tổ chức thi chịu trách nhiệm về việc bảo mật đề thi và đáp án.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_041",
+    "question": "Thời gian thanh tra thi phát hiện vi phạm thì xử lý thế nào?",
+    "ground_truth": "Thanh tra lập biên bản tại chỗ và đề nghị Hiệu trưởng xử lý.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 22",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_042",
+    "question": "Phòng Đào tạo Đại học có nhiệm vụ gì trong kỳ thi?",
+    "ground_truth": "P.ĐTĐH chịu trách nhiệm lập kế hoạch, điều hành, xếp lịch thi, lập danh sách SV dự thi và tổ chức thi cho các môn chung.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 24",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_043",
+    "question": "Sinh viên chương trình chất lượng cao thi đề riêng hay đề chung với hệ chuẩn?",
+    "ground_truth": "Thông thường các lớp cùng môn học thi cùng đề. Tuy nhiên, đối với các lớp chương trình đặc biệt (như CLC) có thể sử dụng đề riêng nhưng phải được sự phê duyệt của Hiệu trưởng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_044",
+    "question": "Sinh viên có được mang đề thi ra khỏi phòng sau khi thi xong không?",
+    "ground_truth": "Quy chế không ghi rõ mục này. Tuy nhiên, thông lệ là sinh viên nộp lại đề thi trừ khi có thông báo cho phép mang về.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_045",
+    "question": "Có được phép viết vẽ bậy lên đề thi không?",
+    "ground_truth": "Không nên. Dù quy chế không cấm cụ thể, nhưng việc bảo quản đề thi sạch sẽ giúp tránh hiểu lầm là đánh dấu bài.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_046",
+    "question": "Nếu phòng thi có sự cố máy tính (thi online tại phòng máy), ai hỗ trợ?",
+    "ground_truth": "Phòng Dữ liệu và Công nghệ Thông tin cử cán bộ hỗ trợ kỹ thuật trong quá trình thi tại phòng máy.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_047",
+    "question": "Có được sử dụng tài liệu trong phòng thi không?",
+    "ground_truth": "Tùy thuộc vào quy định cụ thể của từng môn thi được ghi trên đề thi. Tuy nhiên, nếu sử dụng tài liệu BỊ CẤM thì sẽ bị xử lý kỷ luật.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 22 (Lỗi vi phạm)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_048",
+    "question": "Biên bản xử lý vi phạm cần chữ ký của ai?",
+    "ground_truth": "Cần chữ ký của các Cán bộ coi thi và Sinh viên vi phạm. Nếu SV không ký thì 2 CBCT cùng ký xác nhận.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 23",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_049",
+    "question": "Đề thi phải được bảo quản như thế nào khi nhân bản?",
+    "ground_truth": "Các bản in thử phải được thu lại và bảo quản theo chế độ tài liệu mật.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 4",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_050",
+    "question": "Nếu bị điểm F môn bắt buộc thì có phải thi lại không hay học lại?",
+    "ground_truth": "Theo quy chế đào tạo tín chỉ (790) chứ không phải quy chế thi: Nếu rớt môn bắt buộc thì phải đăng ký HỌC LẠI, chứ không có kỳ thi lại (trừ trường hợp điểm I).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Quy chế 790",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  }
+]
