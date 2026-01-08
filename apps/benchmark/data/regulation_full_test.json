@@ -1,0 +1,3902 @@
+[
+  {
+    "id": "qcdt_001",
+    "question": "Thời gian tối đa để hoàn thành chương trình đào tạo đối với sinh viên khóa 2022 là bao lâu?",
+    "ground_truth": "Tùy theo khả năng học tập, sinh viên được kéo dài thời gian học tối đa 04 học kỳ chính so với thời gian thiết kế của chương trình.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 6, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_002",
+    "question": "Lớp học phần đại cương sẽ bị hủy nếu sĩ số đăng ký dưới bao nhiêu sinh viên?",
+    "ground_truth": "Theo quy định cập nhật (QĐ 1393/2023), lớp học phần đại cương và cơ sở ngành học chung toàn trường được mở nếu số lượng sinh viên đăng ký tối thiểu là 70 sinh viên. Nếu dưới mức này lớp sẽ không được mở.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 2 (Sửa đổi Điều 12 QĐ 790)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_003",
+    "question": "Trong học kỳ hè, tôi có thể đăng ký tối đa bao nhiêu tín chỉ và được đăng ký những loại học phần nào?",
+    "ground_truth": "Trong học kỳ hè, sinh viên được đăng ký tối đa 12 tín chỉ. Sinh viên được phép đăng ký học mới, học lại và học cải thiện điểm nếu có nhu cầu.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 3 (Sửa đổi Điều 14 QĐ 790)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_004",
+    "question": "Cách tính học phí học lại trong học kỳ hè được quy định như thế nào?",
+    "ground_truth": "Học phí học lại (HPTCHL) trong học kỳ hè được tính theo công thức chung: Học phí = HPTCHM_HKHE x TCHPHM + HPTCHL x TCHPHL + HPTCCT x TCHPCT. Cụ thể mức thu sẽ theo quy định học phí hiện hành.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 1 (Sửa đổi Điều 4 QĐ 790)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_005",
+    "question": "Sinh viên năm nhất được xếp hạng trình độ năm hai khi nào?",
+    "ground_truth": "Sinh viên được xếp trình độ năm hai khi số tín chỉ tích lũy đạt từ 30 đến dưới 60 tín chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_006",
+    "question": "Tôi muốn học cùng lúc hai chương trình (song ngành) thì cần điều kiện gì về điểm số?",
+    "ground_truth": "Sinh viên cần đáp ứng một trong hai điều kiện về điểm số: (1) Học lực tính theo ĐTBCTL xếp loại Khá trở lên và đáp ứng ngưỡng bảo đảm chất lượng của chương trình thứ hai; HOẶC (2) Học lực tính theo ĐTBCTL xếp loại Trung bình và đáp ứng điều kiện trúng tuyển của chương trình thứ hai trong năm tuyển sinh.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 18, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_007",
+    "question": "Sinh viên bị cảnh báo học vụ nếu điểm trung bình học kỳ đạt dưới 1.0 đúng không?",
+    "ground_truth": "Không chính xác. Sinh viên bị cảnh báo học vụ nếu: (1) Có Điểm trung bình học kỳ (ĐTBHK) dưới 3,0; HOẶC (2) Điểm trung bình của liên tiếp 2 học kỳ gần nhất đều dưới 4,0.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_008",
+    "question": "Tôi nghe nói chỉ cần đóng tiền là được miễn học phần đã học ở trường khác mà không cần xét duyệt?",
+    "ground_truth": "Thông tin này sai. Để miễn học phần đã học ở cơ sở đào tạo khác, sinh viên phải làm đơn kèm bảng điểm, xác nhận số tín chỉ gửi về Phòng ĐTĐH trong vòng 1 tháng đầu học kỳ. Trường có thể yêu cầu cung cấp đề cương chi tiết để đối sánh chứ không tự động miễn.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 4 (Sửa đổi Điều 23 QĐ 790)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_009",
+    "question": "Học phần giáo dục thể chất và giáo dục quốc phòng có tính vào điểm trung bình tích lũy không?",
+    "ground_truth": "Không. Kết quả học tập các học phần Giáo dục thể chất và Giáo dục quốc phòng - an ninh không tính vào điểm trung bình chung học kỳ, điểm trung bình tích lũy, nhưng là điều kiện để xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24, Khoản 7",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_010",
+    "question": "Sinh viên khóa 2021 đăng ký học hè tối đa 15 tín chỉ được không?",
+    "ground_truth": "Không được. Theo quy định cập nhật (QĐ 1393/2023), trong học kỳ hè tổng số tín chỉ đăng ký không được vượt quá 12 tín chỉ.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "1393",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 3 (Sửa đổi Điều 14 QĐ 790)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_011",
+    "question": "Tôi trúng tuyển nhưng bị tai nạn phải điều trị dài ngày, tôi có được bảo lưu kết quả không và thời hạn bao lâu?",
+    "ground_truth": "Sinh viên được phép xin bảo lưu kết quả trúng tuyển nếu bị tai nạn, bệnh tật phải điều trị dài ngày. Thời gian bảo lưu không quá 01 năm. Sinh viên cần nộp đơn xin bảo lưu chậm nhất 15 ngày kể từ ngày gọi nhập học.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 11",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_012",
+    "question": "Sinh viên có thể xin nhận điểm I (hoãn thi) trong những trường hợp nào?",
+    "ground_truth": "Sinh viên được xem xét cho nhận điểm I nếu vì lý do chính đáng không thể dự thi như: ốm đau, tai nạn, việc gia đình đột xuất.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 22",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_013",
+    "question": "Tôi đã nhận điểm I môn Giải tích, tôi phải thi lại trong thời hạn bao lâu?",
+    "ground_truth": "Sinh viên phải đăng ký thi lại môn học nhận điểm I trong thời gian tối đa là 2 học kỳ chính tiếp theo. Nếu quá hạn không thi, điểm I sẽ chuyển thành điểm 0.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 22, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_014",
+    "question": "Tôi đã học một môn ở trường khác cách đây 6 năm, giờ tôi xin miễn môn đó được không?",
+    "ground_truth": "Không được. Theo quy định, sinh viên chỉ được xin miễn học phần đã thi đạt yêu cầu ở cơ sở đào tạo khác trong thời gian không quá 5 năm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 23, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_015",
+    "question": "Tôi có thể chuyển đổi tối đa bao nhiêu phần trăm tín chỉ từ trường khác sang UIT?",
+    "ground_truth": "Tổng số tín chỉ được công nhận và chuyển đổi không vượt quá 50% tổng số tín chỉ chương trình đào tạo của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 26, Khoản 5",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_016",
+    "question": "Để môn học tích lũy ở trường khác được công nhận tại UIT, nội dung môn học đó phải tương đương bao nhiêu phần trăm?",
+    "ground_truth": "Môn học được công nhận và chuyển đổi tín chỉ phải có từ 80% trở lên nội dung tương đương với môn học trong chương trình đào tạo của UIT.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 26, Khoản 2a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_017",
+    "question": "Sinh viên chương trình chuẩn muốn làm khóa luận tốt nghiệp cần thỏa mãn điều kiện gì về điểm số?",
+    "ground_truth": "Sinh viên chương trình chuẩn muốn làm khóa luận tốt nghiệp cần có điểm trung bình chung (ĐTBC) tính đến thời điểm xét làm khóa luận tối thiểu 6.5 (hoặc cao hơn tùy khoa) và không được nợ quá 8 tín chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 31, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_018",
+    "question": "Nếu tôi đăng ký thực tập doanh nghiệp nhưng quên báo cáo cuối kỳ thì có sao không?",
+    "ground_truth": "Nếu sinh viên đăng ký thực tập doanh nghiệp nhưng không báo cáo vào đúng đợt quy định thì xem như không đạt học phần này và nhận điểm 0. Sinh viên phải đăng ký học lại vào học kỳ tiếp theo.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 31, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_019",
+    "question": "Tôi đạt điểm tích lũy 3.8 (Xuất sắc) nhưng bị kỷ luật Cảnh cáo thì tốt nghiệp loại gì?",
+    "ground_truth": "Nếu sinh viên đạt loại Xuất sắc nhưng đã bị kỷ luật mức Cảnh cáo trở lên trong thời gian học, loại tốt nghiệp sẽ bị giảm 1 bậc xuống thành loại Giỏi.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 34, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_020",
+    "question": "Điểm rèn luyện dưới 50 điểm có được xét tốt nghiệp không?",
+    "ground_truth": "Không. Một trong các điều kiện để được xét tốt nghiệp là sinh viên phải đạt điểm rèn luyện tích lũy tối thiểu là 50 điểm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 33, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_021",
+    "question": "Thời gian tối đa để tôi nhận bằng tốt nghiệp sau khi có quyết định công nhận là bao lâu?",
+    "ground_truth": "Sinh viên đủ điều kiện tốt nghiệp sẽ được cấp bằng tốt nghiệp trong vòng 03 tháng tính từ ngày có quyết định công nhận tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 33, Khoản 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_022",
+    "question": "Tôi học 6 năm mới xong chương trình 4 năm thì có được xếp loại Xuất sắc không?",
+    "ground_truth": "Không. Nếu thời gian học tập vượt quá 02 học kỳ so với thời gian thiết kế (tức là quá 5 năm với chương trình 4 năm), sinh viên sẽ bị giảm 1 bậc xếp loại tốt nghiệp (từ Xuất sắc xuống Giỏi).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 34, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_023",
+    "question": "Sinh viên chương trình tài năng có bắt buộc phải làm khóa luận tốt nghiệp không?",
+    "ground_truth": "Có. Sinh viên chương trình tiên tiến và chương trình tài năng bắt buộc phải làm khóa luận tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 31, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_024",
+    "question": "Điểm trung bình học kỳ (ĐTBHK) được dùng để làm gì?",
+    "ground_truth": "Điểm trung bình học kỳ (ĐTBHK) được dùng để xét học bổng, khen thưởng và xử lý học vụ sau mỗi học kỳ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_025",
+    "question": "Điểm trung bình chung (ĐTBC) khác gì với Điểm trung bình tích lũy (ĐTBCTL)?",
+    "ground_truth": "Điểm trung bình chung (ĐTBC) tính cả các học phần không đạt, dùng để xét số tín chỉ đăng ký, học vượt, chuyển ngành. Còn Điểm trung bình tích lũy (ĐTBCTL) chỉ tính các học phần đã tích lũy (>= 5.0), dùng để xếp hạng tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24, Khoản 2 & 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_026",
+    "question": "Tôi bị đình chỉ học tập 1 học kỳ vì nhờ người thi hộ, sau đó tôi có được học lại không?",
+    "ground_truth": "Có (nếu là lần đầu). Sinh viên bị đình chỉ học tập 1 học kỳ chính nếu vi phạm lần đầu việc nhờ người thi hộ. Sau thời gian đình chỉ có thể quay lại học. Tuy nhiên, nếu vi phạm lần 2 sẽ bị buộc thôi học.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 2 & 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_027",
+    "question": "Sinh viên có thể xin thôi học vì lý do cá nhân được không?",
+    "ground_truth": "Được. Sinh viên có thể gửi đơn xin thôi học vì hoàn cảnh cá nhân để Trường xem xét ra quyết định cho phép thôi học.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 17, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_028",
+    "question": "Tôi muốn chuyển từ hình thức chính quy sang từ xa thì có được không?",
+    "ground_truth": "Được, nhưng phải được Hiệu trưởng xét cụ thể từng trường hợp. Đặc biệt, sinh viên thuộc diện buộc thôi học nếu có nguyện vọng chuyển sang đào tạo từ xa cũng phải làm đơn để Hiệu trưởng xét.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 3 (Mục a - đoạn cuối)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_029",
+    "question": "Điểm bảo lưu (BL) có tính vào điểm trung bình học kỳ không?",
+    "ground_truth": "Không. Điểm I, điểm M, điểm BL không được tính trong ĐTBHK, ĐTBC và ĐTBCTL.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24, Khoản 8",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_030",
+    "question": "Sinh viên được phép học tối đa bao nhiêu phần trăm chương trình qua mạng (online)?",
+    "ground_truth": "Đối với đào tạo chính quy, tối đa 30% tổng khối lượng của chương trình đào tạo được thực hiện bằng phương thức qua mạng (trừ trường hợp bất khả kháng như thiên tai, dịch bệnh).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 28, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_031",
+    "question": "Tôi bị buộc thôi học nếu điểm trung bình học kỳ bằng 0 trong 1 học kỳ phải không?",
+    "ground_truth": "Chưa chính xác. Sinh viên chỉ bị buộc thôi học nếu ĐTBHK của HAI học kỳ liên tiếp gần nhất bằng 0, chứ không phải chỉ 1 học kỳ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 3a",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_032",
+    "question": "Tôi có thể nhờ bạn đi thi hộ môn GDQP được không vì môn đó không tính điểm?",
+    "ground_truth": "Tuyệt đối không. Sinh viên nhờ người thi hộ (dù là môn nào) sẽ bị đình chỉ học tập 1 học kỳ chính (nếu vi phạm lần đầu) hoặc buộc thôi học (nếu vi phạm lần 2).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 2",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_033",
+    "question": "Cố vấn học tập do ai bổ nhiệm?",
+    "ground_truth": "Cố vấn học tập do Trưởng khoa/Trưởng bộ môn đề nghị và Hiệu trưởng ra quyết định bổ nhiệm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 15, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_034",
+    "question": "Sinh viên năm nhất học kỳ 1 có được tự đăng ký môn học không?",
+    "ground_truth": "Không. Riêng sinh viên khóa tuyển mới, học kỳ đầu tiên sẽ học theo thời khóa biểu được xếp sẵn dựa trên kế hoạch giảng dạy mẫu, sinh viên không tự đăng ký.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 14",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_035",
+    "question": "Chương trình đào tạo cử nhân có tối thiểu bao nhiêu tín chỉ?",
+    "ground_truth": "Tổng số tín chỉ của chương trình đào tạo cử nhân tối thiểu là 120 và tối đa là 132 tín chỉ (không tính GDQP và GDTC).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_036",
+    "question": "Sinh viên được nghỉ học tối đa bao nhiêu phần trăm số buổi mới được dự thi?",
+    "ground_truth": "Sinh viên phải có mặt từ 80% trở lên số buổi học thì mới được dự thi. Tức là chỉ được nghỉ tối đa 20% số buổi.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 20, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_037",
+    "question": "Tôi muốn chuyển ngành thì có cần phải không bị cảnh báo học vụ không?",
+    "ground_truth": "Có. Một trong các điều kiện để chuyển ngành là sinh viên không trong thời gian bị kỷ luật từ cảnh báo trở lên.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 19, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_038",
+    "question": "Học phần thực hành HT2 là gì?",
+    "ground_truth": "Thực hành Hình thức 2 (HT2) là hình thức dạy thực hành có sự hướng dẫn của giảng viên với thời lượng 09 tiết/tín chỉ thực hành, không nhất thiết phải sử dụng phòng thực hành chuyên dụng.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_039",
+    "question": "Một tín chỉ học tập bằng bao nhiêu tiết thực tập?",
+    "ground_truth": "Một tín chỉ học tập tương đương với 45 – 60 tiết thực tập, kiến tập, chuẩn bị khoá luận.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_040",
+    "question": "Nếu tôi có chứng chỉ ngoại ngữ quốc tế nhưng không phù hợp với môn thi thì có được miễn không?",
+    "ground_truth": "Quy chế quy định nếu sinh viên tham gia kỳ thi quốc tế do Trường cử đi, nếu học phần KHÔNG phù hợp chuyên môn của kỳ thi và trùng lịch thi cuối kỳ thì được nhận điểm I. Còn việc dùng chứng chỉ ngoại ngữ để miễn học phần sẽ tuân theo quy định riêng (Quy định đào tạo ngoại ngữ).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 23, Khoản 2 (Điểm M)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_041",
+    "question": "Tôi có thể xin bảng điểm ở đâu?",
+    "ground_truth": "Sinh viên có thể đề nghị Trường cấp bảng điểm trong quá trình học tập theo hướng dẫn của Phòng Đào tạo Đại học (P.ĐTĐH).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 27, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_042",
+    "question": "Học kỳ hè kéo dài bao lâu?",
+    "ground_truth": "Một học kỳ hè có tối thiểu 5 tuần thực học và 1 tuần thi.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 5, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_043",
+    "question": "Kết quả học kỳ hè được tính vào học kỳ nào để xét học bổng?",
+    "ground_truth": "Kết quả học tập của học kỳ hè được tính chung vào kết quả học tập học kỳ 2 của năm học tương ứng để xem xét xử lý học vụ. Còn việc xét học bổng thường dựa trên học kỳ chính, quy chế không ghi rõ học hè có tính vào học bổng hay không, nhưng ghi rõ là tính vào học kỳ liền kề trước đó (HK2) để quản lý điểm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16 & Điều 24.5",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "qcdt_044",
+    "question": "Sinh viên liên thông học trong bao lâu?",
+    "ground_truth": "Đào tạo trình độ đại học đối với hệ liên thông được thực hiện từ 1,5 năm đến 2,5 năm.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 6, Khoản 1a",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_045",
+    "question": "Tôi bị cảnh báo học vụ thì có được đăng ký học vượt không?",
+    "ground_truth": "Không. Sinh viên đang trong thời gian bị cảnh báo học vụ không được phép đăng ký học vượt (vì học vượt yêu cầu năng lực học tập tốt, trong khi cảnh báo là học kém).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 24 (Suy luận từ mục đích ĐTBC)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_046",
+    "question": "Có bắt buộc phải học Giáo dục thể chất tại trường không?",
+    "ground_truth": "Có thể không. Các hoạt động Giáo dục Thể chất, Giáo dục Quốc phòng – An ninh có thể thực hiện ngoài trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_047",
+    "question": "Tôi có thể xin xem lại bài thi cuối kỳ không?",
+    "ground_truth": "Quy chế 790 không quy định chi tiết quy trình phúc khảo, nhưng sinh viên có quyền khiếu nại về điểm số theo các quy định chung về khảo thí của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "N/A (Implicit)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_048",
+    "question": "Sinh viên xếp hạng trình độ năm 4 là sao?",
+    "ground_truth": "Sinh viên năm thứ 4 là sinh viên có số tín chỉ tích lũy n thỏa mãn: (4-1)*30 <= n < 4*30, tức là từ 90 đến dưới 120 tín chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "qcdt_049",
+    "question": "Mỗi tiết học lý thuyết dài bao nhiêu phút?",
+    "ground_truth": "Một tiết học được tính quy chuẩn bằng 50 phút.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "qcdt_050",
+    "question": "Nếu tôi học song ngành mà bị cảnh báo học vụ ở ngành 1 thì sao?",
+    "ground_truth": "Nếu ĐTBCTL của chương trình thứ nhất đạt dưới xếp loại trung bình hoặc thuộc diện cảnh báo học vụ thì sinh viên phải dừng học chương trình thứ hai ở học kỳ tiếp theo và bị loại khỏi danh sách đã đăng ký học chương trình thứ hai.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO THEO HỌC CHẾ TÍN CHỈ",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 18, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_001",
+    "question": "Sinh viên khóa 2022 thuộc chương trình chuẩn cần đạt chứng chỉ TOEIC bao nhiêu để xét tốt nghiệp?",
+    "ground_truth": "Theo Quy định 828 (áp dụng cho khóa 2022), sinh viên chương trình chuẩn cần đạt TOEIC Nghe-Đọc 450 điểm và Nói-Viết 185 điểm (hoặc các chứng chỉ tương đương khác) để xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9, Bảng 5",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_002",
+    "question": "Sinh viên khóa 2024 chương trình chuẩn cần đạt chuẩn đầu ra tiếng Anh như thế nào?",
+    "ground_truth": "Theo Quyết định 560 (áp dụng cho khóa 2024 trở về sau), sinh viên chương trình chuẩn cần đạt TOEIC Nghe-Đọc 450 điểm và TOEIC Nói-Viết 185 điểm (mức điểm giữ nguyên so với khóa 2022, nhưng cập nhật tên bậc theo khung năng lực 6 bậc).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_003",
+    "question": "Tôi có thể dùng chứng chỉ IELTS General Training để xét miễn môn học tiếng Anh không?",
+    "ground_truth": "Có. Theo Quyết định 560/2024, Trường cho phép sinh viên sử dụng cả IELTS Academic và IELTS General để xét miễn môn học và xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_004",
+    "question": "Nếu sau 2 học kỳ chính tôi chưa đạt Anh văn 1 thì sẽ bị xử lý như thế nào?",
+    "ground_truth": "Nếu sau 2 học kỳ chính chưa đạt Anh văn 1, sinh viên chỉ được đăng ký tối đa 12 tín chỉ cho các môn học không thuộc nhóm ngoại ngữ (bao gồm cả học lại/cải thiện) cho đến khi đạt chuẩn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_005",
+    "question": "Thời hạn nộp chứng chỉ để xét miễn môn học tiếng Anh là khi nào?",
+    "ground_truth": "Sinh viên cần nộp chứng chỉ để xét miễn chậm nhất là 2 tuần trước khi bắt đầu học kỳ 1 (đối với miễn học) hoặc 2 tuần trước khi bắt đầu đăng ký học phần (đối với xét chuẩn quá trình).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4 Khoản 2 & Điều 8 Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_006",
+    "question": "Chứng chỉ ngoại ngữ dùng để xét miễn phải còn hạn bao lâu?",
+    "ground_truth": "Văn bằng/chứng chỉ/chứng nhận phải còn thời hạn hai năm tính từ ngày cấp đến ngày đăng ký xét công nhận đạt chuẩn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_007",
+    "question": "Sinh viên năm 3 có được nộp chứng chỉ để xin miễn học Anh văn 1 không?",
+    "ground_truth": "Không. Trường chỉ xét miễn các môn học ngoại ngữ trong vòng 4 học kỳ chính kể từ khi nhập học (tức hết năm 2). Sau thời gian này, sinh viên phải đăng ký học tại trường chứ không được xét miễn nữa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 1",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_008",
+    "question": "Sinh viên chương trình tài năng cần đạt IELTS bao nhiêu để tốt nghiệp?",
+    "ground_truth": "Sinh viên chương trình tài năng (CTTN) cần đạt IELTS 5.5 trở lên để xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9, Bảng 5",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_009",
+    "question": "Sinh viên chương trình tiên tiến cần đạt chuẩn đầu ra tiếng Anh cao hơn chương trình chuẩn bao nhiêu bậc?",
+    "ground_truth": "Chương trình tiên tiến cần đạt IELTS 6.0 (Bậc 5), trong khi chương trình chuẩn cần IELTS 4.5 (Bậc 3). Vậy là cao hơn 2 bậc khung năng lực 6 bậc.",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1 (Bảng điểm)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_010",
+    "question": "Nếu tôi có bằng đại học Ngôn ngữ Anh của trường khác thì có được miễn học tiếng Anh không?",
+    "ground_truth": "Có. Văn bằng tốt nghiệp đại học ngôn ngữ Anh (chính quy, không qua phiên dịch) được sử dụng để xét miễn học và xét công nhận chuẩn đầu ra ngoại ngữ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_011",
+    "question": "Tôi là sinh viên khóa 2021, tôi phải theo quy định ngoại ngữ nào?",
+    "ground_truth": "Sinh viên khóa tuyển sinh trước năm 2022 (như khóa 2021) có thể lựa chọn áp dụng quy định 828 (mới) hoặc quy định được ban hành trước đó (ví dụ QĐ 547/2019) tùy theo nguyện vọng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_012",
+    "question": "Điểm kiểm tra xếp lớp đầu khóa có tính vào điểm trung bình tích lũy không?",
+    "ground_truth": "Không. Điểm kiểm tra xếp lớp chỉ dùng để xếp lớp học phần tiếng Anh phù hợp, không tính vào điểm trung bình.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4 (Implicit context)",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_013",
+    "question": "Sinh viên không tham gia kiểm tra xếp lớp đầu khóa và không nộp chứng chỉ thì được xếp vào lớp nào?",
+    "ground_truth": "Nếu không dự thi và không nộp chứng chỉ, sinh viên được mặc định xếp vào trình độ tương ứng với điểm kiểm tra dưới 300 (thường là lớp sơ cấp hoặc Anh văn 1 tùy chương trình).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_014",
+    "question": "Môn Kỹ năng viết tiếng Anh (ENG07) có bắt buộc học không?",
+    "ground_truth": "Không. Môn Kỹ năng viết tiếng Anh (ENG07) và Kỹ năng thuyết trình (ENG06) là môn tự chọn, sinh viên đăng ký để tích lũy thêm tín chỉ nếu có nguyện vọng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_015",
+    "question": "Sinh viên chương trình Việt - Nhật có cần học tiếng Anh không?",
+    "ground_truth": "Sinh viên chương trình định hướng Nhật Bản không bắt buộc hoàn thành chương trình tiếng Anh tại Điều 3, nhưng vẫn có thể chọn tiếng Anh để xét tốt nghiệp nếu muốn (mặc dù chuẩn chính là tiếng Nhật).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 2, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_016",
+    "question": "Chứng chỉ VNU-EPT 200 điểm có được miễn Anh văn 3 không?",
+    "ground_truth": "Để miễn Anh văn 3, sinh viên cần đạt chứng chỉ tương đương TOEIC 450. Quy đổi VNU-EPT tương ứng cần tra bảng (thường khoảng 176+ là đạt Bậc 3/TOEIC 450). Nếu VNU-EPT 200 điểm (trên mức 176) thì được miễn Anh văn 3.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 5 & Điều 9",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_017",
+    "question": "Tôi có chứng chỉ TOEIC 500 nhưng đã hết hạn 1 tháng, tôi có được xét miễn Anh văn 2 không?",
+    "ground_truth": "Không. Văn bằng/chứng chỉ phải còn hiệu lực tính đến ngày đăng ký xét công nhận đạt chuẩn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_018",
+    "question": "Sinh viên hệ liên thông có bị xét chuẩn quá trình ngoại ngữ không?",
+    "ground_truth": "Không. Quy định không xét chuẩn quá trình đối với chương trình văn bằng hai và chương trình liên thông từ cao đẳng lên đại học.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 5",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_019",
+    "question": "Điểm Miễn (M) của môn tiếng Anh có được tính vào điểm trung bình học kỳ để xét học bổng không?",
+    "ground_truth": "Không. Sinh viên được nhận điểm Miễn cho môn học được miễn nhưng điểm này không tính vào điểm trung bình chung, điểm trung bình chung tích lũy, điểm trung bình học kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_020",
+    "question": "Lớp học Ngoại ngữ chuyên môn (NNCM) có trợ giảng người Việt không?",
+    "ground_truth": "Có. Mỗi lớp học NNCM có tối thiểu 01 trợ giảng để hỗ trợ sinh viên, và trợ giảng có thể sử dụng tiếng Việt trong quá trình hỗ trợ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_021",
+    "question": "Điều kiện để đăng ký học môn chuyên ngành bằng tiếng Anh (NNCM) là gì?",
+    "ground_truth": "Để học lớp NNCM tiếng Anh, sinh viên phải có chứng chỉ TOEIC 400 trở lên (hoặc tương đương) hoặc đã đạt môn Anh văn 2 (ENG02).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 2a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_022",
+    "question": "Tôi học chương trình Chất lượng cao, tôi cần đạt bao nhiêu điểm TOEIC Nói-Viết để ra trường?",
+    "ground_truth": "Sinh viên chương trình Chất lượng cao (CLC) cần đạt điểm TOEIC Nói-Viết tối thiểu 205 điểm (đối với khóa 2024 theo QĐ 560/2024) hoặc theo quy định tương ứng của khóa nhập học (thường là Bậc 4).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_023",
+    "question": "Có được dùng chứng chỉ tiếng Nhật để xét tốt nghiệp cho chương trình chuẩn không?",
+    "ground_truth": "Được. Sinh viên chương trình chuẩn được quyền chọn một trong các chứng chỉ ngoại ngữ: tiếng Anh, tiếng Nhật hoặc tiếng Pháp để xét tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 2, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_024",
+    "question": "Nếu tôi có IELTS 6.0 thì tôi được miễn những môn tiếng Anh nào?",
+    "ground_truth": "Với IELTS 6.0 (tương đương Bậc 5 trở lên), sinh viên được miễn toàn bộ các học phần tiếng Anh trong chương trình (Anh văn 1, 2, 3 và các học phần nâng cao nếu có tùy chương trình).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 5, Bảng 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_025",
+    "question": "Tôi học chương trình Việt Nhật, tôi cần chứng chỉ tiếng Nhật cấp độ nào để được miễn học môn Tiếng Nhật 1?",
+    "ground_truth": "Sinh viên cần có chứng chỉ JLPT N5 hoặc NAT-TEST N5 để được miễn môn Tiếng Nhật 1 (JAN01).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 6, Bảng 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_026",
+    "question": "Cán bộ giảng dạy môn chuyên ngành bằng tiếng Anh phải có trình độ ngoại ngữ thế nào?",
+    "ground_truth": "Cán bộ giảng dạy phải có trình độ tiếng Anh tối thiểu tương đương cấp độ C1 (khung Châu Âu) hoặc tốt nghiệp đại học nước ngoài/trong nước chương trình tiếng Anh toàn phần.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 11",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_027",
+    "question": "Sinh viên khóa 2020 muốn áp dụng quy chuẩn ngoại ngữ của khóa 2022 có được không?",
+    "ground_truth": "Được. Các khóa tuyển sinh trước năm 2022 có thể lựa chọn áp dụng quy định mới (828) thay vì quy định cũ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_028",
+    "question": "Tôi quên nộp chứng chỉ xét chuẩn quá trình đợt này thì có được đăng ký học phần bình thường không?",
+    "ground_truth": "Nếu bạn đã đến hạn xét chuẩn (ví dụ sau 2 HK phải có AV1) mà chưa nộp chứng chỉ minh chứng, hệ thống sẽ ghi nhận là chưa đạt chuẩn và bạn sẽ bị giới hạn đăng ký tối đa 12 tín chỉ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_029",
+    "question": "Môn Anh văn sơ cấp (dành cho sinh viên thi đầu vào < 300) có tính tín chỉ tích lũy không?",
+    "ground_truth": "Thông thường các môn sơ cấp/bổ trợ không tính vào tín chỉ tích lũy tốt nghiệp mà chỉ là điều kiện để học tiếp AV1. (Cần verify: Quy chế 828 không ghi rõ điều này, nhưng theo Bảng 1 thì lộ trình bắt đầu từ AV1/AV sơ cấp tùy trình độ).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3 & Bảng 1 (Implicit)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_030",
+    "question": "Tôi đạt TOEIC 450 Nghe-Đọc nhưng Nói-Viết chỉ được 160 thì có đủ chuẩn tốt nghiệp khóa 2024 không?",
+    "ground_truth": "Không. Với khóa 2024 (theo QĐ 560), chuẩn Nói-Viết yêu cầu là 185 điểm (đối với hệ Chuẩn). Mức 160 chưa đạt.",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1 (Bảng điểm)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_031",
+    "question": "Có bao nhiêu đợt xét miễn ngoại ngữ trong năm?",
+    "ground_truth": "Trường tổ chức xét miễn ngoại ngữ 4 đợt/năm, tương ứng với 4 đợt xét tốt nghiệp đại học.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 7, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_032",
+    "question": "Tôi có chứng chỉ Cambridge PET (Pass) thì tương đương bậc mấy?",
+    "ground_truth": "Chứng chỉ Cambridge PET (Pass) tương đương Bậc 3 (theo khung năng lực 6 bậc).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1 (Bảng điểm)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_033",
+    "question": "Chương trình tiên tiến học những môn tiếng Anh nào?",
+    "ground_truth": "Chương trình tiên tiến học lộ trình gồm: Anh văn sơ cấp 1, 2 (nếu cần) -> Anh văn 1, 2, 3 -> Anh văn 4, 5 (Advanced English 1, 2).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3, Bảng 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_034",
+    "question": "Sinh viên khóa 2023 có cần áp dụng chuẩn TOEIC Nói-Viết 185 điểm không?",
+    "ground_truth": "Không. Chuẩn 185 điểm (Nói-Viết) quy định tại QĐ 560 chỉ áp dụng cho khóa tuyển sinh từ năm 2024 trở về sau. Khóa 2023 áp dụng mức điểm cũ (thường là 180 hoặc thấp hơn tùy hệ).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_035",
+    "question": "Tôi có chứng chỉ Aptis có được dùng xét tốt nghiệp không?",
+    "ground_truth": "Trong danh mục các chứng chỉ được liệt kê tại QĐ 828 và 560, không thấy đề cập đến chứng chỉ Aptis. Sinh viên nên sử dụng các chứng chỉ quy định rõ như TOEIC, IELTS, TOEFL, VNU-EPT hoặc Cambridge.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_036",
+    "question": "Sinh viên có thể sử dụng chứng chỉ tiếng Anh để miễn học môn Giáo dục thể chất không?",
+    "ground_truth": "Dĩ nhiên là không. Chứng chỉ tiếng Anh chỉ dùng để miễn các môn học tiếng Anh, không liên quan đến Giáo dục thể chất.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 5",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_037",
+    "question": "Nếu tôi học song bằng, bằng 1 là CNTT, bằng 2 là Ngôn ngữ Anh thì có được miễn tiếng Anh cho bằng 1 không?",
+    "ground_truth": "Có (nếu đã tốt nghiệp bằng 2). Văn bằng tốt nghiệp đại học ngành Ngôn ngữ Anh được dùng để xét miễn và công nhận chuẩn đầu ra cho bằng CNTT.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_038",
+    "question": "Tôi muốn học môn chuyên ngành bằng tiếng Nhật thì cần điều kiện gì?",
+    "ground_truth": "Sinh viên phải có chứng chỉ JLPT N4 trở lên hoặc đã đạt môn Tiếng Nhật 3 (JAN03) thì mới được đăng ký học môn chuyên ngành bằng tiếng Nhật.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 2b",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_039",
+    "question": "Môn Anh văn 3 có mã môn học là gì?",
+    "ground_truth": "Môn Anh văn 3 có mã môn học là ENG03.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_040",
+    "question": "Có bắt buộc phải thi xếp lớp đầu khóa không?",
+    "ground_truth": "Không bắt buộc nếu bạn nộp chứng chỉ tiếng Anh để xét miễn. Nếu không nộp chứng chỉ và cũng không thi, bạn sẽ bị xếp vào lớp trình độ thấp nhất.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 2 & 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_041",
+    "question": "Hạn chót để nộp chứng chỉ miễn xếp lớp đầu khóa là bao giờ?",
+    "ground_truth": "Chậm nhất là 2 tuần trước khi bắt đầu học kỳ 1.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_042",
+    "question": "Sinh viên CLC định hướng Nhật Bản sau 4 học kỳ phải đạt chuẩn gì?",
+    "ground_truth": "Phải đạt môn Tiếng Nhật 2 (JAN02) hoặc có chứng chỉ JLPT N5 / NAT-TEST N5. Nếu không sẽ bị hạn chế tín chỉ đăng ký.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_043",
+    "question": "Tôi có chứng chỉ TOEFL iBT 45 điểm thì tương đương bậc mấy?",
+    "ground_truth": "TOEFL iBT 45 điểm tương đương Bậc 3 (theo bảng quy đổi của khóa 2024 và cả khóa cũ).",
+    "metadata": {
+      "document_name": "SỬA ĐỔI QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "560",
+      "document_year": 2024,
+      "source": "Điều 1 (Bảng điểm)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_044",
+    "question": "Trường có tổ chức thi IELTS nội bộ không?",
+    "ground_truth": "Quy định không đề cập đến việc Trường tổ chức thi IELTS nội bộ. Trường chỉ tổ chức kiểm tra xếp lớp đầu khóa (dạng thức TOEIC) và công nhận chứng chỉ quốc tế từ các đơn vị khảo thí uy tín.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "N/A (Negative)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_045",
+    "question": "Sau khi tốt nghiệp, nếu tôi thi đạt chứng chỉ tiếng Anh cao hơn thì có được cấp lại bằng tốt nghiệp loại cao hơn không?",
+    "ground_truth": "Không. Bằng tốt nghiệp chỉ cấp một lần. Việc đạt chuẩn ngoại ngữ chỉ là điều kiện để xét tốt nghiệp, không làm thay đổi xếp loại tốt nghiệp (trừ khi việc thiếu chuẩn làm chậm tiến độ dẫn đến bị hạ bậc).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 9 (Suy luận)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "nn_046",
+    "question": "Sinh viên có quyền khiếu nại về kết quả xếp lớp đầu khóa không?",
+    "ground_truth": "Quy định không ghi rõ quy trình khiếu nại xếp lớp, nhưng theo quy chế chung của trường, sinh viên luôn có quyền thắc mắc/khiếu nại về kết quả học tập/thi cử.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_047",
+    "question": "Môn ngoại ngữ chuyên môn (NNCM) có được tính vào tín chỉ tự chọn không?",
+    "ground_truth": "Môn NNCM là các môn học thuộc khối kiến thức cơ bản, cơ sở hoặc chuyên ngành. Nếu nó nằm trong danh sách môn tự chọn của CTĐT thì được tính.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 1a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_048",
+    "question": "Quy định 828 có áp dụng cho sinh viên Văn bằng 2 không?",
+    "ground_truth": "Có. Quy định này áp dụng cho cả sinh viên chương trình văn bằng hai (VB2).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "nn_049",
+    "question": "Tôi đạt IELTS 5.0 thì được điểm A môn Anh văn 1 phải không?",
+    "ground_truth": "Theo quy định, sinh viên được miễn môn học thì được nhận \"điểm Miễn\" (không tính vào ĐTB), chứ không quy định quy đổi thành điểm số cụ thể (như điểm A hay 10).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH ĐÀO TẠO NGOẠI NGỮ",
+      "document_code": "828",
+      "document_year": 2022,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "nn_050",
+    "question": "Nếu tôi bị điểm F môn Anh văn 1 thì có bị cảnh báo học vụ không?",
+    "ground_truth": "Có thể. Môn Anh văn 1 (nếu là môn bắt buộc trong chương trình) nếu rớt sẽ ảnh hưởng đến ĐTBHK. Nếu ĐTBHK thấp dưới mức quy định (3.0 hoặc 2.0 tùy quy chế tín chỉ) thì sẽ bị cảnh báo học vụ.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 16 (Quy chế 790)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_001",
+    "question": "Bằng tốt nghiệp đại học tại UIT do ai có thẩm quyền ký cấp?",
+    "ground_truth": "Bằng tốt nghiệp đại học, bằng thạc sĩ và bằng tiến sĩ do Hiệu trưởng Trường Đại học Công nghệ Thông tin cấp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 12, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_002",
+    "question": "Sau khi có quyết định công nhận tốt nghiệp, tôi phải chờ bao lâu mới được nhận bằng chính thức?",
+    "ground_truth": "Hiệu trưởng có trách nhiệm cấp văn bằng cho người học trong thời hạn 30 ngày kể từ ngày có quyết định công nhận tốt nghiệp đại học.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 14, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_003",
+    "question": "Tôi bị mất bằng tốt nghiệp đại học bản chính, nhà trường có cấp lại bản chính khác cho tôi không?",
+    "ground_truth": "Không. Theo quy định, văn bằng, chứng chỉ được cấp một lần duy nhất. Trường hợp bị mất, người học chỉ được cấp bản sao từ sổ gốc.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 2, Khoản 3 và Điều 15",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_004",
+    "question": "Bản sao văn bằng từ sổ gốc có giá trị pháp lý như thế nào so với bản chính?",
+    "ground_truth": "Bản sao văn bằng, chứng chỉ từ sổ gốc có giá trị pháp lý sử dụng thay cho bản chính trong các giao dịch, trừ trường hợp pháp luật có quy định khác.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 24, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_005",
+    "question": "Trong thời gian chờ cấp bằng chính thức, tôi có thể xin giấy tờ gì để đi xin việc?",
+    "ground_truth": "Trong thời gian chờ cấp văn bằng, người học đã tốt nghiệp được Hiệu trưởng Trường ĐHCNTT cấp giấy chứng nhận tốt nghiệp tạm thời.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 14, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_006",
+    "question": "Tôi muốn xin cấp bản sao văn bằng từ sổ gốc thì bao lâu sẽ nhận được?",
+    "ground_truth": "Nếu nộp hồ sơ trước 15 giờ, cơ quan có thẩm quyền phải cấp bản sao ngay trong ngày. Nếu nộp sau 15 giờ thì cấp trong ngày làm việc tiếp theo.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 27, Khoản 2b",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_007",
+    "question": "Tôi mới phẫu thuật chuyển đổi giới tính, tôi có được yêu cầu chỉnh sửa thông tin trên bằng tốt nghiệp đã cấp không?",
+    "ground_truth": "Có. Người được cấp văn bằng có quyền yêu cầu chỉnh sửa nội dung văn bằng trong trường hợp được xác định lại giới tính theo quy định của cơ quan có thẩm quyền.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 19, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_008",
+    "question": "Trường hợp nào thì văn bằng đã cấp bị thu hồi và hủy bỏ?",
+    "ground_truth": "Văn bằng bị thu hồi nếu: có hành vi gian lận trong học tập/thi cử/hồ sơ; cấp cho người không đủ điều kiện; bị tẩy xóa, sửa chữa; để cho người khác sử dụng; hoặc do lỗi của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 22, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_009",
+    "question": "Trên Phụ lục văn bằng, xếp loại tốt nghiệp 'Khá' được dịch sang tiếng Anh là gì?",
+    "ground_truth": "Theo Thông báo 1192/2024, xếp loại 'Khá' được dịch sang tiếng Anh là 'Good'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_010",
+    "question": "Sinh viên tốt nghiệp ngành Khoa học Máy tính thì tên văn bằng tiếng Anh là gì?",
+    "ground_truth": "Tên văn bằng tiếng Anh cho ngành Khoa học Máy tính là 'Bachelor of Science'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_011",
+    "question": "Tôi có được dùng chứng chỉ tiếng Anh TOEIC của trường Đại học Bách Khoa để xét tốt nghiệp không?",
+    "ground_truth": "Không. Theo Thông báo 119/2022, nhà trường đã ngừng sử dụng kết quả 2 kỹ năng Nói-Viết tại ĐH Bách Khoa để xét chuẩn đầu ra tốt nghiệp.",
+    "metadata": {
+      "document_name": "THÔNG BÁO CHỨNG CHỈ & PHÔI BẰNG",
+      "document_code": "119",
+      "document_year": 2022,
+      "source": "Tiêu đề Thông báo",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_012",
+    "question": "Cha mẹ có thể đi nhận bằng tốt nghiệp thay cho con được không?",
+    "ground_truth": "Được, nhưng phải có giấy ủy quyền theo quy định của pháp luật khi không trực tiếp đến nhận văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 2c",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_013",
+    "question": "UIT sử dụng phôi văn bằng do đơn vị nào phát hành?",
+    "ground_truth": "Trường ĐHCNTT thống nhất sử dụng phôi văn bằng do Đại học Quốc gia Thành phố Hồ Chí Minh (ĐHQG-HCM) in và phát hành.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 10, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_014",
+    "question": "Nếu bằng tốt nghiệp bị in sai tên do lỗi của nhà trường, tôi có được cấp lại bằng mới không?",
+    "ground_truth": "Có. Trường hợp văn bằng đã cấp nhưng phát hiện bị in sai do lỗi của Trường thì Trường có trách nhiệm cấp lại bản chính văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 15, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_015",
+    "question": "Tôi muốn xin cấp 10 bản sao bằng tốt nghiệp từ sổ gốc cùng lúc có được không và mất bao lâu?",
+    "ground_truth": "Được. Tuy nhiên, với trường hợp yêu cầu số lượng nhiều bản sao, thời hạn cấp có thể kéo dài thêm không quá 02 ngày làm việc.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 27, Khoản 2c",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_016",
+    "question": "Thông tin về việc cấp bằng của tôi có được công khai trên mạng không?",
+    "ground_truth": "Có. Trường có trách nhiệm công bố công khai thông tin về cấp văn bằng trên trang thông tin điện tử của Trường chậm nhất sau 30 ngày kể từ ngày cấp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 5, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_017",
+    "question": "Ngôn ngữ chính ghi trên văn bằng tại UIT là gì?",
+    "ground_truth": "Ngôn ngữ chính ghi trên văn bằng, chứng chỉ là tiếng Việt.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 8",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_018",
+    "question": "Bằng tốt nghiệp ngành kỹ thuật (ví dụ Kỹ thuật Máy tính) được gọi là bằng gì?",
+    "ground_truth": "Bằng tốt nghiệp đại học ngành kỹ thuật được gọi là bằng kỹ sư.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 6, Khoản 3a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_019",
+    "question": "Tôi có thể yêu cầu chỉnh sửa ngày sinh trên bằng tốt nghiệp dựa trên căn cước công dân mới không?",
+    "ground_truth": "Có, nếu bạn được cơ quan có thẩm quyền xác nhận thay đổi hoặc cải chính hộ tịch. Bạn cần nộp đơn kèm bằng gốc và các giấy tờ minh chứng (trích lục hộ tịch, CCCD...).",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 19 & 20",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_020",
+    "question": "Nếu trường UIT bị giải thể thì ai sẽ là người có thẩm quyền chỉnh sửa văn bằng của tôi?",
+    "ground_truth": "Trường hợp Trường đã giải thể, người có thẩm quyền quyết định chỉnh sửa nội dung văn bằng là thủ trưởng cơ quan đang quản lý sổ gốc cấp văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 18",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_021",
+    "question": "Hồ sơ xin cấp bản sao văn bằng qua bưu điện cần những gì?",
+    "ground_truth": "Hồ sơ gồm: Đơn đề nghị; Bản sao có chứng thực CMND/CCCD/Hộ chiếu; 01 phong bì có dán tem ghi rõ địa chỉ người nhận.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 27, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_022",
+    "question": "Tôi có chứng chỉ tin học quốc tế IC3, nhà trường có cấp phôi chứng chỉ này cho tôi không?",
+    "ground_truth": "Không. Trường chỉ cấp các loại chứng chỉ do Trường đào tạo và bồi dưỡng, hoặc chứng chỉ ứng dụng CNTT theo quy định của Bộ GD&ĐT. IC3 là chứng chỉ quốc tế do tổ chức nước ngoài cấp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 13 (Suy luận)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_023",
+    "question": "Sổ gốc cấp văn bằng được lưu trữ trong bao lâu?",
+    "ground_truth": "Sổ gốc cấp văn bằng, chứng chỉ phải được quản lý chặt chẽ và lưu trữ vĩnh viễn.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 16, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_024",
+    "question": "Tôi có được tẩy xóa nội dung trên bằng tốt nghiệp nếu thấy ghi sai không?",
+    "ground_truth": "Tuyệt đối không. Nghĩa vụ của người được cấp văn bằng là giữ gìn, bảo quản và không được tẩy xóa, chỉnh sửa nội dung trên văn bằng. Nếu có sai sót phải làm thủ tục chỉnh sửa chính thức.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 2d",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_025",
+    "question": "Xếp loại tốt nghiệp 'Xuất sắc' tiếng Anh là gì?",
+    "ground_truth": "Xếp loại 'Xuất sắc' tiếng Anh là 'Excellent'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_026",
+    "question": "Thời hạn giải quyết đơn đề nghị chỉnh sửa văn bằng là bao lâu?",
+    "ground_truth": "Trong thời hạn 05 ngày làm việc kể từ ngày nhận hồ sơ hợp lệ, Trường xem xét quyết định việc chỉnh sửa.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 20, Khoản 2b",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_027",
+    "question": "Tôi tốt nghiệp ngành Hệ thống Thông tin, tên văn bằng tiếng Anh của tôi là gì?",
+    "ground_truth": "Tên văn bằng tiếng Anh cho ngành Hệ thống Thông tin là 'Bachelor of Engineering'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_028",
+    "question": "Giấy chứng nhận tốt nghiệp tạm thời có hiệu lực đến khi nào?",
+    "ground_truth": "Giấy chứng nhận tốt nghiệp tạm thời có hiệu lực trong thời gian chờ cấp văn bằng chính thức (tối đa 30 ngày theo thời hạn cấp bằng).",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 14 (Suy luận)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_029",
+    "question": "Tôi có thể dùng chứng chỉ tiếng Nhật NAT-TEST để xét đạt chuẩn quá trình không?",
+    "ground_truth": "Có. Theo TB 35/2019, nhà trường công nhận chứng chỉ NAT-TEST cho chuẩn quá trình tiếng Nhật.",
+    "metadata": {
+      "document_name": "CÔNG NHẬN NAT-TEST",
+      "document_code": "35",
+      "document_year": 2019,
+      "source": "Tiêu đề Thông báo",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_030",
+    "question": "Ai là người trực tiếp in thông tin lên phôi bằng cho sinh viên?",
+    "ground_truth": "Phòng Tổ chức Hành chính (PTCHC) có trách nhiệm in thông tin cấp bằng lên phôi văn bằng theo danh sách người học tốt nghiệp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 3, Khoản 4",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_031",
+    "question": "Khi nhận bằng tốt nghiệp, tôi có phải ký tên vào đâu không?",
+    "ground_truth": "Có. Người nhận văn bằng phải ký nhận vào sổ gốc cấp văn bằng, chứng chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 16 (Quy trình thực tế)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_032",
+    "question": "Bằng tốt nghiệp có được ghi hình thức đào tạo 'Từ xa' hay 'Chính quy' không?",
+    "ground_truth": "Theo quy định mới, phôi bằng tốt nghiệp đại học không ghi hình thức đào tạo. Tuy nhiên, thông tin này có thể được thể hiện trong Phụ lục văn bằng hoặc bảng điểm đính kèm.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 6 (Phôi bằng ĐHQG)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_033",
+    "question": "Tôi có thể mượn bằng gốc để đi công chứng rồi trả lại trường không?",
+    "ground_truth": "Không cần thiết và không có quy định mượn bằng. Nhà trường cấp bằng gốc cho sinh viên sở hữu vĩnh viễn sau khi tốt nghiệp. Nếu chưa được nhận bằng, bạn có thể xin cấp bản sao từ sổ gốc hoặc giấy chứng nhận tạm thời.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_034",
+    "question": "Trường hợp nào thì việc ký thay Hiệu trưởng trên văn bằng được chấp nhận?",
+    "ground_truth": "Việc ký thay Hiệu trưởng phải theo đúng quy định văn thư hiện hành và phải có văn bản báo cáo ĐHQG-HCM trước khi ký.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 17, Khoản 2",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_035",
+    "question": "Nhà trường có thu phí khi cấp bản sao văn bằng từ sổ gốc không?",
+    "ground_truth": "Quy chế 172 không quy định mức phí cụ thể nhưng nêu rõ người học có quyền yêu cầu cấp bản sao khi có nhu cầu. Mức phí sẽ theo quy định về học phí và lệ phí hiện hành của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 4 (Implicit)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_036",
+    "question": "Xếp loại 'Giỏi' tiếng Anh trên phụ lục văn bằng là 'Good' đúng không?",
+    "ground_truth": "Không đúng. Theo TB 1192/2024, xếp loại 'Giỏi' được dịch là 'Very Good', còn 'Good' là dành cho loại 'Khá'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_037",
+    "question": "Tôi có thể nộp đơn xin chỉnh sửa văn bằng qua bưu điện không?",
+    "ground_truth": "Có. Người đề nghị chỉnh sửa văn bằng nộp trực tiếp hoặc gửi qua đường bưu điện cho Trường 01 bộ hồ sơ theo quy định.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 20, Khoản 2a",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_038",
+    "question": "Nếu Hiệu trưởng đi vắng, ai là người có quyền ký giấy chứng nhận tốt nghiệp tạm thời cho tôi?",
+    "ground_truth": "Thông thường là Phó Hiệu trưởng được ủy quyền. Quy chế ghi chung là Hiệu trưởng cấp, việc ủy quyền tuân theo quy định tổ chức của Trường.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 14 (Ủy quyền)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_039",
+    "question": "Tôi tốt nghiệp ngành Mạng máy tính và Truyền thông dữ liệu, bằng tiếng Anh của tôi ghi là gì?",
+    "ground_truth": "Ngành Mạng máy tính và Truyền thông dữ liệu có văn bằng tiếng Anh là 'Bachelor of Engineering'.",
+    "metadata": {
+      "document_name": "TỪ NGỮ TRÊN PHỤ LỤC VĂN BẰNG",
+      "document_code": "1192",
+      "document_year": 2024,
+      "source": "Bảng phụ lục",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_040",
+    "question": "Tại sao thông tin văn bằng của tôi lại bị xóa khỏi trang web của trường?",
+    "ground_truth": "Thông tin văn bằng chỉ bị xóa hoặc cập nhật trạng thái nếu văn bằng đó bị thu hồi hoặc hủy bỏ (do gian lận, lỗi in ấn...). Nếu không thuộc trường hợp này, bạn nên liên hệ Phòng Dữ liệu để kiểm tra lỗi kỹ thuật.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 5",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_041",
+    "question": "Tôi có được cấp bản sao văn bằng từ sổ gốc nếu chưa nhận bản chính không?",
+    "ground_truth": "Có. Việc cấp bản sao văn bằng từ sổ gốc có thể được thực hiện đồng thời với việc cấp bản chính.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 25",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_042",
+    "question": "Giấy tờ tùy thân nào được chấp nhận khi làm thủ tục chỉnh sửa văn bằng?",
+    "ground_truth": "Giấy chứng minh nhân dân hoặc căn cước công dân hoặc hộ chiếu hoặc giấy tờ tùy thân hợp pháp khác có ảnh của người được cấp văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 20, Khoản 1đ",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_043",
+    "question": "Tôi muốn nộp đơn xin chỉnh sửa văn bằng thì nộp cho phòng ban nào?",
+    "ground_truth": "Hồ sơ nộp cho Phòng Đào tạo Đại học (đối với bằng đại học) hoặc Phòng Đào tạo Sau đại học (đối với bằng thạc sĩ, tiến sĩ).",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_044",
+    "question": "Tôi có thể dùng dấu chữ ký (dấu khắc sẵn) để đóng lên văn bằng không?",
+    "ground_truth": "Không. Chỉ trong trường hợp thật cần thiết và phải được ĐHQG-HCM cho phép mới được sử dụng dấu chữ ký đóng lên văn bằng.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 17, Khoản 3",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_045",
+    "question": "Người đại diện theo pháp luật có quyền yêu cầu cấp bản sao văn bằng từ sổ gốc không?",
+    "ground_truth": "Có. Người đại diện theo pháp luật hoặc người đại diện theo ủy quyền của người được cấp bản chính có quyền yêu cầu cấp bản sao từ sổ gốc.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 26, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_046",
+    "question": "Trong bản sao văn bằng, nội dung ghi có khác gì so với bản chính không?",
+    "ground_truth": "Nội dung ghi trong bản sao văn bằng phải chính xác so với sổ gốc (mà sổ gốc ghi chép đầy đủ nội dung như bản chính). Do đó nội dung là khớp nhau.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 23, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_047",
+    "question": "Nếu phôi văn bằng của ĐHQG-HCM thay đổi mẫu thì khi tôi xin cấp bản sao, nhà trường dùng mẫu cũ hay mẫu mới?",
+    "ground_truth": "Trường hợp mẫu bản sao văn bằng tại thời điểm cấp bản sao đã thay đổi, nhà trường sử dụng mẫu bản sao văn bằng hiện hành để cấp.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 23, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "vb_048",
+    "question": "Tôi có thể dùng chứng chỉ tiếng Anh VNU-EPT để xét tốt nghiệp được không?",
+    "ground_truth": "Có. Chứng chỉ VNU-EPT là một trong các loại chứng chỉ được nhà trường công nhận để xét đạt chuẩn tốt nghiệp (theo TB 119 và QĐ 172).",
+    "metadata": {
+      "document_name": "THÔNG BÁO CHỨNG CHỈ & PHÔI BẰNG",
+      "document_code": "119",
+      "document_year": 2022,
+      "source": "Tiêu đề",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "vb_049",
+    "question": "Quy chế văn bằng 172 có hiệu lực thay thế quy định nào trước đó?",
+    "ground_truth": "Quy chế 172 thay thế cho Quyết định 284/2017 và Quyết định 43/2018 về văn bằng, chứng chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 2 (QĐ ban hành)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "vb_050",
+    "question": "Phòng nào có trách nhiệm trình Hiệu trưởng ký và đóng dấu văn bằng?",
+    "ground_truth": "Phòng Tổ chức Hành chính (PTCHC) có trách nhiệm trình Hiệu trưởng ký và đóng dấu văn bằng, chứng chỉ.",
+    "metadata": {
+      "document_name": "QUY CHẾ VĂN BẰNG, CHỨNG CHỈ",
+      "document_code": "172",
+      "document_year": 2023,
+      "source": "Điều 3, Khoản 4",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_001",
+    "question": "Sinh viên đến trễ bao nhiêu phút thì không được dự thi?",
+    "ground_truth": "Sinh viên đến chậm quá 15 phút sau khi đã bóc đề thi thì không được dự thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_002",
+    "question": "Nếu bị khiển trách vì nhìn bài bạn, tôi sẽ bị trừ bao nhiêu điểm?",
+    "ground_truth": "Sinh viên bị khiển trách trong khi thi môn nào sẽ bị trừ 25% số điểm thi của môn đó.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 23",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_003",
+    "question": "Trên đề thi gốc cần có chữ ký của những ai theo quy định mới nhất?",
+    "ground_truth": "Theo Quyết định 1376/2023 (sửa đổi QĐ 1139), trên đề thi gốc phải có đầy đủ hai chữ ký của: (1) cán bộ ra đề và (2) lãnh đạo khoa/Trưởng bộ môn/Trưởng môn học xác nhận đã kiểm tra.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1376",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_004",
+    "question": "Tôi muốn phúc khảo bài thi thì nộp đơn ở đâu và trong thời hạn bao lâu?",
+    "ground_truth": "Sinh viên theo dõi thông báo của phòng ĐTĐH để đăng ký phúc khảo trên hệ thống. Thời gian Khoa chấm phúc khảo và trả kết quả là trong vòng 7 ngày.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 19",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_005",
+    "question": "Cán bộ coi thi có được mang điện thoại vào phòng thi không?",
+    "ground_truth": "Không. Theo quy định cập nhật (QĐ 1376/2023), cán bộ coi thi không được mang các thiết bị thu phát thông tin vào phòng thi.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1376",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_006",
+    "question": "Nếu bị lập biên bản cảnh cáo vì trao đổi giấy nháp, bài thi của tôi bị xử lý thế nào?",
+    "ground_truth": "Sinh viên bị xử lý vi phạm mức cảnh cáo (do trao đổi bài/giấy nháp hoặc tái phạm lỗi khiển trách) sẽ bị trừ 50% số điểm thi của môn đó.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 23",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_007",
+    "question": "Thời gian làm bài thi tự luận tối thiểu và tối đa là bao nhiêu phút?",
+    "ground_truth": "Đề thi đảm bảo thời gian làm bài tối thiểu là 60 phút và tối đa là 120 phút (trường hợp khác phải có sự phê duyệt của Hiệu trưởng).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_008",
+    "question": "Tôi quên thẻ sinh viên thì có được vào thi không?",
+    "ground_truth": "Được, nếu bạn có giấy tờ tùy thân hợp lệ khác thay thế như: chứng minh nhân dân, căn cước công dân hoặc bằng lái xe.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_009",
+    "question": "Nếu tôi không có tên trong danh sách thi nhưng đã đóng học phí thì phải làm sao?",
+    "ground_truth": "Bạn cần liên hệ ngay Phòng Đào tạo Đại học (P.ĐTĐH) để được cấp giấy vào phòng thi. Cán bộ coi thi không được cho sinh viên vào nếu không có tên và không có giấy này.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 12, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_010",
+    "question": "Đề thi trắc nghiệm phải có tối thiểu bao nhiêu câu?",
+    "ground_truth": "Đề thi theo hình thức trắc nghiệm phải có tối thiểu 20 câu.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_011",
+    "question": "Có bao nhiêu hình thức thi được quy định tại UIT?",
+    "ground_truth": "Có 4 hình thức thi: a) Tự luận (hoặc kết hợp trắc nghiệm); b) Trắc nghiệm; c) Vấn đáp; d) Đồ án.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_012",
+    "question": "Nếu phát hiện đề thi bị sai sót, cán bộ coi thi phải làm gì?",
+    "ground_truth": "CBCT phải báo cáo ngay cho đơn vị tổ chức môn thi đó để có phương án xử lý. Tùy mức độ, lãnh đạo trực thi sẽ quyết định hoặc xin ý kiến Hiệu trưởng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_013",
+    "question": "Tôi có được tự chọn chỗ ngồi trong phòng thi không?",
+    "ground_truth": "Không. Trước giờ thi 10 phút, CBCT sẽ đánh số chỗ ngồi theo danh sách và sinh viên phải ngồi đúng vị trí quy định, tuyệt đối không tự sắp chỗ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 12, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_014",
+    "question": "Sinh viên có được mang bia rượu vào phòng thi không?",
+    "ground_truth": "Không. Quy định cấm mang vũ khí, chất gây nổ, gây cháy, bia, rượu vào khu vực thi và phòng thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13, Khoản 2b",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_015",
+    "question": "Bài thi được lưu trữ trong bao lâu?",
+    "ground_truth": "Bài thi được lưu trữ trong thời hạn 05 tháng sau khi kết thúc đợt thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 21",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_016",
+    "question": "Ai là người có quyền cho phép sinh viên dự thi muộn (trong vòng 15 phút đầu)?",
+    "ground_truth": "Cán bộ coi thi. Nếu sinh viên đến chưa quá 15 phút sau khi bóc đề, CBCT có thể cho phép vào thi (nhưng không bù giờ).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13 (Implicit)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_017",
+    "question": "Đề thi trắc nghiệm mỗi phòng thi phải có bao nhiêu mã đề?",
+    "ground_truth": "Mỗi phòng thi phải có tối thiểu 4 mã đề trắc nghiệm khác nhau.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_018",
+    "question": "Khi nào thì sinh viên được phép lật đề thi lên?",
+    "ground_truth": "Khi sinh viên cuối cùng trong phòng nhận được đề thi, Cán bộ coi thi mới cho phép sinh viên lật đề thi lên và kiểm tra tình trạng đề.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 12, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_019",
+    "question": "Nếu cán bộ coi thi bỏ ra ngoài 2 lần không xin phép thì bị xử lý sao?",
+    "ground_truth": "Cán bộ coi thi bỏ coi thi mà không thông báo từ 2 lần trở lên trong một đợt thi sẽ bị xử lý Cảnh cáo.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 22, Khoản 2a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_020",
+    "question": "Sinh viên không chịu ký biên bản vi phạm thì biên bản có giá trị không?",
+    "ground_truth": "Có. Nếu sinh viên không chịu ký tên vào biên bản thì hai cán bộ coi thi sẽ cùng ký vào biên bản để xác nhận sự việc.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 23",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_021",
+    "question": "Mỗi học kỳ có mấy lần thi lý thuyết?",
+    "ground_truth": "Mỗi học kỳ tổ chức 01 lần thi lý thuyết giữa kỳ và 01 lần thi lý thuyết cuối kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 1, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_022",
+    "question": "Việc chấm phúc khảo bài thi do ai thực hiện?",
+    "ground_truth": "Khoa quản lý môn học có trách nhiệm cử cán bộ chấm thi phúc khảo (thường là người khác với người chấm lần đầu để đảm bảo khách quan).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 19, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_023",
+    "question": "Điểm thi trên hệ thống khác với điểm ghi trên bài thi thì lấy điểm nào?",
+    "ground_truth": "Về nguyên tắc, điểm trên bài thi gốc là căn cứ chính xác nhất. P.ĐTĐH chịu trách nhiệm kiểm tra và xử lý khiếu nại nếu có sự sai lệch này.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 17, Khoản 2",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_024",
+    "question": "Tôi có thể xem điểm thi ở đâu?",
+    "ground_truth": "Sinh viên xem điểm thi trên Hệ thống quản lý điểm của Trường.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 17, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_025",
+    "question": "Cán bộ chấm thi phải công bố điểm trong thời hạn bao lâu?",
+    "ground_truth": "Quy chế 1139 không ghi cụ thể số ngày (như 7 hay 10 ngày) mà chỉ ghi chung là 'trong thời hạn chấm thi và nộp điểm' do Trường quy định cho từng đợt.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 17, Khoản 1",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_026",
+    "question": "Sinh viên có được hút thuốc trong phòng thi không?",
+    "ground_truth": "Tuyệt đối không.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13, Khoản 2b",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_027",
+    "question": "Nếu tôi đăng ký học phần nhưng chưa đóng học phí thì có được thi không?",
+    "ground_truth": "Không. Điều kiện dự thi là phải có đăng ký môn học hợp lệ VÀ đóng học phí đầy đủ trước thời hạn quy định.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_028",
+    "question": "Quy trình chấm chéo áp dụng cho trường hợp nào?",
+    "ground_truth": "Đối với kỳ thi cuối học kỳ, các môn học có nhiều hơn 01 cán bộ giảng dạy phải thực hiện chấm chéo (cán bộ này chấm cho lớp của cán bộ kia).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 16, Khoản 2",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_029",
+    "question": "Nếu bị lộ đề thi, ai là người quyết định đình chỉ thi?",
+    "ground_truth": "Hiệu trưởng là người quyết định đình chỉ thi hoặc hủy kết quả môn thi đó khi đề thi bị lộ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 10, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_030",
+    "question": "Sinh viên có được mang điện thoại vào phòng thi nếu đã tắt nguồn không?",
+    "ground_truth": "Quy chế không ghi rõ 'cấm mang vào' hay 'cấm sử dụng' đối với sinh viên (chỉ ghi cấm vũ khí, chất nổ...). Tuy nhiên, thông lệ thi cử (và quy định xử lý vi phạm Điều 22) cấm 'sử dụng phương tiện liên lạc'. Để an toàn, sinh viên không nên mang hoặc phải để ở khu vực quy định.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 13 (Suy luận)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_031",
+    "question": "Cán bộ coi thi phải có mặt trước giờ thi bao lâu?",
+    "ground_truth": "Cán bộ coi thi phải có mặt tại địa điểm tập trung ít nhất 15 phút trước giờ bắt đầu thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 12, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_032",
+    "question": "Trong giờ thi, cán bộ coi thi được đứng ở đâu?",
+    "ground_truth": "Theo quy định mới (QĐ 1376), một CBCT bao quát từ đầu phòng tới cuối phòng, các CBCT còn lại đứng ở vị trí có thể bao quát chung cả phòng. CBCT không được đứng gần sinh viên.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1376",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_033",
+    "question": "Nếu sinh viên thắc mắc về đề thi, CBCT có được giải thích riêng không?",
+    "ground_truth": "Không. CBCT chỉ được trả lời công khai các câu hỏi của sinh viên trong phạm vi quy định để cả phòng cùng nghe.",
+    "metadata": {
+      "document_name": "CẬP NHẬT QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1376",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_034",
+    "question": "Đơn vị nào chịu trách nhiệm nhân bản đề thi?",
+    "ground_truth": "Đơn vị tổ chức thi (Khoa/Bộ môn/P.ĐTĐH) chịu trách nhiệm nhân đề thi. Thư viện hỗ trợ địa điểm và kỹ thuật.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 9",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_035",
+    "question": "Số lượng đề thi dự phòng tối thiểu là bao nhiêu?",
+    "ground_truth": "Khi đóng gói, phải đảm bảo dư 3 đề thi để dự phòng cho từng phòng thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 5",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_036",
+    "question": "Cán bộ ra đề thi có được coi thi môn đó không?",
+    "ground_truth": "Có. Quy định nêu rõ: 'trong thời gian thi, cán bộ ra đề thi của môn thi phải có mặt để xử lý... (cán bộ ra đề thi có thể là cán bộ coi thi)'.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_037",
+    "question": "Tôi có thể xin hoãn thi nếu bị ốm vào ngày thi không?",
+    "ground_truth": "Quy chế tổ chức thi 1139 không quy định chi tiết về thủ tục 'hoãn thi' (chỉ nói về điều kiện dự thi). Tuy nhiên, Quy chế đào tạo tín chỉ (790) có quy định về việc nhận điểm I (hoãn thi) nếu có lý do chính đáng như ốm đau.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 22 (Quy chế 790)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_038",
+    "question": "Nếu tôi làm mất thẻ sinh viên ngay trước giờ thi thì sao?",
+    "ground_truth": "Bạn có thể sử dụng các giấy tờ tùy thân khác có ảnh như CMND/CCCD hoặc bằng lái xe để vào phòng thi.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 4, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_039",
+    "question": "Đề thi vấn đáp gồm những gì?",
+    "ground_truth": "Đề thi vấn đáp gồm bộ các câu hỏi liên quan đến nội dung môn học.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 5",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_040",
+    "question": "Ai chịu trách nhiệm bảo mật đề thi?",
+    "ground_truth": "Cán bộ ra đề thi và đơn vị tổ chức thi chịu trách nhiệm về việc bảo mật đề thi và đáp án.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_041",
+    "question": "Thời gian thanh tra thi phát hiện vi phạm thì xử lý thế nào?",
+    "ground_truth": "Thanh tra lập biên bản tại chỗ và đề nghị Hiệu trưởng xử lý.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 22",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_042",
+    "question": "Phòng Đào tạo Đại học có nhiệm vụ gì trong kỳ thi?",
+    "ground_truth": "P.ĐTĐH chịu trách nhiệm lập kế hoạch, điều hành, xếp lịch thi, lập danh sách SV dự thi và tổ chức thi cho các môn chung.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 24",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_043",
+    "question": "Sinh viên chương trình chất lượng cao thi đề riêng hay đề chung với hệ chuẩn?",
+    "ground_truth": "Thông thường các lớp cùng môn học thi cùng đề. Tuy nhiên, đối với các lớp chương trình đặc biệt (như CLC) có thể sử dụng đề riêng nhưng phải được sự phê duyệt của Hiệu trưởng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_044",
+    "question": "Sinh viên có được mang đề thi ra khỏi phòng sau khi thi xong không?",
+    "ground_truth": "Quy chế không ghi rõ mục này. Tuy nhiên, thông lệ là sinh viên nộp lại đề thi trừ khi có thông báo cho phép mang về.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_045",
+    "question": "Có được phép viết vẽ bậy lên đề thi không?",
+    "ground_truth": "Không nên. Dù quy chế không cấm cụ thể, nhưng việc bảo quản đề thi sạch sẽ giúp tránh hiểu lầm là đánh dấu bài.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "thi_046",
+    "question": "Nếu phòng thi có sự cố máy tính (thi online tại phòng máy), ai hỗ trợ?",
+    "ground_truth": "Phòng Dữ liệu và Công nghệ Thông tin cử cán bộ hỗ trợ kỹ thuật trong quá trình thi tại phòng máy.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_047",
+    "question": "Có được sử dụng tài liệu trong phòng thi không?",
+    "ground_truth": "Tùy thuộc vào quy định cụ thể của từng môn thi được ghi trên đề thi. Tuy nhiên, nếu sử dụng tài liệu BỊ CẤM thì sẽ bị xử lý kỷ luật.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 22 (Lỗi vi phạm)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_048",
+    "question": "Biên bản xử lý vi phạm cần chữ ký của ai?",
+    "ground_truth": "Cần chữ ký của các Cán bộ coi thi và Sinh viên vi phạm. Nếu SV không ký thì 2 CBCT cùng ký xác nhận.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 23",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "thi_049",
+    "question": "Đề thi phải được bảo quản như thế nào khi nhân bản?",
+    "ground_truth": "Các bản in thử phải được thu lại và bảo quản theo chế độ tài liệu mật.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH TỔ CHỨC THI",
+      "document_code": "1139",
+      "document_year": 2022,
+      "source": "Điều 9, Khoản 4",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "thi_050",
+    "question": "Nếu bị điểm F môn bắt buộc thì có phải thi lại không hay học lại?",
+    "ground_truth": "Theo quy chế đào tạo tín chỉ (790) chứ không phải quy chế thi: Nếu rớt môn bắt buộc thì phải đăng ký HỌC LẠI, chứ không có kỳ thi lại (trừ trường hợp điểm I).",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Quy chế 790",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_001",
+    "question": "Thời gian thực hiện Khóa luận tốt nghiệp là bao lâu?",
+    "ground_truth": "Thời gian thực hiện KLTN là 1 học kỳ chính (15 tuần).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_002",
+    "question": "Cán bộ hướng dẫn khóa luận tốt nghiệp cần có học vị gì?",
+    "ground_truth": "Cán bộ hướng dẫn phải có học vị từ Thạc sĩ trở lên.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_003",
+    "question": "Sinh viên có thể nhờ anh ruột đang là giảng viên trong trường hướng dẫn KLTN được không?",
+    "ground_truth": "Không. Quy định cấm cán bộ hướng dẫn có quan hệ ruột thịt (cha, mẹ, vợ, chồng, anh, chị, em ruột) với sinh viên thực hiện đề tài.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_004",
+    "question": "Nếu tôi không đủ điều kiện làm KLTN thì có cách nào ra trường không?",
+    "ground_truth": "Có. Sinh viên không đủ điều kiện làm KLTN có thể đăng ký học các môn chuyên đề tốt nghiệp để thay thế.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_005",
+    "question": "Tôi có được thay đổi tên đề tài KLTN không và vào lúc nào?",
+    "ground_truth": "Được. Tên đề tài KLTN có thể thay đổi 01 lần theo đề xuất của hội đồng đánh giá ngay sau khi sinh viên báo cáo giữa kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1d",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_006",
+    "question": "Sau khi bảo vệ thành công, sinh viên phải nộp lại khóa luận chỉnh sửa trong vòng bao lâu?",
+    "ground_truth": "Theo Quy trình 583/2023, sinh viên phải nộp lại khóa luận (đã chỉnh sửa theo góp ý của Hội đồng) trong vòng 14 ngày sau ngày bảo vệ (t+14).",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Bảng 1 (Lưu đồ)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_007",
+    "question": "Mỗi đề tài KLTN được tối đa bao nhiêu sinh viên thực hiện?",
+    "ground_truth": "Mỗi đề tài KLTN được giao cho từ 1 đến 2 sinh viên thực hiện.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_008",
+    "question": "Nếu cán bộ phản biện chấm điểm dưới 5 thì tôi có được bảo vệ trước hội đồng không?",
+    "ground_truth": "Không. Khi cán bộ phản biện đánh giá đề tài dưới 5 điểm (không đạt), sinh viên không đủ điều kiện để bảo vệ trước hội đồng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 10, Khoản 3",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_009",
+    "question": "Ai là người ra quyết định giao đề tài KLTN cho sinh viên?",
+    "ground_truth": "Hiệu trưởng ra quyết định giao đề tài KLTN, dựa trên đề nghị của Trưởng phòng ĐTĐH và Trưởng Khoa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 6",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_010",
+    "question": "Sinh viên bị đình chỉ thực hiện KLTN ở giữa kỳ sẽ nhận điểm mấy?",
+    "ground_truth": "Sinh viên bị đình chỉ thực hiện KLTN sẽ nhận điểm không (0) đối với môn học KLTN.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1c",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_011",
+    "question": "Một giảng viên được hướng dẫn tối đa bao nhiêu đề tài trong một học kỳ?",
+    "ground_truth": "Cán bộ hướng dẫn được hướng dẫn tối đa 10 đề tài trong mỗi học kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_012",
+    "question": "Báo cáo giữa kỳ KLTN nhằm mục đích gì?",
+    "ground_truth": "Báo cáo giữa kỳ nhằm rà soát tiến độ, phát hiện khó khăn để xử lý kịp thời (điều chỉnh đề tài, thay đổi CBHD, hoặc đình chỉ nếu cần).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_013",
+    "question": "Tôi có thể mời giảng viên trường khác hướng dẫn KLTN được không?",
+    "ground_truth": "Được, nhưng phải có thêm một Cán bộ hướng dẫn là cán bộ của Trường ĐH CNTT (đồng hướng dẫn).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_014",
+    "question": "Sinh viên có bắt buộc phải nộp báo cáo KLTN bản cứng (giấy) không?",
+    "ground_truth": "Quy định để mở: việc nộp bản mềm (Word/PDF) hay bản giấy là do Khoa quyết định.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_015",
+    "question": "Cán bộ phản biện có thể là người hướng dẫn của tôi không?",
+    "ground_truth": "Không. Cán bộ phản biện phải khác với Cán bộ hướng dẫn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 9, Khoản 3",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_016",
+    "question": "Điều kiện tiên quyết để được bảo vệ KLTN trước hội đồng là gì?",
+    "ground_truth": "Sinh viên phải có ý kiến đồng ý cho phép bảo vệ của Cán bộ hướng dẫn (kèm chữ ký) và đạt điểm đánh giá của Cán bộ phản biện từ 5 trở lên.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 8.3 & Điều 10.3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_017",
+    "question": "Tôi muốn gia hạn thời gian làm KLTN thêm 1 tháng được không?",
+    "ground_truth": "Được, nhưng phải là trường hợp đặc biệt và phải làm đơn đề nghị có sự đồng ý của CBHD và Khoa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_018",
+    "question": "Đề tài KLTN do ai đề xuất?",
+    "ground_truth": "Đề tài có thể do giảng viên hoặc các doanh nghiệp đề xuất.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_019",
+    "question": "Hội đồng đánh giá thuyết minh đề tài KLTN do cấp nào thành lập?",
+    "ground_truth": "Khoa lập hội đồng đánh giá thuyết minh đề tài KLTN.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 5",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_020",
+    "question": "Cán bộ hướng dẫn có trách nhiệm gì đối với dữ liệu của doanh nghiệp trong KLTN?",
+    "ground_truth": "Cán bộ hướng dẫn có trách nhiệm kiểm tra việc thực hiện các quy định về tác quyền của đơn vị cung cấp dữ liệu hoặc tư liệu liên quan.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_021",
+    "question": "Nếu tôi không nộp KLTN sau bảo vệ đúng hạn thì có sao không?",
+    "ground_truth": "Quy trình 583 không ghi chế tài cụ thể, nhưng việc chậm trễ sẽ ảnh hưởng đến tiến độ xét tốt nghiệp và cấp bằng của sinh viên (do chưa hoàn tất thủ tục).",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Mục I (Mục đích)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_022",
+    "question": "Sinh viên phải báo cáo tiến độ cho CBHD bao lâu một lần?",
+    "ground_truth": "Sinh viên báo cáo định kỳ theo quy định của Cán bộ hướng dẫn (không có quy định cứng của trường, tùy thuộc vào CBHD).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_023",
+    "question": "Hội đồng bảo vệ khóa luận tốt nghiệp do ai thành lập?",
+    "ground_truth": "Hội đồng bảo vệ do Trường thành lập (thường là Hiệu trưởng ký quyết định theo đề nghị của Khoa).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 10, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_024",
+    "question": "Có được bảo vệ khóa luận nếu chưa học xong môn GDQP không?",
+    "ground_truth": "Được. Điều kiện làm và bảo vệ KLTN thường dựa trên tín chỉ tích lũy chuyên môn và điểm số (theo quy chế tín chỉ). GDQP là điều kiện xét tốt nghiệp, không phải điều kiện tiên quyết để bảo vệ KLTN.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 31 (Quy chế 790)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_025",
+    "question": "Thuyết minh đề tài KLTN cần những nội dung gì?",
+    "ground_truth": "Thuyết minh cần thể hiện được tính khoa học, tính thực tiễn, tính khả thi và sự phù hợp với mục tiêu đào tạo của ngành.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 5",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_026",
+    "question": "Cán bộ phản biện có cần phải là người của trường không?",
+    "ground_truth": "Không nhất thiết. Trong trường hợp cần thiết, Khoa có thể mời chuyên gia có chuyên môn phù hợp ở ngoài Trường làm Cán bộ phản biện.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 9, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_027",
+    "question": "Nếu làm KLTN nhóm 2 người thì có cần phân chia công việc không?",
+    "ground_truth": "Có. Phải có sự phân công trách nhiệm cụ thể cho từng sinh viên và ghi rõ trong đề cương nghiên cứu.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_028",
+    "question": "Quy trình 583 về nộp KLTN áp dụng từ khi nào?",
+    "ground_truth": "Quy trình này áp dụng kể từ học kỳ 2 năm học 2022-2023.",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Mục II (Phạm vi áp dụng)",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_029",
+    "question": "Sinh viên nộp KLTN sau bảo vệ cho đơn vị nào?",
+    "ground_truth": "Sinh viên nộp KLTN cho Văn phòng Khoa/Bộ môn.",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Bảng 1 (Lưu đồ)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_030",
+    "question": "Tôi có thể đổi giảng viên hướng dẫn sau báo cáo giữa kỳ được không?",
+    "ground_truth": "Được (nhưng hạn chế). Cán bộ hướng dẫn có thể thay đổi 01 lần theo đề xuất của hội đồng đánh giá ngay sau khi báo cáo giữa kỳ nếu có lý do chính đáng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1d",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_031",
+    "question": "Văn phòng các Chương trình đặc biệt có tham gia xét duyệt danh sách làm KLTN không?",
+    "ground_truth": "Có. Đối với sinh viên thuộc chương trình đặc biệt, VPCCTĐB phối hợp xét duyệt danh sách đủ điều kiện.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_032",
+    "question": "Nếu tôi không hoàn thành KLTN đúng hạn 15 tuần thì bị điểm 0 luôn hả?",
+    "ground_truth": "Không hẳn. Nếu có lý do đặc biệt, bạn có thể xin gia hạn. Nếu không xin gia hạn hoặc không được duyệt mà không nộp bài thì mới bị điểm 0 (hoặc phải đăng ký lại).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 3 & Điều 7 (Suy luận)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_033",
+    "question": "Danh sách sinh viên đủ điều kiện làm KLTN do ai cung cấp về Khoa?",
+    "ground_truth": "P.ĐTĐH hoặc VPCCTĐB cung cấp danh sách sinh viên đủ điều kiện về Khoa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_034",
+    "question": "Sinh viên phải đăng ký KLTN vào thời điểm nào?",
+    "ground_truth": "Sinh viên phải đăng ký thực hiện KLTN theo thông báo đăng ký học phần vào đầu mỗi học kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_035",
+    "question": "Cán bộ phản biện phải có học vị gì?",
+    "ground_truth": "Cán bộ phản biện phải có học vị từ Thạc sĩ trở lên.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 9, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_036",
+    "question": "Tôi có cần báo cáo với cán bộ phản biện trước khi bảo vệ không?",
+    "ground_truth": "Có. Sinh viên phải báo cáo với cán bộ phản biện trước khi bảo vệ trước hội đồng để nhận phiếu nhận xét.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 9, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_037",
+    "question": "Có được làm KLTN trái ngành không?",
+    "ground_truth": "Đề tài KLTN phải phù hợp với mục tiêu đào tạo và chuẩn đầu ra của ngành đào tạo tương ứng. Làm trái ngành thường sẽ không được hội đồng khoa duyệt thuyết minh.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 5",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_038",
+    "question": "Nếu KLTN bị đánh giá là 'đạo văn' thì xử lý sao?",
+    "ground_truth": "Quy định 159 không ghi chi tiết, nhưng theo quy chế học vụ chung (790) và quy định liêm chính học thuật, sinh viên sẽ bị xử lý kỷ luật (thường là điểm 0 và đình chỉ/buộc thôi học tùy mức độ).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Implicit (Liêm chính học thuật)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_039",
+    "question": "Sinh viên nhận quyết định giao đề tài KLTN từ ai?",
+    "ground_truth": "Hiệu trưởng ra quyết định giao đề tài KLTN cho sinh viên.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 6",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_040",
+    "question": "Có thể có 2 giảng viên hướng dẫn chính cho 1 đề tài được không?",
+    "ground_truth": "Không. Nếu có 2 CBHD thì phải phân rõ trách nhiệm: 1 người là hướng dẫn chính, 1 người là hướng dẫn phụ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_041",
+    "question": "Tôi có thể đăng ký chuyên đề tốt nghiệp rồi sau đó đổi sang làm KLTN được không?",
+    "ground_truth": "Thường là không, vì thời gian xét duyệt KLTN là đầu học kỳ. Nếu đã chốt danh sách CĐTN thì khó chuyển sang KLTN trừ khi có lý do đặc biệt và được Khoa/P.ĐTĐH chấp thuận trong thời gian điều chỉnh đăng ký.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4 & 5 (Quy trình xét)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_042",
+    "question": "Báo cáo giữa kỳ có tính điểm vào điểm tổng kết KLTN không?",
+    "ground_truth": "Quy định 159 không ghi việc tính điểm báo cáo giữa kỳ vào điểm tổng kết, mà chỉ dùng để đánh giá tiến độ (Đạt/Không đạt/Đình chỉ). Điểm KLTN thường là điểm bảo vệ cuối kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_043",
+    "question": "Sinh viên nộp KLTN trễ hạn t+17 thì nộp ở đâu?",
+    "ground_truth": "Quy trình 583 chỉ quy định đến ngày t+17 (Khoa nộp về Thư viện). Nếu sinh viên nộp trễ hơn mốc này thì phải liên hệ trực tiếp Văn phòng Khoa để được hướng dẫn xử lý.",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Bảng 1 (Lưu đồ)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_044",
+    "question": "Khoa có được phép đặt thêm tiêu chuẩn riêng để xét sinh viên làm KLTN không?",
+    "ground_truth": "Có. Ngoài yêu cầu chung của Trường, Khoa có thể đề xuất bổ sung các tiêu chuẩn xét chọn làm KLTN của riêng Khoa (và phải công bố trước).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_045",
+    "question": "Nếu hội đồng báo cáo giữa kỳ đề nghị dừng đề tài thì ai là người ra quyết định cuối cùng?",
+    "ground_truth": "Trưởng đơn vị chuyên môn (Trưởng Khoa/Bộ môn) sẽ xem xét và quyết định đình chỉ thực hiện KLTN dựa trên đề nghị của hội đồng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1c",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_046",
+    "question": "Giảng viên thỉnh giảng có được hướng dẫn KLTN không?",
+    "ground_truth": "Được (nếu có học vị Thạc sĩ trở lên), nhưng phải có một cán bộ cơ hữu của Trường làm đồng hướng dẫn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_047",
+    "question": "Tôi làm đơn xin gia hạn KLTN nộp cho ai?",
+    "ground_truth": "Sinh viên làm đơn đề nghị nộp cho Phòng Đào tạo Đại học (P.ĐTĐH) sau khi đã có sự đồng ý của CBHD và Khoa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_048",
+    "question": "Cần bao nhiêu bản báo cáo KLTN để gửi cho hội đồng?",
+    "ground_truth": "Báo cáo KLTN phải được gửi đến: CBHD, CBPB và các thành viên trong hội đồng. Số lượng cụ thể do Khoa quy định.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_049",
+    "question": "Sinh viên liên thông có được làm KLTN không?",
+    "ground_truth": "Quy định 159 áp dụng cho sinh viên bậc đại học hệ chính quy (bao gồm cả liên thông chính quy). Nếu thỏa mãn điều kiện về tín chỉ và điểm số thì được làm.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_050",
+    "question": "CBHD nhận xét 'Không đồng ý cho bảo vệ' thì sinh viên có được bảo vệ không?",
+    "ground_truth": "Không. KLTN phải có ý kiến thống nhất và sự đồng ý cho phép bảo vệ của CBHD mới được ra hội đồng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_001",
+    "question": "Để được công nhận tín chỉ từ trường khác, điểm số học phần đó phải đạt bao nhiêu?",
+    "ground_truth": "Điểm của học phần đề nghị công nhận phải đạt từ mức C trở lên theo thang điểm chữ (hoặc từ 5.0 trở lên theo thang điểm 10).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_002",
+    "question": "Bài báo khoa học xếp hạng Scopus-Q1 được trường hỗ trợ bao nhiêu tiền?",
+    "ground_truth": "Bài báo xếp hạng Scopus-Q1 (Hạng 1 hoặc 2 tùy tiêu chí phụ) được hỗ trợ từ 20 đến 25 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_003",
+    "question": "Tôi là đồng tác giả (sinh viên) của một bài báo Hạng 3 (16 triệu), tác giả chính cũng là sinh viên. Tôi được nhận bao nhiêu tiền?",
+    "ground_truth": "Nếu có 1 đồng tác giả: Tác giả chính hưởng 65%, đồng tác giả hưởng 35%. Vậy bạn nhận được: 16 triệu x 35% = 5.6 triệu đồng.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1a",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_004",
+    "question": "Học phần được công nhận tín chỉ sẽ được tính vào điểm trung bình học kỳ không?",
+    "ground_truth": "Không. Nếu được công nhận, sinh viên được nhận điểm miễn (ký hiệu M) và số tín chỉ tương ứng, nhưng không tính vào điểm trung bình.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 4",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_005",
+    "question": "Tôi quên ghi tên trường ĐH Công nghệ Thông tin vào bài báo thì có được xét hỗ trợ không?",
+    "ground_truth": "Không. Điều kiện bắt buộc là bài báo khoa học cần ghi rõ tên Trường Đại học Công nghệ Thông tin, ĐHQG-HCM (University of Information Technology...).",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 3",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_006",
+    "question": "Mỗi năm trường tổ chức mấy đợt xét hỗ trợ công bố khoa học?",
+    "ground_truth": "Trường tổ chức 2 đợt xét mỗi năm vào tháng 6 và tháng 11.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 6",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_007",
+    "question": "Học phần ở trường khác có 2 tín chỉ, trong khi ở UIT là 3 tín chỉ thì có được công nhận không?",
+    "ground_truth": "Không. Học phần được công nhận phải có số lượng tín chỉ hoặc thời gian học tập LỚN HƠN hoặc BẰNG so với học phần trong CTĐT của Trường (tức phải >= 3 tín chỉ).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_008",
+    "question": "Tôi có thể xin công nhận tín chỉ cho môn Khóa luận tốt nghiệp được không?",
+    "ground_truth": "Chỉ được công nhận trong trường hợp đặc biệt có thỏa thuận hợp tác cụ thể giữa hai cơ sở đào tạo. Bình thường thì không.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_009",
+    "question": "Bài báo hội nghị thuộc danh mục Scopus (không xếp hạng A/B/C) được hỗ trợ bao nhiêu?",
+    "ground_truth": "Bài báo hội nghị thuộc danh mục Scopus (Hạng 9) được hỗ trợ 2 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_010",
+    "question": "Nội dung môn học phải tương đương bao nhiêu phần trăm mới được công nhận?",
+    "ground_truth": "Nội dung môn học (dựa trên đối sánh chuẩn đầu ra) phải tương đương và được Hội đồng chuyên môn thông qua (thường là >= 80% theo quy chế đào tạo tín chỉ, dù QĐ 412 không ghi con số % cụ thể nhưng ghi 'tương đương').",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_011",
+    "question": "Học viên cao học (Thạc sĩ) có được chia tiền hỗ trợ bài báo cho đồng tác giả không?",
+    "ground_truth": "Không. Đối với HVCH và NCS, mức chi hỗ trợ là 100% cho tác giả chính, không chi cho các đồng tác giả.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_012",
+    "question": "Ai là người chịu trách nhiệm xác nhận tính chính xác của bản sao hồ sơ công nhận tín chỉ?",
+    "ground_truth": "Người tiếp nhận hồ sơ tại P.ĐTĐH/VPĐB có trách nhiệm đối chiếu bản chính và ký xác nhận vào bản sao nếu sinh viên nộp bản sao không có chứng thực.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 5 (Quy trình nộp)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_013",
+    "question": "Nếu bài báo khoa học đã nhận tài trợ từ hội nghị thì sinh viên có được nhận thêm hỗ trợ từ trường không?",
+    "ground_truth": "Có. Đối với Sinh viên, bài báo khoa học đã nhận tài trợ của hội nghị hoặc đề tài vẫn được xem là thỏa điều kiện nhận hỗ trợ từ Trường. (Khác với HVCH/NCS là không được).",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_014",
+    "question": "Tôi đi du học ngắn hạn ở nước ngoài thì cần làm thủ tục công nhận tín chỉ khi nào?",
+    "ground_truth": "Sinh viên phải thực hiện thủ tục đăng ký TRƯỚC KHI đi học và báo cáo kết quả SAU KHI đi học về. Trường sẽ không công nhận nếu không thực hiện đúng quy trình này.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 6",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_015",
+    "question": "Bài báo xếp hạng Scopus-Q3 được hỗ trợ bao nhiêu?",
+    "ground_truth": "Bài báo xếp hạng Scopus-Q3 được hỗ trợ 12 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_016",
+    "question": "Sinh viên hệ từ xa có được áp dụng quy trình công nhận tín chỉ này không?",
+    "ground_truth": "Có. Đối tượng áp dụng của QĐ 412 bao gồm sinh viên hệ chính quy và hệ từ xa.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_017",
+    "question": "Nếu bài báo có 3 sinh viên đồng tác giả (không có tác giả chính) thì chia tiền thế nào?",
+    "ground_truth": "Nếu SV không là tác giả chính: Chi 50% mức hỗ trợ. Mức này chia đều cho các đồng tác giả là SV. Vậy 3 người chia đều khoản 50% đó.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1b",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_018",
+    "question": "Thời điểm công nhận tín chỉ được tính vào học kỳ nào?",
+    "ground_truth": "SV được nhận điểm miễn tại học kỳ tương ứng với thời điểm được công nhận (thời điểm ra quyết định).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_019",
+    "question": "Hồ sơ xét hỗ trợ công bố khoa học nộp về đâu?",
+    "ground_truth": "Người học nộp hồ sơ về Khoa quản lý.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 7",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_020",
+    "question": "Tôi có thể dùng môn học ở bậc Cao đẳng để xin công nhận cho bậc Đại học không?",
+    "ground_truth": "Không. Học phần được công nhận phải cùng bậc đào tạo (Đại học).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_021",
+    "question": "Bài báo hội nghị xếp hạng B theo CORE được hỗ trợ bao nhiêu?",
+    "ground_truth": "Được hỗ trợ 6 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_022",
+    "question": "Ai có thẩm quyền quyết định cuối cùng về việc công nhận tín chỉ?",
+    "ground_truth": "Hiệu trưởng ra quyết định công nhận tín chỉ (dựa trên đề nghị của các đơn vị).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Lưu đồ quy trình",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_023",
+    "question": "Nếu tôi là NCS dự bị thì có được nhận hỗ trợ bài báo không?",
+    "ground_truth": "Có. Quy định áp dụng cho NCS bao gồm cả NCS dự bị.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_024",
+    "question": "Sinh viên Chương trình liên kết quốc tế có được áp dụng quy trình công nhận tín chỉ 412 không?",
+    "ground_truth": "Không. Quy trình 412 không áp dụng cho sinh viên các chương trình liên kết.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_025",
+    "question": "Bài báo khoa học tiếng Việt có được hỗ trợ không?",
+    "ground_truth": "Có (nếu đạt chuẩn). Quy định có hướng dẫn ghi tên trường cho cả bài báo tiếng Anh và tiếng Việt.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_026",
+    "question": "Trường có công nhận tín chỉ các môn Giáo dục thể chất học ở trung tâm bên ngoài không?",
+    "ground_truth": "Nếu trung tâm đó là cơ sở giáo dục đại học hoặc đơn vị được phép đào tạo cấp chứng chỉ tương đương trình độ đại học, và nội dung tương đương thì có thể được xem xét. Tuy nhiên, quy định 412 yêu cầu 'cơ sở đào tạo' (CSDT), cần xét kỹ tư cách pháp nhân của trung tâm đó.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 1 & 3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_027",
+    "question": "Sinh viên nhận tiền hỗ trợ bài báo qua hình thức nào?",
+    "ground_truth": "Tiền hỗ trợ được chi trực tiếp cho tác giả qua tài khoản ngân hàng (ưu tiên Vietcombank, BIDV).",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1 & Phụ lục",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_028",
+    "question": "Có giới hạn số lượng bài báo được hỗ trợ trong một năm không?",
+    "ground_truth": "Quy định không ghi giới hạn số lượng bài báo tối đa được hỗ trợ cho một sinh viên.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_029",
+    "question": "Hồ sơ công nhận tín chỉ bao gồm những gì?",
+    "ground_truth": "Hồ sơ gồm: Đơn đăng ký công nhận tín chỉ, Bảng điểm/Chứng chỉ (bản sao có chứng thực hoặc kèm bản chính), Đề cương chi tiết học phần (nếu cần).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 5",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_030",
+    "question": "Tác giả chính (First Author) được định nghĩa như thế nào trong quy định hỗ trợ?",
+    "ground_truth": "Tác giả chính là người được mô tả rõ trong bài báo (corresponding author/first author). Nếu không mô tả thì hiểu là tác giả đứng tên đầu tiên.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_031",
+    "question": "Thời gian giải quyết hồ sơ công nhận tín chỉ trong nước mất bao lâu?",
+    "ground_truth": "Theo lưu đồ, tổng thời gian từ lúc nộp (t) đến lúc ra quyết định (t+15) là khoảng 15 ngày làm việc (3 tuần).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 5 (Lưu đồ)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_032",
+    "question": "Bài báo xếp hạng ESCI được hỗ trợ bao nhiêu?",
+    "ground_truth": "Được hỗ trợ 8 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_033",
+    "question": "Nếu tôi nộp hồ sơ công nhận tín chỉ trễ hạn (sau tuần thứ 2 của học kỳ) thì sao?",
+    "ground_truth": "Quy trình không ghi rõ chế tài trễ hạn, nhưng thường P.ĐTĐH sẽ không nhận hồ sơ hoặc chuyển sang đợt xét của học kỳ sau.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_034",
+    "question": "Sinh viên có bài báo được tuyên dương bằng hình thức nào?",
+    "ground_truth": "Sinh viên sẽ được nhận giấy khen của Hiệu trưởng.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 5, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_035",
+    "question": "Nếu tôi có bài báo đăng năm 2022 thì bây giờ nộp hồ sơ xét hỗ trợ được không?",
+    "ground_truth": "Không. Quy định 547 áp dụng cho các bài báo được công bố kể từ tháng 05 năm 2023.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Mục 2 (Hiệu lực thi hành)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_036",
+    "question": "Tôi cần cung cấp minh chứng gì để chứng minh xếp hạng bài báo?",
+    "ground_truth": "Sinh viên cần in minh chứng xếp hạng từ trang tra cứu ERA, SCIMAGOJR hoặc các trang uy tín tương ứng.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Phụ lục 9",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_037",
+    "question": "Ai là người hướng dẫn sinh viên thực hiện quy trình công nhận tín chỉ?",
+    "ground_truth": "P.ĐTĐH, VPĐB và Đơn vị chuyên môn (Khoa) có trách nhiệm hướng dẫn SV thực hiện.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 7",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_038",
+    "question": "Bài báo hội nghị xếp hạng C theo CORE được bao nhiêu tiền?",
+    "ground_truth": "Được 4 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_039",
+    "question": "Phòng nào thực hiện việc chi tiền thưởng bài báo?",
+    "ground_truth": "Phòng Kế hoạch Tài chính (KHTC) thực hiện việc khen thưởng/chi tiền.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 7 (Bảng phân công)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_040",
+    "question": "Nếu đồng tác giả là giảng viên thì giảng viên có được chia tiền hỗ trợ theo quy định này không?",
+    "ground_truth": "Không. Quy định này chỉ áp dụng hỗ trợ cho sinh viên, học viên, NCS. Giảng viên sẽ hưởng chế độ theo quy định khác về NCKH của giảng viên.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 1 & Điều 4 (Suy luận)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_041",
+    "question": "Tôi có thể ủy quyền cho bạn nộp hồ sơ công nhận tín chỉ được không?",
+    "ground_truth": "Được (nếu có giấy ủy quyền hợp lệ), nhưng tốt nhất là nộp trực tiếp hoặc qua email chính thức của sinh viên để đảm bảo xác thực.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "N/A (General Admin Rule)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_042",
+    "question": "Học phí gia hạn đối với sinh viên quá hạn đào tạo được tính thế nào?",
+    "ground_truth": "Học phí gia hạn (HPGH) = t x HPHKC (Học phí học kỳ cuối). Trong đó t là tỷ lệ phần trăm (< 100%) được quy định cụ thể tại các thông báo.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Quy chế 790 (Công thức học phí)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_043",
+    "question": "Thời điểm công bố bài báo hội nghị được tính là khi nào?",
+    "ground_truth": "Đối với bài báo hội nghị, thời điểm công bố được tính là thời điểm tổ chức hội nghị.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_044",
+    "question": "Tôi nộp hồ sơ xét hỗ trợ bài báo vào tháng 8 được không?",
+    "ground_truth": "Được, nhưng hồ sơ sẽ được xét vào đợt tháng 11 (vì trường chỉ xét 2 đợt: tháng 6 và tháng 11).",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 6",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_045",
+    "question": "Nếu tôi học song ngành tại trường (2 bằng ĐHCNTT) thì có cần làm thủ tục công nhận tín chỉ theo quy trình 412 không?",
+    "ground_truth": "Không cần. Quy trình 412 áp dụng cho việc công nhận từ cơ sở giáo dục KHÁC. Song ngành trong trường thì hệ thống tự động ghi nhận các môn học chung/tương đương theo quy chế đào tạo.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 1 & 9 (Quy chế 790)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_046",
+    "question": "Bài báo Scopus-Q4 được bao nhiêu tiền?",
+    "ground_truth": "10 triệu đồng.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_047",
+    "question": "Nếu bài báo có 2 tác giả là sinh viên, cả 2 đều là đồng tác giả (không ai là chính) thì chia tiền sao?",
+    "ground_truth": "Trường hợp này hiếm (thường phải có 1 main author). Nhưng nếu xét theo mục 1b (SV không là tác giả chính): Chi 50% mức hỗ trợ, chia đều cho các đồng tác giả SV. Tức mỗi người nhận 25% tổng mức.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1b",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_048",
+    "question": "Tôi có được công nhận tín chỉ nếu học online ở trường khác không?",
+    "ground_truth": "Quy trình 412 không loại trừ hình thức học online, miễn là cơ sở đào tạo hợp pháp, chương trình được kiểm định và nội dung tương đương. Tuy nhiên, việc đánh giá tương đương sẽ do Khoa quyết định.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_049",
+    "question": "Nếu Khoa từ chối công nhận tín chỉ thì tôi có được khiếu nại không?",
+    "ground_truth": "Có. Sinh viên có quyền thắc mắc/khiếu nại về kết quả xét duyệt.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Implicit",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_050",
+    "question": "Danh sách tuyên dương sinh viên NCKH do phòng nào thực hiện?",
+    "ground_truth": "Phòng Công tác Sinh viên (CTSV) thực hiện việc tuyên dương dựa trên thông tin do Phòng ĐTSĐH&KHCN cung cấp.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 5, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  }
+]

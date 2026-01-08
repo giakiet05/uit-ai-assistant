@@ -87,7 +87,9 @@ class QueryEngine:
         retrieval_top_k: int = 20,  # Retrieve more, then rerank
         rerank_score_threshold: float = 0.7,  # Filter out low-confidence results after reranking
         min_score_threshold: float = 0.25,  # Minimum score for initial retrieval
-        use_modal: bool = False  # Use Modal GPU for reranking (faster)
+        use_modal: bool = False,  # Use Modal GPU for reranking (faster)
+        use_hyde: bool = False,  # Use HyDE (Hypothetical Document Embeddings)
+        hyde_model: str = "gpt-4.1-nano"  # Model for HyDE generation
     ):
         """
         Initialize QueryEngine.
@@ -102,6 +104,8 @@ class QueryEngine:
                                    Nodes with score < threshold will be filtered out
             min_score_threshold: Minimum score for initial retrieval (default: 0.25)
             use_modal: Use Modal GPU for reranking (default: False, use local CPU)
+            use_hyde: Use HyDE for query expansion (default: False)
+            hyde_model: Model for generating hypothetical documents (default: gpt-4.1-nano)
         """
         self.collections = collections
         self.use_reranker = use_reranker
@@ -111,6 +115,8 @@ class QueryEngine:
         self.rerank_score_threshold = rerank_score_threshold
         self.min_score_threshold = min_score_threshold
         self.use_modal = use_modal
+        self.use_hyde = use_hyde
+        self.hyde_model = hyde_model
 
         # Initialize BM25 Retriever
         self._setup_bm25_retriever()
@@ -121,6 +127,10 @@ class QueryEngine:
                 self._setup_modal_reranker()
             else:
                 self._setup_local_reranker()
+        
+        # Initialize HyDE LLM client if enabled
+        if self.use_hyde:
+            self._setup_hyde_llm()
 
         print(f"[QUERY ENGINE] Initialized with:")
         print(f"  - Collections: {list(collections.keys())}")
@@ -130,6 +140,7 @@ class QueryEngine:
         print(f"  - Final top_k: {top_k}")
         print(f"  - Min score threshold: {min_score_threshold}")
         print(f"  - Rerank score threshold: {rerank_score_threshold}")
+        print(f"  - HyDE: {'enabled' if use_hyde else 'disabled'} (model: {hyde_model if use_hyde else 'N/A'})")
 
 
     def _setup_bm25_retriever(self):
@@ -205,6 +216,15 @@ class QueryEngine:
                 
         return nodes
 
+    def _setup_hyde_llm(self):
+        """Setup LLM client for HyDE (Hypothetical Document Embeddings)."""
+        from openai import OpenAI
+        from src.config.settings import settings
+        
+        self.hyde_llm = OpenAI(api_key=settings.credentials.OPENAI_API_KEY)
+        print(f"[HYDE] Using model: {self.hyde_model}")
+        print(f"[HYDE] HyDE LLM client initialized successfully")
+
     def _setup_local_reranker(self):
         """
         Local reranker is no longer supported (removed FlagEmbedding dependency).
@@ -224,6 +244,70 @@ class QueryEngine:
         print(f"[RERANKER] Using Modal HTTP endpoint: {self.modal_reranker_url}")
         print(f"[RERANKER] Modal reranker configured successfully")
 
+    def _generate_hypothetical_document(
+        self, 
+        query: str, 
+        collection_type: Literal["regulation", "curriculum"]
+    ) -> str:
+        """
+        Generate hypothetical document using HyDE technique.
+        
+        HyDE (Hypothetical Document Embeddings):
+        - Generate a hypothetical answer to the query using LLM
+        - Embed the hypothetical answer instead of the query
+        - Hypothetical docs are closer to actual docs in vector space
+        
+        Args:
+            query: User's original query
+            collection_type: Type of collection (regulation or curriculum)
+            
+        Returns:
+            Hypothetical document text (100-200 words)
+        """
+        if not self.use_hyde:
+            return query
+        
+        # Customize prompt based on collection type
+        if collection_type == "regulation":
+            context = "quy định, quy chế, văn bản hành chính của Đại học UIT"
+        else:  # curriculum
+            context = "chương trình đào tạo, môn học, học phần của các ngành tại UIT"
+        
+        prompt = f"""Bạn là chuyên gia về {context}.
+
+Câu hỏi: {query}
+
+Hãy viết một đoạn văn ngắn (100-200 từ) MÔ TẢ câu trả lời có thể có cho câu hỏi trên.
+Không cần chính xác 100%, chỉ cần viết DẠNG văn bản mà câu trả lời sẽ có.
+
+Quy tắc:
+- Viết như thể bạn đang TRẢ LỜI câu hỏi (không nói "Câu trả lời sẽ bao gồm...")
+- Sử dụng các từ khóa và thuật ngữ liên quan
+- Giữ phong cách giống văn bản {context}
+- Ngắn gọn, súc tích (100-200 từ)
+
+Đoạn văn:"""
+
+        try:
+            print(f"[HYDE] Generating hypothetical document for: {query[:60]}...")
+            
+            response = self.hyde_llm.chat.completions.create(
+                model=self.hyde_model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.7,  # Moderate creativity
+                max_tokens=300
+            )
+            
+            hypothetical_doc = response.choices[0].message.content.strip()
+            print(f"[HYDE] Generated ({len(hypothetical_doc)} chars): {hypothetical_doc[:100]}...")
+            
+            return hypothetical_doc
+            
+        except Exception as e:
+            print(f"[HYDE] Error generating hypothetical document: {e}")
+            print(f"[HYDE] Falling back to original query")
+            return query
+
     def _retrieve(
         self,
         query: str,
@@ -234,11 +318,19 @@ class QueryEngine:
         Blended retrieval from specified collection with reranking.
         """
         # Normalize query text
-        query = normalize_vietnamese_text(query)
+        original_query = normalize_vietnamese_text(query)
+        
+        # Generate hypothetical document if HyDE is enabled
+        if self.use_hyde:
+            retrieval_query = self._generate_hypothetical_document(original_query, collection_type)
+        else:
+            retrieval_query = original_query
 
         print(f"\n{'='*70}")
         print(f"[QUERY ENGINE] Blended Retrieval")
-        print(f"[QUERY ENGINE] Query (normalized): {query}")
+        print(f"[QUERY ENGINE] Original Query: {original_query}")
+        if self.use_hyde:
+            print(f"[QUERY ENGINE] HyDE Query: {retrieval_query[:100]}...")
         print(f"[QUERY ENGINE] Collection: {collection_type}")
         print(f"{'='*70}\n")
 
@@ -248,14 +340,14 @@ class QueryEngine:
         dense_nodes = []
         bm25_nodes = []
 
-        # 1. Dense vector retrieval
+        # 1. Dense vector retrieval (using HyDE query if enabled)
         print("[QUERY ENGINE] Retrieving from dense vector index...")
-        dense_nodes = self._retrieve_dense(query, selected_collection)
+        dense_nodes = self._retrieve_dense(retrieval_query, selected_collection)
         print(f"  → Found {len(dense_nodes)} dense nodes")
 
         # 2. BM25 retrieval (Temporarily disabled)
         # if collection_type == "regulation":
-        #     bm25_nodes = self._retrieve_bm25(query)
+        #     bm25_nodes = self._retrieve_bm25(retrieval_query)
         #     print(f"  → Found {len(bm25_nodes)} BM25 nodes")
 
         # 3. Deduplicate (Union of candidates)
@@ -275,12 +367,13 @@ class QueryEngine:
         candidates = list(combined_nodes_map.values())
         print(f"\n[QUERY ENGINE] Total unique candidates for reranking: {len(candidates)}")
 
-        # 4. Rerank
+        # 4. Rerank (IMPORTANT: Use ORIGINAL query for reranking, not HyDE query)
         should_rerank = use_reranker if use_reranker is not None else self.use_reranker
         
         if should_rerank and candidates:
             # Pass ALL candidates to reranker (don't pre-filter by raw score)
-            top_nodes = self._rerank(query, candidates)
+            # Use original query for reranking (not hypothetical doc)
+            top_nodes = self._rerank(original_query, candidates)
             reranked = True
         else:
             # If no reranker, we have a problem merging scores.

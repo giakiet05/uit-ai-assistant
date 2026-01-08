@@ -49,7 +49,9 @@ def _init_query_engine() -> QueryEngine:
         retrieval_top_k=10,
         rerank_score_threshold=0.5,
         min_score_threshold=0.15,
-        use_modal=True
+        use_modal=True,
+        use_hyde=settings.retrieval.USE_HYDE,
+        hyde_model=settings.retrieval.HYDE_MODEL
     )
 
     print(f"[RETRIEVAL TOOLS] QueryEngine initialized with {len(collections)} collections")

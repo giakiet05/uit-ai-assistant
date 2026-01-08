@@ -50,6 +50,10 @@ class Retrieval:
             "MODAL_RERANKER_URL",
             "https://giakiet05--viranker-reranker-rerank-endpoint.modal.run"
         )
+        
+        # HyDE (Hypothetical Document Embeddings) configuration
+        self.USE_HYDE = os.getenv("USE_HYDE", "false").lower() == "true"
+        self.HYDE_MODEL = os.getenv("HYDE_MODEL", "gpt-4.1-nano")
 
 
 class Settings:
