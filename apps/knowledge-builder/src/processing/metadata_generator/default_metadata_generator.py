@@ -1,8 +1,8 @@
 # src/processing/metadata_generator/default_metadata_generator.py
 from pathlib import Path
 from typing import Union
-from .base_metadata_generator import BaseMetadataGenerator
-from .metadata_models import RegulationMetadata, CurriculumMetadata, DefaultMetadata
+from processing.metadata_generator.base_metadata_generator import BaseMetadataGenerator
+from processing.metadata_generator.metadata_models import RegulationMetadata, CurriculumMetadata, DefaultMetadata
 
 class DefaultMetadataGenerator(BaseMetadataGenerator):
     """

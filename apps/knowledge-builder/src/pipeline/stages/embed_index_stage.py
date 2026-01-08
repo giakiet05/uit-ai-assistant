@@ -7,9 +7,9 @@ from typing import Dict, Any
 import json
 import chromadb
 
-from ..core.stage import Stage
-from ..core.pipeline_state import PipelineState
-from ...config.settings import settings
+from pipeline.core.stage import Stage
+from pipeline.core.pipeline_state import PipelineState
+from config.settings import settings
 
 from llama_index.core import (
     VectorStoreIndex,
@@ -61,10 +61,23 @@ class EmbedIndexStage(Stage):
             Metadata dict with indexing stats
         """
         # Initialize ChromaDB client if needed
-        if self.chroma_client is None:
+        # Use a fresh client for each execution to avoid lock issues
+        try:
+            # Close existing client if any
+            if self.chroma_client is not None:
+                try:
+                    del self.chroma_client
+                except:
+                    pass
+            
+            # Create fresh client
             self.chroma_client = chromadb.PersistentClient(
                 path=str(settings.paths.VECTOR_STORE_DIR)
             )
+        except Exception as e:
+            # If still locked, try to use EphemeralClient as fallback
+            raise ValueError(f"Failed to initialize ChromaDB: {e}. "
+                           f"Try clearing vector store or restarting.")
 
         # Initialize embedding model if needed
         if self.embed_model is None:
@@ -87,11 +100,31 @@ class EmbedIndexStage(Stage):
         # Recreate LlamaIndex nodes from serialized data
         nodes = []
         for chunk in chunks_data:
+            # Sanitize metadata - ChromaDB only accepts str, int, float, None
+            sanitized_metadata = {}
+            for key, value in chunk['metadata'].items():
+                if value is None:
+                    sanitized_metadata[key] = None
+                elif isinstance(value, (str, int, float)):
+                    sanitized_metadata[key] = value
+                elif isinstance(value, bool):
+                    sanitized_metadata[key] = str(value)  # Convert bool to string
+                elif isinstance(value, (list, tuple)):
+                    # Convert list to comma-separated string
+                    sanitized_metadata[key] = ", ".join(str(v) for v in value)
+                elif isinstance(value, dict):
+                    # Convert dict to JSON string
+                    import json as json_module
+                    sanitized_metadata[key] = json_module.dumps(value)
+                else:
+                    # Convert other types to string
+                    sanitized_metadata[key] = str(value)
+            
             # Recreate node
             node = TextNode(
                 id_=chunk['id'],
                 text=chunk['text'],
-                metadata=chunk['metadata'],
+                metadata=sanitized_metadata,
                 start_char_idx=chunk.get('start_char_idx'),
                 end_char_idx=chunk.get('end_char_idx')
             )
@@ -144,6 +177,16 @@ class EmbedIndexStage(Stage):
             "embed_model": settings.indexing.EMBED_MODEL,
             "cost": estimated_cost
         }
+    
+    def cleanup(self):
+        """Clean up resources after execution."""
+        if self.chroma_client is not None:
+            try:
+                # Close/delete client to release locks
+                del self.chroma_client
+                self.chroma_client = None
+            except:
+                pass
 
     def get_output_filename(self) -> str:
         """

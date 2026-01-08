@@ -2,10 +2,10 @@
 from pathlib import Path
 from typing import Union
 
-from ...config.settings import settings
-from ...config.llm_provider import create_llm
-from .base_metadata_generator import BaseMetadataGenerator
-from .metadata_models import RegulationMetadata, CurriculumMetadata, DefaultMetadata
+from config.settings import settings
+from config.llm_provider import create_llm
+from processing.metadata_generator.base_metadata_generator import BaseMetadataGenerator
+from processing.metadata_generator.metadata_models import RegulationMetadata, CurriculumMetadata, DefaultMetadata
 
 # --- Enums defined from our analysis ---
 MAJORS_ENUM = [

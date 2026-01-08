@@ -1,7 +1,7 @@
 """
 UIT Website generic content cleaner
 """
-from .base_cleaner import BaseCleaner
+from processing.cleaner.base_cleaner import BaseCleaner
 
 
 class UitWebsiteCleaner(BaseCleaner):

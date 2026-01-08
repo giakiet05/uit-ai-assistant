@@ -26,6 +26,7 @@ dependencies = [
     "pymupdf>=1.26.6",
     "pytesseract>=0.3.13",
     "pandas>=2.3.3",
+    "streamlit>=1.30.0",
 ]
 
 [project.scripts]

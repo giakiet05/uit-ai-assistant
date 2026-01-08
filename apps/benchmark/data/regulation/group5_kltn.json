@@ -1,0 +1,652 @@
+[
+  {
+    "id": "kltn_001",
+    "question": "Thời gian thực hiện Khóa luận tốt nghiệp là bao lâu?",
+    "ground_truth": "Thời gian thực hiện KLTN là 1 học kỳ chính (15 tuần).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_002",
+    "question": "Cán bộ hướng dẫn khóa luận tốt nghiệp cần có học vị gì?",
+    "ground_truth": "Cán bộ hướng dẫn phải có học vị từ Thạc sĩ trở lên.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_003",
+    "question": "Sinh viên có thể nhờ anh ruột đang là giảng viên trong trường hướng dẫn KLTN được không?",
+    "ground_truth": "Không. Quy định cấm cán bộ hướng dẫn có quan hệ ruột thịt (cha, mẹ, vợ, chồng, anh, chị, em ruột) với sinh viên thực hiện đề tài.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_004",
+    "question": "Nếu tôi không đủ điều kiện làm KLTN thì có cách nào ra trường không?",
+    "ground_truth": "Có. Sinh viên không đủ điều kiện làm KLTN có thể đăng ký học các môn chuyên đề tốt nghiệp để thay thế.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_005",
+    "question": "Tôi có được thay đổi tên đề tài KLTN không và vào lúc nào?",
+    "ground_truth": "Được. Tên đề tài KLTN có thể thay đổi 01 lần theo đề xuất của hội đồng đánh giá ngay sau khi sinh viên báo cáo giữa kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1d",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_006",
+    "question": "Sau khi bảo vệ thành công, sinh viên phải nộp lại khóa luận chỉnh sửa trong vòng bao lâu?",
+    "ground_truth": "Theo Quy trình 583/2023, sinh viên phải nộp lại khóa luận (đã chỉnh sửa theo góp ý của Hội đồng) trong vòng 14 ngày sau ngày bảo vệ (t+14).",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Bảng 1 (Lưu đồ)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_007",
+    "question": "Mỗi đề tài KLTN được tối đa bao nhiêu sinh viên thực hiện?",
+    "ground_truth": "Mỗi đề tài KLTN được giao cho từ 1 đến 2 sinh viên thực hiện.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_008",
+    "question": "Nếu cán bộ phản biện chấm điểm dưới 5 thì tôi có được bảo vệ trước hội đồng không?",
+    "ground_truth": "Không. Khi cán bộ phản biện đánh giá đề tài dưới 5 điểm (không đạt), sinh viên không đủ điều kiện để bảo vệ trước hội đồng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 10, Khoản 3",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_009",
+    "question": "Ai là người ra quyết định giao đề tài KLTN cho sinh viên?",
+    "ground_truth": "Hiệu trưởng ra quyết định giao đề tài KLTN, dựa trên đề nghị của Trưởng phòng ĐTĐH và Trưởng Khoa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 6",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_010",
+    "question": "Sinh viên bị đình chỉ thực hiện KLTN ở giữa kỳ sẽ nhận điểm mấy?",
+    "ground_truth": "Sinh viên bị đình chỉ thực hiện KLTN sẽ nhận điểm không (0) đối với môn học KLTN.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1c",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_011",
+    "question": "Một giảng viên được hướng dẫn tối đa bao nhiêu đề tài trong một học kỳ?",
+    "ground_truth": "Cán bộ hướng dẫn được hướng dẫn tối đa 10 đề tài trong mỗi học kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_012",
+    "question": "Báo cáo giữa kỳ KLTN nhằm mục đích gì?",
+    "ground_truth": "Báo cáo giữa kỳ nhằm rà soát tiến độ, phát hiện khó khăn để xử lý kịp thời (điều chỉnh đề tài, thay đổi CBHD, hoặc đình chỉ nếu cần).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_013",
+    "question": "Tôi có thể mời giảng viên trường khác hướng dẫn KLTN được không?",
+    "ground_truth": "Được, nhưng phải có thêm một Cán bộ hướng dẫn là cán bộ của Trường ĐH CNTT (đồng hướng dẫn).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_014",
+    "question": "Sinh viên có bắt buộc phải nộp báo cáo KLTN bản cứng (giấy) không?",
+    "ground_truth": "Quy định để mở: việc nộp bản mềm (Word/PDF) hay bản giấy là do Khoa quyết định.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_015",
+    "question": "Cán bộ phản biện có thể là người hướng dẫn của tôi không?",
+    "ground_truth": "Không. Cán bộ phản biện phải khác với Cán bộ hướng dẫn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 9, Khoản 3",
+      "question_type": "negative",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_016",
+    "question": "Điều kiện tiên quyết để được bảo vệ KLTN trước hội đồng là gì?",
+    "ground_truth": "Sinh viên phải có ý kiến đồng ý cho phép bảo vệ của Cán bộ hướng dẫn (kèm chữ ký) và đạt điểm đánh giá của Cán bộ phản biện từ 5 trở lên.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 8.3 & Điều 10.3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_017",
+    "question": "Tôi muốn gia hạn thời gian làm KLTN thêm 1 tháng được không?",
+    "ground_truth": "Được, nhưng phải là trường hợp đặc biệt và phải làm đơn đề nghị có sự đồng ý của CBHD và Khoa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_018",
+    "question": "Đề tài KLTN do ai đề xuất?",
+    "ground_truth": "Đề tài có thể do giảng viên hoặc các doanh nghiệp đề xuất.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_019",
+    "question": "Hội đồng đánh giá thuyết minh đề tài KLTN do cấp nào thành lập?",
+    "ground_truth": "Khoa lập hội đồng đánh giá thuyết minh đề tài KLTN.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 5",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_020",
+    "question": "Cán bộ hướng dẫn có trách nhiệm gì đối với dữ liệu của doanh nghiệp trong KLTN?",
+    "ground_truth": "Cán bộ hướng dẫn có trách nhiệm kiểm tra việc thực hiện các quy định về tác quyền của đơn vị cung cấp dữ liệu hoặc tư liệu liên quan.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_021",
+    "question": "Nếu tôi không nộp KLTN sau bảo vệ đúng hạn thì có sao không?",
+    "ground_truth": "Quy trình 583 không ghi chế tài cụ thể, nhưng việc chậm trễ sẽ ảnh hưởng đến tiến độ xét tốt nghiệp và cấp bằng của sinh viên (do chưa hoàn tất thủ tục).",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Mục I (Mục đích)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_022",
+    "question": "Sinh viên phải báo cáo tiến độ cho CBHD bao lâu một lần?",
+    "ground_truth": "Sinh viên báo cáo định kỳ theo quy định của Cán bộ hướng dẫn (không có quy định cứng của trường, tùy thuộc vào CBHD).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_023",
+    "question": "Hội đồng bảo vệ khóa luận tốt nghiệp do ai thành lập?",
+    "ground_truth": "Hội đồng bảo vệ do Trường thành lập (thường là Hiệu trưởng ký quyết định theo đề nghị của Khoa).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 10, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_024",
+    "question": "Có được bảo vệ khóa luận nếu chưa học xong môn GDQP không?",
+    "ground_truth": "Được. Điều kiện làm và bảo vệ KLTN thường dựa trên tín chỉ tích lũy chuyên môn và điểm số (theo quy chế tín chỉ). GDQP là điều kiện xét tốt nghiệp, không phải điều kiện tiên quyết để bảo vệ KLTN.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Điều 31 (Quy chế 790)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_025",
+    "question": "Thuyết minh đề tài KLTN cần những nội dung gì?",
+    "ground_truth": "Thuyết minh cần thể hiện được tính khoa học, tính thực tiễn, tính khả thi và sự phù hợp với mục tiêu đào tạo của ngành.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 5",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_026",
+    "question": "Cán bộ phản biện có cần phải là người của trường không?",
+    "ground_truth": "Không nhất thiết. Trong trường hợp cần thiết, Khoa có thể mời chuyên gia có chuyên môn phù hợp ở ngoài Trường làm Cán bộ phản biện.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 9, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_027",
+    "question": "Nếu làm KLTN nhóm 2 người thì có cần phân chia công việc không?",
+    "ground_truth": "Có. Phải có sự phân công trách nhiệm cụ thể cho từng sinh viên và ghi rõ trong đề cương nghiên cứu.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_028",
+    "question": "Quy trình 583 về nộp KLTN áp dụng từ khi nào?",
+    "ground_truth": "Quy trình này áp dụng kể từ học kỳ 2 năm học 2022-2023.",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Mục II (Phạm vi áp dụng)",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_029",
+    "question": "Sinh viên nộp KLTN sau bảo vệ cho đơn vị nào?",
+    "ground_truth": "Sinh viên nộp KLTN cho Văn phòng Khoa/Bộ môn.",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Bảng 1 (Lưu đồ)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_030",
+    "question": "Tôi có thể đổi giảng viên hướng dẫn sau báo cáo giữa kỳ được không?",
+    "ground_truth": "Được (nhưng hạn chế). Cán bộ hướng dẫn có thể thay đổi 01 lần theo đề xuất của hội đồng đánh giá ngay sau khi báo cáo giữa kỳ nếu có lý do chính đáng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1d",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_031",
+    "question": "Văn phòng các Chương trình đặc biệt có tham gia xét duyệt danh sách làm KLTN không?",
+    "ground_truth": "Có. Đối với sinh viên thuộc chương trình đặc biệt, VPCCTĐB phối hợp xét duyệt danh sách đủ điều kiện.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_032",
+    "question": "Nếu tôi không hoàn thành KLTN đúng hạn 15 tuần thì bị điểm 0 luôn hả?",
+    "ground_truth": "Không hẳn. Nếu có lý do đặc biệt, bạn có thể xin gia hạn. Nếu không xin gia hạn hoặc không được duyệt mà không nộp bài thì mới bị điểm 0 (hoặc phải đăng ký lại).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 3 & Điều 7 (Suy luận)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_033",
+    "question": "Danh sách sinh viên đủ điều kiện làm KLTN do ai cung cấp về Khoa?",
+    "ground_truth": "P.ĐTĐH hoặc VPCCTĐB cung cấp danh sách sinh viên đủ điều kiện về Khoa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_034",
+    "question": "Sinh viên phải đăng ký KLTN vào thời điểm nào?",
+    "ground_truth": "Sinh viên phải đăng ký thực hiện KLTN theo thông báo đăng ký học phần vào đầu mỗi học kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_035",
+    "question": "Cán bộ phản biện phải có học vị gì?",
+    "ground_truth": "Cán bộ phản biện phải có học vị từ Thạc sĩ trở lên.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 9, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_036",
+    "question": "Tôi có cần báo cáo với cán bộ phản biện trước khi bảo vệ không?",
+    "ground_truth": "Có. Sinh viên phải báo cáo với cán bộ phản biện trước khi bảo vệ trước hội đồng để nhận phiếu nhận xét.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 9, Khoản 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_037",
+    "question": "Có được làm KLTN trái ngành không?",
+    "ground_truth": "Đề tài KLTN phải phù hợp với mục tiêu đào tạo và chuẩn đầu ra của ngành đào tạo tương ứng. Làm trái ngành thường sẽ không được hội đồng khoa duyệt thuyết minh.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 5",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_038",
+    "question": "Nếu KLTN bị đánh giá là 'đạo văn' thì xử lý sao?",
+    "ground_truth": "Quy định 159 không ghi chi tiết, nhưng theo quy chế học vụ chung (790) và quy định liêm chính học thuật, sinh viên sẽ bị xử lý kỷ luật (thường là điểm 0 và đình chỉ/buộc thôi học tùy mức độ).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Implicit (Liêm chính học thuật)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_039",
+    "question": "Sinh viên nhận quyết định giao đề tài KLTN từ ai?",
+    "ground_truth": "Hiệu trưởng ra quyết định giao đề tài KLTN cho sinh viên.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 5, Khoản 6",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_040",
+    "question": "Có thể có 2 giảng viên hướng dẫn chính cho 1 đề tài được không?",
+    "ground_truth": "Không. Nếu có 2 CBHD thì phải phân rõ trách nhiệm: 1 người là hướng dẫn chính, 1 người là hướng dẫn phụ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_041",
+    "question": "Tôi có thể đăng ký chuyên đề tốt nghiệp rồi sau đó đổi sang làm KLTN được không?",
+    "ground_truth": "Thường là không, vì thời gian xét duyệt KLTN là đầu học kỳ. Nếu đã chốt danh sách CĐTN thì khó chuyển sang KLTN trừ khi có lý do đặc biệt và được Khoa/P.ĐTĐH chấp thuận trong thời gian điều chỉnh đăng ký.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4 & 5 (Quy trình xét)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_042",
+    "question": "Báo cáo giữa kỳ có tính điểm vào điểm tổng kết KLTN không?",
+    "ground_truth": "Quy định 159 không ghi việc tính điểm báo cáo giữa kỳ vào điểm tổng kết, mà chỉ dùng để đánh giá tiến độ (Đạt/Không đạt/Đình chỉ). Điểm KLTN thường là điểm bảo vệ cuối kỳ.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_043",
+    "question": "Sinh viên nộp KLTN trễ hạn t+17 thì nộp ở đâu?",
+    "ground_truth": "Quy trình 583 chỉ quy định đến ngày t+17 (Khoa nộp về Thư viện). Nếu sinh viên nộp trễ hơn mốc này thì phải liên hệ trực tiếp Văn phòng Khoa để được hướng dẫn xử lý.",
+    "metadata": {
+      "document_name": "QUY TRÌNH NỘP KLTN",
+      "document_code": "583",
+      "document_year": 2023,
+      "source": "Bảng 1 (Lưu đồ)",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "kltn_044",
+    "question": "Khoa có được phép đặt thêm tiêu chuẩn riêng để xét sinh viên làm KLTN không?",
+    "ground_truth": "Có. Ngoài yêu cầu chung của Trường, Khoa có thể đề xuất bổ sung các tiêu chuẩn xét chọn làm KLTN của riêng Khoa (và phải công bố trước).",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_045",
+    "question": "Nếu hội đồng báo cáo giữa kỳ đề nghị dừng đề tài thì ai là người ra quyết định cuối cùng?",
+    "ground_truth": "Trưởng đơn vị chuyên môn (Trưởng Khoa/Bộ môn) sẽ xem xét và quyết định đình chỉ thực hiện KLTN dựa trên đề nghị của hội đồng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 7, Khoản 1c",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_046",
+    "question": "Giảng viên thỉnh giảng có được hướng dẫn KLTN không?",
+    "ground_truth": "Được (nếu có học vị Thạc sĩ trở lên), nhưng phải có một cán bộ cơ hữu của Trường làm đồng hướng dẫn.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 6, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_047",
+    "question": "Tôi làm đơn xin gia hạn KLTN nộp cho ai?",
+    "ground_truth": "Sinh viên làm đơn đề nghị nộp cho Phòng Đào tạo Đại học (P.ĐTĐH) sau khi đã có sự đồng ý của CBHD và Khoa.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_048",
+    "question": "Cần bao nhiêu bản báo cáo KLTN để gửi cho hội đồng?",
+    "ground_truth": "Báo cáo KLTN phải được gửi đến: CBHD, CBPB và các thành viên trong hội đồng. Số lượng cụ thể do Khoa quy định.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "kltn_049",
+    "question": "Sinh viên liên thông có được làm KLTN không?",
+    "ground_truth": "Quy định 159 áp dụng cho sinh viên bậc đại học hệ chính quy (bao gồm cả liên thông chính quy). Nếu thỏa mãn điều kiện về tín chỉ và điểm số thì được làm.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "kltn_050",
+    "question": "CBHD nhận xét 'Không đồng ý cho bảo vệ' thì sinh viên có được bảo vệ không?",
+    "ground_truth": "Không. KLTN phải có ý kiến thống nhất và sự đồng ý cho phép bảo vệ của CBHD mới được ra hội đồng.",
+    "metadata": {
+      "document_name": "QUY ĐỊNH KLTN",
+      "document_code": "159",
+      "document_year": 2024,
+      "source": "Điều 8, Khoản 3",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  }
+]

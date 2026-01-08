@@ -8,8 +8,8 @@ from pathlib import Path
 from typing import List
 from llama_cloud_services import LlamaParse
 
-from .base_parser import BaseParser
-from ..config import settings
+from processing.parser.base_parser import BaseParser
+from config import settings
 
 
 class LlamaParser(BaseParser):

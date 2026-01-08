@@ -15,11 +15,14 @@ Design Philosophy:
 """
 
 import unicodedata
+import json
+from pathlib import Path
 from typing import List, Dict, Optional, Literal
 from dataclasses import dataclass
 
 from llama_index.core import VectorStoreIndex
-from llama_index.core.schema import NodeWithScore
+from llama_index.core.schema import NodeWithScore, TextNode
+from llama_index.retrievers.bm25 import BM25Retriever
 
 from .program_filter import apply_program_filter
 from .schemas import (
@@ -109,6 +112,9 @@ class QueryEngine:
         self.min_score_threshold = min_score_threshold
         self.use_modal = use_modal
 
+        # Initialize BM25 Retriever
+        self._setup_bm25_retriever()
+
         # Initialize reranker if enabled
         if self.use_reranker:
             if self.use_modal:
@@ -125,6 +131,79 @@ class QueryEngine:
         print(f"  - Min score threshold: {min_score_threshold}")
         print(f"  - Rerank score threshold: {rerank_score_threshold}")
 
+
+    def _setup_bm25_retriever(self):
+        """Initialize BM25 retriever from chunks.json files."""
+        print("[QUERY ENGINE] Initializing BM25 retriever...")
+        try:
+            nodes = self._load_bm25_corpus()
+            if nodes:
+                self.bm25_retriever = BM25Retriever.from_defaults(
+                    nodes=nodes,
+                    similarity_top_k=self.retrieval_top_k,
+                    language="en"  # Using simple tokenizer is fine for now
+                )
+                print(f"[QUERY ENGINE] BM25 initialized with {len(nodes)} nodes")
+            else:
+                print("[WARNING] No nodes found for BM25 corpus")
+                self.bm25_retriever = None
+        except Exception as e:
+            print(f"[ERROR] Failed to initialize BM25: {e}")
+            self.bm25_retriever = None
+
+    def _load_bm25_corpus(self) -> List[TextNode]:
+        """Load text nodes from chunks.json files for BM25."""
+        nodes = []
+        # Define base data path (assuming running from project root)
+        # Use absolute path if possible to avoid relative path issues
+        project_root = Path(__file__).parents[5] # .../src/retriever/../../.. -> root
+        
+        # Try finding the data directory
+        possible_paths = [
+            Path("data/stages/regulation"),
+            Path("/app/data/stages/regulation"), # Docker
+            project_root / "data/stages/regulation",
+            Path("/home/giakiet05/programming/projects/uit-ai-assistant/data/stages/regulation") # Absolute fallback
+        ]
+
+        data_path = None
+        for p in possible_paths:
+            if p.exists() and p.is_dir():
+                data_path = p
+                print(f"[QUERY ENGINE] Loading BM25 corpus from: {data_path}")
+                break
+        
+        if not data_path:
+            print("[WARNING] Could not find data/stages/regulation directory")
+            return []
+
+        # Scan for chunks.json files
+        chunk_files = list(data_path.glob("*/chunks.json"))
+        
+        for cf in chunk_files:
+            try:
+                with open(cf, "r", encoding="utf-8") as f:
+                    chunks = json.load(f)
+                    for chunk in chunks:
+                        # Create TextNode compatible with LlamaIndex
+                        # Ensure we map fields correctly from chunks.json structure
+                        text = chunk.get("text", "")
+                        metadata = chunk.get("metadata", {})
+                        # Also add some key fields to metadata if they are top-level in chunks.json
+                        if "doc_id" in chunk:
+                            metadata["document_id"] = chunk["doc_id"]
+                        
+                        node = TextNode(
+                            text=text,
+                            metadata=metadata,
+                            id_=chunk.get("id") or chunk.get("chunk_id")
+                        )
+                        nodes.append(node)
+            except Exception as e:
+                print(f"[WARNING] Error reading {cf}: {e}")
+                continue
+                
+        return nodes
 
     def _setup_local_reranker(self):
         """
@@ -153,24 +232,8 @@ class QueryEngine:
     ) -> RetrievalResult:
         """
         Blended retrieval from specified collection with reranking.
-
-        Pipeline:
-        1. Dense vector retrieval from specified collection
-        2. BM25 retrieval (TODO)
-        3. Sparse vector retrieval (TODO)
-        4. Merge & deduplicate
-        5. Rerank
-        6. Return top-k
-
-        Args:
-            query: User query string
-            collection_type: Collection to retrieve from ("regulation" or "curriculum")
-            use_reranker: Override default reranker setting
-
-        Returns:
-            RetrievalResult with retrieved and reranked nodes
         """
-        # Normalize query text (fix Unicode normalization issues)
+        # Normalize query text
         query = normalize_vietnamese_text(query)
 
         print(f"\n{'='*70}")
@@ -179,44 +242,57 @@ class QueryEngine:
         print(f"[QUERY ENGINE] Collection: {collection_type}")
         print(f"{'='*70}\n")
 
-        # Get specified collection
         selected_collection = self.collections[collection_type]
+        
+        # Lists to hold candidates from different sources
+        dense_nodes = []
+        bm25_nodes = []
 
-        # Step 1: Retrieve from collection
-        all_nodes = []
-
-        # Dense vector retrieval
+        # 1. Dense vector retrieval
         print("[QUERY ENGINE] Retrieving from dense vector index...")
         dense_nodes = self._retrieve_dense(query, selected_collection)
-        all_nodes.extend(dense_nodes)
-        print(f"  → Found {len(dense_nodes)} nodes")
+        print(f"  → Found {len(dense_nodes)} dense nodes")
 
-        # BM25 retrieval (TODO)
-        # Sparse vector retrieval (TODO)
+        # 2. BM25 retrieval (Temporarily disabled)
+        # if collection_type == "regulation":
+        #     bm25_nodes = self._retrieve_bm25(query)
+        #     print(f"  → Found {len(bm25_nodes)} BM25 nodes")
 
-        # Step 2: Deduplicate & merge
-        print(f"\n[QUERY ENGINE] Merging {len(all_nodes)} nodes...")
-        merged_nodes = self._deduplicate_nodes(all_nodes)
-        print(f"  → After deduplication: {len(merged_nodes)} nodes")
+        # 3. Deduplicate (Union of candidates)
+        # We keep the node structure. If a node is in both, it doesn't matter which 'score' we keep
+        # because we will overwrite it with the Reranker score anyway.
+        combined_nodes_map = {}
+        
+        # Add dense nodes first
+        for node in dense_nodes:
+            combined_nodes_map[node.node.node_id] = node
+            
+        # Add BM25 nodes (if new)
+        for node in bm25_nodes:
+            if node.node.node_id not in combined_nodes_map:
+                combined_nodes_map[node.node.node_id] = node
+        
+        candidates = list(combined_nodes_map.values())
+        print(f"\n[QUERY ENGINE] Total unique candidates for reranking: {len(candidates)}")
 
-        # Step 3: Sort by score
-        merged_nodes.sort(key=lambda x: x.score, reverse=True)
-
-        # Take top retrieval_top_k before reranking
-        top_nodes = merged_nodes[:self.retrieval_top_k]
-        total_retrieved = len(top_nodes)
-        print(f"[QUERY ENGINE] Top {total_retrieved} nodes selected for reranking")
-
-        # Step 4: Rerank if enabled
+        # 4. Rerank
         should_rerank = use_reranker if use_reranker is not None else self.use_reranker
-
-        if should_rerank and total_retrieved > 0:
-            top_nodes = self._rerank(query, top_nodes)
+        
+        if should_rerank and candidates:
+            # Pass ALL candidates to reranker (don't pre-filter by raw score)
+            top_nodes = self._rerank(query, candidates)
             reranked = True
         else:
+            # If no reranker, we have a problem merging scores.
+            # For now, fallback to just dense nodes or naive sort if forced.
+            print("[WARNING] Reranker disabled in Hybrid mode. Scores are not comparable.")
+            # Fallback: Prioritize Dense nodes, append unique BM25 nodes
+            # (Assuming Vector is generally better than BM25 for ranking)
+            candidates.sort(key=lambda x: x.score, reverse=True) 
+            top_nodes = candidates
             reranked = False
 
-        # Step 5: Final top-k
+        # 5. Final top-k selection
         final_nodes = top_nodes[:self.top_k]
 
         print(f"[QUERY ENGINE] Final result: {len(final_nodes)} nodes (reranked: {reranked})\n")
@@ -225,7 +301,7 @@ class QueryEngine:
             nodes=final_nodes,
             retrieval_method=f"blended_{collection_type}",
             reranked=reranked,
-            total_retrieved=total_retrieved,
+            total_retrieved=len(candidates),
             final_count=len(final_nodes)
         )
 
@@ -263,9 +339,13 @@ class QueryEngine:
 
     def _retrieve_bm25(self, query: str) -> List[NodeWithScore]:
         """Retrieve using BM25 lexical search."""
-        # TODO: Implement BM25 retrieval
-        # return self.bm25_retriever.retrieve(query)
-        return []
+        if not self.bm25_retriever:
+            return []
+        
+        print(f"[RETRIEVER] Querying BM25 index...")
+        nodes = self.bm25_retriever.retrieve(query)
+        print(f"[RETRIEVER] BM25 found {len(nodes)} nodes")
+        return nodes
 
     def _retrieve_sparse(self, query: str) -> List[NodeWithScore]:
         """Retrieve using sparse vector (SPLADE)."""
@@ -390,10 +470,12 @@ class QueryEngine:
         if len(filtered_nodes) < len(nodes):
             print(f"[RERANKER] Filtered {len(nodes) - len(filtered_nodes)} low-confidence results (score < {self.rerank_score_threshold})")
 
-        if len(filtered_nodes) > 0:
+        # If no chunks pass threshold, always return the top-ranked chunk
+        if len(filtered_nodes) == 0 and len(nodes) > 0:
+            print(f"[RERANKER] No results passed threshold ({self.rerank_score_threshold}), returning top-1 chunk (score: {nodes[0].score:.4f})")
+            filtered_nodes = [nodes[0]]
+        elif len(filtered_nodes) > 0:
             print(f"[RERANKER] Reranking complete. Top score: {filtered_nodes[0].score:.4f}, kept {len(filtered_nodes)}/{len(nodes)} nodes")
-        else:
-            print(f"[RERANKER] Warning: All results filtered out (all scores < {self.rerank_score_threshold})")
 
         # ========== POST-FILTERING BY PROGRAM ==========
         # Apply program-based filtering to avoid confusion between similar majors

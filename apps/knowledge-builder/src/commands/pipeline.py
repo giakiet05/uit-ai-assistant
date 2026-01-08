@@ -4,9 +4,9 @@ Pipeline command - Run processing and indexing pipelines.
 
 from pathlib import Path
 from typing import Optional, List
-from ..config.settings import settings
-from ..pipeline import ProcessingPipeline, IndexingPipeline
-from ..utils.file_finder import find_raw_file
+from config.settings import settings
+from pipeline import ProcessingPipeline, IndexingPipeline
+from utils.file_finder import find_raw_file
 
 
 def run_pipeline(args):

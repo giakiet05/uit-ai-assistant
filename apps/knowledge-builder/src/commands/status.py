@@ -3,8 +3,8 @@ Status command - Show pipeline status for documents.
 """
 
 from pathlib import Path
-from ..config.settings import settings
-from ..pipeline import PipelineState
+from config.settings import settings
+from pipeline import PipelineState
 
 
 def run_status(args):

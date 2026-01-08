@@ -5,9 +5,9 @@ Metadata Stage - Generate document metadata using LLM.
 from pathlib import Path
 from typing import Dict, Any
 from datetime import datetime
-from ..core.stage import Stage
-from ..core.pipeline_state import PipelineState
-from ...processing.metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
+from pipeline.core.stage import Stage
+from pipeline.core.pipeline_state import PipelineState
+from processing.metadata_generator.metadata_generator_factory import MetadataGeneratorFactory
 
 
 class MetadataStage(Stage):

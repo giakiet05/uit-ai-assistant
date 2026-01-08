@@ -6,7 +6,7 @@ import pytesseract
 from PIL import Image
 import io
 
-from .base_parser import BaseParser
+from processing.parser.base_parser import BaseParser
 
 class PdfParser(BaseParser):
     """Extracts text from PDF files, automatically using OCR for image-based PDFs."""

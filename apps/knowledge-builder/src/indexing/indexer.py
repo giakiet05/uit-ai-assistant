@@ -15,10 +15,10 @@ from typing import List, Optional, Dict
 from pathlib import Path
 
 # --- Centralized Config Import ---
-from ..config.settings import settings
+from config.settings import settings
 
 # --- New Pipeline Import ---
-from ..pipeline import IndexingPipeline
+from pipeline import IndexingPipeline
 
 # --- LlamaIndex v0.10+ Imports (kept for legacy methods) ---
 from llama_index.core import (
@@ -28,7 +28,7 @@ from llama_index.core import (
     Settings as LlamaSettings,
 )
 from llama_index.vector_stores.chroma import ChromaVectorStore
-from .splitters.regulation_node_splitter import RegulationNodeSplitter
+from indexing.splitters.regulation_node_splitter import RegulationNodeSplitter
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 

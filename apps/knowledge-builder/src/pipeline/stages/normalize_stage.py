@@ -6,8 +6,8 @@ import unicodedata
 import re
 from pathlib import Path
 from typing import Dict, Any
-from ..core.stage import Stage
-from ..core.pipeline_state import PipelineState
+from pipeline.core.stage import Stage
+from pipeline.core.pipeline_state import PipelineState
 
 
 class NormalizeStage(Stage):

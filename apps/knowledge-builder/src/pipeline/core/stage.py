@@ -8,7 +8,7 @@ import hashlib
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Optional, Dict, Any
-from .pipeline_state import PipelineState
+from pipeline.core.pipeline_state import PipelineState
 
 
 class Stage(ABC):

@@ -16,7 +16,7 @@ from typing import List, Dict, Sequence
 from llama_index.core import Document
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.schema import BaseNode, TextNode
-from ...config.settings import settings
+from config.settings import settings
 
 
 class BaseNodeSplitter(ABC):

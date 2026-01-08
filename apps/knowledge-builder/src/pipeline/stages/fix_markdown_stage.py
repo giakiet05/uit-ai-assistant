@@ -4,9 +4,9 @@ Fix Markdown Stage - Fix markdown structure using LLM.
 
 from pathlib import Path
 from typing import Dict, Any
-from ..core.stage import Stage
-from ..core.pipeline_state import PipelineState
-from ...processing.steps.markdown_fixer import MarkdownFixer
+from pipeline.core.stage import Stage
+from pipeline.core.pipeline_state import PipelineState
+from processing.steps.markdown_fixer import MarkdownFixer
 
 
 class FixMarkdownStage(Stage):

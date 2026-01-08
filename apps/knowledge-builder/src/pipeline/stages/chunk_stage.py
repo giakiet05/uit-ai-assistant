@@ -6,11 +6,11 @@ from pathlib import Path
 from typing import Dict, Any
 import json
 
-from ..core.stage import Stage
-from ..core.pipeline_state import PipelineState
-from ...indexing.splitters.regulation_node_splitter import RegulationNodeSplitter
-from ...indexing.splitters.curriculum_node_splitter import CurriculumNodeSplitter
-from ...config.settings import settings
+from pipeline.core.stage import Stage
+from pipeline.core.pipeline_state import PipelineState
+from indexing.splitters.regulation_node_splitter import RegulationNodeSplitter
+from indexing.splitters.curriculum_node_splitter import CurriculumNodeSplitter
+from config.settings import settings
 from llama_index.core import Document
 
 

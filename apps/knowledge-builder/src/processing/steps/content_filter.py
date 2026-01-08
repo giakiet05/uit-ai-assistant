@@ -7,7 +7,7 @@ Uses hybrid approach: rule-based + heuristic scoring.
 
 import re
 from typing import Tuple, Dict
-from ...config.settings import settings
+from config.settings import settings
 
 
 class ContentFilter:

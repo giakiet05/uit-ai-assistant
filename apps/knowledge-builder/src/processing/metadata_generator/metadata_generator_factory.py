@@ -1,9 +1,9 @@
 # src/processing/metadata_generator/metadata_generator_factory.py
 from typing import Type
-from .base_metadata_generator import BaseMetadataGenerator
-from .regulation_metadata_generator import RegulationMetadataGenerator
-from .curriculum_metadata_generator import CurriculumMetadataGenerator
-from .default_metadata_generator import DefaultMetadataGenerator
+from processing.metadata_generator.base_metadata_generator import BaseMetadataGenerator
+from processing.metadata_generator.regulation_metadata_generator import RegulationMetadataGenerator
+from processing.metadata_generator.curriculum_metadata_generator import CurriculumMetadataGenerator
+from processing.metadata_generator.default_metadata_generator import DefaultMetadataGenerator
 
 class MetadataGeneratorFactory:
     """

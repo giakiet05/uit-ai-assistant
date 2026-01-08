@@ -4,9 +4,9 @@ Clean Stage - Clean markdown using category-specific cleaners.
 
 from pathlib import Path
 from typing import Dict, Any
-from ..core.stage import Stage
-from ..core.pipeline_state import PipelineState
-from ...processing.cleaner.cleaner_factory import CleanerFactory
+from pipeline.core.stage import Stage
+from pipeline.core.pipeline_state import PipelineState
+from processing.cleaner.cleaner_factory import CleanerFactory
 
 
 class CleanStage(Stage):

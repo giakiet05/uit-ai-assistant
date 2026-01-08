@@ -4,10 +4,10 @@ Filter Stage - Quality check to filter out low-quality content.
 
 from pathlib import Path
 from typing import Dict, Any
-from ..core.stage import Stage
-from ..core.pipeline_state import PipelineState
-from ...processing.steps.content_filter import ContentFilter
-from ...config.settings import settings
+from pipeline.core.stage import Stage
+from pipeline.core.pipeline_state import PipelineState
+from processing.steps.content_filter import ContentFilter
+from config.settings import settings
 
 
 class FilterStage(Stage):

@@ -1,0 +1,652 @@
+[
+  {
+    "id": "cs_001",
+    "question": "Để được công nhận tín chỉ từ trường khác, điểm số học phần đó phải đạt bao nhiêu?",
+    "ground_truth": "Điểm của học phần đề nghị công nhận phải đạt từ mức C trở lên theo thang điểm chữ (hoặc từ 5.0 trở lên theo thang điểm 10).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_002",
+    "question": "Bài báo khoa học xếp hạng Scopus-Q1 được trường hỗ trợ bao nhiêu tiền?",
+    "ground_truth": "Bài báo xếp hạng Scopus-Q1 (Hạng 1 hoặc 2 tùy tiêu chí phụ) được hỗ trợ từ 20 đến 25 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_003",
+    "question": "Tôi là đồng tác giả (sinh viên) của một bài báo Hạng 3 (16 triệu), tác giả chính cũng là sinh viên. Tôi được nhận bao nhiêu tiền?",
+    "ground_truth": "Nếu có 1 đồng tác giả: Tác giả chính hưởng 65%, đồng tác giả hưởng 35%. Vậy bạn nhận được: 16 triệu x 35% = 5.6 triệu đồng.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1a",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_004",
+    "question": "Học phần được công nhận tín chỉ sẽ được tính vào điểm trung bình học kỳ không?",
+    "ground_truth": "Không. Nếu được công nhận, sinh viên được nhận điểm miễn (ký hiệu M) và số tín chỉ tương ứng, nhưng không tính vào điểm trung bình.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 4",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_005",
+    "question": "Tôi quên ghi tên trường ĐH Công nghệ Thông tin vào bài báo thì có được xét hỗ trợ không?",
+    "ground_truth": "Không. Điều kiện bắt buộc là bài báo khoa học cần ghi rõ tên Trường Đại học Công nghệ Thông tin, ĐHQG-HCM (University of Information Technology...).",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 3",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_006",
+    "question": "Mỗi năm trường tổ chức mấy đợt xét hỗ trợ công bố khoa học?",
+    "ground_truth": "Trường tổ chức 2 đợt xét mỗi năm vào tháng 6 và tháng 11.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 6",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_007",
+    "question": "Học phần ở trường khác có 2 tín chỉ, trong khi ở UIT là 3 tín chỉ thì có được công nhận không?",
+    "ground_truth": "Không. Học phần được công nhận phải có số lượng tín chỉ hoặc thời gian học tập LỚN HƠN hoặc BẰNG so với học phần trong CTĐT của Trường (tức phải >= 3 tín chỉ).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_008",
+    "question": "Tôi có thể xin công nhận tín chỉ cho môn Khóa luận tốt nghiệp được không?",
+    "ground_truth": "Chỉ được công nhận trong trường hợp đặc biệt có thỏa thuận hợp tác cụ thể giữa hai cơ sở đào tạo. Bình thường thì không.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_009",
+    "question": "Bài báo hội nghị thuộc danh mục Scopus (không xếp hạng A/B/C) được hỗ trợ bao nhiêu?",
+    "ground_truth": "Bài báo hội nghị thuộc danh mục Scopus (Hạng 9) được hỗ trợ 2 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_010",
+    "question": "Nội dung môn học phải tương đương bao nhiêu phần trăm mới được công nhận?",
+    "ground_truth": "Nội dung môn học (dựa trên đối sánh chuẩn đầu ra) phải tương đương và được Hội đồng chuyên môn thông qua (thường là >= 80% theo quy chế đào tạo tín chỉ, dù QĐ 412 không ghi con số % cụ thể nhưng ghi 'tương đương').",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_011",
+    "question": "Học viên cao học (Thạc sĩ) có được chia tiền hỗ trợ bài báo cho đồng tác giả không?",
+    "ground_truth": "Không. Đối với HVCH và NCS, mức chi hỗ trợ là 100% cho tác giả chính, không chi cho các đồng tác giả.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_012",
+    "question": "Ai là người chịu trách nhiệm xác nhận tính chính xác của bản sao hồ sơ công nhận tín chỉ?",
+    "ground_truth": "Người tiếp nhận hồ sơ tại P.ĐTĐH/VPĐB có trách nhiệm đối chiếu bản chính và ký xác nhận vào bản sao nếu sinh viên nộp bản sao không có chứng thực.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 5 (Quy trình nộp)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_013",
+    "question": "Nếu bài báo khoa học đã nhận tài trợ từ hội nghị thì sinh viên có được nhận thêm hỗ trợ từ trường không?",
+    "ground_truth": "Có. Đối với Sinh viên, bài báo khoa học đã nhận tài trợ của hội nghị hoặc đề tài vẫn được xem là thỏa điều kiện nhận hỗ trợ từ Trường. (Khác với HVCH/NCS là không được).",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_014",
+    "question": "Tôi đi du học ngắn hạn ở nước ngoài thì cần làm thủ tục công nhận tín chỉ khi nào?",
+    "ground_truth": "Sinh viên phải thực hiện thủ tục đăng ký TRƯỚC KHI đi học và báo cáo kết quả SAU KHI đi học về. Trường sẽ không công nhận nếu không thực hiện đúng quy trình này.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 6",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_015",
+    "question": "Bài báo xếp hạng Scopus-Q3 được hỗ trợ bao nhiêu?",
+    "ground_truth": "Bài báo xếp hạng Scopus-Q3 được hỗ trợ 12 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_016",
+    "question": "Sinh viên hệ từ xa có được áp dụng quy trình công nhận tín chỉ này không?",
+    "ground_truth": "Có. Đối tượng áp dụng của QĐ 412 bao gồm sinh viên hệ chính quy và hệ từ xa.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_017",
+    "question": "Nếu bài báo có 3 sinh viên đồng tác giả (không có tác giả chính) thì chia tiền thế nào?",
+    "ground_truth": "Nếu SV không là tác giả chính: Chi 50% mức hỗ trợ. Mức này chia đều cho các đồng tác giả là SV. Vậy 3 người chia đều khoản 50% đó.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1b",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_018",
+    "question": "Thời điểm công nhận tín chỉ được tính vào học kỳ nào?",
+    "ground_truth": "SV được nhận điểm miễn tại học kỳ tương ứng với thời điểm được công nhận (thời điểm ra quyết định).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 4",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_019",
+    "question": "Hồ sơ xét hỗ trợ công bố khoa học nộp về đâu?",
+    "ground_truth": "Người học nộp hồ sơ về Khoa quản lý.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 7",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_020",
+    "question": "Tôi có thể dùng môn học ở bậc Cao đẳng để xin công nhận cho bậc Đại học không?",
+    "ground_truth": "Không. Học phần được công nhận phải cùng bậc đào tạo (Đại học).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3, Khoản 1",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_021",
+    "question": "Bài báo hội nghị xếp hạng B theo CORE được hỗ trợ bao nhiêu?",
+    "ground_truth": "Được hỗ trợ 6 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_022",
+    "question": "Ai có thẩm quyền quyết định cuối cùng về việc công nhận tín chỉ?",
+    "ground_truth": "Hiệu trưởng ra quyết định công nhận tín chỉ (dựa trên đề nghị của các đơn vị).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Lưu đồ quy trình",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_023",
+    "question": "Nếu tôi là NCS dự bị thì có được nhận hỗ trợ bài báo không?",
+    "ground_truth": "Có. Quy định áp dụng cho NCS bao gồm cả NCS dự bị.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 1, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_024",
+    "question": "Sinh viên Chương trình liên kết quốc tế có được áp dụng quy trình công nhận tín chỉ 412 không?",
+    "ground_truth": "Không. Quy trình 412 không áp dụng cho sinh viên các chương trình liên kết.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 1, Khoản 2",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_025",
+    "question": "Bài báo khoa học tiếng Việt có được hỗ trợ không?",
+    "ground_truth": "Có (nếu đạt chuẩn). Quy định có hướng dẫn ghi tên trường cho cả bài báo tiếng Anh và tiếng Việt.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_026",
+    "question": "Trường có công nhận tín chỉ các môn Giáo dục thể chất học ở trung tâm bên ngoài không?",
+    "ground_truth": "Nếu trung tâm đó là cơ sở giáo dục đại học hoặc đơn vị được phép đào tạo cấp chứng chỉ tương đương trình độ đại học, và nội dung tương đương thì có thể được xem xét. Tuy nhiên, quy định 412 yêu cầu 'cơ sở đào tạo' (CSDT), cần xét kỹ tư cách pháp nhân của trung tâm đó.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 1 & 3",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_027",
+    "question": "Sinh viên nhận tiền hỗ trợ bài báo qua hình thức nào?",
+    "ground_truth": "Tiền hỗ trợ được chi trực tiếp cho tác giả qua tài khoản ngân hàng (ưu tiên Vietcombank, BIDV).",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1 & Phụ lục",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_028",
+    "question": "Có giới hạn số lượng bài báo được hỗ trợ trong một năm không?",
+    "ground_truth": "Quy định không ghi giới hạn số lượng bài báo tối đa được hỗ trợ cho một sinh viên.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_029",
+    "question": "Hồ sơ công nhận tín chỉ bao gồm những gì?",
+    "ground_truth": "Hồ sơ gồm: Đơn đăng ký công nhận tín chỉ, Bảng điểm/Chứng chỉ (bản sao có chứng thực hoặc kèm bản chính), Đề cương chi tiết học phần (nếu cần).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 5",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_030",
+    "question": "Tác giả chính (First Author) được định nghĩa như thế nào trong quy định hỗ trợ?",
+    "ground_truth": "Tác giả chính là người được mô tả rõ trong bài báo (corresponding author/first author). Nếu không mô tả thì hiểu là tác giả đứng tên đầu tiên.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1a",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_031",
+    "question": "Thời gian giải quyết hồ sơ công nhận tín chỉ trong nước mất bao lâu?",
+    "ground_truth": "Theo lưu đồ, tổng thời gian từ lúc nộp (t) đến lúc ra quyết định (t+15) là khoảng 15 ngày làm việc (3 tuần).",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 5 (Lưu đồ)",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_032",
+    "question": "Bài báo xếp hạng ESCI được hỗ trợ bao nhiêu?",
+    "ground_truth": "Được hỗ trợ 8 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_033",
+    "question": "Nếu tôi nộp hồ sơ công nhận tín chỉ trễ hạn (sau tuần thứ 2 của học kỳ) thì sao?",
+    "ground_truth": "Quy trình không ghi rõ chế tài trễ hạn, nhưng thường P.ĐTĐH sẽ không nhận hồ sơ hoặc chuyển sang đợt xét của học kỳ sau.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "N/A",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_034",
+    "question": "Sinh viên có bài báo được tuyên dương bằng hình thức nào?",
+    "ground_truth": "Sinh viên sẽ được nhận giấy khen của Hiệu trưởng.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 5, Khoản 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_035",
+    "question": "Nếu tôi có bài báo đăng năm 2022 thì bây giờ nộp hồ sơ xét hỗ trợ được không?",
+    "ground_truth": "Không. Quy định 547 áp dụng cho các bài báo được công bố kể từ tháng 05 năm 2023.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Mục 2 (Hiệu lực thi hành)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_036",
+    "question": "Tôi cần cung cấp minh chứng gì để chứng minh xếp hạng bài báo?",
+    "ground_truth": "Sinh viên cần in minh chứng xếp hạng từ trang tra cứu ERA, SCIMAGOJR hoặc các trang uy tín tương ứng.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Phụ lục 9",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_037",
+    "question": "Ai là người hướng dẫn sinh viên thực hiện quy trình công nhận tín chỉ?",
+    "ground_truth": "P.ĐTĐH, VPĐB và Đơn vị chuyên môn (Khoa) có trách nhiệm hướng dẫn SV thực hiện.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 7",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_038",
+    "question": "Bài báo hội nghị xếp hạng C theo CORE được bao nhiêu tiền?",
+    "ground_truth": "Được 4 triệu đồng/bài.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_039",
+    "question": "Phòng nào thực hiện việc chi tiền thưởng bài báo?",
+    "ground_truth": "Phòng Kế hoạch Tài chính (KHTC) thực hiện việc khen thưởng/chi tiền.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 7 (Bảng phân công)",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_040",
+    "question": "Nếu đồng tác giả là giảng viên thì giảng viên có được chia tiền hỗ trợ theo quy định này không?",
+    "ground_truth": "Không. Quy định này chỉ áp dụng hỗ trợ cho sinh viên, học viên, NCS. Giảng viên sẽ hưởng chế độ theo quy định khác về NCKH của giảng viên.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 1 & Điều 4 (Suy luận)",
+      "question_type": "negative",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_041",
+    "question": "Tôi có thể ủy quyền cho bạn nộp hồ sơ công nhận tín chỉ được không?",
+    "ground_truth": "Được (nếu có giấy ủy quyền hợp lệ), nhưng tốt nhất là nộp trực tiếp hoặc qua email chính thức của sinh viên để đảm bảo xác thực.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "N/A (General Admin Rule)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_042",
+    "question": "Học phí gia hạn đối với sinh viên quá hạn đào tạo được tính thế nào?",
+    "ground_truth": "Học phí gia hạn (HPGH) = t x HPHKC (Học phí học kỳ cuối). Trong đó t là tỷ lệ phần trăm (< 100%) được quy định cụ thể tại các thông báo.",
+    "metadata": {
+      "document_name": "QUY CHẾ ĐÀO TẠO TÍN CHỈ (Liên kết)",
+      "document_code": "790",
+      "document_year": 2022,
+      "source": "Quy chế 790 (Công thức học phí)",
+      "question_type": "simple",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_043",
+    "question": "Thời điểm công bố bài báo hội nghị được tính là khi nào?",
+    "ground_truth": "Đối với bài báo hội nghị, thời điểm công bố được tính là thời điểm tổ chức hội nghị.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 3",
+      "question_type": "simple",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_044",
+    "question": "Tôi nộp hồ sơ xét hỗ trợ bài báo vào tháng 8 được không?",
+    "ground_truth": "Được, nhưng hồ sơ sẽ được xét vào đợt tháng 11 (vì trường chỉ xét 2 đợt: tháng 6 và tháng 11).",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 6",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_045",
+    "question": "Nếu tôi học song ngành tại trường (2 bằng ĐHCNTT) thì có cần làm thủ tục công nhận tín chỉ theo quy trình 412 không?",
+    "ground_truth": "Không cần. Quy trình 412 áp dụng cho việc công nhận từ cơ sở giáo dục KHÁC. Song ngành trong trường thì hệ thống tự động ghi nhận các môn học chung/tương đương theo quy chế đào tạo.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 1 & 9 (Quy chế 790)",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_046",
+    "question": "Bài báo Scopus-Q4 được bao nhiêu tiền?",
+    "ground_truth": "10 triệu đồng.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Bảng 1",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  },
+  {
+    "id": "cs_047",
+    "question": "Nếu bài báo có 2 tác giả là sinh viên, cả 2 đều là đồng tác giả (không ai là chính) thì chia tiền sao?",
+    "ground_truth": "Trường hợp này hiếm (thường phải có 1 main author). Nhưng nếu xét theo mục 1b (SV không là tác giả chính): Chi 50% mức hỗ trợ, chia đều cho các đồng tác giả SV. Tức mỗi người nhận 25% tổng mức.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 4, Khoản 1b",
+      "question_type": "multi_hop",
+      "level": "hard"
+    }
+  },
+  {
+    "id": "cs_048",
+    "question": "Tôi có được công nhận tín chỉ nếu học online ở trường khác không?",
+    "ground_truth": "Quy trình 412 không loại trừ hình thức học online, miễn là cơ sở đào tạo hợp pháp, chương trình được kiểm định và nội dung tương đương. Tuy nhiên, việc đánh giá tương đương sẽ do Khoa quyết định.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Điều 3",
+      "question_type": "multi_hop",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_049",
+    "question": "Nếu Khoa từ chối công nhận tín chỉ thì tôi có được khiếu nại không?",
+    "ground_truth": "Có. Sinh viên có quyền thắc mắc/khiếu nại về kết quả xét duyệt.",
+    "metadata": {
+      "document_name": "QUY TRÌNH CÔNG NHẬN TÍN CHỈ",
+      "document_code": "412",
+      "document_year": 2025,
+      "source": "Implicit",
+      "question_type": "negative",
+      "level": "medium"
+    }
+  },
+  {
+    "id": "cs_050",
+    "question": "Danh sách tuyên dương sinh viên NCKH do phòng nào thực hiện?",
+    "ground_truth": "Phòng Công tác Sinh viên (CTSV) thực hiện việc tuyên dương dựa trên thông tin do Phòng ĐTSĐH&KHCN cung cấp.",
+    "metadata": {
+      "document_name": "CHÍNH SÁCH HỖ TRỢ CÔNG BỐ KHOA HỌC",
+      "document_code": "547",
+      "document_year": 2023,
+      "source": "Điều 5, Khoản 2",
+      "question_type": "simple",
+      "level": "easy"
+    }
+  }
+]

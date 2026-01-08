@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Dict, Union
-from .metadata_models import BaseMetadata, RegulationMetadata, CurriculumMetadata, DefaultMetadata
+from processing.metadata_generator.metadata_models import BaseMetadata, RegulationMetadata, CurriculumMetadata, DefaultMetadata
 
 class BaseMetadataGenerator(ABC):
     """

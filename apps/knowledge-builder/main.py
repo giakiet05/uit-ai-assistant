@@ -26,6 +26,12 @@ Examples:
 
 import argparse
 import sys
+from pathlib import Path
+
+# Add src to sys.path for imports to work
+src_dir = Path(__file__).parent / "src"
+if str(src_dir) not in sys.path:
+    sys.path.insert(0, str(src_dir))
 
 
 def main():
@@ -267,42 +273,42 @@ Examples:
         # New stage-based commands
         if args.command == "pipeline":
             if args.pipeline_command == "run":
-                from src.commands.pipeline import run_pipeline
+                from commands.pipeline import run_pipeline
                 run_pipeline(args)
             else:
                 pipeline_parser.print_help()
 
         elif args.command == "stage":
-            from src.commands.stage import run_stage
+            from commands.stage import run_stage
             run_stage(args)
 
         elif args.command == "status":
-            from src.commands.status import run_status
+            from commands.status import run_status
             run_status(args)
 
         elif args.command == "migrate":
-            from src.commands.migrate import run_migrate
+            from commands.migrate import run_migrate
             run_migrate(args)
 
         # Legacy commands (deprecated)
         elif args.command == "clean":
             print("[WARNING] 'clean' command is deprecated. Use 'ukb pipeline run --processing-only' instead")
-            from src.commands.clean import run_clean
+            from commands.clean import run_clean
             run_clean(args)
 
         elif args.command == "metadata":
             print("[WARNING] 'metadata' command is deprecated. Use 'ukb stage metadata' instead")
-            from src.commands.metadata import run_metadata
+            from commands.metadata import run_metadata
             run_metadata(args)
 
         elif args.command == "process":
             print("[WARNING] 'process' command is deprecated. Use 'ukb pipeline run' instead")
-            from src.commands.process import run_process
+            from commands.process import run_process
             run_process(args)
 
         elif args.command == "fix-markdown":
             print("[WARNING] 'fix-markdown' command is deprecated. Use 'ukb stage fix-markdown' instead")
-            from src.commands.fix_markdown import fix_markdown_command
+            from commands.fix_markdown import fix_markdown_command
             fix_markdown_command(
                 category=args.category,
                 file_path=args.file,
@@ -311,12 +317,12 @@ Examples:
 
         elif args.command == "reparse-file":
             print("[WARNING] 'reparse-file' command is deprecated. Use 'ukb stage parse' instead")
-            from src.commands.reparse_file import reparse_file
+            from commands.reparse_file import reparse_file
             reparse_file(args.filename)
 
         elif args.command == "index":
             print("[WARNING] 'index' command is deprecated. Use 'ukb pipeline run --indexing-only' instead")
-            from src.commands.index import run_index
+            from commands.index import run_index
             run_index(args)
 
     except KeyboardInterrupt:

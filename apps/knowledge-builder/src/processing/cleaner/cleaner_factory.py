@@ -2,8 +2,8 @@
 Factory for creating appropriate cleaners based on category
 """
 from typing import Type, Dict
-from .base_cleaner import BaseCleaner
-from .uit_website_cleaner import UitWebsiteCleaner
+from processing.cleaner.base_cleaner import BaseCleaner
+from processing.cleaner.uit_website_cleaner import UitWebsiteCleaner
 
 
 class PassthroughCleaner(BaseCleaner):

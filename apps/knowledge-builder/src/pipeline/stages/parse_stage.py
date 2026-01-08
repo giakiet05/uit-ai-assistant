@@ -4,9 +4,9 @@ Parse Stage - Convert PDF/DOCX to markdown.
 
 from pathlib import Path
 from typing import Dict, Any
-from ..core.stage import Stage
-from ..core.pipeline_state import PipelineState
-from ...processing.parser.parser_factory import ParserFactory
+from pipeline.core.stage import Stage
+from pipeline.core.pipeline_state import PipelineState
+from processing.parser.parser_factory import ParserFactory
 
 
 class ParseStage(Stage):
@@ -15,6 +15,7 @@ class ParseStage(Stage):
 
     Uses LlamaParse or Marker depending on configuration.
     For .md files, this stage is skipped.
+
     """
 
     def __init__(self):

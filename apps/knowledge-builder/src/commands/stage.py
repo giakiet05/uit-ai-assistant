@@ -3,9 +3,9 @@ Stage command - Run a specific stage for document(s).
 """
 
 from pathlib import Path
-from ..config.settings import settings
-from ..pipeline import ProcessingPipeline, IndexingPipeline
-from ..utils.file_finder import find_raw_file
+from config.settings import settings
+from pipeline import ProcessingPipeline, IndexingPipeline
+from utils.file_finder import find_raw_file
 
 
 PROCESSING_STAGES = ['parse', 'clean', 'normalize', 'filter', 'fix-markdown', 'metadata']

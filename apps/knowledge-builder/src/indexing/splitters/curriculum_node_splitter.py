@@ -14,7 +14,7 @@ import re
 from typing import List, Dict, Sequence, Optional, Tuple
 from llama_index.core import Document
 from llama_index.core.schema import BaseNode
-from .base_node_splitter import BaseNodeSplitter
+from indexing.splitters.base_node_splitter import BaseNodeSplitter
 
 
 class CurriculumNodeSplitter(BaseNodeSplitter):
@@ -121,19 +121,27 @@ class CurriculumNodeSplitter(BaseNodeSplitter):
 
     def _prepend_context(self, chunk_data: Dict, metadata: Dict) -> str:
         """
-        Return chunk text without any context prepending.
+        Prepend document title to chunk text.
 
-        Override BaseNodeSplitter to keep chunks clean.
-        Title and other metadata are already in node.metadata.
+        For curriculum documents, we want title context for better search/retrieval.
+        Other metadata (major, year, etc.) are in node.metadata.
 
         Args:
             chunk_data: Dict with text, header_path, current_header
             metadata: Document metadata
 
         Returns:
-            Original chunk text without modifications
+            Chunk text with prepended title
         """
-        return chunk_data['text']
+        # Get title from metadata
+        title = metadata.get('title', '').strip()
+        
+        if title:
+            # Prepend title as context
+            return f"# {title}\n\n{chunk_data['text']}"
+        else:
+            # No title, return original
+            return chunk_data['text']
 
     def _parse_by_headers(self, text: str, metadata: Dict) -> List[Dict]:
         """
