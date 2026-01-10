@@ -45,7 +45,7 @@ def _init_query_engine() -> QueryEngine:
         collections=collections,
         use_reranker=True,
         top_k=3,
-        retrieval_top_k=20,
+        retrieval_top_k=10,  # Reduced from 20 for faster reranking
         rerank_score_threshold=0.1,
         min_score_threshold=0.15,
         use_modal=True,
@@ -91,25 +91,47 @@ def register_retrieval_tools(mcp: FastMCP):
             ToolResult chứa các chunk văn bản liên quan dưới dạng JSON (gồm nội dung và metadata)
         """
         import json
+        
+        try:
+            # Run blocking query_engine call in thread pool to avoid blocking event loop
+            result_dict = await asyncio.to_thread(
+                query_engine.retrieve_structured, query, collection_type="regulation"
+            )
 
-        # Run blocking query_engine call in thread pool to avoid blocking event loop
-        result_dict = await asyncio.to_thread(
-            query_engine.retrieve_structured, query, collection_type="regulation"
-        )
+            # Validate with Pydantic
+            result_model = RegulationRetrievalResult(**result_dict)
 
-        # Validate with Pydantic
-        result_model = RegulationRetrievalResult(**result_dict)
+            # Serialize to JSON for content (LangChain compatibility)
+            json_content = json.dumps(
+                result_model.model_dump(), ensure_ascii=False, indent=2
+            )
 
-        # Serialize to JSON for content (LangChain compatibility)
-        json_content = json.dumps(
-            result_model.model_dump(), ensure_ascii=False, indent=2
-        )
-
-        # Return ToolResult with both text and structured content
-        return ToolResult(
-            content=json_content,  # JSON string for LangChain
-            structured_content=result_model.model_dump(),  # Object for MCP Inspector
-        )
+            # Return ToolResult with both text and structured content
+            return ToolResult(
+                content=json_content,  # JSON string for LangChain
+                structured_content=result_model.model_dump(),  # Object for MCP Inspector
+            )
+            
+        except Exception as e:
+            # Log error and return error response to prevent tool call hanging
+            print(f"[ERROR] retrieve_regulation failed: {type(e).__name__}: {e}")
+            import traceback
+            traceback.print_exc()
+            
+            # Return error as valid tool result
+            error_result = {
+                'query': query,
+                'total_retrieved': 0,
+                'documents': [],
+                'error': f"{type(e).__name__}: {str(e)}"
+            }
+            
+            error_json = json.dumps(error_result, ensure_ascii=False, indent=2)
+            
+            return ToolResult(
+                content=error_json,
+                is_error=True
+            )
 
     @mcp.tool()
     async def retrieve_curriculum(query: str) -> ToolResult:
@@ -144,22 +166,44 @@ def register_retrieval_tools(mcp: FastMCP):
            ToolResult chứa các chunk văn bản liên quan dưới dạng JSON (gồm nội dung và metadata)
         """
         import json
+        
+        try:
+            # Run blocking query_engine call in thread pool to avoid blocking event loop
+            result_dict = await asyncio.to_thread(
+                query_engine.retrieve_structured, query, collection_type="curriculum"
+            )
 
-        # Run blocking query_engine call in thread pool to avoid blocking event loop
-        result_dict = await asyncio.to_thread(
-            query_engine.retrieve_structured, query, collection_type="curriculum"
-        )
+            # Validate with Pydantic
+            result_model = CurriculumRetrievalResult(**result_dict)
 
-        # Validate with Pydantic
-        result_model = CurriculumRetrievalResult(**result_dict)
+            # Serialize to JSON for content (LangChain compatibility)
+            json_content = json.dumps(
+                result_model.model_dump(), ensure_ascii=False, indent=2
+            )
 
-        # Serialize to JSON for content (LangChain compatibility)
-        json_content = json.dumps(
-            result_model.model_dump(), ensure_ascii=False, indent=2
-        )
-
-        # Return ToolResult with both text and structured content
-        return ToolResult(
-            content=json_content,  # JSON string for LangChain
-            structured_content=result_model.model_dump(),  # Object for MCP Inspector
-        )
+            # Return ToolResult with both text and structured content
+            return ToolResult(
+                content=json_content,  # JSON string for LangChain
+                structured_content=result_model.model_dump(),  # Object for MCP Inspector
+            )
+            
+        except Exception as e:
+            # Log error and return error response to prevent tool call hanging
+            print(f"[ERROR] retrieve_curriculum failed: {type(e).__name__}: {e}")
+            import traceback
+            traceback.print_exc()
+            
+            # Return error as valid tool result
+            error_result = {
+                'query': query,
+                'total_retrieved': 0,
+                'documents': [],
+                'error': f"{type(e).__name__}: {str(e)}"
+            }
+            
+            error_json = json.dumps(error_result, ensure_ascii=False, indent=2)
+            
+            return ToolResult(
+                content=error_json,
+                is_error=True
+            )

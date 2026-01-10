@@ -59,7 +59,7 @@ class QueryEngine:
         use_reranker: bool = True,
         reranker_model: Optional[str] = None,
         top_k: int = 3,
-        retrieval_top_k: int = 20,  # Retrieve more, then rerank
+        retrieval_top_k: int = 10,  # Retrieve 10 chunks for reranking (reduced from 20 for better performance)
         rerank_score_threshold: float = 0.7,  # Filter out low-confidence results after reranking
         min_score_threshold: float = 0.25,  # Minimum score for initial retrieval
         use_modal: bool = False,  # Use Modal GPU for reranking (faster)
@@ -284,18 +284,41 @@ class QueryEngine:
 
         Returns:
             Dict following RegulationRetrievalResult or CurriculumRetrievalResult schema
+            
+        Note:
+            This method ALWAYS returns a valid dict, even if distillation fails.
+            Errors in distillation are caught and logged, falling back to raw chunks.
         """
-        # Retrieve nodes using existing pipeline
-        result = self._retrieve(query, collection_type=collection_type)
-        
-        # Apply context distillation if enabled
-        if self.context_distiller:
-            distilled_context = self.context_distiller.distill(query, result.nodes)
-            # Store distilled context in result for agent to use
-            # Agent will receive this instead of raw chunks
+        try:
+            # Retrieve nodes using existing pipeline
+            result = self._retrieve(query, collection_type=collection_type)
+            
+            # Format nodes to structured output first (ensure we have valid response)
             formatted_result = self.formatter.format(query, result.nodes, collection_type)
-            formatted_result['distilled_context'] = distilled_context
+            
+            # Apply context distillation if enabled (additive feature)
+            if self.context_distiller:
+                try:
+                    logger.info("[QUERY ENGINE] Applying context distillation...")
+                    distilled_context = self.context_distiller.distill(query, result.nodes)
+                    # Add distilled context to response
+                    formatted_result['distilled_context'] = distilled_context
+                    logger.info(f"[QUERY ENGINE] ✓ Context distilled ({len(distilled_context)} chars)")
+                except Exception as e:
+                    logger.error(f"[QUERY ENGINE] Context distillation failed: {e}")
+                    # Continue without distilled context - formatted_result is still valid
+                    logger.info("[QUERY ENGINE] Continuing with raw chunks only")
+            
             return formatted_result
-
-        # Format nodes to structured output (without distillation)
-        return self.formatter.format(query, result.nodes, collection_type)
+            
+        except Exception as e:
+            logger.error(f"[QUERY ENGINE] Retrieval failed: {e}")
+            import traceback
+            traceback.print_exc()
+            # Return minimal valid response to prevent tool call hanging
+            return {
+                'query': query,
+                'total_retrieved': 0,
+                'documents': [],
+                'error': str(e)
+            }

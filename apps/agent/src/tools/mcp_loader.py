@@ -21,10 +21,13 @@ async def load_mcp_tools():
     mcp_url = settings.mcp.SERVER_URL
 
     # Configure MCP client for retrieval server
+    # Note: Increase timeouts for slow operations like context distillation
     client = MultiServerMCPClient({
         "uit": {
             "transport": "streamable-http",
             "url": mcp_url,
+            "timeout": 60,  # 1 minute for regular operations
+            "sse_read_timeout": 60 * 10,  # 10 minutes for tool execution (retrieval + distillation)
         }
     })
 

@@ -68,6 +68,10 @@ class ContextDistiller:
             
         Returns:
             Distilled context as a single string
+            
+        Note:
+            This method ALWAYS returns a valid string. If distillation fails,
+            it falls back to raw chunks to ensure tool call gets response.
         """
         # Skip distillation if too few chunks
         min_chunks = settings.retrieval.DISTILLATION_MIN_CHUNKS
@@ -77,25 +81,31 @@ class ContextDistiller:
         
         print(f"[CONTEXT-DISTILL] Distilling {len(nodes)} chunks for query: {query[:100]}...")
         
-        # Build context from chunks
-        chunks_text = []
-        for i, node in enumerate(nodes, 1):
-            chunk = f"--- Chunk {i} ---\n{node.node.get_content()}\n"
-            chunks_text.append(chunk)
-        
-        full_context = "\n".join(chunks_text)
-        
-        # Distillation prompt
-        prompt = self._build_distillation_prompt(query, full_context)
-        
-        # Call LLM
         try:
+            # Build context from chunks
+            chunks_text = []
+            for i, node in enumerate(nodes, 1):
+                chunk = f"--- Chunk {i} ---\n{node.node.get_content()}\n"
+                chunks_text.append(chunk)
+            
+            full_context = "\n".join(chunks_text)
+            
+            # Distillation prompt
+            prompt = self._build_distillation_prompt(query, full_context)
+            
+            # Call LLM with timeout protection
+            print(f"[CONTEXT-DISTILL] Calling {self.model} for distillation...")
             response = self.llm.complete(prompt)
             distilled = response.text.strip()
             
             # Validation: Check if distillation actually reduced content
             original_len = len(full_context)
             distilled_len = len(distilled)
+            
+            if distilled_len == 0:
+                print(f"[ERROR] Distillation returned empty string, using raw chunks")
+                return self._format_chunks_raw(nodes)
+            
             reduction_ratio = 1 - (distilled_len / original_len)
             
             print(f"[CONTEXT-DISTILL] Reduced from {original_len} to {distilled_len} chars ({reduction_ratio:.1%} reduction)")
@@ -105,10 +115,13 @@ class ContextDistiller:
                 print(f"[WARNING] Distillation did not reduce content enough, using raw chunks")
                 return self._format_chunks_raw(nodes)
             
+            print(f"[CONTEXT-DISTILL] ✓ Distillation successful")
             return distilled
             
         except Exception as e:
-            print(f"[ERROR] Context distillation failed: {e}")
+            print(f"[ERROR] Context distillation failed: {type(e).__name__}: {e}")
+            import traceback
+            traceback.print_exc()
             print(f"[CONTEXT-DISTILL] Falling back to raw chunks")
             return self._format_chunks_raw(nodes)
     
