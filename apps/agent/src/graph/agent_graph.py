@@ -10,6 +10,7 @@ from langchain_core.messages import ToolMessage
 
 from .state import AgentState
 from .nodes import agent_node, should_continue
+from ..utils.logger import logger
 
 
 def _create_tool_node_with_logging_and_timeout(tools, timeout=120):
@@ -40,8 +41,7 @@ def _create_tool_node_with_logging_and_timeout(tools, timeout=120):
         if not tool_calls:
             return {"messages": []}
 
-        print("\n" + "="*70)
-        print(f"[TOOLS] Executing {len(tool_calls)} tool(s) with {timeout}s timeout each:")
+        logger.info(f"[TOOLS] Executing {len(tool_calls)} tool(s) with {timeout}s timeout each")
 
         # Execute tools in parallel with timeout
         async def execute_tool_with_timeout(tool_call):
@@ -50,14 +50,13 @@ def _create_tool_node_with_logging_and_timeout(tools, timeout=120):
             tool_call_id = tool_call["id"]
             args = tool_call.get("args", {})
 
-            print(f"\n  [{tool_name}] Starting...")
-            print(f"    Args: {args}")
+            logger.info(f"[{tool_name}] Starting... Args: {args}")
 
             try:
                 # Lookup tool
                 if tool_name not in tools_by_name:
                     error_msg = f"Error: Tool '{tool_name}' not found"
-                    print(f"    Status: ERROR - {error_msg}")
+                    logger.error(f"    Status: ERROR - {error_msg}")
                     return ToolMessage(
                         content=error_msg,
                         tool_call_id=tool_call_id,
@@ -83,8 +82,7 @@ def _create_tool_node_with_logging_and_timeout(tools, timeout=120):
                 result_str = str(result)
                 preview = result_str[:500] + "..." if len(result_str) > 500 else result_str
 
-                print(f"    Status: SUCCESS")
-                print(f"    Output preview: {preview}")
+                logger.info(f"    [{tool_name}] Status: SUCCESS | Output: {preview}")
 
                 return ToolMessage(
                     content=result,
@@ -96,7 +94,7 @@ def _create_tool_node_with_logging_and_timeout(tools, timeout=120):
                     f"Tool '{tool_name}' timed out after {timeout}s. "
                     f"The MCP server may be unresponsive or the operation is taking too long."
                 )
-                print(f"    Status: TIMEOUT - {error_msg}")
+                logger.error(f"    [{tool_name}] Status: TIMEOUT - {error_msg}")
                 return ToolMessage(
                     content=error_msg,
                     tool_call_id=tool_call_id,
@@ -105,7 +103,7 @@ def _create_tool_node_with_logging_and_timeout(tools, timeout=120):
 
             except Exception as e:
                 error_msg = f"Tool '{tool_name}' failed: {str(e)}"
-                print(f"    Status: ERROR - {error_msg}")
+                logger.error(f"    [{tool_name}] Status: ERROR - {error_msg}")
                 return ToolMessage(
                     content=error_msg,
                     tool_call_id=tool_call_id,
@@ -116,8 +114,6 @@ def _create_tool_node_with_logging_and_timeout(tools, timeout=120):
         tool_messages = await asyncio.gather(*[
             execute_tool_with_timeout(tc) for tc in tool_calls
         ])
-
-        print("="*70 + "\n")
 
         return {"messages": tool_messages}
 

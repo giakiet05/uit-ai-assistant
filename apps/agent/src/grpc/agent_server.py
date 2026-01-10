@@ -20,6 +20,7 @@ from src.tools.credential_tool import get_user_credential
 from src.graph.agent_graph import create_agent_graph
 from src.graph.checkpointer import create_checkpointer
 from src.grpc.pb import agent_pb2, agent_pb2_grpc
+from src.utils.logger import logger
 
 
 class AgentServicer(agent_pb2_grpc.AgentServicer):
@@ -33,7 +34,7 @@ class AgentServicer(agent_pb2_grpc.AgentServicer):
             graph: Compiled LangGraph agent with checkpointer
         """
         self.graph = graph
-        print("[AGENT SERVER] AgentServicer initialized")
+        logger.info("[AGENT SERVER] AgentServicer initialized")
 
     def Chat(self, request, context):
         """
@@ -46,12 +47,12 @@ class AgentServicer(agent_pb2_grpc.AgentServicer):
         Returns:
             ChatResponse with agent's reply
         """
-        print(f"\n{'='*70}")
-        print(f"[AGENT SERVER] Received request:")
-        print(f"  - User ID: {request.user_id}")
-        print(f"  - Thread ID: {request.thread_id}")
-        print(f"  - Message: {request.message[:100]}...")
-        print(f"{'='*70}\n")
+        logger.info(f"\n{'='*70}")
+        logger.info(f"[AGENT SERVER] Received request:")
+        logger.info(f"  - User ID: {request.user_id}")
+        logger.info(f"  - Thread ID: {request.thread_id}")
+        logger.info(f"  - Message: {request.message[:100]}...")
+        logger.info(f"{'='*70}\n")
 
         try:
             # Run async graph invocation in event loop
@@ -65,7 +66,7 @@ class AgentServicer(agent_pb2_grpc.AgentServicer):
             return response
 
         except Exception as e:
-            print(f"[AGENT SERVER] Error: {e}")
+            logger.exception(f"[AGENT SERVER] Error during chat invocation")
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details(f"Agent error: {str(e)}")
             return agent_pb2.ChatResponse(content=f"Xin lỗi, đã xảy ra lỗi: {str(e)}")
@@ -101,9 +102,9 @@ class AgentServicer(agent_pb2_grpc.AgentServicer):
         agent_message = result["messages"][-1]
         content = agent_message.content
 
-        print(f"\n[AGENT SERVER] Response sent:")
-        print(f"  - Content length: {len(content)} chars")
-        print(f"  - Preview: {content[:200]}...")
+        logger.info(f"\n[AGENT SERVER] Response sent:")
+        logger.info(f"  - Content length: {len(content)} chars")
+        logger.info(f"  - Preview: {content[:200]}...")
 
         # Build ChatResponse
         return agent_pb2.ChatResponse(
@@ -123,60 +124,59 @@ async def _initialize_agent():
     Returns:
         Compiled graph ready for invocation
     """
-    print("\n" + "="*70)
-    print("Initializing LangGraph Agent Server")
-    print("="*70 + "\n")
+    logger.info("\n" + "="*70)
+    logger.info("Initializing LangGraph Agent Server")
+    logger.info("="*70 + "\n")
 
     # Step 1: Create LLM
-    print("[1/5] Creating LLM...")
+    logger.info("[1/5] Creating LLM...")
     llm = create_llm(
         provider=settings.llm.PROVIDER,
-        model=settings.llm.MODEL,
-        temperature=0.7
+        model=settings.llm.MODEL
     )
-    print(f"✅ LLM created: {settings.llm.PROVIDER}/{settings.llm.MODEL}\n")
+    logger.info(f"✅ LLM created: {settings.llm.PROVIDER}/{settings.llm.MODEL}\n")
 
     # Step 2: Load MCP tools
-    print("[2/5] Loading MCP tools...")
+    logger.info("[2/5] Loading MCP tools...")
     try:
         mcp_tools = await load_mcp_tools()
-        print(f"✅ MCP tools loaded: {len(mcp_tools)} tools\n")
+        logger.info(f"✅ MCP tools loaded: {len(mcp_tools)} tools\n")
     except Exception as e:
-        print(f"⚠️  MCP tools failed to load: {e}")
-        print("⚠️  Continuing with native tools only...\n")
+        logger.warning(f"⚠️  MCP tools failed to load: {e}")
+        logger.warning("⚠️  Continuing with native tools only...\n")
         mcp_tools = []
 
     # Step 3: Add native tools
-    print("[3/5] Adding native tools...")
+    logger.info("[3/5] Adding native tools...")
     native_tools = [get_user_credential]
     all_tools = mcp_tools + native_tools
-    print(f"✅ Total tools: {len(all_tools)}")
-    print(f"   - MCP tools: {len(mcp_tools)}")
-    print(f"   - Native tools: {len(native_tools)}\n")
+    logger.info(f"✅ Total tools: {len(all_tools)}")
+    logger.info(f"   - MCP tools: {len(mcp_tools)}")
+    logger.info(f"   - Native tools: {len(native_tools)}\n")
 
     # Step 4: Create checkpointer
-    print("[4/5] Creating checkpointer...")
+    logger.info("[4/5] Creating checkpointer...")
     try:
         checkpointer = create_checkpointer(backend=settings.checkpointer.BACKEND)
-        print("✅ Checkpointer created\n")
+        logger.info("✅ Checkpointer created\n")
     except Exception as e:
-        print(f"⚠️  Checkpointer failed: {e}")
-        print("⚠️  Running without persistence...\n")
+        logger.warning(f"⚠️  Checkpointer failed: {e}")
+        logger.warning("⚠️  Running without persistence...\n")
         checkpointer = None
 
     # Step 5: Create agent graph
-    print("[5/5] Creating agent graph...")
+    logger.info("[5/5] Creating agent graph...")
     graph = create_agent_graph(
         llm=llm,
         tools=all_tools,
         checkpointer=checkpointer,
         tool_timeout=120  # 2 minutes for MCP tools (handles cold start)
     )
-    print("✅ Agent graph created\n")
+    logger.info("✅ Agent graph created\n")
 
-    print("="*70)
-    print("✅ Agent server initialization complete!")
-    print("="*70 + "\n")
+    logger.info("="*70)
+    logger.info("✅ Agent server initialization complete!")
+    logger.info("="*70 + "\n")
 
     return graph
 
@@ -200,14 +200,14 @@ def serve():
     port = settings.grpc.PORT
     server.add_insecure_port(f"[::]:{port}")
 
-    print(f"[AGENT SERVER] Starting gRPC server on port {port}...")
+    logger.info(f"[AGENT SERVER] Starting gRPC server on port {port}...")
     server.start()
-    print(f"[AGENT SERVER] ✅ Server running on port {port}\n")
+    logger.info(f"[AGENT SERVER] ✅ Server running on port {port}\n")
 
     try:
         server.wait_for_termination()
     except KeyboardInterrupt:
-        print("\n[AGENT SERVER] Shutting down...")
+        logger.info("\n[AGENT SERVER] Shutting down...")
         server.stop(0)
 
 

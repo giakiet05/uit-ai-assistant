@@ -391,8 +391,7 @@ Markdown phải bắt đầu ngay từ dòng đầu tiên.
             print("[MARKDOWN FIXER] No LLM provided, creating default OpenAI LLM")
             self.llm = create_llm(
                 provider="openai",
-                model="gpt-4.1-mini",  # Fast and cheap model for markdown fixing
-                temperature=0
+                model="gpt-5-mini"  # Fast and cheap model for markdown fixing
             )
         else:
             # Use provided LLM

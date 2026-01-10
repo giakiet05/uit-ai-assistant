@@ -11,6 +11,7 @@ Strategy: Hard filtering based on document_id pattern matching
 
 from typing import Optional, List
 from llama_index.core.schema import NodeWithScore
+from ..utils.logger import logger
 
 
 # ========== PROGRAM KEYWORDS MAPPING ==========
@@ -193,9 +194,9 @@ def extract_program_from_query(query: str) -> Optional[str]:
     best_match = matches[0]
     program_slug, matched_keyword, position, length = best_match
 
-    print(f"[PROGRAM FILTER] Matched '{matched_keyword}' at position {position} → program '{program_slug}'")
-    print(f"[PROGRAM FILTER] Original query: '{query}'")
-    print(f"[PROGRAM FILTER] Cleaned query:  '{cleaned_query}'")
+    logger.info(f"[PROGRAM FILTER] Matched '{matched_keyword}' at position {position} → program '{program_slug}'")
+    logger.info(f"[PROGRAM FILTER] Original query: '{query}'")
+    logger.info(f"[PROGRAM FILTER] Cleaned query:  '{cleaned_query}'")
 
     return program_slug
 
@@ -236,10 +237,10 @@ def filter_by_program(nodes: List[NodeWithScore], program_slug: str) -> List[Nod
     # Fallback: if no matches, return original list
     # (Avoid returning empty results if filter fails)
     if not filtered:
-        print(f"[PROGRAM FILTER] Warning: No documents found for program '{program_slug}', returning all results")
+        logger.warning(f"[PROGRAM FILTER] Warning: No documents found for program '{program_slug}', returning all results")
         return nodes
 
-    print(f"[PROGRAM FILTER] Filtered {len(nodes)} → {len(filtered)} nodes for program '{program_slug}'")
+    logger.info(f"[PROGRAM FILTER] Filtered {len(nodes)} → {len(filtered)} nodes for program '{program_slug}'")
     return filtered
 
 
@@ -265,10 +266,10 @@ def apply_program_filter(query: str, nodes: List[NodeWithScore]) -> List[NodeWit
     program_slug = extract_program_from_query(query)
 
     if not program_slug:
-        print(f"[PROGRAM FILTER] No program detected in query, skipping filter")
+        logger.info(f"[PROGRAM FILTER] No program detected in query, skipping filter")
         return nodes
 
-    print(f"[PROGRAM FILTER] Detected program: {program_slug}")
+    logger.info(f"[PROGRAM FILTER] Detected program: {program_slug}")
 
     # Filter nodes
     return filter_by_program(nodes, program_slug)

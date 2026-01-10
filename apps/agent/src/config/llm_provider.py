@@ -7,6 +7,7 @@ from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from .settings import settings
+from ..utils.logger import logger
 
 # Load environment variables from .env file
 load_dotenv()
@@ -17,8 +18,8 @@ def _create_openai_llm(model: str, **kwargs) -> ChatOpenAI:
     Creates a LangChain ChatOpenAI instance.
 
     Args:
-        model: Model name (e.g., "gpt-4o", "gpt-4o-mini")
-        **kwargs: Additional parameters (temperature, etc.)
+        model: Model name (e.g., "gpt-4o", "gpt-5-mini")
+        **kwargs: Additional parameters
 
     Returns:
         ChatOpenAI instance
@@ -27,13 +28,8 @@ def _create_openai_llm(model: str, **kwargs) -> ChatOpenAI:
     if not api_key:
         raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
 
-    default_kwargs = {
-        "temperature": 0.5,  # Default temperature, can be overridden
-    }
-    final_kwargs = {**default_kwargs, **kwargs}
-
-    print(f"[LLM] Creating OpenAI LLM with model: {model}")
-    return ChatOpenAI(model=model, api_key=api_key, **final_kwargs)
+    logger.info(f"[LLM] Creating OpenAI LLM with model: {model}")
+    return ChatOpenAI(model=model, api_key=api_key, **kwargs)
 
 
 def _create_gemini_llm(model: str, **kwargs) -> ChatGoogleGenerativeAI:
@@ -42,7 +38,7 @@ def _create_gemini_llm(model: str, **kwargs) -> ChatGoogleGenerativeAI:
 
     Args:
         model: Model name (e.g., "gemini-2.0-flash-exp", "gemini-1.5-pro")
-        **kwargs: Additional parameters (temperature, etc.)
+        **kwargs: Additional parameters
 
     Returns:
         ChatGoogleGenerativeAI instance
@@ -51,13 +47,8 @@ def _create_gemini_llm(model: str, **kwargs) -> ChatGoogleGenerativeAI:
     if not api_key:
         raise ValueError("GOOGLE_API_KEY not found in environment variables. Please create a .env file.")
 
-    default_kwargs = {
-        "temperature": 0.5,  # Default temperature, can be overridden
-    }
-    final_kwargs = {**default_kwargs, **kwargs}
-
-    print(f"[LLM] Creating Gemini LLM with model: {model}")
-    return ChatGoogleGenerativeAI(model=model, google_api_key=api_key, **final_kwargs)
+    logger.info(f"[LLM] Creating Gemini LLM with model: {model}")
+    return ChatGoogleGenerativeAI(model=model, google_api_key=api_key, **kwargs)
 
 
 def create_llm(provider: str, model: str, **kwargs):
@@ -67,22 +58,20 @@ def create_llm(provider: str, model: str, **kwargs):
     Args:
         provider: LLM provider ("openai" or "gemini")
         model: Model name/identifier
-        **kwargs: Additional parameters to override defaults
-            - temperature (float): Controls randomness (default: 0.5)
-            - Other provider-specific parameters
+        **kwargs: Additional provider-specific parameters
 
     Returns:
         LLM instance configured with the specified provider and model
 
     Examples:
-        # Use default temperature (0.5)
-        llm = create_llm("openai", "gpt-4o")
+        # Basic usage
+        llm = create_llm("openai", "gpt-5-mini")
 
-        # Override temperature
-        llm = create_llm("openai", "gpt-4o", temperature=0.7)
+        # With custom parameters
+        llm = create_llm("openai", "gpt-4o", max_tokens=1000)
 
         # Gemini model
-        llm = create_llm("gemini", "gemini-2.0-flash-exp", temperature=0.3)
+        llm = create_llm("gemini", "gemini-2.0-flash-exp")
     """
     provider = provider.lower()
 

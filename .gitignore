@@ -45,3 +45,4 @@ tmp
 *.blg
 
 backup/
+logs

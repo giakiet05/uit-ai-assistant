@@ -8,6 +8,7 @@ from playwright.async_api import async_playwright
 from src.scraper.models.exams import ExamSchedule
 from src.scraper.models.grades import Grades
 from src.scraper.models.schedule import Schedule
+from ..utils.logger import logger
 
 from .utils import parse_schedule_html, parse_grades_html, parse_exams_html
 
@@ -140,7 +141,7 @@ class DaaScraper:
         content = await self._page.content()
         if "đăng xuất" in content.lower() or "logout" in content.lower():
             self._is_logged_in = True
-            print(f"[DaaScraper] ✅ Cookie auth successful - {len(cookies)} cookies injected")
+            logger.info(f"[DaaScraper] ✅ Cookie auth successful - {len(cookies)} cookies injected")
         else:
             raise Exception(
                 "Cookie authentication failed. Cookie may be expired or invalid. "

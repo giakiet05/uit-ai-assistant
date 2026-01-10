@@ -8,6 +8,7 @@ from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
 from .state import AgentState
 from ..config import BENCHMARK_PROMPT
 from ..query_refinement.refiner import QueryRefiner
+from ..utils.logger import logger
 
 
 # System prompt for UIT AI Assistant (imported from config/prompts.py)
@@ -52,9 +53,7 @@ def agent_node(state: AgentState, llm_with_tools):
         if refined_query and refined_query != user_query:
             # Replace last message with refined version
             messages = messages[:-1] + [HumanMessage(content=refined_query)]
-            print(f"\n[QUERY REFINER] Expanded acronyms:")
-            print(f"  Original: {user_query}")
-            print(f"  Refined:  {refined_query}\n")
+            logger.info(f"[QUERY REFINER] Expanded: {user_query} -> {refined_query}")
 
     # Step 2: Add system prompt if not already present (first invocation)
     has_system_prompt = (
@@ -69,6 +68,16 @@ def agent_node(state: AgentState, llm_with_tools):
 
     # Step 3: Invoke LLM with tools
     response = llm_with_tools.invoke(messages)
+
+    # Log final answer if no tool calls
+    if not hasattr(response, "tool_calls") or not response.tool_calls:
+        # Find original user query (latest HumanMessage)
+        original_query = "Unknown"
+        for msg in reversed(messages):
+            if isinstance(msg, HumanMessage):
+                original_query = msg.content
+                break
+        logger.info(f"[FINAL ANSWER] Query: {original_query} | Answer: {response.content}")
 
     return {"messages": [response]}
 
@@ -87,17 +96,17 @@ def should_continue(state: AgentState) -> Literal["tools", "end"]:
 
     # If LLM called tools -> route to tools node
     if hasattr(last_message, "tool_calls") and last_message.tool_calls:
-        print("\n" + "="*70)
-        print("[AGENT] Tool calls requested:")
+        logger.info("\n" + "="*70)
+        logger.info("[AGENT] Tool calls requested:")
         for i, tool_call in enumerate(last_message.tool_calls, 1):
-            print(f"  [{i}] Tool: {tool_call['name']}")
-            print(f"      Args: {tool_call['args']}")
-            print(f"      Call ID: {tool_call['id']}")
-        print("="*70 + "\n")
+            logger.info(f"  [{i}] Tool: {tool_call['name']}")
+            logger.info(f"      Args: {tool_call['args']}")
+            logger.info(f"      Call ID: {tool_call['id']}")
+        logger.info("="*70 + "\n")
         return "tools"
 
     # Otherwise, finish
-    print("\n" + "="*70)
-    print("[AGENT] No tool calls - finishing")
-    print("="*70 + "\n")
+    logger.info("\n" + "="*70)
+    logger.info("[AGENT] No tool calls - finishing")
+    logger.info("="*70 + "\n")
     return "end"

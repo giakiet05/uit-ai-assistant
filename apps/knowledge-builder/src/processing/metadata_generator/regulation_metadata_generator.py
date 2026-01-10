@@ -19,8 +19,7 @@ class RegulationMetadataGenerator(BaseMetadataGenerator):
         # Khởi tạo LLM thông qua LlamaIndex
         self.llm = create_llm(
             provider="openai",
-            model=settings.processing.METADATA_GENERATION_MODEL,
-            temperature=0.0
+            model=settings.processing.METADATA_GENERATION_MODEL
         )
 
     def _extract_regulation_code(self, text: str, from_filename: bool = False) -> Optional[str]:

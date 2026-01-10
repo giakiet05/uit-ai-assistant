@@ -6,6 +6,7 @@ import redis
 from langchain_core.tools import tool
 from typing import Literal
 from src.config.settings import settings
+from src.utils.logger import logger
 
 
 # Redis client (shared across tool calls)
@@ -65,7 +66,7 @@ def get_user_credential(user_id: str, source: Literal["daa", "courses", "drl"]) 
                 f"No {source} credential found for user {user_id}. "
                 f"Please sync credentials via browser extension first."
             )
-        print(f"Cookie: {credential}")
+        logger.debug(f"Retrieved {source} credential for user {user_id}")
         return credential
 
     except redis.RedisError as e:

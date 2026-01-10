@@ -132,6 +132,11 @@ class RegulationRetrievalResult(BaseModel):
     documents: list[RegulationDocument] = Field(
         description="Danh sách regulation documents đã structured"
     )
+    
+    distilled_context: Optional[str] = Field(
+        default=None,
+        description="Context đã được distill (chỉ chứa info liên quan trực tiếp đến query). Nếu có field này, ưu tiên dùng thay vì đọc từng document."
+    )
 
 
 class CurriculumRetrievalResult(BaseModel):
@@ -147,4 +152,9 @@ class CurriculumRetrievalResult(BaseModel):
 
     documents: list[CurriculumDocument] = Field(
         description="Danh sách curriculum documents đã structured"
+    )
+    
+    distilled_context: Optional[str] = Field(
+        default=None,
+        description="Context đã được distill (chỉ chứa info liên quan trực tiếp đến query). Nếu có field này, ưu tiên dùng thay vì đọc từng document."
     )

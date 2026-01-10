@@ -38,7 +38,7 @@ LOGIN_PASSWORD = os.getenv("LOGIN_PASSWORD", "")
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-RAGAS_MODEL = os.getenv("RAGAS_MODEL", "gpt-4.1-mini")
+RAGAS_MODEL = os.getenv("RAGAS_MODEL", "gpt-4.1-nano")
 
 # Parallel processing config
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "10"))  # Number of concurrent requests
@@ -77,11 +77,8 @@ class TokenManager:
         try:
             response = requests.post(
                 LOGIN_ENDPOINT,
-                json={
-                    "identifier": LOGIN_EMAIL,
-                    "password": LOGIN_PASSWORD
-                },
-                timeout=30
+                json={"identifier": LOGIN_EMAIL, "password": LOGIN_PASSWORD},
+                timeout=30,
             )
             response.raise_for_status()
 
@@ -110,11 +107,7 @@ class TokenManager:
 
         try:
             response = requests.post(
-                REFRESH_ENDPOINT,
-                json={
-                    "refresh_token": self.refresh_token
-                },
-                timeout=30
+                REFRESH_ENDPOINT, json={"refresh_token": self.refresh_token}, timeout=30
             )
             response.raise_for_status()
 
@@ -130,7 +123,9 @@ class TokenManager:
                 print(f"[INFO] Token refreshed successfully")
                 return True
             else:
-                print(f"[ERROR] Token refresh failed: {data.get('message', 'Unknown error')}")
+                print(
+                    f"[ERROR] Token refresh failed: {data.get('message', 'Unknown error')}"
+                )
                 # Try login again
                 return self.login()
 
@@ -179,7 +174,7 @@ def load_test_set(test_set_path: Path) -> list[dict]:
     """Load test set from JSON file."""
     print(f"Loading test set from {test_set_path}")
 
-    with open(test_set_path, 'r', encoding='utf-8') as f:
+    with open(test_set_path, "r", encoding="utf-8") as f:
         test_set = json.load(f)
 
     print(f"Loaded {len(test_set)} questions")
@@ -216,10 +211,7 @@ def call_rag_api(question: str, session_id: Optional[str] = None) -> str:
 
     try:
         response = requests.post(
-            CHAT_ENDPOINT,
-            json=payload,
-            headers=headers,
-            timeout=300
+            CHAT_ENDPOINT, json=payload, headers=headers, timeout=300
         )
         response.raise_for_status()
 
@@ -257,7 +249,7 @@ def generate_answers(test_set: list[dict]) -> list[dict]:
     def generate_answer_for_item(item_with_index):
         """Helper function to generate answer for single item (for parallel execution)."""
         idx, item = item_with_index
-        question = item['question']
+        question = item["question"]
         answer = call_rag_api(question)
         return idx, answer
 
@@ -288,7 +280,7 @@ def generate_answers(test_set: list[dict]) -> list[dict]:
 
     # Add answers to test_set in original order
     for idx, item in enumerate(test_set):
-        item['answer'] = answers_dict[idx]
+        item["answer"] = answers_dict[idx]
 
     print(f"\nAll answers generated!")
     return test_set
@@ -306,9 +298,9 @@ def prepare_ragas_dataset(test_set: list[dict]) -> Dataset:
     print("\nPreparing Ragas dataset...")
 
     ragas_data = {
-        "question": [item['question'] for item in test_set],
-        "answer": [item['answer'] for item in test_set],
-        "ground_truth": [item['ground_truth'] for item in test_set],
+        "question": [item["question"] for item in test_set],
+        "answer": [item["answer"] for item in test_set],
+        "ground_truth": [item["ground_truth"] for item in test_set],
     }
 
     dataset = Dataset.from_dict(ragas_data)
@@ -334,21 +326,13 @@ def get_ragas_llm():
         if not OPENAI_API_KEY:
             raise ValueError("OPENAI_API_KEY not found in .env")
 
-        llm = ChatOpenAI(
-            model=model_name,
-            api_key=OPENAI_API_KEY,
-            temperature=0
-        )
+        llm = ChatOpenAI(model=model_name, api_key=OPENAI_API_KEY)
         print("Using OpenAI model")
     else:
         if not GOOGLE_API_KEY:
             raise ValueError("GOOGLE_API_KEY not found in .env")
 
-        llm = ChatGoogleGenerativeAI(
-            model=model_name,
-            google_api_key=GOOGLE_API_KEY,
-            temperature=0
-        )
+        llm = ChatGoogleGenerativeAI(model=model_name, google_api_key=GOOGLE_API_KEY)
         print("Using Google Gemini model")
 
     return llm
@@ -379,10 +363,10 @@ def run_evaluation(dataset: Dataset) -> dict:
 
     # Configure evaluation with higher timeout and retries to avoid TimeoutError
     run_config = RunConfig(
-        timeout=300,       # 5 minutes per evaluation (default: 180s)
-        max_retries=10,    # Max retry attempts (default: 10)
-        max_wait=60,       # Max wait between retries in seconds (default: 60s)
-        max_workers=16     # Parallel workers (default: 16)
+        timeout=300,  # 5 minutes per evaluation (default: 180s)
+        max_retries=10,  # Max retry attempts (default: 10)
+        max_wait=60,  # Max wait between retries in seconds (default: 60s)
+        max_workers=16,  # Parallel workers (default: 16)
     )
 
     result = evaluate(
@@ -390,7 +374,7 @@ def run_evaluation(dataset: Dataset) -> dict:
         metrics=metrics,
         llm=llm,
         run_config=run_config,
-        batch_size=10      # Process 10 samples concurrently
+        batch_size=10,  # Process 10 samples concurrently
     )
 
     print("\nEvaluation completed!")
@@ -433,12 +417,12 @@ def save_results(test_set: list[dict], ragas_result, output_path: Path):
     test_results = []
     for i, item in enumerate(test_set):
         result_item = {
-            "id": item['id'],
-            "question": item['question'],
-            "ground_truth": item['ground_truth'],
-            "answer": item['answer'],
+            "id": item["id"],
+            "question": item["question"],
+            "ground_truth": item["ground_truth"],
+            "answer": item["answer"],
             "scores": {},
-            "metadata": item.get('metadata', {}),
+            "metadata": item.get("metadata", {}),
         }
 
         # Add individual scores for this question
@@ -457,10 +441,10 @@ def save_results(test_set: list[dict], ragas_result, output_path: Path):
             "api_endpoint": CHAT_ENDPOINT,
         },
         "average_scores": avg_scores,
-        "test_results": test_results
+        "test_results": test_results,
     }
 
-    with open(output_path, 'w', encoding='utf-8') as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
     print(f"\nResults saved to {output_path}")
@@ -468,9 +452,9 @@ def save_results(test_set: list[dict], ragas_result, output_path: Path):
 
 def print_summary(ragas_result):
     """Print evaluation summary."""
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("EVALUATION RESULTS")
-    print("="*60)
+    print("=" * 60)
 
     try:
         scores = {
@@ -498,7 +482,7 @@ def print_summary(ragas_result):
         else:
             print(f"{metric:25s}: {score:.4f}")
 
-    print("="*60)
+    print("=" * 60)
 
 
 def main():
@@ -510,12 +494,12 @@ def main():
     test_set_name = os.getenv("TEST_SET", "regulation_test_sample.json")
     test_set_path = data_dir / test_set_name
 
-    print("="*60)
+    print("=" * 60)
     print("RAG EVALUATION WITH RAGAS")
-    print("="*60)
+    print("=" * 60)
     print(f"Test set: {test_set_name}")
     print(f"API endpoint: {CHAT_ENDPOINT}")
-    print("="*60)
+    print("=" * 60)
 
     if not OPENAI_API_KEY and not GOOGLE_API_KEY:
         print("\nWARNING: No API keys found!")
@@ -529,7 +513,9 @@ def main():
 
     if not token_manager.get_token():
         print("[WARNING] No access token available")
-        print("[WARNING] Proceeding without authentication (might fail if API requires auth)")
+        print(
+            "[WARNING] Proceeding without authentication (might fail if API requires auth)"
+        )
 
     try:
         test_set = load_test_set(test_set_path)
@@ -543,7 +529,9 @@ def main():
         print_summary(ragas_result)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_filename = f"evaluation_{test_set_name.replace('.json', '')}_{timestamp}.json"
+        output_filename = (
+            f"evaluation_{test_set_name.replace('.json', '')}_{timestamp}.json"
+        )
         output_path = results_dir / output_filename
 
         save_results(test_set_with_answers, ragas_result, output_path)

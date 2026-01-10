@@ -26,7 +26,7 @@ class LLM:
         """Load LLM configs from environment."""
         load_dotenv()
         self.PROVIDER = os.getenv("LLM_PROVIDER", "openai")
-        self.MODEL = os.getenv("LLM_MODEL", "gpt-4.1-nano")
+        self.MODEL = os.getenv("LLM_MODEL", "gpt-5-nano")
 
 
 class Checkpointer:
