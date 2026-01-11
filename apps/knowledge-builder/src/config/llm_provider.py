@@ -19,7 +19,6 @@ def _create_ollama_llm(model: str, **kwargs) -> Ollama:
     """
     default_kwargs = {
         "base_url": "http://localhost:11434",
-        "temperature": 0.5,  # Default temperature, can be overridden
         "request_timeout": 120.0
     }
     final_kwargs = {**default_kwargs, **kwargs}
@@ -45,13 +44,8 @@ def _create_openai_llm(model: str, **kwargs) -> OpenAI:
     if not api_key:
         raise ValueError("OPENAI_API_KEY not found in environment variables. Please create a .env file.")
 
-    default_kwargs = {
-        "temperature": 0.5,  # Default temperature, can be overridden
-    }
-    final_kwargs = {**default_kwargs, **kwargs}
-
     print(f"[INFO] Creating OpenAI LLM with model: {model}")
-    return OpenAI(model=model, api_key=api_key, **final_kwargs)
+    return OpenAI(model=model, api_key=api_key, **kwargs)
 
 def _create_gemini_llm(model: str, **kwargs) -> Gemini:
     """
@@ -61,13 +55,8 @@ def _create_gemini_llm(model: str, **kwargs) -> Gemini:
     if not api_key:
         raise ValueError("GOOGLE_API_KEY not found in environment variables. Please create a .env file.")
 
-    default_kwargs = {
-        "temperature": 0.5,  # Default temperature, can be overridden
-    }
-    final_kwargs = {**default_kwargs, **kwargs}
-
     print(f"[INFO] Creating Gemini LLM with model: {model}")
-    return Gemini(model=model, api_key=api_key, **final_kwargs)
+    return Gemini(model=model, api_key=api_key, **kwargs)
 
 def create_llm(provider: str, model: str, **kwargs) -> LLM:
     """
@@ -76,8 +65,7 @@ def create_llm(provider: str, model: str, **kwargs) -> LLM:
     Args:
         provider: LLM provider ("ollama", "openai", or "gemini")
         model: Model name/identifier
-        **kwargs: Additional parameters to override defaults
-            - temperature (float): Controls randomness (default: 0.5)
+        **kwargs: Additional provider-specific parameters
             - system_prompt (str): Custom system prompt (for ollama/openai)
             - Other provider-specific parameters
 
@@ -85,14 +73,11 @@ def create_llm(provider: str, model: str, **kwargs) -> LLM:
         LLM instance configured with the specified provider and model
 
     Examples:
-        # Use default temperature (0.5)
-        llm = create_llm("openai", "gpt-4o")
+        # Basic usage
+        llm = create_llm("openai", "gpt-5-mini")
 
-        # Override temperature
-        llm = create_llm("openai", "gpt-4o", temperature=0.7)
-
-        # Override multiple parameters
-        llm = create_llm("openai", "gpt-4o", temperature=0.3, system_prompt="Custom prompt")
+        # With custom parameters
+        llm = create_llm("openai", "gpt-4o", system_prompt="Custom prompt")
     """
     provider = provider.lower()
 

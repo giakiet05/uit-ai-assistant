@@ -31,7 +31,7 @@ class BaseNodeSplitter(ABC):
         max_tokens: int = None,
         sub_chunk_size: int = None,
         sub_chunk_overlap: int = None,
-        encoding_model: str = "text-embedding-3-small"
+        encoding_model: str = "text-embedding-3-large"
     ):
         """
         Initialize splitter with configurable settings.

@@ -50,6 +50,15 @@ class Retrieval:
             "MODAL_RERANKER_URL",
             "https://giakiet05--viranker-reranker-rerank-endpoint.modal.run"
         )
+        
+        # HyDE (Hypothetical Document Embeddings) configuration
+        self.USE_HYDE = os.getenv("USE_HYDE", "false").lower() == "true"
+        self.HYDE_MODEL = os.getenv("HYDE_MODEL", "gpt-5-nano")
+        
+        # Context Distillation configuration
+        self.USE_CONTEXT_DISTILLATION = os.getenv("USE_CONTEXT_DISTILLATION", "false").lower() == "true"
+        self.DISTILLATION_MODEL = os.getenv("DISTILLATION_MODEL", "gpt-5-nano")
+        self.DISTILLATION_MIN_CHUNKS = int(os.getenv("DISTILLATION_MIN_CHUNKS", "3"))  # Only distill if >= N chunks
 
 
 class Settings:

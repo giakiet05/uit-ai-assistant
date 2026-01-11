@@ -53,7 +53,7 @@ class RegulationNodeSplitter(BaseNodeSplitter):
         max_tokens: int = None,
         sub_chunk_size: int = None,
         sub_chunk_overlap: int = None,
-        encoding_model: str = "text-embedding-3-small",
+        encoding_model: str = "text-embedding-3-large",
         enable_title_merging: bool = True,
         enable_pattern_detection: bool = True,
         max_header_level: int = 3,

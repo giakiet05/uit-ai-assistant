@@ -31,8 +31,7 @@ class CurriculumMetadataGenerator(BaseMetadataGenerator):
     def __init__(self):
         self.llm = create_llm(
             provider="openai",
-            model=settings.processing.METADATA_GENERATION_MODEL,
-            temperature=0.0
+            model=settings.processing.METADATA_GENERATION_MODEL
         )
 
     def generate(self, file_path: Path, content: str) -> Union[RegulationMetadata, CurriculumMetadata, DefaultMetadata, None]:

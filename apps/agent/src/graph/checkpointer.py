@@ -5,6 +5,7 @@ Checkpointer for LangGraph state persistence.
 from langgraph.checkpoint.memory import MemorySaver
 # from langgraph.checkpoint.postgres import PostgresSaver
 # from langgraph.checkpoint.redis import RedisSaver
+from src.utils.logger import logger
 
 
 def create_checkpointer(backend: str = "memory"):
@@ -46,8 +47,8 @@ def _create_memory_checkpointer():
     Note: State is lost when process exits.
     Use PostgreSQL or Redis for production.
     """
-    print("[CHECKPOINTER] Creating in-memory checkpointer")
+    logger.info("[CHECKPOINTER] Creating in-memory checkpointer")
     checkpointer = MemorySaver()
-    print("[CHECKPOINTER] ✅ In-memory checkpointer created (state will be lost on restart)")
+    logger.info("[CHECKPOINTER] ✅ In-memory checkpointer created (state will be lost on restart)")
     return checkpointer
 

@@ -13,6 +13,7 @@ from pipeline.stages.clean_stage import CleanStage
 from pipeline.stages.normalize_stage import NormalizeStage
 from pipeline.stages.filter_stage import FilterStage
 from pipeline.stages.fix_markdown_stage import FixMarkdownStage
+from pipeline.stages.flatten_table_stage import FlattenTableStage
 from pipeline.stages.metadata_stage import MetadataStage
 from config.settings import settings
 
@@ -30,7 +31,8 @@ class ProcessingPipeline:
     3. normalize -> 03-normalized.md
     4. filter -> 04-filtered.md (rejects bad content)
     5. fix-markdown -> 05-fixed.md (optional, costly)
-    6. metadata -> metadata.json (costly)
+    6. flatten-table -> 06-flattened.md (optional, costly)
+    7. metadata -> metadata.json (costly)
 
     Features:
     - Incremental execution (skip completed stages)
@@ -45,6 +47,7 @@ class ProcessingPipeline:
         'normalize',
         'filter',
         'fix-markdown',
+        'flatten-table',
         'metadata'
     ]
 
@@ -79,6 +82,7 @@ class ProcessingPipeline:
             'normalize': NormalizeStage(),
             'filter': FilterStage(),
             'fix-markdown': FixMarkdownStage(),
+            'flatten-table': FlattenTableStage(),
             'metadata': MetadataStage()
         }
 
@@ -89,7 +93,8 @@ class ProcessingPipeline:
     def run(
         self,
         force: bool = False,
-        skip_fix_markdown: bool = False
+        skip_fix_markdown: bool = False,
+        skip_flatten_table: bool = False
     ) -> Dict[str, Any]:
         """
         Run full processing pipeline.
@@ -97,6 +102,7 @@ class ProcessingPipeline:
         Args:
             force: Force rerun of all stages
             skip_fix_markdown: Skip fix-markdown stage (save cost)
+            skip_flatten_table: Skip flatten-table stage (save cost)
 
         Returns:
             Summary dict with:
@@ -126,6 +132,8 @@ class ProcessingPipeline:
                 # Handle skip flags
                 kwargs = {}
                 if stage_name == 'fix-markdown' and skip_fix_markdown:
+                    kwargs['skip'] = True
+                if stage_name == 'flatten-table' and skip_flatten_table:
                     kwargs['skip'] = True
 
                 # Run stage

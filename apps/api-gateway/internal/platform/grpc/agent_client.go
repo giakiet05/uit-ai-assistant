@@ -60,8 +60,8 @@ func (c *AgentClient) Chat(ctx context.Context, message string, userID string, t
 		ThreadId: threadID,
 	}
 
-	// Set timeout
-	callCtx, cancel := context.WithTimeout(ctx, 2*time.Minute)
+	// Set timeout (10 minutes for complex retrievals with MCP tools)
+	callCtx, cancel := context.WithTimeout(ctx, 10*time.Minute)
 	defer cancel()
 
 	// Call gRPC

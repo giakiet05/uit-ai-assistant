@@ -232,7 +232,7 @@ with tab2:
 
         selected_proc_stage = st.selectbox(
             "Select stage",
-            ['parse', 'clean', 'normalize', 'filter', 'fix-markdown', 'metadata'],
+            ['parse', 'clean', 'normalize', 'filter', 'fix-markdown', 'flatten-table', 'metadata'],
             key="proc_stage"
         )
 
@@ -438,7 +438,7 @@ with tab3:
         st.markdown("#### Run Individual Stage")
         batch_proc_stage = st.selectbox(
             "Select stage",
-            ['parse', 'clean', 'normalize', 'filter', 'fix-markdown', 'metadata'],
+            ['parse', 'clean', 'normalize', 'filter', 'fix-markdown', 'flatten-table', 'metadata'],
             key="batch_proc_stage"
         )
         force_batch_proc_stage = st.checkbox("Force rerun stage", key="force_batch_proc_stage")

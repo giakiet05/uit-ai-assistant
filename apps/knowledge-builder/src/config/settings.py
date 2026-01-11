@@ -68,21 +68,26 @@ class Paths:
             document_id: Document ID
 
         Returns:
-            Path to final output file (05-fixed.md)
+            Path to final output file (latest stage output)
+            
+        Logic:
+            Check in reverse order: 06-flattened.md → 05-fixed.md
+            Return the first one that exists.
         """
         stage_dir = Paths.get_stage_dir(category, document_id)
-        pipeline_state_file = stage_dir / ".pipeline.json"
-
-        # Try to read final output from pipeline state
-        if pipeline_state_file.exists():
-            import json
-            with open(pipeline_state_file, 'r') as f:
-                state = json.load(f)
-                if state.get("final_output"):
-                    return stage_dir / state["final_output"]
-
-        # Fallback: return 05-fixed.md
-        return stage_dir / "05-fixed.md"
+        
+        # Check for 06-flattened.md first (if flatten-table was run)
+        flattened = stage_dir / "06-flattened.md"
+        if flattened.exists():
+            return flattened
+        
+        # Fallback to 05-fixed.md
+        fixed = stage_dir / "05-fixed.md"
+        if fixed.exists():
+            return fixed
+        
+        # If neither exists, return 05-fixed.md as default
+        return fixed
 
     @staticmethod
     def get_metadata(category: str, document_id: str) -> Path:

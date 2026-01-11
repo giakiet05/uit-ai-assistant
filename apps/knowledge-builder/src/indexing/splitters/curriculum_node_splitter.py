@@ -50,7 +50,7 @@ class CurriculumNodeSplitter(BaseNodeSplitter):
         max_tokens: int = None,
         sub_chunk_size: int = None,
         sub_chunk_overlap: int = None,
-        encoding_model: str = "text-embedding-3-small",
+        encoding_model: str = "text-embedding-3-large",
         enable_table_splitting: bool = True,
         max_table_rows_per_chunk: int = 15
     ):
