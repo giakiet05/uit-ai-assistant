@@ -38,7 +38,7 @@ LOGIN_PASSWORD = os.getenv("LOGIN_PASSWORD", "")
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-RAGAS_MODEL = os.getenv("RAGAS_MODEL", "gpt-4.1-nano")
+RAGAS_MODEL = os.getenv("RAGAS_MODEL", "gpt-4.1-mini")
 
 # Parallel processing config
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "10"))  # Number of concurrent requests
